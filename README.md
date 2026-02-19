@@ -268,9 +268,9 @@ wf.plot_with_energy_decomposition()
 
 ```bibtex
 @misc{QGD2025,
-  title  = {Quantum Gravitational Dynamics: Emergent Geometry from Phase Fields},
-  author = {[Author]},
-  year   = {2025},
-  note   = {GitHub: https://github.com/[author]/QGD}
+  title  = {Quantum Gravitational Dynamics: Emergent Geometry from the Dirac Equation},
+  author = {[Romeo Matshabba]},
+  year   = {2026},
+  note   = {GitHub: https://github.com/[matshaba]/Quantum-Gravity-Dynamics}
 }
 ```
