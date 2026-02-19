@@ -640,7 +640,7 @@ def predict_rotation_curve(radii: np.ndarray,
 # ============================================================================
 
 __version__ = "1.8.0"
-__author__ = "Quoc & Claude"
+__author__ = "romeo matshaba"
 __all__ = [
     'QGDConstants',
     'GalaxyClassifier', 
