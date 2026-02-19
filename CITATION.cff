@@ -14,6 +14,7 @@ keywords:
   - "quantum gravity"
   - "emergent geometry"
   - "Dirac equation"
+  - "dark energy"
   - "dark matter"
   - "modified gravity"
 abstract: "Quantum Gravitational Dynamics (QGD) proposes that spacetime geometry emerges from a dimensionless phase field derived from the Dirac equation. This repository contains the full theoretical exposition and Python implementations of the core equations, exact solutions, and validation against astrophysical data."
