@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+title: "Quantum Gravitational Dynamics"
+authors:
+  - family-names: "Matshaba"
+    given-names: "Romeo"
+    orcid: "https://doi.org/10.5281/zenodo.18605058"   # replace with your ORCID if you have one
+    affiliation: "University of South Africa"        # optional
+date-released: 2026-02-19   # update to the date you push this file
+version: "1.8.0"             # match your release tag
+repository-code: "https://github.com/matshaba/Quantum-Gravity-Dynamics"
+license: "MIT"               # or whichever open license you choose
+keywords:
+  - "quantum gravity"
+  - "emergent geometry"
+  - "Dirac equation"
+  - "dark matter"
+  - "modified gravity"
+abstract: "Quantum Gravitational Dynamics (QGD) proposes that spacetime geometry emerges from a dimensionless phase field derived from the Dirac equation. This repository contains the full theoretical exposition and Python implementations of the core equations, exact solutions, and validation against astrophysical data."
