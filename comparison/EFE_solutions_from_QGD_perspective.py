@@ -23,6 +23,8 @@ so the EFE take their original form then replacing g_μν with
 
     g_μν(x) = T^α_μ T^β_ν ( M_αβ ∘ [ η_αβ - Σ_a ε_a σ_α^(a) σ_β^(a)
                                       - κ ℓ_Q² ∂_α σ^γ ∂_β σ_γ ] )
+As such the two equations agree for all h --> 0 or κ ℓ_Q² ∂_α σ^γ ∂_β σ_γ -- 0
+and only diverge when there is quantum effects
 
 This is the paradigm shift: geometry as output, not input.
 
