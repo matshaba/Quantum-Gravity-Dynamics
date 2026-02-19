@@ -1,0 +1,13 @@
+# Core scientific libraries
+numpy>=1.21.0
+scipy>=1.7.0
+matplotlib>=3.4.0
+
+# Gravitational wave data access (optional, for validation scripts)
+gwpy>=2.0.0
+
+# Symbolic manipulation (optional, for derivations)
+sympy>=1.9
+
+# For potential astronomical unit conversions (optional)
+astropy>=5.0
