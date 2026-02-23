@@ -716,24 +716,6 @@ $$\boxed{v = \sqrt{\frac{3c^2}{4\pi G}}\,H_0, \qquad \rho_\sigma = \frac{3H_0^2}
 
 ---
 
-## 12. Falsifiable Predictions
-
-| Prediction | Numerical Value | Status / Test |
-|---|---|---|
-| Binary merger at $d = 4r_s$ | Equal-mass analytic | Next-gen GW detectors (LISA, ET) |
-| Dipole GW radiation at $\Omega$ | $P\propto(\sqrt{M_1}-\sqrt{M_2})^2\Omega^2a^2$ | LISA — signal at orbital frequency |
-| $\kappa_5 = 37.7$ large-scale clustering | 10–100 Mpc correlations | DESI DR2, Euclid, LSST |
-| Neutron star mass shift | $\sim 0.01\,M_\odot$ from quantum stiffness | **NICER (now)** |
-| CMB peak modulation | $\ell_n\propto\kappa_{j(n)}f(n)$ | CMB-S4 |
-| Maximum acceleration | $a_{\max} = 3mc^3/\hbar$ | Planck-scale — not yet accessible |
-| Quantum perihelion shift | $\sim 10^{-90}$ arcsec/century | Unmeasurable by construction |
-| Dark energy $w = -1$ (dynamical) | Attractor, not constant | EDE constraints, DESI BAO |
-| Singularity resolution at $r_{\min}\sim\lambda_C$ | Black hole structure | Quantum gravity signatures |
-| Higher-order Hawking corrections | $T_Q \propto a/m^4 t$ | Primordial black hole evaporation |
-| QNM stiffness correction | $\delta f_{220} \propto \kappa\ell_Q^2$ | ET/LISA ringdown precision |
-
----
-
 ## 13. GR vs QGD Comparison Table
 
 | Aspect | General Relativity | QGD |
