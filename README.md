@@ -257,7 +257,7 @@ wf.plot_with_energy_decomposition()
 
 ## Key References
 
-- Full theoretical derivation: [`docs/THEORY.md`](docs/THEORY.md)
+- Full theoretical derivation: [`docs/THEORY.md`](docs/complete_paper.tex)
 - Original `.tex` manuscript: available on request
 - SPARC rotation curve database: [SPARC](http://astroweb.cwru.edu/SPARC/)
 - LIGO GW150914: Abbott et al. (2016), PRL 116, 061102
