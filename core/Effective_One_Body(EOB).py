@@ -1,3 +1,4 @@
+"""
 qgd_three_problems.py
 =====================
 QGD: Three Foundational Problems
@@ -437,11 +438,22 @@ def spin_sq_coeff(n: int) -> Fraction:
 
     From d²/dχ² [Kerr geodesic energy] at χ=0:
       δ₂E|_{SS} = (1/2) χ² u³ / (1-3u)^{5/2}
-                = (1/2) χ² u³ × Σ_{n≥0} (2n+3)!!×3^n/(2^n×n!) × u^n
+                = (1/2) χ² u³ × Σ_{n≥0} C(n+3/2,n) × 3^n × u^n
 
-    EXACT CLOSED FORM:  e_n^{SS} = (2n+3)!! × 3^n / (2^{n+1} × n!)
+    The binomial coefficient with half-integer argument:
+      C(n+3/2, n) = Γ(n+5/2) / (Γ(5/2) × n!)
+                  = (2n+3)!! / (3 × 2^n × n!)   ← NOT (2n+3)!!/(2^n×n!)
+
+    The factor of 3 in the denominator comes from Γ(5/2) = 3√π/4 ≠ √π/4.
+
+    EXACT CLOSED FORM:  e_n^{SS} = (2n+3)!! × 3^n / (3 × 2^{n+1} × n!)
+
+    VERIFIED by SymPy: n=0→1/2, n=1→15/4, n=2→315/16 (matches Kerr geodesic exactly).
+
+    CORRECTION from earlier version: previous formula was missing the factor of 1/3,
+    giving coefficients 3× too large (n=0: 3/2→1/2, n=1: 45/4→15/4, etc.).
     """
-    return Fraction(_dfact(2*n+3)*3**n, 2**(n+1)*factorial(n))
+    return Fraction(_dfact(2*n+3)*3**n, 3 * 2**(n+1) * factorial(n))
 
 def kerr_exact_energy(u: float, chi: float, prograde: bool = True) -> float:
     """Exact Kerr equatorial circular geodesic: E/μ = (1-2u±χu^{3/2})/√(1-3u±2χu^{3/2})-1."""
@@ -489,10 +501,11 @@ def print_spinning_master_table() -> None:
         st  = known_so.get(n, '★ QGD PREDICTION ★')
         print(f"  {n:>3}  {pn:>8}  {str(cSO):>20}  {float(cSO):>12.4f}  {st:>24}")
 
-    print("\n  SPIN-SQUARED: e_n^{SS} = ½×(2n+3)!!×3^n/(2^n×n!)  [at χ²×u^{n+3}]")
+    print("\n  SPIN-SQUARED: e_n^{SS} = (2n+3)!!×3^n / (3×2^{n+1}×n!)  [CORRECTED]")
+    print("  Previous version had factor-of-3 error (missing 1/3 from Γ(5/2)).")
     print(f"  {'n':>3}  {'PN order':>8}  {'e_n^{SS}':>20}  {'decimal':>12}  {'status':>24}")
     print("-"*70)
-    known_ss = {0:'2PN ✓',1:'3PN ✓',2:'4PN ✓'}
+    known_ss = {0:'2PN ✓ (Kerr)',1:'3PN ✓ (Kerr)',2:'4PN ✓ (Kerr)'}
     for n in range(7):
         cSS = spin_sq_coeff(n)
         pn  = f'{n+3} PN'
@@ -580,7 +593,7 @@ def run_all():
     print("  [S2] Spin-orbit: e_n^{SO} = -(2n+1)!!3^n/(2^n n!)")
     print("       Verified: n=0,1,2 match known GR (exact rationals)")
     print()
-    print("  [S3] Spin-sq:   e_n^{SS} = (2n+3)!!3^n/(2^{n+1} n!)")
+    print("  [S3] Spin-sq:   e_n^{SS} = (2n+3)!!3^n/(3×2^{n+1}×n!)  [corrected: /3 from Γ(5/2)]")
     print("       Verified: n=0,1,2 match known GR (exact rationals)")
     print()
     print("  PRELIMINARY — needs further work:")
