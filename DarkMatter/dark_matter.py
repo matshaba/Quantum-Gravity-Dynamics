@@ -101,7 +101,7 @@ References
 QGD v2.1 paper; SPARC (Lelli et al. 2016); Gaia EDR3 (El-Badry et al. 2021);
 Bullet Cluster: Clowe et al. 2006; Bradač et al. 2006; JWST 2025 (Cha et al.)
 
-Author:  Alex (QGD theory) + Claude (implementation & validation)
+Author:  Romeo Matshaba
 Version: 2.1  — adds κ₅ cluster regime, BulletClusterAnalysis, cluster_lensing_mass
 """
 
