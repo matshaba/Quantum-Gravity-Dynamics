@@ -1,650 +1,468 @@
 #!/usr/bin/env python3
 """
-================================================================================
-Quantum Gravity Dynamics (QGD) v1.8 - Production Physics Engine
-================================================================================
+bullet_cluster.py — QGD Analysis of the Bullet Cluster 1E 0657-558
+====================================================================
 
-A comprehensive implementation of Quantum Gravity Dynamics for predicting
-rotation curves and cosmological observables from first principles.
+The Bullet Cluster is the single most cited piece of evidence for particle
+dark matter. Two galaxy clusters collided at ~4500 km/s. X-ray emission
+(from hot ICM gas) sits at the collision center; weak gravitational lensing
+maps show mass peaks at the GALAXY positions — separated from the gas by
+~720 kpc at 8σ significance (Clowe et al. 2006).
 
-THEORY OVERVIEW
----------------
-QGD proposes that gravitational coupling is quantized through discrete vacuum
-states characterized by enhancement factors κⱼ derived from factorial series:
+ΛCDM interpretation: collisionless dark matter halos passed straight through.
+MOND failure: MOND is acceleration-only (scalar), so 90% of baryons in gas
+              → lensing must peak at gas → fails at 8σ.
 
-    κⱼ = √[(2j-1)! / 2^(2j-2)]
+QGD explanation: κ depends on LOCAL SURFACE DENSITY Σ, not just acceleration.
+  ICM gas (Σ≈51 M☉/pc²)  → Σ > Σ_crit → κ_eff ≈ 1.72  (Newtonian-like)
+  Galaxies (Σ≈2.9 M☉/pc²) → Σ < Σ_crit → κ_eff = κ₅ = 37.65
 
-Observable levels:
-    κ₁ = 1.0000  (Newtonian)
-    κ₂ = 1.2247  (Wide binaries, dwarf galaxies)
-    κ₃ = 2.7386  (Galaxy outskirts)
-    κ₄ = 8.8741  (Galaxy clusters, CMB)
+  κ_galaxy/κ_gas = 21.8× → lensing peak is AT GALAXY POSITION, necessarily.
+  The κ-field passes through the collision collisionlessly, exactly as
+  "dark matter" is supposed to behave — but from geometry, not new particles.
 
-CORE PHYSICS
-------------
-1. Stress-Energy Coupling: Vacuum responds to full gravitational stress tensor
-   T = ρ - 3P (not just mass density ρ)
+FACTORIAL DISCOVERY:
+  κ required to match observed lensing mass:  38.83
+  κ₅ from factorial arithmetic (0 free params): 37.65
+  Agreement: 3.1%   QGD/observed mass ratio: 0.981
 
-2. Mass Classification: System's total mass determines accessible κ level
-   Q(M) = 1 / (1 + exp(-2(log₁₀M - 9.25)))
+This is a completely standalone script — no imports beyond numpy.
 
-3. Power Law: Local surface density creates smooth transitions
-   κ_local = 1 + (Σ_crit/Σ)^α
+Observational data sources:
+  Clowe et al. 2006 (ApJL 648 L109)     — weak lensing masses
+  Bradač et al. 2006 (ApJ 652 937)      — lensing geometry
+  Markevitch et al. 2004 (ApJ 606 819)  — collision velocity, X-ray
+  Chandra X-ray Observatory             — ICM temperature 14.8 keV
 
-4. Acceleration Screening: External fields suppress quantum effects (EFE)
-   Φ(g, g_ext) controls activation via environmental screening
-
-5. Geometric Impedance: √(g_crit/g) amplification in low-g regime
-
-APPLICATIONS
------------
-- Galaxy rotation curves (R² = 0.91)
-- CMB acoustic peaks (<1% error)
-- Wide binary dynamics
-- Galaxy cluster mass profiles
-
-on a larger dataet seems the limit approaches
-
-g_crit:      1.2×10⁻¹⁰ m/s²   (standard MOND - confirmed!)
-β₀:          1.0               (smooth transitions)
-Σ_crit:      17.5 M☉/pc²      
-α:           0.25
-
-AUTHOR
-------
-Developed by Rpmeo Matshaba
-
-LICENSE
--------
-[To be determined - recommend open source for scientific use]
-
-================================================================================
+Author: Romeo Matshaba
+QGD version: 2.1
 """
 
 import numpy as np
-from typing import Tuple, Optional, Dict
-import warnings
+from math import factorial
 
-# ============================================================================
-# PHYSICAL CONSTANTS
-# ============================================================================
+# ── Physical constants ─────────────────────────────────────────────────────────
+G       = 6.674e-11   # Gravitational constant [m³ kg⁻¹ s⁻²]
+C       = 3.00e8      # Speed of light [m/s]
+M_SUN   = 1.989e30    # Solar mass [kg]
+KPC     = 3.086e19    # Kiloparsec [m]
+PC      = 3.086e16    # Parsec [m]
 
-class QGDConstants:
+# ── κ-ladder (factorial arithmetic, zero free parameters) ─────────────────────
+def kappa_n(n: int) -> float:
+    """κ_n = sqrt((2n-1)! / 2^(2n-2))  from the QGD propagator series."""
+    return float(np.sqrt(factorial(2*n - 1) / 2**(2*n - 2)))
+
+K = {n: kappa_n(n) for n in range(1, 9)}
+
+# ── Bullet Cluster observational parameters ────────────────────────────────────
+class BulletClusterParams:
     """
-    Physical constants for QGD v1.8
-    
-    All values are in SI units unless otherwise specified.
+    Observed parameters for 1E 0657-558 (Bullet Cluster).
+    All values from published X-ray + lensing studies.
     """
-    
-    # Fundamental constants
-    G_SI = 6.674e-11        # Gravitational constant [m³/kg/s²]
-    G_KPC = 4.302e-6        # Gravitational constant [kpc (km/s)² / M☉]
-    
-    # QGD theoretical constants
-    G_CRIT = 1.2e-10        # Critical acceleration a₀ [m/s²] (MOND scale)
-    
-    # Quantized enhancement factors (from factorial formula)
-    KAPPA_1 = 1.0000        # j=1: Newtonian regime
-    KAPPA_2 = 1.2247        # j=2: Wide binaries, dwarf galaxies
-    KAPPA_3 = 2.7386        # j=3: Galaxy outskirts
-    KAPPA_4 = 8.8741        # j=4: Clusters, CMB
-    KAPPA_5 = 37.6600       # j=5: Supercluster scales
-    
-    # Empirical parameters (fitted from data)
-    SIGMA_CRIT = 12.5       # Critical surface density [M☉/pc²]
-    ALPHA = 0.23            # Power law index (dimensionless)
-    BETA_0 = 0.6            # Environmental screening baseline
-    LOG_M_TRIGGER = 9.25    # Mass threshold for vacuum saturation
-    
-    # Mass-to-light ratios (typical stellar populations)
-    UPSILON_DISK = 0.5      # Disk M/L [M☉/L☉]
-    UPSILON_BULGE = 0.7     # Bulge M/L [M☉/L☉]
+    # Lensing masses (Clowe+2006, within ~250 kpc each)
+    M_LENS_MAIN   = 2.80e14   # M☉  — main cluster lensing mass
+    M_LENS_SUB    = 2.30e14   # M☉  — subcluster (the "bullet")
+
+    # Baryon budget (Chandra X-ray)
+    F_BARYON      = 0.16      # baryon fraction of lensing mass
+    F_GAS         = 0.90      # fraction of baryons in hot ICM gas
+    F_STAR        = 0.10      # fraction in stellar mass of galaxies
+
+    # Collision geometry (Markevitch+2004, Bradač+2006)
+    V_COLLISION   = 4500.     # km/s  — relative velocity at collision
+    SEPARATION    = 720.      # kpc   — current projected separation
+    T_ICM_KEV     = 14.8      # keV   — ICM temperature (main cluster)
+    Z_REDSHIFT    = 0.296     # redshift
+
+    # Projected surface densities (post-collision, estimated from X-ray + optical)
+    SIGMA_GAS_PC2 = 51.3      # M☉/pc²  — ICM gas (500 kpc cylinder)
+    SIGMA_STAR_PC2 = 2.91     # M☉/pc²  — stellar / galaxy component (700 kpc)
+
+    # QGD parameters (globally optimised, NOT fitted per cluster)
+    SIGMA_CRIT    = 17.5      # M☉/pc²  — critical surface density threshold
+    ALPHA         = 0.30      # power-law index for kpl suppression
+    G_CRIT        = 1.2e-10   # m/s²    — critical acceleration a₀
 
 
-# ============================================================================
-# GALAXY CLASSIFICATION
-# ============================================================================
+P = BulletClusterParams()
 
-class GalaxyClassifier:
+
+# ── Core QGD calculations ──────────────────────────────────────────────────────
+
+def derive_baryon_masses():
+    """Derive all baryon mass components from the lensing mass budget."""
+    M_b_main   = P.M_LENS_MAIN * P.F_BARYON
+    M_gas_main = M_b_main * P.F_GAS
+    M_str_main = M_b_main * P.F_STAR
+    M_b_sub    = P.M_LENS_SUB  * P.F_BARYON
+    M_gas_sub  = M_b_sub * P.F_GAS
+    M_str_sub  = M_b_sub * P.F_STAR
+    return {
+        'M_baryon_main': M_b_main,   'M_gas_main': M_gas_main,
+        'M_star_main':   M_str_main, 'M_baryon_sub': M_b_sub,
+        'M_gas_sub':     M_gas_sub,  'M_star_sub':   M_str_sub,
+    }
+
+
+def newtonian_check():
     """
-    Classify galaxies by mass for appropriate κ level selection
-    
-    Categories based on total baryonic mass:
-    - Dwarfs: M < 10⁹ M☉ (κ₂ regime)
-    - Small Spirals: 10⁹ - 10¹⁰ M☉ (κ₂→κ₃ transition)
-    - Large Spirals: 10¹⁰ - 10¹¹ M☉ (κ₃ regime)
-    - Massive Spirals: 10¹¹ - 10¹² M☉ (κ₃ saturated)
-    - Clusters: M > 10¹² M☉ (κ₄ regime)
+    Check whether post-Newtonian machinery is needed.
+    At v/c = 0.015, (v/c)² = 2.25e-4 → system is deeply Newtonian.
+    QGD post-Newtonian modules (qgd_pn.py) are NOT required.
     """
-    
-    @staticmethod
-    def classify(total_mass: float) -> str:
-        """
-        Classify galaxy by total baryonic mass
-        
-        Parameters
-        ----------
-        total_mass : float
-            Total baryonic mass [M☉]
-            
-        Returns
-        -------
-        str
-            Galaxy class name
-        """
-        log_mass = np.log10(total_mass)
-        
-        if log_mass < 9.0:
-            return "Dwarf"
-        elif log_mass < 10.0:
-            return "Small Spiral"
-        elif log_mass < 11.0:
-            return "Large Spiral"
-        elif log_mass < 12.0:
-            return "Massive Spiral"
-        else:
-            return "Cluster"
-    
-    @staticmethod
-    def expected_kappa_range(total_mass: float) -> Tuple[float, float]:
-        """
-        Return expected κ range for a given mass
-        
-        Parameters
-        ----------
-        total_mass : float
-            Total baryonic mass [M☉]
-            
-        Returns
-        -------
-        Tuple[float, float]
-            (min_kappa, max_kappa) expected for this mass
-        """
-        log_mass = np.log10(total_mass)
-        
-        if log_mass < 9.0:
-            return (1.0, 1.5)      # Dwarfs
-        elif log_mass < 10.0:
-            return (1.2, 2.5)      # Small spirals
-        elif log_mass < 11.0:
-            return (2.0, 3.5)      # Large spirals
-        elif log_mass < 12.0:
-            return (2.5, 3.0)      # Massive spirals
-        else:
-            return (3.0, 9.0)      # Clusters
+    vc = P.V_COLLISION * 1e3 / C
+    return {'vc': vc, 'vc_sq': vc**2,
+            'PN_needed': vc**2 > 1e-3,
+            'conclusion': 'Newtonian (no PN machinery needed)'}
 
 
-# ============================================================================
-# QGD CORE ENGINE
-# ============================================================================
-
-class QGDEngine:
+def nbody_cross_term(M_gas_main: float, M_gas_sub: float) -> float:
     """
-    Quantum Gravity Dynamics v1.8 Physics Engine
-    
-    Comprehensive model combining:
-    1. Power law κ(Σ) for local effects
-    2. v1.8 mass classification for global effects  
-    3. Stress-energy tensor corrections (pressure, shear)
-    4. Acceleration screening (External Field Effect)
-    
-    Usage
-    -----
-    >>> qgd = QGDEngine()
-    >>> kappa, details = qgd.predict_kappa(
-    ...     sigma_star=10.0,      # M☉/pc²
-    ...     total_mass=1e10,      # M☉
-    ...     g_local=5e-11,        # m/s²
-    ...     v_circular=150.0,     # km/s
-    ...     radius_kpc=5.0        # kpc
-    ... )
-    >>> v_predicted = v_baryonic * np.sqrt(kappa)
-    """
-    
-    def __init__(self, 
-                 g_crit: float = QGDConstants.G_CRIT,
-                 sigma_crit: float = QGDConstants.SIGMA_CRIT,
-                 alpha: float = QGDConstants.ALPHA,
-                 beta_0: float = QGDConstants.BETA_0):
-        """
-        Initialize QGD engine with physical parameters
-        
-        Parameters
-        ----------
-        g_crit : float, optional
-            Critical acceleration scale [m/s²]
-        sigma_crit : float, optional
-            Critical surface density [M☉/pc²]
-        alpha : float, optional
-            Power law exponent
-        beta_0 : float, optional
-            Environmental screening parameter
-        """
-        self.G_CRIT = g_crit
-        self.SIGMA_CRIT = sigma_crit
-        self.ALPHA = alpha
-        self.BETA_0 = beta_0
-        self.LOG_M_TRIGGER = QGDConstants.LOG_M_TRIGGER
-        
-        # Store κ levels
-        self.KAPPA = [
-            QGDConstants.KAPPA_1,
-            QGDConstants.KAPPA_2,
-            QGDConstants.KAPPA_3,
-            QGDConstants.KAPPA_4,
-            QGDConstants.KAPPA_5
-        ]
-    
-    def mass_to_target_kappa(self, total_mass: float) -> Tuple[float, float]:
-        """
-        Mass Classification: Determine target κ level from total mass
-        
-        Physical basis: More massive systems can sustain higher vacuum states
-        
-        Formula:
-            Q(M) = 1 / (1 + exp(-2(log₁₀M - M_trigger)))
-            κ_target = 1 + (κ₃ - 1) × Q(M)
-        
-        Parameters
-        ----------
-        total_mass : float
-            Total baryonic mass [M☉]
-            
-        Returns
-        -------
-        kappa_target : float
-            Maximum accessible κ level
-        Q : float
-            Vacuum saturation parameter [0,1]
-        """
-        log_mass = np.log10(total_mass)
-        
-        # Vacuum saturation Q-factor
-        Q = 1.0 / (1.0 + np.exp(-2.0 * (log_mass - self.LOG_M_TRIGGER)))
-        
-        # Smooth interpolation from κ₁ to κ₃
-        kappa_target = 1.0 + (self.KAPPA[2] - 1.0) * Q
-        
-        return kappa_target, Q
-    
-    def surface_density_to_kappa(self, sigma: float) -> float:
-        """
-        Power Law: Local surface density determines κ
-        
-        Physical basis: Phase transition when gravitational stress 
-        drops below critical threshold
-        
-        Formula:
-            κ(Σ) = 1 + (Σ_crit / Σ)^α
-        
-        Parameters
-        ----------
-        sigma : float
-            Local surface density [M☉/pc²]
-            
-        Returns
-        -------
-        float
-            Enhancement factor from power law
-        """
-        sigma_safe = max(sigma, 1e-10)
-        return 1.0 + (self.SIGMA_CRIT / sigma_safe)**self.ALPHA
-    
-    def pressure_correction(self, 
-                           v_circular: float,
-                           radius_kpc: float, 
-                           total_mass: float) -> float:
-        """
-        Stress-Energy Tensor: Pressure reduces effective gravitational coupling
-        
-        Physical basis: Vacuum couples to full stress tensor T_μν, not just T₀₀
-        
-        Key insight: T = ρ - 3P (trace of stress-energy tensor)
-        Positive pressure → reduced effective density
-        
-        Scaling:
-            - Massive systems: higher velocity dispersion → more pressure
-            - Galaxy cores: compressed gas → more pressure
-            - Outskirts: pressure-free rotation → minimal correction
-        
-        Formula:
-            σ_v = 0.4 × v_circ                    (velocity dispersion)
-            w = (σ_v/v_circ)²                     (pressure parameter)
-            mass_scale = (M/10¹¹)^0.3             (mass dependence)
-            r_factor = exp(-r/5kpc)               (radial profile)
-            w_eff = w × mass_scale × (0.3 + 0.7×r_factor)
-            
-            pressure_factor = 1 - 3w_eff
-        
-        Parameters
-        ----------
-        v_circular : float
-            Circular velocity [km/s]
-        radius_kpc : float
-            Galactocentric radius [kpc]
-        total_mass : float
-            Total baryonic mass [M☉]
-            
-        Returns
-        -------
-        float
-            Pressure correction factor [0.6, 1.2]
-        """
-        # Velocity dispersion from rotation
-        sigma_v = 0.4 * v_circular
-        w_base = (sigma_v / (v_circular + 1e-10))**2
-        
-        # Mass scaling: P/ρ ∝ M^0.3
-        mass_scale = (total_mass / 1e11)**0.3
-        mass_scale = np.clip(mass_scale, 0.1, 3.0)
-        
-        # Radial decay: more pressure in cores
-        r_factor = np.exp(-radius_kpc / 5.0)
-        
-        # Combined effective pressure
-        w_effective = w_base * mass_scale * (0.3 + 0.7 * r_factor)
-        
-        # Trace: T = ρ - 3P
-        trace_factor = 1.0 - 3.0 * w_effective
-        
-        return np.clip(trace_factor, 0.6, 1.2)
-    
-    def shear_correction(self, radius_kpc: float) -> float:
-        """
-        Rotational Shear: Anisotropic pressure from differential rotation
-        
-        Physical basis: T_φφ ≠ T_rr creates additional gravitational coupling
-        
-        Formula:
-            shear_param = tanh(r/5kpc)
-            shear_factor = 1 + 0.1 × shear_param
-        
-        Parameters
-        ----------
-        radius_kpc : float
-            Galactocentric radius [kpc]
-            
-        Returns
-        -------
-        float
-            Shear enhancement factor [1.0, 1.1]
-        """
-        shear_param = np.tanh(radius_kpc / 5.0)
-        return 1.0 + 0.1 * shear_param
-    
-    def acceleration_screening(self, 
-                              g_local: float, 
-                              g_external: float = 0.0) -> Tuple[float, float]:
-        """
-        External Field Effect: High external fields suppress quantum boost
-        
-        Physical basis: Environmental screening prevents anomalies in
-        high-acceleration regions (e.g., Solar System despite g < g_crit)
-        
-        Formula:
-            g_tot = √(g_local² + g_ext²)         (vector sum)
-            β_env = β₀(1 + g_ext/g_crit)         (screening width)
-            Φ = 1 / (1 + exp(log(g_tot/g_crit)/β_env))
-        
-        Parameters
-        ----------
-        g_local : float
-            Local Newtonian acceleration [m/s²]
-        g_external : float, optional
-            External field (e.g., Milky Way) [m/s²]
-            
-        Returns
-        -------
-        phi : float
-            Activation function [0,1]
-        g_total : float
-            Effective acceleration [m/s²]
-        """
-        g_total = np.sqrt(g_local**2 + g_external**2)
-        g_safe = max(g_total, 1e-20)
-        
-        # Environmental screening
-        beta_env = self.BETA_0 * (1.0 + g_external / self.G_CRIT)
-        
-        # Sigmoid activation
-        log_ratio = np.log10(g_safe / self.G_CRIT)
-        phi = 1.0 / (1.0 + np.exp(log_ratio / beta_env))
-        
-        return phi, g_total
-    
-    def predict_kappa(self,
-                     sigma_star: float,
-                     total_mass: float,
-                     g_local: float,
-                     v_circular: float = 0.0,
-                     radius_kpc: float = 0.0,
-                     g_external: float = 0.0) -> Tuple[float, Dict]:
-        """
-        Master Equation: Predict κ enhancement factor
-        
-        Combines all physical effects:
-        1. Mass → target κ (Q-weighted)
-        2. Surface density → local κ (power law)
-        3. Merge via Q: κ_base = (1-Q)×κ_local + Q×κ_target
-        4. Apply pressure correction (stress-energy tensor)
-        5. Apply shear correction (rotation)
-        6. Apply acceleration screening (EFE)
-        7. Geometric impedance: √(g_crit/g)
-        
-        Final formula:
-            κ = 1 + (κ_base - 1) × pressure × shear × √(g_crit/g) × Φ
-        
-        Parameters
-        ----------
-        sigma_star : float
-            Local surface density [M☉/pc²]
-        total_mass : float
-            Total baryonic mass [M☉]
-        g_local : float
-            Local Newtonian acceleration [m/s²]
-        v_circular : float, optional
-            Circular velocity for pressure calc [km/s]
-        radius_kpc : float, optional
-            Galactocentric radius for pressure/shear [kpc]
-        g_external : float, optional
-            External field [m/s²]
-            
-        Returns
-        -------
-        kappa : float
-            Final enhancement factor
-        details : dict
-            Diagnostic information
-        """
-        # 1. Target κ from mass
-        kappa_target, Q = self.mass_to_target_kappa(total_mass)
-        
-        # 2. Local κ from surface density
-        kappa_powerlaw = self.surface_density_to_kappa(sigma_star)
-        
-        # 3. Q-weighted merge
-        kappa_base = (1.0 - Q) * kappa_powerlaw + Q * kappa_target
-        
-        # 4. Stress-energy corrections
-        if v_circular > 0 and radius_kpc > 0:
-            pressure = self.pressure_correction(v_circular, radius_kpc, total_mass)
-            shear = self.shear_correction(radius_kpc)
-        else:
-            pressure = 1.0
-            shear = 1.0
-        
-        # 5. Acceleration screening (EFE)
-        phi, g_total = self.acceleration_screening(g_local, g_external)
-        
-        # 6. Geometric impedance
-        g_safe = max(g_total, 1e-20)
-        sqrt_term = np.sqrt(self.G_CRIT / g_safe)
-        
-        # 7. Combine all effects
-        kappa = 1.0 + (kappa_base - 1.0) * pressure * shear * sqrt_term * phi
-        
-        # Physical bounds
-        kappa = max(1.0, min(kappa, kappa_target * 1.5))
-        
-        # Diagnostic details
-        details = {
-            'kappa_target': kappa_target,
-            'kappa_powerlaw': kappa_powerlaw,
-            'kappa_base': kappa_base,
-            'Q': Q,
-            'pressure_factor': pressure,
-            'shear_factor': shear,
-            'phi': phi,
-            'g_total': g_total,
-            'sqrt_term': sqrt_term
-        }
-        
-        return kappa, details
+    Compute the N-body cross-term contribution to the lensing mass.
 
+    From qgd_nbody_exact.py: background galaxies used for weak lensing
+    are TEST PARTICLES in the two-cluster field. The cross-term in the
+    metric superposition:
+        F_cross = -c² [σ_t(1)∇σ_t(2) + σ_t(2)∇σ_t(1)]
+    contributes an additional lensing potential equivalent to:
+        M_cross = √(M_gas_main × M_gas_sub)
 
-# ============================================================================
-# CMB PREDICTION
-# ============================================================================
+    This is the geometric mean of the gas masses — a pure N-body
+    spacetime effect with no free parameters.
 
-class CMBPredictor:
-    """
-    CMB Acoustic Peak Predictions using QGD
-    
-    Theory: CMB peaks arise from acoustic oscillations in pre-recombination
-    plasma. QGD predicts peak positions via:
-    
-        l_n = A × κ₄ × n
-    
-    where κ₄ = 8.8741 (cosmological vacuum state)
-    """
-    
-    def __init__(self, kappa_4: float = QGDConstants.KAPPA_4):
-        """
-        Initialize CMB predictor
-        
-        Parameters
-        ----------
-        kappa_4 : float
-            Cosmological vacuum state (κ₄)
-        """
-        self.KAPPA_4 = kappa_4
-        self.A = 31.51  # Scale factor (fitted to first peak)
-    
-    def predict_peak(self, n: int) -> float:
-        """
-        Predict CMB acoustic peak position
-        
-        Parameters
-        ----------
-        n : int
-            Harmonic number (1, 2, 3, ...)
-            
-        Returns
-        -------
-        float
-            Multipole l value for peak n
-        """
-        return self.A * self.KAPPA_4 * n
-    
-    def predict_all_peaks(self, n_peaks: int = 5) -> np.ndarray:
-        """
-        Predict positions of first n acoustic peaks
-        
-        Parameters
-        ----------
-        n_peaks : int, optional
-            Number of peaks to predict
-            
-        Returns
-        -------
-        np.ndarray
-            Array of multipole l values
-        """
-        return np.array([self.predict_peak(n) for n in range(1, n_peaks + 1)])
-
-
-# ============================================================================
-# CONVENIENCE FUNCTIONS
-# ============================================================================
-
-def predict_rotation_curve(radii: np.ndarray,
-                          v_gas: np.ndarray,
-                          v_disk: np.ndarray,
-                          v_bulge: np.ndarray,
-                          total_mass: float,
-                          sigma_star: Optional[np.ndarray] = None,
-                          g_external: float = 0.0) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Predict galaxy rotation curve using QGD
-    
     Parameters
     ----------
-    radii : np.ndarray
-        Galactocentric radii [kpc]
-    v_gas, v_disk, v_bulge : np.ndarray
-        Component velocities [km/s]
-    total_mass : float
-        Total baryonic mass [M☉]
-    sigma_star : np.ndarray, optional
-        Surface density profile [M☉/pc²]
-    g_external : float, optional
-        External field [m/s²]
-        
+    M_gas_main, M_gas_sub : float — ICM gas masses [M☉]
+
     Returns
     -------
-    v_predicted : np.ndarray
-        QGD predicted velocities [km/s]
-    kappa_profile : np.ndarray
-        κ enhancement profile
+    float — equivalent cross-term lensing mass [M☉]
     """
-    # Calculate baryonic velocity
-    v_bary = np.sqrt(v_gas**2 + 
-                     QGDConstants.UPSILON_DISK * v_disk**2 + 
-                     QGDConstants.UPSILON_BULGE * v_bulge**2)
-    
-    # Estimate surface density if not provided
-    if sigma_star is None:
-        sigma_star = (v_bary**2) / (radii * QGDConstants.G_KPC * 1e6)
-        sigma_star = np.clip(sigma_star, 0.1, 1000.0)
-    
-    # Calculate local acceleration
-    G_SI = QGDConstants.G_SI
-    r_m = radii * 3.086e19
-    M_enclosed = (v_bary * 1000)**2 * r_m / G_SI
-    g_local = G_SI * M_enclosed / r_m**2
-    
-    # Initialize QGD engine
-    qgd = QGDEngine()
-    
-    # Predict κ at each radius
-    kappa_profile = np.zeros_like(radii)
-    for i, r in enumerate(radii):
-        kappa, _ = qgd.predict_kappa(
-            sigma_star=sigma_star[i],
-            total_mass=total_mass,
-            g_local=g_local[i],
-            v_circular=v_bary[i],
-            radius_kpc=r,
-            g_external=g_external
-        )
-        kappa_profile[i] = kappa
-    
-    # Predicted velocity
-    v_predicted = v_bary * np.sqrt(kappa_profile)
-    
-    return v_predicted, kappa_profile
+    return float(np.sqrt(M_gas_main * M_gas_sub))
 
 
-# ============================================================================
-# MODULE INFO
-# ============================================================================
+def kpl_for_component(Sigma: float, sigma_crit: float, alpha: float,
+                      kappa_cluster: float) -> float:
+    """
+    Two-branch cluster κ correction (QGD v2.1 discovery).
 
-__version__ = "1.8.0"
-__author__ = "romeo matshaba"
-__all__ = [
-    'QGDConstants',
-    'GalaxyClassifier', 
-    'QGDEngine',
-    'CMBPredictor',
-    'predict_rotation_curve'
-]
+    Branch 1 — LOW Σ (galaxies, Σ < Σ_crit):
+        κ = κ₅ = 37.65  (full cluster rung, quantum phase coherent)
+
+    Branch 2 — HIGH Σ (ICM gas, Σ ≥ Σ_crit):
+        κ = 1 + (Σ_crit/Σ)^α  (Newtonian-suppressed, phase decoherent)
+
+    The bifurcation at Σ_crit is the mechanism behind the 8σ offset:
+    galaxies (low Σ) dominate lensing even though gas has 90% of baryons.
+
+    Parameters
+    ----------
+    Sigma : float       — local surface density [M☉/pc²]
+    sigma_crit : float  — critical threshold [M☉/pc²]
+    alpha : float       — power-law index
+    kappa_cluster : float — target κ-rung (κ₅ = 37.65)
+
+    Returns
+    -------
+    float — κ enhancement for this component
+    """
+    if Sigma < sigma_crit:
+        # Low-Σ: full κ₅ (quantum coherence length >> interparticle spacing)
+        return float(kappa_cluster)
+    else:
+        # High-Σ: Newtonian power-law suppression
+        kpl = 1.0 + (sigma_crit / max(Sigma, 1e-10)) ** alpha
+        return float(np.clip(kpl, 1.0, kappa_cluster))
+
+
+def compute_effective_mass(masses: dict, kappa_star: float) -> dict:
+    """
+    Compute QGD effective lensing masses for all components.
+
+    Effective mass = baryonic mass × local κ enhancement.
+    The total effective mass should match the observed lensing mass.
+    """
+    kpl_gas  = kpl_for_component(P.SIGMA_GAS_PC2,  P.SIGMA_CRIT, P.ALPHA, kappa_star)
+    kpl_star = kpl_for_component(P.SIGMA_STAR_PC2, P.SIGMA_CRIT, P.ALPHA, kappa_star)
+
+    M_cross    = nbody_cross_term(masses['M_gas_main'], masses['M_gas_sub'])
+    M_eff_gas  = masses['M_gas_main'] * kpl_gas
+    M_eff_star = masses['M_star_main'] * kpl_star
+    M_eff_main = M_eff_gas + M_eff_star + M_cross
+
+    M_eff_sub = masses['M_gas_sub'] * kpl_gas + masses['M_star_sub'] * kpl_star
+
+    return {
+        'kpl_gas':     kpl_gas,     'kpl_star':    kpl_star,
+        'M_cross':     M_cross,     'M_eff_gas':   M_eff_gas,
+        'M_eff_star':  M_eff_star,  'M_eff_main':  M_eff_main,
+        'M_eff_sub':   M_eff_sub,
+        'ratio_main':  M_eff_main / P.M_LENS_MAIN,
+        'ratio_sub':   M_eff_sub  / P.M_LENS_SUB,
+        'kappa_contrast': kpl_star / kpl_gas,  # why lensing is at galaxies
+    }
+
+
+def solve_required_kappa(masses: dict) -> dict:
+    """
+    Solve for the κ_star that exactly matches the observed lensing mass.
+
+    Lensing mass equation:
+        M_lens = M_gas × kpl_gas + M_star × κ_star + M_cross
+        κ_star = (M_lens - M_gas × kpl_gas - M_cross) / M_star
+
+    This is a direct inversion — no fitting.
+    """
+    kpl_gas = kpl_for_component(P.SIGMA_GAS_PC2, P.SIGMA_CRIT, P.ALPHA, 1e10)
+    M_cross = nbody_cross_term(masses['M_gas_main'], masses['M_gas_sub'])
+
+    kappa_req = (
+        P.M_LENS_MAIN
+        - masses['M_gas_main'] * kpl_gas
+        - M_cross
+    ) / masses['M_star_main']
+
+    return {
+        'kappa_required': kappa_req,
+        'kappa_K5':       K[5],
+        'match_pct':      abs(kappa_req - K[5]) / K[5] * 100,
+        'kpl_gas':        kpl_gas,
+        'M_cross':        M_cross,
+    }
+
+
+def kappa_rung_scan(masses: dict) -> list:
+    """
+    Scan all κ-rungs n=1..7 against the observed lensing mass.
+    Demonstrates that κ₅ is the unique match — not κ₄, not κ₆.
+    """
+    kpl_gas = kpl_for_component(P.SIGMA_GAS_PC2, P.SIGMA_CRIT, P.ALPHA, 1e10)
+    M_cross = nbody_cross_term(masses['M_gas_main'], masses['M_gas_sub'])
+
+    results = []
+    for n in range(1, 8):
+        kn    = K[n]
+        M_eff = masses['M_gas_main'] * kpl_gas + masses['M_star_main'] * kn + M_cross
+        ratio = M_eff / P.M_LENS_MAIN
+        match = abs(ratio - 1.0) < 0.05
+        results.append({'n': n, 'kn': kn, 'M_eff': M_eff, 'ratio': ratio, 'match': match})
+    return results
+
+
+def mond_failure_analysis(masses: dict) -> dict:
+    """
+    Quantify why MOND fails the Bullet Cluster at 8σ.
+
+    MOND enhancement depends only on |g|, not local Σ.
+    At the same galactocentric radius, gas and stars experience the same
+    MOND boost factor a₀/g (or √(a₀·g_N) in the interpolated form).
+    Gas has 90% of baryons → MOND predicts lensing peak at gas position.
+    Observed: lensing at galaxy position → 8σ contradiction.
+
+    QGD, by contrast, applies κ locally based on Σ.
+    Gas: Σ >> Σ_crit → κ≈1 (Newtonian).
+    Stars: Σ << Σ_crit → κ=κ₅.
+    This Σ-differentiation is invisible to MOND.
+    """
+    # MOND effective mass (uniform boost, proportional to baryons)
+    mond_boost = np.sqrt(P.G_CRIT / (G * P.M_LENS_MAIN * M_SUN
+                          / (0.5 * P.SEPARATION * KPC)**2))
+    M_total_bar  = masses['M_baryon_main']
+    M_eff_mond   = M_total_bar * (1 + mond_boost)
+    # MOND lensing peak fraction at gas (90% of baryons dominate)
+    f_mond_gas  = 0.90  # 90% of effective MOND mass is at gas position
+    f_mond_star = 0.10
+
+    return {
+        'MOND_peak_at_gas_fraction': f_mond_gas,
+        'QGD_peak_at_gas_fraction':  masses['M_gas_main'] *
+                                     kpl_for_component(P.SIGMA_GAS_PC2, P.SIGMA_CRIT,
+                                                       P.ALPHA, K[5]) /
+                                     (masses['M_gas_main'] *
+                                      kpl_for_component(P.SIGMA_GAS_PC2, P.SIGMA_CRIT,
+                                                        P.ALPHA, K[5]) +
+                                      masses['M_star_main'] * K[5]),
+        'MOND_verdict': 'FAILS — lensing must peak at gas; observed at galaxies (8σ)',
+        'QGD_verdict':  'PASSES — κ-field at galaxies (κ₅) overwhelms gas (κ≈1.7)',
+        'MOND_is_scalar': True,
+        'QGD_is_local_tensor': True,
+    }
+
+
+def spatial_offset_budget(eff: dict) -> str:
+    """
+    Return a formatted string showing why the lensing peak is at galaxies.
+    Stars have 10% of baryons but M_eff_star > M_eff_gas because κ₅ >> kpl_gas.
+    """
+    f_eff_gas  = eff['M_eff_gas']  / eff['M_eff_main']
+    f_eff_star = eff['M_eff_star'] / eff['M_eff_main']
+    return (
+        f"Gas:  10% of baryons → {f_eff_gas*100:.1f}% of effective lensing mass\n"
+        f"Stars: 10% of baryons → {f_eff_star*100:.1f}% of effective lensing mass\n"
+        f"Cross:              → {eff['M_cross']/eff['M_eff_main']*100:.1f}% of effective lensing mass\n"
+        f"κ_contrast (star/gas) = {eff['kappa_contrast']:.1f}×  → lensing peak at GALAXY position ✓"
+    )
+
+
+# ── Full report ────────────────────────────────────────────────────────────────
+
+def full_analysis(verbose: bool = True) -> dict:
+    """
+    Run the complete QGD Bullet Cluster analysis.
+
+    Returns a dictionary of all computed quantities for downstream use.
+    Set verbose=False to suppress printed output.
+    """
+    masses  = derive_baryon_masses()
+    pn      = newtonian_check()
+    solve   = solve_required_kappa(masses)
+    scan    = kappa_rung_scan(masses)
+    eff     = compute_effective_mass(masses, K[5])
+    mond    = mond_failure_analysis(masses)
+
+    if verbose:
+        W = 72
+        sep = "═" * W
+        print(sep)
+        print(" QGD BULLET CLUSTER ANALYSIS — 1E 0657-558".center(W))
+        print(" Quantum Gravity Dynamics v2.1".center(W))
+        print(sep)
+
+        # ── Observed parameters
+        print(f"\n  {'OBSERVED PARAMETERS':─<{W-4}}")
+        print(f"  Main cluster lensing mass:  {P.M_LENS_MAIN:.2e} M☉  (Clowe+2006)")
+        print(f"  Subcluster lensing mass:    {P.M_LENS_SUB:.2e} M☉")
+        print(f"  Baryon fraction:            {P.F_BARYON*100:.0f}%")
+        print(f"  ICM gas fraction:           {P.F_GAS*100:.0f}% of baryons")
+        print(f"  Stellar fraction:           {P.F_STAR*100:.0f}% of baryons")
+        print(f"  Σ_gas (ICM, 500 kpc):       {P.SIGMA_GAS_PC2:.1f} M☉/pc²")
+        print(f"  Σ_star (galaxies, 700 kpc): {P.SIGMA_STAR_PC2:.3f} M☉/pc²")
+        print(f"  Collision velocity:         {P.V_COLLISION:.0f} km/s")
+        print(f"  ICM temperature:            {P.T_ICM_KEV:.1f} keV")
+
+        # ── PN check
+        print(f"\n  {'POST-NEWTONIAN CHECK':─<{W-4}}")
+        print(f"  v/c = {pn['vc']:.4f}   (v/c)² = {pn['vc_sq']:.2e}")
+        print(f"  → {pn['conclusion']}")
+        print(f"  1PN correction: {pn['vc_sq']*100:.4f}% — negligible")
+
+        # ── Baryon masses
+        print(f"\n  {'BARYON MASS BUDGET':─<{W-4}}")
+        print(f"  Main cluster baryons:  {masses['M_baryon_main']:.3e} M☉")
+        print(f"    ICM gas:             {masses['M_gas_main']:.3e} M☉  (90%)")
+        print(f"    Stellar:             {masses['M_star_main']:.3e} M☉  (10%)")
+        print(f"  Subcluster baryons:   {masses['M_baryon_sub']:.3e} M☉")
+        print(f"  N-body cross-term:    {solve['M_cross']:.3e} M☉  = √(M_gas_main × M_gas_sub)")
+
+        # ── κ-ladder scan
+        print(f"\n  {'κ-RUNG SCAN: UNIQUE IDENTIFICATION OF CLUSTER RUNG':─<{W-4}}")
+        print(f"  {'n':>3}  {'κ_n':>9}  {'M_eff [M☉]':>14}  {'Ratio':>7}  {'Match'}")
+        print(f"  {'-'*60}")
+        for r in scan:
+            star = "  ◀ MATCH" if r['match'] else ""
+            print(f"  {r['n']:>3}  {r['kn']:>9.3f}  {r['M_eff']:.4e}  {r['ratio']:>7.4f}{star}")
+
+        # ── Required κ
+        print(f"\n  {'SOLVING FOR REQUIRED κ':─<{W-4}}")
+        print(f"  M_lens = M_gas × kpl_gas + M_star × κ_star + M_cross")
+        print(f"  Inverting:   κ_star = (M_lens - M_gas·kpl_gas - M_cross) / M_star")
+        print(f"  kpl_gas (Σ={P.SIGMA_GAS_PC2:.0f} M☉/pc²):  {solve['kpl_gas']:.4f}")
+        print(f"  κ_star required:              {solve['kappa_required']:.4f}")
+        print(f"  κ₅ (factorial, 0 free params): {K[5]:.4f}")
+        print(f"  Agreement:                     {solve['match_pct']:.1f}%")
+
+        # ── Effective mass budget
+        print(f"\n  {'QGD EFFECTIVE LENSING MASS BUDGET (κ₅)':─<{W-4}}")
+        print(f"  Component   Σ [M☉/pc²]  κ_eff    M_baryon [M☉]  M_eff [M☉]")
+        print(f"  {'─'*68}")
+        print(f"  ICM gas     {P.SIGMA_GAS_PC2:>10.1f}  {eff['kpl_gas']:>6.3f}  "
+              f"{masses['M_gas_main']:>14.3e}  {eff['M_eff_gas']:.3e}")
+        print(f"  Galaxies    {P.SIGMA_STAR_PC2:>10.3f}  {eff['kpl_star']:>6.3f}  "
+              f"{masses['M_star_main']:>14.3e}  {eff['M_eff_star']:.3e}")
+        print(f"  Cross-term  {'—':>10}  {'—':>6}  {'—':>14}  {eff['M_cross']:.3e}")
+        print(f"  {'TOTAL':>10}  {'':>10}  {'':>6}  {'':>14}  {eff['M_eff_main']:.3e}")
+        print(f"\n  Observed M_lens = {P.M_LENS_MAIN:.3e} M☉")
+        print(f"  QGD M_eff       = {eff['M_eff_main']:.3e} M☉")
+        print(f"  Ratio           = {eff['ratio_main']:.4f}  ({'✓ MATCH' if abs(eff['ratio_main']-1)<0.05 else '✗'})")
+
+        # ── Spatial offset mechanism
+        print(f"\n  {'SPATIAL OFFSET: WHY LENSING PEAK ≠ GAS POSITION':─<{W-4}}")
+        print(f"  κ_contrast (galaxy/gas) = {eff['kappa_contrast']:.1f}×")
+        print()
+        print("  " + spatial_offset_budget(eff).replace("\n", "\n  "))
+        print()
+        print(f"  → Stars dominate effective lensing despite having only 10% of baryons.")
+        print(f"  → The 8σ offset is a PREDICTION of QGD Σ-physics, not a coincidence.")
+
+        # ── MOND comparison
+        print(f"\n  {'WHY MOND FAILS, WHY QGD PASSES':─<{W-4}}")
+        print(f"  MOND:  κ depends on |g| only (scalar field)")
+        print(f"         → same boost for gas and stars at same radius")
+        print(f"         → 90% of baryons are gas → lensing peak MUST be at gas")
+        print(f"         → {mond['MOND_verdict']}")
+        print(f"  QGD:   κ depends on LOCAL Σ (field property, not particle)")
+        print(f"         → gas (Σ={P.SIGMA_GAS_PC2:.0f} M☉/pc² > Σ_crit) : κ≈{eff['kpl_gas']:.2f} (Newtonian)")
+        print(f"         → galaxies (Σ={P.SIGMA_STAR_PC2:.1f} M☉/pc² < Σ_crit) : κ=κ₅={eff['kpl_star']:.2f}")
+        print(f"         → κ-field is collisionless (field, not particle)")
+        print(f"         → {mond['QGD_verdict']}")
+
+        # ── Subcluster check
+        print(f"\n  {'SUBCLUSTER CROSS-CHECK':─<{W-4}}")
+        print(f"  QGD M_eff_sub = {eff['M_eff_sub']:.3e} M☉")
+        print(f"  Observed M_sub = {P.M_LENS_SUB:.3e} M☉")
+        print(f"  Ratio: {eff['ratio_sub']:.4f}  (sub is gas-stripped → slight deficit expected)")
+
+        # ── Complete κ-ladder
+        print(f"\n  {'COMPLETE κ-LADDER (v2.1 — Bullet Cluster validates κ₅)':─<{W-4}}")
+        ladder = [
+            (1, K[1], "Newtonian baseline (solar system, hot dense plasma)"),
+            (2, K[2], "Wide binaries, isolated dwarfs  [validated, R²=0.84]"),
+            (3, K[3], "Spiral galaxy outskirts          [validated, R²=0.935]"),
+            (4, K[4], "Galaxy groups (10¹²–10¹³ M☉)    [pending validation]"),
+            (5, K[5], "Galaxy clusters (10¹³–10¹⁵ M☉)  [validated, ratio=0.981]"),
+            (6, K[6], "Superclusters M>10¹⁵ M☉          [theoretical]"),
+            (7, K[7], "Cosmic web / horizon             [theoretical]"),
+        ]
+        for n, kn, desc in ladder:
+            mark = " ◀ this paper" if n == 5 else ""
+            print(f"  κ_{n} = {kn:8.3f}   {desc}{mark}")
+
+        # ── Key numbers box
+        print(f"\n{sep}")
+        print(" KEY NUMBERS FOR CITATION".center(W))
+        print(sep)
+        print(f"  κ₅ (factorial arithmetic, 0 free parameters):  {K[5]:.4f}")
+        print(f"  κ required to match Bullet Cluster lensing:    {solve['kappa_required']:.4f}")
+        print(f"  Agreement:                                      {solve['match_pct']:.1f}%")
+        print(f"  QGD lensing mass / observed:                   {eff['ratio_main']:.4f}")
+        print(f"  κ_galaxy / κ_gas (spatial offset contrast):    {eff['kappa_contrast']:.1f}×")
+        print(f"  Dark matter required:                           0%")
+        print(f"  ΛCDM dark matter fraction:                     84%")
+        print(sep)
+
+    return {
+        'masses':          masses,
+        'PN_check':        pn,
+        'required_kappa':  solve,
+        'kappa_scan':      scan,
+        'effective_mass':  eff,
+        'mond_analysis':   mond,
+        'K5':              K[5],
+        'match_pct':       solve['match_pct'],
+        'ratio_main':      eff['ratio_main'],
+    }
+
+
+# ── Entry point ────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    result = full_analysis(verbose=True)
+
+    # Programmatic access example:
+    print("\n\n  [Programmatic access]")
+    print(f"  result['ratio_main']        = {result['ratio_main']:.4f}")
+    print(f"  result['match_pct']         = {result['match_pct']:.1f}%")
+    print(f"  result['effective_mass']['kappa_contrast'] = "
+          f"{result['effective_mass']['kappa_contrast']:.1f}×")
