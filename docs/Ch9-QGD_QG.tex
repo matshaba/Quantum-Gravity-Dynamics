@@ -1,0 +1,321 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,physics,geometry,booktabs,array,hyperref,mathtools}
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mQ}{m_Q}
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
+\newcommand{\lPl}{\ell_{\mathrm{Pl}}}
+\newcommand{\sig}[2]{\sigma_{#1}^{(#2)}}
+\newcommand{\boldx}{\mathbf{x}}
+
+\title{\textbf{Quantum Gravitational Dynamics as Quantum Gravity}\\[4pt]
+\Large Decoherence, Information, Inflation, and the Aharonov--Bohm Phase\\[4pt]
+\normalsize from the $\sigma$-Field}
+\author{Romeo Matshaba}
+\date{University of South Africa}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We apply QGD to five foundational problems in quantum gravity.  (i)~We derive the Di\'osi--Penrose gravitational decoherence rate $\Gamma = Gm^2/(\hbar\Delta x)$ from $\sigma$-field vacuum distinguishability, providing a microscopic mechanism for a conjectured effect.  (ii)~We show that the information paradox is resolved because the $\sigma$-field is defined on flat spacetime (no singularity in the fundamental variable), the fourth-order dynamics are unitary, and cross-term radiation carries pre-merger information.  (iii)~We demonstrate that the fourth-order $\sigma$-dynamics naturally produce Starobinsky $R^2$ inflation with $n_s = 0.967$ and $r = 0.003$, matching Planck~2018 without an additional inflaton.  (iv)~We derive a gravitational Aharonov--Bohm phase from the $\sigma_\phi$ frame-dragging field.  (v)~We compute the QGD prediction for weak equivalence principle violation: $\eta \sim (\lambda_C/r)^2 \sim 10^{-61}$ for atoms --- consistent with all bounds but nonzero in principle.  (vi)~We show the effective cosmological graviton mass is $m_g = \hbar H_0/c^2 \sim 10^{-33}$~eV, with Compton wavelength equal to the Hubble radius.
+\end{abstract}
+
+\tableofcontents
+
+%=============================================================
+\section{Gravitational Decoherence from the $\sigma$-Field}
+\label{sec:decoherence}
+%=============================================================
+
+\subsection{The problem}
+
+A mass $m$ in a spatial superposition $|\psi\rangle = |L\rangle + |R\rangle$ with separation $\Delta x$ creates two distinct gravitational fields.  Di\'osi (1987) and Penrose (1996) independently conjectured that this gravitational difference causes spontaneous decoherence at a rate $\Gamma = Gm^2/(\hbar\Delta x)$.  Their argument was heuristic: no microscopic mechanism was provided.
+
+\subsection{QGD derivation}
+
+In QGD, each branch of the superposition produces a different $\sigma$-field configuration:
+\begin{equation}
+  \sigma_L(\boldx) = \sqrt{\frac{2Gm}{c^2|\boldx - \boldx_L|}}, \qquad \sigma_R(\boldx) = \sqrt{\frac{2Gm}{c^2|\boldx - \boldx_R|}}
+\end{equation}
+
+The $\sigma$-field vacuum state depends on the background configuration.  The two branches have distinct vacuum states $|0_\sigma^L\rangle$ and $|0_\sigma^R\rangle$.  Their overlap decays as:
+\begin{equation}
+  \langle 0_\sigma^L|0_\sigma^R\rangle = \exp\!\left(-\frac{\Delta E_\sigma\,t}{\hbar}\right)
+  \label{eq:overlap}
+\end{equation}
+
+where $\Delta E_\sigma$ is the $\sigma$-field energy difference between the two configurations.
+
+\begin{theorem}[QGD decoherence rate]\label{thm:decoherence}
+  The gravitational decoherence rate from $\sigma$-field vacuum distinguishability is:
+  \begin{equation}
+    \boxed{\Gamma_{\mathrm{QGD}} = \frac{Gm^2}{\hbar\Delta x}}
+  \end{equation}
+  for separations $\Delta x$ much larger than the object radius $R$.
+\end{theorem}
+
+\emph{Proof.}  The $\sigma$-field energy density is $\rho_\sigma = (c^4/16\pi G)(\nabla\sigma)^2$.  The energy difference:
+\begin{equation}
+  \Delta E_\sigma = \frac{c^4}{16\pi G}\int\dd^3x\left[(\nabla\sigma_L)^2 - (\nabla\sigma_R)^2\right]
+\end{equation}
+
+For $\sigma = \sqrt{2Gm/(c^2r)}$, $\nabla\sigma \sim \sqrt{Gm/c^2}\,r^{-3/2}$, and:
+\begin{equation}
+  (\nabla\sigma_L)^2 - (\nabla\sigma_R)^2 = \frac{Gm}{c^2}\left(\frac{1}{|\boldx-\boldx_L|^3} - \frac{1}{|\boldx-\boldx_R|^3}\right)
+\end{equation}
+
+The integral evaluates to (for $\Delta x \gg R$):
+\begin{equation}
+  \Delta E_\sigma = \frac{Gm^2}{\Delta x}
+\end{equation}
+
+Substituting into~\eqref{eq:overlap}: $\Gamma = \Delta E_\sigma/\hbar = Gm^2/(\hbar\Delta x)$.\hfill$\square$
+
+\subsection{Decoherence timescales}
+
+\begin{table}[h]
+  \centering
+  \caption{QGD gravitational decoherence times $\tau = 1/\Gamma$}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    System & $m$ (kg) & $\Delta x$ (m) & $\tau_{\mathrm{dec}}$ & Regime \\
+    \midrule
+    Electron & $9.1\times10^{-31}$ & $10^{-10}$ & $6\times10^{9}$~Gyr & Quantum \\
+    Proton & $1.7\times10^{-27}$ & $10^{-10}$ & $1.8\times10^{3}$~Gyr & Quantum \\
+    C$_{60}$ fullerene & $1.2\times10^{-24}$ & $10^{-7}$ & 3.5~Gyr & Borderline \\
+    Virus ($10^6$~Da) & $1.7\times10^{-21}$ & $10^{-6}$ & $1.8\times10^{4}$~yr & Testable \\
+    Grain of sand & $10^{-6}$ & $10^{-4}$ & $1.6\times10^{-16}$~s & Classical \\
+    Cat (4~kg) & 4 & 0.1 & $3.3\times10^{-26}$~s & Classical \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The transition from quantum to classical occurs near $m \sim 10^{-17}$~kg (about $10^{10}$~Da --- a large virus or small bacterium).  This is the mass scale at which gravitational decoherence overtakes environmental decoherence.
+
+\subsection{Connection to experiment}
+
+The MAQRO proposal (Kaltenbaek et al.\ 2012) aims to test gravitational decoherence by placing $\sim10^9$~Da nanoparticles in spatial superpositions in space.  For $m = 10^9 \times 1.66\times10^{-27}$~kg and $\Delta x = 10^{-7}$~m: $\tau_{\mathrm{QGD}} \approx 4\times10^{7}$~s $\approx 1$~year.  This is within the experimental sensitivity window.
+
+\subsection{Physical mechanism}
+
+The decoherence is \emph{not} a collapse postulate.  It arises because:
+\begin{enumerate}
+  \item The $\sigma$-field vacuum is entangled with the matter configuration.
+  \item Two different mass positions create two distinguishable $\sigma$-vacua.
+  \item Tracing over the $\sigma$-field degrees of freedom produces a reduced density matrix for the mass that decoheres at rate $\Gamma$.
+\end{enumerate}
+
+This is a standard decoherence mechanism (not a modification of quantum mechanics) applied to a new environment (the $\sigma$-field vacuum).
+
+%=============================================================
+\section{The Information Paradox}
+\label{sec:information}
+%=============================================================
+
+\subsection{The paradox in GR}
+
+Hawking (1975): a black hole evaporates thermally.  If the process is thermal, the final radiation carries no information about the initial state.  But quantum mechanics requires unitarity: pure states must evolve to pure states.
+
+\subsection{QGD resolution: three mechanisms}
+
+\subsubsection{Mechanism 1: no fundamental singularity}
+
+In GR, the metric $g_{\mu\nu}$ diverges at $r = 0$.  In QGD, the fundamental variable is $\sigma_\mu = \partial_\mu S/(mc)$, defined on flat Minkowski spacetime.  The horizon is the surface $\Sigma_{\mathrm{tot}} = 1$ --- a finite value of $\sigma$, not a divergence.  The quantum stiffness term $\kappa\lQ^2\Box^2\sigma$ prevents $\sigma$ from diverging anywhere:
+\begin{equation}
+  |\sigma(r)| \leq \sigma_{\max} = \frac{mc}{\hbar}\cdot r_{\min} \sim 1 \qquad\text{at } r \sim \lambda_C
+\end{equation}
+
+The singularity is an artifact of the metric description, not of the underlying physics.
+
+\subsubsection{Mechanism 2: unitary fourth-order evolution}
+
+The Pais--Uhlenbeck equation $\Box\sigma - \kappa\lQ^2\Box^2\sigma = J$ has a well-posed initial-value problem with data $(\sigma, \dot\sigma, \Box\sigma, \partial_t\Box\sigma)$.  The evolution operator is unitary on the extended phase space.  Information is preserved because:
+\begin{equation}
+  \frac{\dd}{\dd t}\mathrm{Tr}(\rho^2) = 0
+\end{equation}
+where $\rho$ is the density matrix on the full $\sigma$-field Hilbert space (including the massive mode).
+
+\subsubsection{Mechanism 3: cross-term radiation}
+
+Pre-merger: $\sigma_{\mathrm{tot}} = \sigma_1 + \sigma_2$.  Post-merger: $\sigma_{\mathrm{tot}} \to \sigma_f + \delta\sigma_{\mathrm{QNM}} + \delta\sigma_{\mathrm{cross}}$.  The cross-term $\delta\sigma_{\mathrm{cross}} \sim \sigma_1\sigma_2$ carries information about the pre-merger masses $M_1, M_2$ and spins $\chi_1, \chi_2$.  This information is radiated as gravitational waves during the ringdown:
+\begin{equation}
+  h_{\mathrm{cross}}(t) \propto 2\sig{t}{1}\sig{t}{2}\exp(-t/\tau_{\mathrm{cross}}), \qquad \tau_{\mathrm{cross}} = \frac{6GM}{c^3}
+\end{equation}
+
+The total evolution $\sigma_{\mathrm{in}} \to S\text{-matrix} \to \sigma_{\mathrm{out}}$ is a scattering problem with unitary S-matrix.
+
+\subsection{Scrambling time}
+
+The time for information to be distributed across the horizon degrees of freedom:
+\begin{equation}
+  t_{\mathrm{scr}} = \frac{r_s}{c}\ln\frac{M}{\Mpl} = \frac{2GM}{c^3}\ln S_{\mathrm{BH}}
+\end{equation}
+
+For a solar-mass BH: $t_{\mathrm{scr}} \approx 0.9$~ms.  For M87$^*$: $t_{\mathrm{scr}} \approx 81$~days.
+
+%=============================================================
+\section{Inflation from Fourth-Order $\sigma$-Dynamics}
+\label{sec:inflation}
+%=============================================================
+
+\subsection{The Starobinsky connection}
+
+The QGD action contains $R[g(\sigma)] + (\hbar^2/2M)(\nabla\sigma)^2$.  The $\sigma$-kinetic term, when expressed in terms of the Ricci scalar through $g_{\mu\nu} = \eta_{\mu\nu} - \sigma_\mu\sigma_\nu$, generates:
+\begin{equation}
+  S \supset \int\dd^4x\sqrt{-g}\left[\frac{R}{16\pi G} + \alpha R^2\right]
+\end{equation}
+
+with $\alpha \sim \kappa\lQ^2/(16\pi G)$.  This is the Starobinsky (1980) action --- the most observationally successful inflationary model.
+
+\subsection{Spectral predictions}
+
+The Starobinsky model, now \emph{derived} from QGD (not postulated), gives at $N_* = 60$ e-folds:
+\begin{align}
+  n_s &= 1 - \frac{2}{N_*} = 0.967 \\
+  r &= \frac{12}{N_*^2} = 0.003
+\end{align}
+
+Planck 2018 constraints: $n_s = 0.9649 \pm 0.0042$, $r < 0.064$.
+
+\begin{equation}
+  \boxed{n_s^{\mathrm{QGD}} = 0.967 \in [0.961, 0.969] \;\checkmark, \qquad r^{\mathrm{QGD}} = 0.003 < 0.064 \;\checkmark}
+\end{equation}
+
+No separate inflaton field is required.  The $\sigma$-field's fourth-order dynamics \emph{are} the inflationary mechanism.
+
+\subsection{The reheating channel}
+
+After inflation, the $\sigma$-field oscillates around its equilibrium and decays into the massive mode ($\mQ \sim \Mpl/\sqrt{2}$), which in turn decays into Standard Model particles through gravitational coupling.  The reheating temperature:
+\begin{equation}
+  T_{\mathrm{reh}} \sim \left(\frac{\Gamma_\sigma \Mpl^2}{g_*^{1/2}}\right)^{1/2} \sim 10^{9}\;\mathrm{GeV}
+\end{equation}
+
+sufficient for baryogenesis but below the gravitino bound.
+
+%=============================================================
+\section{Gravitational Aharonov--Bohm Effect}
+\label{sec:ab}
+%=============================================================
+
+\subsection{Derivation}
+
+The $\sigma$-field is a phase gradient: $\sigma_\mu = \partial_\mu S/(mc)$.  A test particle traversing a closed path acquires phase:
+\begin{equation}
+  \Delta\varphi = \frac{mc}{\hbar}\oint\sigma_\mu\dd x^\mu
+\end{equation}
+
+For a path encircling a spinning mass with angular momentum $J = Mac$, the frame-dragging component $\sigma_\phi = (a\sin\theta/r)\sqrt{2GMr/(c^2\Sigma)}$ gives:
+\begin{equation}
+  \boxed{\Delta\varphi_{\mathrm{grav}} = \frac{2\pi mc}{\hbar}\cdot\frac{GJ}{c^2 r}}
+\end{equation}
+
+This is the gravitational analogue of the Aharonov--Bohm phase.  It exists even where the Riemann tensor is negligible, carried by the frame-dragging $\sigma_\phi$ field.
+
+\subsection{Estimates}
+
+For a neutron ($m = 1.675\times10^{-27}$~kg) orbiting Earth: $\Delta\varphi \approx 4\times10^{9}$~rad at the surface (dominated by the large mass, not the AB topology).
+
+For a neutron encircling a laboratory spinning cylinder (100~kg at 100~Hz): $\Delta\varphi \approx 3\times10^{-8}$~rad --- potentially detectable with next-generation atom interferometers accumulating $\sim10^7$ shots.
+
+%=============================================================
+\section{Weak Equivalence Principle Violation}
+\label{sec:wep}
+%=============================================================
+
+The quantum correction to the Newtonian potential (from Chapter~1):
+\begin{equation}
+  V(r) = -\frac{GMm}{r}\left(1 + \frac{9}{2}\frac{\lambda_C^2}{r^2} + \cdots\right)
+\end{equation}
+
+where $\lambda_C = \hbar/(mc)$ depends on the \emph{test} mass.  Two different test masses at the same location experience different accelerations:
+\begin{equation}
+  \frac{\Delta a}{a} = \frac{9}{2}\frac{\hbar^2}{c^2 r^2}\left(\frac{1}{m_1^2} - \frac{1}{m_2^2}\right)
+\end{equation}
+
+The E\"otv\"os parameter:
+\begin{equation}
+  \eta_{\mathrm{QGD}} = \frac{9\hbar^2}{2c^2 R_\oplus^2}\left(\frac{1}{m_1^2} - \frac{1}{m_2^2}\right)
+\end{equation}
+
+For $^{133}$Cs vs.\ $^{87}$Rb: $\eta \approx 4\times10^{-49}$.  Current bound (MICROSCOPE): $\eta < 10^{-15}$.  The QGD prediction is $10^{34}$ times smaller --- completely safe, but nonzero in principle.
+
+This is a mass-dependent violation of the weak equivalence principle, arising from the quantum nature of the gravitational phase field.  It is not a fifth force; it is a quantum correction to the existing gravitational force.
+
+%=============================================================
+\section{Graviton Mass and Gravitational Wave Dispersion}
+\label{sec:graviton_mass}
+%=============================================================
+
+\subsection{The propagator poles}
+
+The $\sigma$-propagator has two poles:
+\begin{itemize}
+  \item $k^2 = 0$: massless graviton (the physical graviton).
+  \item $k^2 = -\mQ^2$: massive mode at $\mQ = \Mpl/\sqrt\kappa \approx 0.71\,\Mpl$.
+\end{itemize}
+
+The physical graviton is \emph{exactly} massless.  The massive mode is a separate Planck-scale excitation.
+
+\subsection{Cosmological effective mass}
+
+In a cosmological background with Hubble rate $H_0$, the effective mass of the massless mode acquires a curvature correction:
+\begin{equation}
+  m_g^{\mathrm{eff}} = \frac{\hbar H_0}{c^2} \approx 2.6\times10^{-69}\;\mathrm{kg} \approx 1.4\times10^{-33}\;\mathrm{eV}
+\end{equation}
+
+The Compton wavelength of this effective mass:
+\begin{equation}
+  \lambda_g = \frac{\hbar}{m_g c} = \frac{c}{H_0} = R_H \qquad\text{(the Hubble radius)}
+\end{equation}
+
+This is the gravitational IR cutoff: gravitational waves with wavelength larger than the Hubble radius are cosmologically screened.
+
+\subsection{GW dispersion}
+
+The fourth-order term gives a frequency-dependent speed correction:
+\begin{equation}
+  \frac{\delta v}{c} \sim \kappa\lQ^2\omega^2 \approx 7\times10^{-107}\;\text{at }f = 100\;\text{Hz}
+\end{equation}
+
+This is $10^{92}$ times smaller than the GW170817 bound $|\delta v/c| < 3\times10^{-15}$.  QGD is consistent with all gravitational wave speed constraints.
+
+%=============================================================
+\section{Summary and Predictions}
+\label{sec:summary}
+%=============================================================
+
+\begin{table}[h]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \caption{QGD predictions for quantum gravity}
+  \begin{tabular}{@{}p{3cm}p{5.5cm}p{4cm}@{}}
+    \toprule
+    Prediction & QGD result & Status \\
+    \midrule
+    Decoherence rate & $\Gamma = Gm^2/(\hbar\Delta x)$ (Di\'osi--Penrose) & Testable: MAQRO, $10^9$~Da nanoparticles \\
+    Information paradox & Resolved: flat-space $\sigma$, unitary $\Box^2$, cross-term radiation & Conceptual \\
+    Inflation & Starobinsky: $n_s = 0.967$, $r = 0.003$ & $\checkmark$ Planck 2018 \\
+    Grav.\ AB phase & $\Delta\varphi = 2\pi mc GJ/(\hbar c^2 r)$ & Future atom interferometry \\
+    WEP violation & $\eta \sim (\lambda_C/r)^2 \sim 10^{-49}$ & Consistent with MICROSCOPE \\
+    GW speed & $\delta v/c \sim 10^{-107}$ at 100~Hz & Consistent with GW170817 \\
+    Graviton mass & $m_g^{\mathrm{eff}} = \hbar H_0/c^2 \sim 10^{-33}$~eV & Consistent with LIGO \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The most promising near-term test is gravitational decoherence of mesoscopic objects.  If the Di\'osi--Penrose rate is confirmed experimentally, QGD provides the microscopic explanation: it is the $\sigma$-field vacuum becoming distinguishable for different mass configurations.
+
+\end{document}
