@@ -1,0 +1,1649 @@
+\documentclass[11pt,a4paper]{article}
+
+% Essential packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+\usepackage{braket}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\usepackage{multirow}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\newcommand{\Ms}{M_\odot}
+\geometry{margin=2.5cm}
+
+\definecolor{qgdblue}{RGB}{30,58,138}
+\definecolor{qgdred}{RGB}{127,29,29}
+\definecolor{qgdgreen}{RGB}{20,83,45}
+\definecolor{boxbg}{RGB}{239,246,255}
+\definecolor{boxborder}{RGB}{37,99,235}
+\definecolor{greenbg}{RGB}{240,253,244}
+\definecolor{redbg}{RGB}{254,242,242}
+
+\newcommand{\Fp}{F_{\rm QGD}^{\rm dip}}
+\newcommand{\Fq}{F_{\rm GR}^{\rm quad}}
+
+\tcbuselibrary{theorems,skins,breakable}
+
+\newtcbtheorem[number within=section]{theorem}{Theorem}{%
+	enhanced,breakable,
+	colback=boxbg,colframe=boxborder,
+	fonttitle=\bfseries\color{qgdblue},
+	theorem style=plain,separator sign none,
+	attach boxed title to top left={yshift=-2mm,xshift=4mm},
+	boxed title style={colback=boxborder}}{thm}
+
+\newtcbtheorem[number within=section]{proposition}{Proposition}{%
+	enhanced,breakable,
+	colback=greenbg,colframe=qgdgreen!60,
+	fonttitle=\bfseries\color{qgdgreen},
+	theorem style=plain,separator sign none,
+	attach boxed title to top left={yshift=-2mm,xshift=4mm},
+	boxed title style={colback=qgdgreen!60}}{prop}
+
+\newtcbtheorem[number within=section]{corollary}{Corollary}{%
+	enhanced,breakable,
+	colback=redbg,colframe=qgdred!50,
+	fonttitle=\bfseries\color{qgdred},
+	theorem style=plain,separator sign none,
+	attach boxed title to top left={yshift=-2mm,xshift=4mm},
+	boxed title style={colback=qgdred!50}}{cor}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+% Custom commands
+\newcommand{\boldr}{\mathbf{r}}
+\newcommand{\boldv}{\mathbf{v}}
+\newcommand{\bolda}{\mathbf{a}}
+\newcommand{\bhat}[1]{\hat{\mathbf{#1}}}
+\newcommand{\Sigt}{\Sigma_{\rm tot}}
+\newcommand{\Mbox}{\Box_g}
+\newcommand{\ETA}{\eta_{\mu\nu}}
+\newcommand{\rs}[1]{r_{\rm s}^{(#1)}}
+\newcommand{\crossterm}[2]{\sigma_{t}^{(#1)}\sigma_{t}^{(#2)}}
+\newcommand{\sig}[2]{\sigma_{#1}^{(#2)}}
+\newcommand{\lQ}{\ell_{Q}}
+\newcommand{\boldx}{\mathbf{x}}
+\newcommand{\Sigtot}{\Sigma_{\text{tot}}}
+\newcommand{\bfa}{\mathbf{a}}
+
+% Page layout
+\geometry{
+	a4paper,
+	margin=1in,
+	headheight=14pt
+}
+
+% Hyperref setup
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	citecolor=blue,
+	urlcolor=blue,
+	pdfauthor={},
+	pdftitle={Quantum Gravity Dynamics: Emergent spacetime geometry from Dirac spinor fields}
+}
+
+% Custom commands
+
+\title{Quantum Gravitational Dynamics:\\
+	The Formulation of Quantum Gravity from the Dirac Equation}
+\author{Romeo Matshaba}
+\date{University of South Africa}
+
+\begin{document}
+	\maketitle
+	
+	\begin{abstract}
+		We demonstrate that galaxy rotation curves across 175 SPARC galaxies (4,248 measurements) are reproduced with R²=0.908 and zero free parameters per galaxy by a quantum correction to the gravitational potential derived from the WKB phase of the Dirac wavefunction
+	\end{abstract}
+	
+	\section{Introduction}
+	
+	The central question: how does classical gravity emerge from quantum mechanics? We answer through a precise mathematical structure: \textbf{the wavefunction contains gravitational dynamics}, and current conservation provides the bridge to classical physics.
+	
+	The key insight: gravity is a spherical matter wave radiating to infinity.  Any such wave in three spatial dimensions must carry a $1/r$ amplitude factor from geometry alone.  The wavefunction is therefore
+	\begin{equation}
+		\psi = \frac{\alpha_G}{r}\,u\,e^{iS/\hbar}
+	\end{equation}
+	giving $|\psi|^2 \propto 1/r^2$.  Combined with the exact current-conservation bridge
+	\begin{equation}
+		|\psi|^2 \cdot p \cdot r^2 = C
+	\end{equation}
+	the $r^2$ cancels exactly, yielding the momentum equation purely from geometry---no plane-wave postulate required.
+	
+	All of this occurs in \textit{flat Minkowski spacetime}---no curved geometry assumed.
+	
+	\bigskip
+	\noindent\textbf{Note on the gravitational coupling constant.}
+	Throughout this paper the single symbol $\alpha_G$ denotes the gravitational fine structure constant.  Its fundamental (complex) value, derived in Section~\ref{sec:newton} from phase-oscillation analysis, is
+	\begin{equation}
+		\boxed{\alpha_G = e^{i\pi/4}\sqrt{\frac{c\hbar}{2GMm}} = \frac{1+i}{\sqrt{2}}\sqrt{\frac{c\hbar}{2GMm}}}
+		\label{eq:alphaG_def}
+	\end{equation}
+	so that
+	\begin{equation}
+		\alpha_G^2 = \frac{ic\hbar}{2GMm}, \qquad |\alpha_G|^2 = \frac{c\hbar}{2GMm}.
+		\label{eq:alphaG_props}
+	\end{equation}
+	Because $\alpha_G$ is complex, it appears in the wavefunction and phase equations in its full form.  Wherever a \emph{real} quantity is required---probability densities, physical forces, normalization constants---one uses $|\alpha_G|^2$ or
+	\begin{equation}
+		\mathrm{Re}(\alpha_G) = \frac{1}{\sqrt{2}}\sqrt{\frac{c\hbar}{2GMm}} = \sqrt{\frac{c\hbar}{4GMm}}.
+		\label{eq:alphaG_real}
+	\end{equation}
+	Dimensional check: $[\alpha_G^2] = [c\hbar/(GMm)] = 1$.~\checkmark
+	
+	%=============================================================
+	\section{Microscopic Foundation}
+	%=============================================================
+	
+	\subsection{Field Content and Dynamics}
+	
+	The sole microscopic degree of freedom: Dirac spinor $\psi(x)\in\mathbb{C}^4$.
+	
+	Action in flat spacetime:
+	\begin{equation}
+		S_D = \int d^4x\,\bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi
+		\label{eq:dirac_action}
+	\end{equation}
+	where $\bar{\psi}=\psi^\dagger\gamma^0$ and $\{\gamma^\mu,\gamma^\nu\}=2\eta^{\mu\nu}$ with $\eta=\mathrm{diag}(-1,+1,+1,+1)$.
+	
+	\textbf{Uniqueness:} This is the only Lorentz-invariant, local, linear action for spin-$\tfrac{1}{2}$ fields with positive-definite energy.
+	
+	\subsection{Stress-Energy Tensor}
+	
+	The symmetric stress-energy tensor:
+	\begin{equation}
+		T^{\mu\nu} = \frac{i}{4}\bar{\psi}\!\left(\gamma^\mu\overleftrightarrow{\partial}^\nu + \gamma^\nu\overleftrightarrow{\partial}^\mu\right)\!\psi
+		\label{eq:stress_energy}
+	\end{equation}
+	where $\overleftrightarrow{\partial}=\overrightarrow{\partial}-\overleftarrow{\partial}$.  On-shell: $\partial_\mu T^{\mu\nu}=0$.
+	
+	This tensor provides the matter content that sources gravitational effects---even though we remain in flat spacetime.
+	
+	%=============================================================
+	\section{Coarse-Graining and the Emergence of the Effective Theory}
+	\label{sec:coarse}
+	%=============================================================
+	
+	\subsection{Scale Hierarchy}
+	
+	The theory possesses three characteristic length scales.  Two of them are
+	given at the outset:
+	\begin{itemize}
+		\item $\Lambda_{\mathrm{UV}}^{-1}$: the ultraviolet length scale at which
+		the effective description breaks down.  Its physical identity is
+		\emph{not assumed here}; it will be derived in
+		Section~\ref{sec:UV_identification} as a consequence of the
+		coarse-graining procedure and the structure of the loop integrals.
+		
+		\item $L_{\mathrm{grav}}$: the scale over which gravitational gradients
+		are appreciable, i.e.\ the scale on which $\nabla T^{\mu\nu}/T^{\mu\nu}
+		\sim 1/L_{\mathrm{grav}}$.
+	\end{itemize}
+	The coarse-graining scale $\ell$ is then any scale satisfying
+	\begin{equation}
+		\Lambda_{\mathrm{UV}}^{-1} \;\ll\; \ell \;\ll\; L_{\mathrm{grav}}.
+		\label{eq:hierarchy}
+	\end{equation}
+	This hierarchy is a \emph{consistency requirement}, not an assumption: the
+	Wilsonian procedure of Section~\ref{sec:mode_int} is self-consistent if and
+	only if \eqref{eq:hierarchy} holds.  When $\ell \sim \Lambda_{\mathrm{UV}}^{-1}$,
+	fast-mode fluctuations are not suppressed and the effective description fails;
+	when $\ell \sim L_{\mathrm{grav}}$, the coarse-grained theory cannot resolve
+	the gravitational gradients it is meant to describe.
+	
+		The identification $\Lambda_{\mathrm{UV}}^{-1} = \hbar/(mc)$ is a \emph{result},
+		not an input.  It will emerge in Section~\ref{sec:UV_identification} from the
+		requirement that the effective mass generated by the loop integrals matches the
+		physical mass $m$.  We deliberately leave $\Lambda_{\mathrm{UV}}$ as a free
+		UV scale throughout the present section to avoid any circularity.
+	
+	\subsection{Full Theory and Regularisation}
+	
+	We begin from the Dirac path integral in flat Minkowski spacetime
+	$(\mathcal{M}, \eta_{\mu\nu})$, signature $(-,+,+,+)$:
+	\begin{equation}
+		\mathcal{Z} \;=\;
+		\int \mathcal{D}\bar{\psi}\,\mathcal{D}\psi\;
+		\exp\!\left(\frac{i}{\hbar}
+		\int d^4x\;
+		\bar{\psi}\bigl(i\hbar\gamma^\mu\partial_\mu - mc\bigr)\psi
+		\right),
+		\label{eq:path_integral}
+	\end{equation}
+	with a UV cutoff $\Lambda_{\mathrm{UV}}$ imposed by Pauli--Villars
+	regularisation.  No assumption is made about the value or interpretation of
+	$\Lambda_{\mathrm{UV}}$ at this stage.
+	
+	\subsection{Mode Decomposition and Integration over Fast Modes}
+	\label{sec:mode_int}
+	
+	\subsubsection{Splitting the field}
+	
+	Introduce a sharp momentum cutoff at $\mu = 1/\ell$ and decompose:
+	\begin{equation}
+		\psi(\mathbf{x}) \;=\; \psi_{<}(\mathbf{x}) + \psi_{>}(\mathbf{x}),
+		\label{eq:field_split}
+	\end{equation}
+	where
+	\begin{align}
+		\psi_{<}(\mathbf{x})
+		&= \int_{|\mathbf{k}|<\mu}
+		\frac{d^4k}{(2\pi)^4}\,\tilde{\psi}(\mathbf{k})\,e^{ik\cdot x},\\
+		\psi_{>}(\mathbf{x})
+		&= \int_{\mu\,<\,|\mathbf{k}|<\Lambda_{\mathrm{UV}}}
+		\frac{d^4k}{(2\pi)^4}\,\tilde{\psi}(\mathbf{k})\,e^{ik\cdot x}.
+	\end{align}
+	The slow field $\psi_{<}$ encodes physics on scales $\geq \ell$; the fast field
+	$\psi_{>}$ encodes physics between $\Lambda_{\mathrm{UV}}^{-1}$ and $\ell$.
+	
+	\subsubsection{Gaussian integration over fast modes}
+	
+	Since the Dirac action is quadratic in $\psi$, the integral over $\psi_{>}$
+	is Gaussian and can be performed exactly:
+	\begin{equation}
+		\mathcal{Z} \;=\;
+		\int \mathcal{D}\bar{\psi}_{<}\,\mathcal{D}\psi_{<}\;
+		\exp\!\left(\frac{i}{\hbar}S_{\mathrm{eff}}[\psi_{<}]\right),
+		\label{eq:effective_pi}
+	\end{equation}
+	where the effective action is
+	\begin{equation}
+		S_{\mathrm{eff}}[\psi_{<}]
+		\;=\; S_D[\psi_{<}]
+		\;-\; i\hbar\,\mathrm{Tr}\ln
+		\bigl(i\hbar\gamma^\mu\partial_\mu - mc - V[\psi_{<}]\bigr)
+		\Big|_{>},
+		\label{eq:Seff_exact}
+	\end{equation}
+	and $|_{>}$ denotes restriction to the momentum shell
+	$[\mu, \Lambda_{\mathrm{UV}}]$.  The $\mathrm{Tr}\ln$ generates all
+	one-particle-irreducible (1PI) diagrams with fast-mode internal lines and
+	slow-mode external legs.
+	
+	Generation of effective operators
+		\label{prop:operators}
+		Expanding $S_{\mathrm{eff}}$ in \eqref{eq:Seff_exact} in powers of $\psi_{<}$
+		and retaining operators of mass dimension $\leq 4$ (marginal and relevant
+		under the RG, cf.\ Section~\ref{sec:RG}), subject to Lorentz invariance,
+		$\mathrm{U}(1)$ phase symmetry, and locality, yields
+		\begin{multline}
+			\mathcal{L}_{\mathrm{eff}}
+			\;=\;
+			\frac{i}{2}\bar{\psi}_{<}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi_{<}
+			\;-\; m_{\mathrm{eff}}\,\bar{\psi}_{<}\psi_{<}
+			\;-\; P\!\left(\bar{\psi}_{<}\psi_{<}\right) \\
+			-\; \frac{1}{4}F_{\mu\nu}F^{\mu\nu}
+			\;-\; \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}_{<}\psi_{<}
+			\;-\; \rho_\Lambda,
+			\label{eq:Leff}
+		\end{multline}
+		where $m_{\mathrm{eff}} = m + \delta m(\Lambda_{\mathrm{UV}},\mu)$ contains
+		the mass renormalisation from fast-mode loops, with $\delta m$ depending
+		explicitly on $\Lambda_{\mathrm{UV}}$.
+	
+		The loop expansion of \eqref{eq:Seff_exact} generates the following operators,
+		each traceable to a specific diagram topology:
+		\begin{enumerate}
+			\item \textbf{Mass renormalisation.}
+			The one-loop self-energy with two external slow legs shifts
+			\begin{equation}
+				\delta m \;=\; \frac{3e^2}{16\pi^2}\int_\mu^{\Lambda_{\mathrm{UV}}}
+				\frac{d^4k}{(2\pi)^4}\,\frac{1}{k^2 - m^2c^2}
+				\;\sim\; \frac{3e^2\Lambda_{\mathrm{UV}}^2}{16\pi^2 mc^2}.
+				\label{eq:deltam}
+			\end{equation}
+			The physical mass is defined by the renormalisation condition
+			$m_{\mathrm{eff}}|_{\mu\,=\,0} = m_{\mathrm{phys}}$, which fixes
+			the counterterm and eliminates $\delta m$ from the final theory.
+			The scale at which $\delta m$ becomes comparable to $m$ will identify
+			$\Lambda_{\mathrm{UV}}$ (see Section~\ref{sec:UV_identification}).
+			
+			\item \textbf{Pressure.}
+			A four-Fermi diagram (four slow external legs, one fast internal loop)
+			generates $-g_P(\bar{\psi}_{<}\psi_{<})^2$, which at low energy becomes
+			the equation-of-state term $P(\bar{\psi}_{<}\psi_{<})$.
+			
+			\item \textbf{Electromagnetic coupling.}
+			Minimal coupling $-e\bar{\psi}\gamma^\mu A_\mu\psi$ is the unique
+			$\mathrm{U}(1)$-covariant marginal deformation; integrating out fast
+			charged modes generates the Maxwell kinetic term
+			$-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$.
+			
+			\item \textbf{Angular momentum / spin.}
+			The dimension-6 operator
+			$J_{\mu\nu}J^{\mu\nu}\bar{\psi}_{<}\psi_{<}/(2M^2)$ arises from
+			box diagrams; it encodes frame-dragging effects in the stress-energy
+			tensor.
+			
+			\item \textbf{Vacuum energy.}
+			Zero-point fluctuations of fast modes contribute
+			$\rho_\Lambda = \hbar\int_\mu^{\Lambda_{\mathrm{UV}}}
+			d^4k/(2\pi)^4\cdot\omega_{\mathbf{k}}$, a constant shift whose
+			IR value is set by matching to the observed cosmological constant.
+			
+			\item \textbf{No higher operators.}
+			All operators of mass dimension $>4$ carry factors of
+			$(\ell\,\Lambda_{\mathrm{UV}})^{-(d-4)} \ll 1$ under the hierarchy
+			\eqref{eq:hierarchy} and are therefore suppressed. \hfill$\blacksquare$
+		\end{enumerate}
+	
+	\subsection{Wilsonian Renormalisation Group Flow}
+	\label{sec:RG}
+	
+	\subsubsection{RG transformation}
+	
+	Define the Wilsonian RG step as: (i) integrate out the momentum shell
+	$|\mathbf{k}| \in [b^{-1}\mu, \mu]$, $b > 1$; (ii) rescale
+	\begin{equation}
+		x \;\to\; bx, \qquad
+		\psi_{<} \;\to\; b^{-3/2}\psi_{<},
+		\label{eq:rescaling}
+	\end{equation}
+	to restore the kinetic term to canonical normalisation.  Let $t = \ln b$.
+	
+	\subsubsection{Beta functions}
+	
+	The one-loop RG equations for the couplings in \eqref{eq:Leff} are:
+	\begin{align}
+		\frac{dm}{dt}
+		&= m\left(1 + \gamma_m\right),
+		\qquad \gamma_m = -\frac{3e^2}{16\pi^2}, \label{eq:beta_m}\\
+		\frac{d g_P}{dt}
+		&= g_P\!\left(1 - 2\gamma_\psi\right) + \frac{N_f g_P^2}{8\pi^2},
+		\label{eq:beta_gP}\\
+		\frac{d e^2}{dt}
+		&= \frac{e^4}{6\pi^2}, \label{eq:beta_e}\\
+		\frac{d(1/M^2)}{dt}
+		&= -\frac{2}{M^2}\left(1 - \gamma_J\right),
+		\label{eq:beta_M}\\
+		\frac{d\rho_\Lambda}{dt}
+		&= 4\rho_\Lambda + \frac{N_f\,\mu^4}{16\pi^2}.
+		\label{eq:beta_Lambda}
+	\end{align}
+	Here $N_f$ is the number of fermion flavours and $\gamma_\psi$, $\gamma_J$
+	are the anomalous dimensions of $\bar{\psi}\psi$ and $J_{\mu\nu}$
+	respectively.
+	
+	IR fixed point and decoupling
+		\label{prop:IR}
+		In the limit $t \to \infty$ (i.e.\ $\ell \to L_{\mathrm{grav}}$):
+		\begin{enumerate}
+			\item The dimension-6 coupling $1/M^2 \to 0$: angular-momentum corrections
+			are suppressed as $(\ell/L_{\mathrm{grav}})^2$.
+			\item $\rho_\Lambda$ reaches its IR value fixed by cosmological matching.
+			\item Quantum fluctuations average to zero:
+			$\langle\psi_{>}\rangle = 0$, leaving classical effective fields.
+			\item The physical mass $m_{\mathrm{phys}}$ is stable, with
+			$\delta m$ absorbed by the renormalisation condition.
+		\end{enumerate}
+	
+		The coupling $1/M^2$ has canonical dimension $-2$; under rescaling
+		\eqref{eq:rescaling} it acquires a factor $b^{-2}$, so it is power-law
+		irrelevant and flows to zero.  The remaining claims follow from the
+		Appelquist--Carazzone decoupling theorem: fields with masses
+		$\gg \mu$ decouple from low-energy physics, ensuring
+		$\langle\psi_{>}\rangle = 0$ at scales $\ell \gg \Lambda_{\mathrm{UV}}^{-1}$.
+		\hfill$\blacksquare$
+	
+	\subsection{The Effective Lagrangian}
+	
+	Effective Lagrangian from Wilsonian coarse-graining
+		\label{thm:Leff}
+		Let the Dirac theory \eqref{eq:path_integral} be coarse-grained over a scale
+		$\ell$ satisfying \eqref{eq:hierarchy}, with $\Lambda_{\mathrm{UV}}$ an
+		unspecified UV scale.  Then the unique effective Lagrangian consistent with
+		Lorentz invariance, $\mathrm{U}(1)$ symmetry, locality, and positive-definite
+		energy, retaining only marginal and relevant operators, is
+		\begin{equation}
+			\boxed{
+				\mathcal{L}_{\mathrm{eff}}
+				\;=\;\frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi
+				\;-\; m\bar{\psi}\psi
+				\;-\; P(\bar{\psi}\psi)
+				\;-\; \frac{1}{4}F_{\mu\nu}F^{\mu\nu}
+				\;-\; \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi
+				\;-\; \rho_\Lambda
+			}
+			\label{eq:Leff_final}
+		\end{equation}
+		(slow-mode subscripts dropped).  Each term has a precise gravitational
+		interpretation:
+		\begin{center}
+			\begin{tabular}{ll}
+				\hline
+				\textbf{Term} & \textbf{Gravitational limit} \\
+				\hline
+				$m\bar{\psi}\psi$
+				& Rest-mass density $\to$ Schwarzschild \\
+				$P(\bar{\psi}\psi)$
+				& Pressure $\to$ equation of state \\
+				$\tfrac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi$
+				& Angular momentum $\to$ Kerr frame-dragging \\
+				$\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$
+				& EM energy $\to$ Reissner--Nordstr\"om \\
+				$\rho_\Lambda$
+				& Vacuum energy $\to$ cosmological constant \\
+				\hline
+			\end{tabular}
+		\end{center}
+		This correspondence is a \emph{result} of the coarse-graining, not a postulate.
+	
+		Proposition~\ref{prop:operators} establishes generation of all operators in
+		\eqref{eq:Leff_final}.  Proposition~\ref{prop:IR} establishes that no further
+		operators survive at IR scales.  Uniqueness follows from the exhaustive
+		classification of Lorentz-invariant, $\mathrm{U}(1)$-symmetric, local
+		bilinears and quadratics in $\psi$, $F_{\mu\nu}$, $J_{\mu\nu}$ of mass
+		dimension $\leq 4$: every entry in \eqref{eq:Leff_final} appears in this
+		list, and the list is finite. Higher-dimension operators are suppressed by
+		$(\Lambda_{\mathrm{UV}}^{-1}/\ell)^{d-4} \ll 1$ under \eqref{eq:hierarchy}.
+		\hfill$\blacksquare$
+	
+	\subsection{Connection to the Phase Gradient and Newton's Law}
+	\label{sec:coarse:F}
+	
+	After coarse-graining, apply the WKB ansatz to the slow mode:
+	\begin{equation}
+		\psi_{<}(\mathbf{x})
+		\;=\; R(\mathbf{x})\,e^{iS(\mathbf{x})/\hbar}
+	\end{equation}
+	where $R$ varies on scales $\sim L_{\mathrm{grav}}$ and $S$ oscillates on
+	scales $\gg \ell$.  The phase gradient $\sigma_\mu$ is the effective classical
+	variable from which the metric is reconstructed.
+	
+	Applying Noether's theorem to $\mathcal{L}_{\mathrm{eff}}$ and averaging over
+	$\ell$ yields the coarse-grained stress-energy tensor:
+	\begin{equation}
+		\boxed{
+			\langle T^{\mu\nu}\rangle
+			\;=\; \rho c^2 u^\mu u^\nu
+			\;+\; Pg^{\mu\nu}
+			\;+\; \langle\tau^{\mu\nu}_{\mathrm{spin}}\rangle
+			\;+\; \langle\tau^{\mu\nu}_{\mathrm{EM}}\rangle
+			\;+\; \rho_\Lambda g^{\mu\nu}.
+		}
+		\label{eq:Tmunu_full}
+	\end{equation}
+	This is the complete Einstein stress-energy tensor, derived from the Dirac
+	action via coarse-graining --- not postulated.
+	
+	The gravitational force function then takes the form $F(r) = \Omega/P(r)$
+	where $P(r) = i\sinh(2\alpha r)$ emerges from the phase-gradient equation;
+	Newton's law is the $\alpha r \to 0$ limit (see Theorem~\ref{thm:Newton} and
+	Section~\ref{sec:UV_identification} where $\alpha$ --- and hence
+	$\Lambda_{\mathrm{UV}}^{-1}$ --- is identified).
+	
+	\subsection{Effective Lagrangian}
+	
+	Symmetries (Lorentz, U(1), locality) constrain the effective theory:
+	\begin{multline}
+		\mathcal{L}_{\mathrm{eff}} = \frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi - m\bar{\psi}\psi - P(\bar{\psi}\psi) \\
+		- \frac{1}{4}F_{\mu\nu}F^{\mu\nu} - \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi - \rho_\Lambda
+		\label{eq:eff_lagrangian}
+	\end{multline}
+	
+	\textbf{Physical interpretation:}
+	\begin{itemize}
+		\item $m\bar{\psi}\psi$: rest mass density $\to$ Schwarzschild
+		\item $P(\bar{\psi}\psi)$: pressure $\to$ equation of state
+		\item $J_{\mu\nu}J^{\mu\nu}$: angular momentum $\to$ Kerr frame-dragging
+		\item $F_{\mu\nu}F^{\mu\nu}$: electromagnetic energy $\to$ Reissner-Nordstr\"om
+		\item $\rho_\Lambda$: vacuum energy $\to$ cosmological constant
+	\end{itemize}
+	Each term maps to specific gravitational effects in the macroscopic limit.
+	
+	%=============================================================
+	\section{The Complete Action}
+	%=============================================================
+	
+	\begin{equation}
+		\boxed{
+			S = \int d^4x \left[\frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi - m\bar{\psi}\psi - P(\bar{\psi}\psi) - \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi - \frac{1}{4}F_{\mu\nu}F^{\mu\nu} - \rho_\Lambda\right]
+		}
+		\label{eq:complete_action}
+	\end{equation}
+	
+	where:
+	\begin{itemize}
+		\item $\bar{\psi}=\psi^\dagger\gamma^0$,\quad $\{\gamma^\mu,\gamma^\nu\}=2\eta^{\mu\nu}$
+		\item $\overleftrightarrow{\partial}_\mu = \overrightarrow{\partial}_\mu - \overleftarrow{\partial}_\mu$
+		\item $J_{\mu\nu} = x_\mu p_\nu - x_\nu p_\mu$ (angular momentum tensor)
+		\item $F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu$ (electromagnetic field tensor)
+	\end{itemize}
+	
+	%=============================================================
+	\section{Stress-Energy Tensor from Action}
+	%=============================================================
+	
+	\subsection{Noether's Theorem}
+	
+	From spacetime translation invariance:
+	\begin{equation}
+		T^{\mu\nu} = \frac{\partial\mathcal{L}}{\partial(\partial_\mu\psi)}\partial^\nu\psi + \frac{\partial\mathcal{L}}{\partial(\partial_\mu\bar{\psi})}\partial^\nu\bar{\psi} - g^{\mu\nu}\mathcal{L}
+	\end{equation}
+	
+	After symmetrization and coarse-graining over scale $\ell$:
+	\begin{equation}
+		\boxed{\langle T^{\mu\nu}\rangle = \rho(x)c^2 u^\mu u^\nu + P(x)g^{\mu\nu} + \langle\tau^{\mu\nu}_{\mathrm{spin}}\rangle + \langle\tau^{\mu\nu}_{\mathrm{EM}}\rangle + \rho_\Lambda g^{\mu\nu}}
+		\label{eq:stress_energy_full}
+	\end{equation}
+	
+	\textbf{This is the complete Einstein stress-energy tensor.}
+	
+	\subsection{Component Origins}
+	
+	Each stress-energy term traces to an action term:
+	\begin{align}
+		\rho c^2 u^\mu u^\nu &\leftarrow \tfrac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi - m\bar{\psi}\psi \\
+		Pg^{\mu\nu} &\leftarrow -P(\bar{\psi}\psi) \\
+		\tau^{\mu\nu}_{\mathrm{spin}} &\leftarrow -\tfrac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi \\
+		\tau^{\mu\nu}_{\mathrm{EM}} &\leftarrow -\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu} \\
+		\rho_\Lambda g^{\mu\nu} &\leftarrow -\rho_\Lambda
+	\end{align}
+	
+	%=============================================================
+	\section{Modified Dirac Equation and Energy Denominators}
+	%=============================================================
+	
+	\subsection{Equation of Motion}
+	
+	Varying the action with respect to $\bar{\psi}$:
+	\begin{equation}
+		i\gamma^\mu\partial_\mu\psi = \left[m + \frac{\partial P}{\partial(\bar{\psi}\psi)} + \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\right]\psi
+	\end{equation}
+	
+	For stationary states $\psi = u(p)e^{-iS/\hbar}$:
+	\begin{equation}
+		[\gamma^\mu p_\mu - mc\gamma^0]\psi = V_{\mathrm{eff}}\gamma^0\psi
+	\end{equation}
+	
+	\subsection{The Effective Hamiltonian}
+	
+	ALL stress-energy contributions enter through:
+	\begin{equation}
+		\boxed{H = \int\rho c^2\,dV - \int P\,dV - \frac{J^2}{2mr^2} + V_{EM} + \rho_\Lambda}
+		\label{eq:hamiltonian}
+	\end{equation}
+	
+	where each term originates from the effective Lagrangian:
+	\begin{itemize}
+		\item $\int\rho c^2\,dV$: from $\frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi$ (source mass-energy)
+		\item $-\int P\,dV$: from $-P(\bar{\psi}\psi)$ (pressure work)
+		\item $-J^2/(2mr^2)$: from $-\frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi$ (frame-dragging)
+		\item $V_{EM}$: from $-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$ (electromagnetic potential)
+		\item $\rho_\Lambda$: from $-\rho_\Lambda$ (vacuum energy)
+	\end{itemize}
+	
+	\subsection{Energy Denominators}
+	
+	This defines the energy denominators:
+	\begin{align}
+		\Delta  &= E + mc^2 + H \quad\text{(particle states)}    \label{eq:Delta}\\
+		\Delta' &= E - mc^2 - H \quad\text{(antiparticle states)} \label{eq:Delta_prime}
+	\end{align}
+	
+	\textbf{Explicit form with ALL contributions:}
+	\begin{equation}
+		\boxed{
+			\Delta = E + \underbrace{mc^2}_{\text{test}} + \underbrace{\int\rho c^2\,dV}_{\text{source}} - \underbrace{\int P\,dV}_{\text{pressure}} - \underbrace{\frac{J^2}{2mr^2}}_{\text{spin}} + \underbrace{V_{EM}}_{\text{EM}} + \underbrace{\rho_\Lambda}_{\text{vacuum}}
+		}
+		\label{eq:Delta_full}
+	\end{equation}
+	
+	%=============================================================
+	\section{The Quantum-Classical Bridge}
+	%=============================================================
+	
+	\subsection{Macroscopic Coherent States and the Spherical Wave Ansatz}
+	
+	Gravity is treated as a \textbf{spherical matter wave radiating to infinity}.  Any wave radiating from a point source in three spatial dimensions must spread over a growing spherical surface of area $4\pi r^2$.  Flux conservation therefore demands that the wavefunction amplitude falls as $1/r$.  A macroscopically coherent gravitational state must take the form:
+	\begin{equation}
+		\psi = \frac{\alpha_G}{r}\,e^{iS(x)/\hbar}\,u
+		\label{eq:coherent_state}
+	\end{equation}
+	where:
+	\begin{itemize}
+		\item $\alpha_G/r$: amplitude --- the $1/r$ is \textbf{geometric}, mandatory for any spherical wave in 3D
+		\item $S(x)$: rapidly-varying phase (the action)
+		\item $u$: slowly-varying four-component spinor envelope
+	\end{itemize}
+	
+	\textbf{Dimensional note.}  Previously the wavefunction was written $\psi = \alpha_G \cdot u \cdot e^{iS/\hbar}$ with $\alpha_G$ carrying no $r$-dependence.  This was the source of the earlier inconsistency: $\alpha_G$ was dimensionless but $\psi$ requires dimensions $L^{-3/2}$, so the spatial structure was implicitly hidden in $u$.  Explicitly writing $1/r$ restores dimensional integrity and is forced by the spherical-wave geometry.
+	
+	\subsection{Probability Current}
+	
+	The Dirac current with the spherical wave ansatz:
+	\begin{equation}
+		j^\mu = \bar{\psi}\gamma^\mu\psi = \frac{|\alpha_G|^2}{r^2}\,\bar{u}\gamma^\mu u
+		\label{eq:current}
+	\end{equation}
+	
+	\textbf{Key point:} The phase $e^{iS/\hbar}$ cancels in $\bar{\psi}\psi = \psi^\dagger\gamma^0\psi$.
+	
+	\textbf{Non-relativistic limit:} For spinor aligned with momentum:
+	\begin{equation}
+		j^0 \approx \frac{|\alpha_G|^2}{r^2}, \qquad \mathbf{j} \approx \frac{|\alpha_G|^2}{r^2}\frac{\nabla S}{m}
+		\label{eq:current_NR}
+	\end{equation}
+	
+	The total outward probability flux through any sphere of radius $r$ is:
+	\begin{equation}
+		\Phi = 4\pi r^2 \cdot j^r = 4\pi|\alpha_G|^2 \cdot p = \text{const}
+	\end{equation}
+	confirming that $|\alpha_G|^2 \sim \text{kg/s}$ is a conserved flux, as required.
+	
+	\subsection{Current Conservation: The Central Equation}
+	
+	From $\partial_\mu j^\mu = 0$, for stationary states:
+	\begin{equation}
+		\boxed{\nabla\cdot\!\left(|\psi|^2\nabla S\right) = 0}
+		\label{eq:continuity}
+	\end{equation}
+	
+	\subsection{Spherical Symmetry: The Exact Bridge}
+	
+	For spherically symmetric configurations with $\nabla S = p(r)\hat{r}$:
+	\begin{equation}
+		\frac{1}{r^2}\frac{\partial}{\partial r}\!\left(r^2|\psi|^2 p(r)\right) = 0
+	\end{equation}
+	
+	Integrating gives the \textbf{exact} conservation law:
+	\begin{equation}
+		\boxed{|\psi|^2 \cdot p(r) \cdot r^2 = C}
+		\label{eq:exact_bridge}
+	\end{equation}
+	
+	Substituting $|\psi|^2 = (|\alpha_G|^2/r^2)(1 + p^2c^2/\Delta^2)$ from the spherical wave ansatz:
+	\begin{equation}
+		\frac{|\alpha_G|^2}{r^2}\!\left(1 + \frac{p^2}{\Delta^2}\right)\cdot p \cdot r^2 = C
+	\end{equation}
+	
+	\textbf{The $r^2$ cancels exactly from geometry:}
+	\begin{equation}
+		\boxed{|\alpha_G|^2\!\left(p + \frac{p^3}{\Delta^2}\right) = C}
+		\label{eq:cubic_from_geometry}
+	\end{equation}
+	
+	\textbf{This is the quantum-classical bridge, derived from first principles.}  No plane-wave postulate is required.  The $r^2$ cancellation is the geometric consequence of gravity being a spherical radiating wave in 3D space---the same geometry that produces Newton's $1/r^2$ force law.
+	
+	The constant $C$ will be determined through the complete system of equations.
+	
+	%=============================================================
+	\section{Complete Four-Component Wavefunction Solution}
+	%=============================================================
+	
+	\subsection{Eigenvalue Problem with Full Stress-Energy}
+	
+	In Pauli-Dirac representation $u=(u_A,u_B)^T$:
+	\begin{equation}
+		\begin{pmatrix} E-mc^2-H & -c\boldsymbol{\sigma}\cdot\mathbf{p} \\ c\boldsymbol{\sigma}\cdot\mathbf{p} & -(E+mc^2+H) \end{pmatrix}
+		\begin{pmatrix} u_A \\ u_B \end{pmatrix} = 0
+		\label{eq:coupled_system}
+	\end{equation}
+	where $H$ contains ALL stress-energy contributions as defined in Eq.~\eqref{eq:hamiltonian}.
+	
+	\subsection{General Solution with All Stress-Energy Terms}
+	
+	The most general solution, with $\alpha_G$ as the universal prefactor, is:
+	
+	\begin{equation}
+		\psi = \frac{\alpha_G}{r}\Bigg[\psi_0\begin{bmatrix}1\\0\\\sigma_z\\\sigma_x+i\sigma_y\end{bmatrix}e^{-iS/\hbar}
+		+ \psi_1\begin{bmatrix}0\\1\\\sigma_x-i\sigma_y\\-\sigma_z\end{bmatrix}e^{-iS/\hbar}
+		+ \psi_2\begin{bmatrix}\sigma_z'\\\sigma_x'+i\sigma_y'\\1\\0\end{bmatrix}e^{+iS/\hbar}
+		+ \psi_3\begin{bmatrix}\sigma_x'-i\sigma_y'\\-\sigma_z'\\0\\1\end{bmatrix}e^{+iS/\hbar}\Bigg]
+		\label{eq:complete_solution}
+	\end{equation}
+	
+	where the \textbf{graviton scalars} with minimal electromagnetic coupling are:
+	\begin{align}
+		\sigma_i  &= \frac{(p_i - eA_i/c)c}{\Delta}  \quad\text{(particle states)}    \label{eq:sigma}\\
+		\sigma_i' &= \frac{(p_i - eA_i/c)c}{\Delta'} \quad\text{(antiparticle states)} \label{eq:sigma_prime}
+	\end{align}
+	and $\Delta$, $\Delta'$ contain ALL stress-energy contributions from Eq.~\eqref{eq:Delta_full}.
+	
+	\textbf{Note on reality:}  $\alpha_G$ is complex; in all probability-density computations we use $|\alpha_G|^2 = c\hbar/(2GMm)$, not $\alpha_G^2$.
+	
+	\subsection{Unified Form (Single-Component, Particle-Only)}
+	
+	\begin{equation}
+		\boxed{
+			\psi = \frac{\alpha_G}{r}\begin{bmatrix}
+				1 \\ 0 \\
+				\dfrac{(p_z-eA_z/c)c}{\Delta_{\mathrm{full}}} \\[6pt]
+				\dfrac{[(p_x-eA_x/c)+i(p_y-eA_y/c)]c}{\Delta_{\mathrm{full}}}
+			\end{bmatrix}e^{-iS/\hbar}
+		}
+	\end{equation}
+	
+	where:
+	\begin{equation}
+		\boxed{
+			\Delta_{\mathrm{full}} = E + mc^2 + \int\rho c^2\,dV - \int P\,dV - \frac{J^2}{2mr^2} + V_{EM} + \rho_\Lambda
+		}
+		\label{eq:Delta_unified}
+	\end{equation}
+	
+	\textbf{Key insight:} ALL five stress-energy contributions ($\rho,P,J,F,\Lambda$) enter through the SAME denominator $\Delta_{\mathrm{full}}$.
+	
+	%=============================================================
+	\section{Special Cases: Classical Limits}
+	%=============================================================
+	
+	\subsection{Pure Schwarzschild ($P=J=F=\Lambda=0$)}
+	
+	\begin{equation}
+		\Delta_{\mathrm{Schw}} = E + mc^2 + \int\rho c^2\,dV
+	\end{equation}
+	
+	\begin{equation}
+		\psi_{\mathrm{Schw}} = \frac{\alpha_G}{r}\begin{bmatrix}1\\0\\ p_zc/\Delta_{\mathrm{Schw}}\\ (p_x+ip_y)c/\Delta_{\mathrm{Schw}}\end{bmatrix}e^{-iS/\hbar}
+	\end{equation}
+	
+	Stress-energy: $T^{\mu\nu} = \rho c^2 u^\mu u^\nu$
+	
+	\subsection{Kerr: Rotating Black Hole ($P=F=\Lambda=0$, $J\neq0$)}
+	
+	\begin{equation}
+		\Delta_{\mathrm{Kerr}} = E + mc^2 + \int\rho c^2\,dV - \frac{J^2}{2mr^2}
+	\end{equation}
+	
+	\begin{equation}
+		\psi_{\mathrm{Kerr}} = \frac{\alpha_G}{r}\begin{bmatrix}1\\0\\ p_zc/\Delta_{\mathrm{Kerr}}\\ (p_x+ip_y)c/\Delta_{\mathrm{Kerr}}\end{bmatrix}e^{-iS/\hbar}
+	\end{equation}
+	
+	Stress-energy: $T^{\mu\nu} = \rho c^2 u^\mu u^\nu + \tau^{\mu\nu}_{\mathrm{spin}}$
+	
+	\subsection{Reissner-Nordstr\"om: Charged Black Hole ($P=J=\Lambda=0$, $F\neq0$)}
+	
+	\begin{equation}
+		\Delta_{\mathrm{RN}} = E + mc^2 + \int\rho c^2\,dV + V_{EM}
+	\end{equation}
+	
+	\begin{equation}
+		\psi_{\mathrm{RN}} = \frac{\alpha_G}{r}\begin{bmatrix}1\\0\\ (p_z-eA_z/c)c/\Delta_{\mathrm{RN}}\\ [(p_x-eA_x/c)+i(p_y-eA_y/c)]c/\Delta_{\mathrm{RN}}\end{bmatrix}e^{-iS/\hbar}
+	\end{equation}
+	
+	Stress-energy: $T^{\mu\nu} = \rho c^2 u^\mu u^\nu + \tau^{\mu\nu}_{\mathrm{EM}}$
+	
+	\subsection{Perfect Fluid with Cosmological Constant ($J=F=0$)}
+	
+	\begin{equation}
+		\Delta_{\mathrm{fluid}} = E + mc^2 + \int\rho c^2\,dV - \int P\,dV + \rho_\Lambda
+	\end{equation}
+	
+	\begin{equation}
+		\psi_{\mathrm{fluid}} = \frac{\alpha_G}{r}\begin{bmatrix}1\\0\\ p_zc/\Delta_{\mathrm{fluid}}\\ (p_x+ip_y)c/\Delta_{\mathrm{fluid}}\end{bmatrix}e^{-iS/\hbar}
+	\end{equation}
+	
+	Stress-energy: $T^{\mu\nu} = \rho c^2 u^\mu u^\nu + Pg^{\mu\nu} + \rho_\Lambda g^{\mu\nu}$
+	
+	\subsection{Most General Case}
+	
+	\begin{equation}
+		\boxed{
+			\psi_{\mathrm{general}} = \frac{\alpha_G}{r}\begin{bmatrix}
+				1 \\ 0 \\
+				\dfrac{(p_z-eA_z/c)c}{E+mc^2+\int\rho c^2\,dV-\int P\,dV-\frac{J^2}{2mr^2}+V_{EM}+\rho_\Lambda} \\[10pt]
+				\dfrac{[(p_x-eA_x/c)+i(p_y-eA_y/c)]c}{E+mc^2+\int\rho c^2\,dV-\int P\,dV-\frac{J^2}{2mr^2}+V_{EM}+\rho_\Lambda}
+			\end{bmatrix}e^{-iS/\hbar}
+		}
+	\end{equation}
+	
+	%=============================================================
+	\section{Connecting Quantum and Classical}
+	%=============================================================
+	
+	\subsection{Probability Density}
+	
+	With the spherical wave ansatz $\psi = (\alpha_G/r)\,u\,e^{-iS/\hbar}$:
+	\begin{align}
+		|\psi|^2 &= \psi^\dagger\psi
+		= \frac{|\alpha_G|^2}{r^2}\begin{bmatrix}1&0&\frac{p_zc}{\Delta}&\frac{(p_x+ip_y)c}{\Delta}\end{bmatrix}^\dagger
+		\begin{bmatrix}1\\0\\\frac{p_zc}{\Delta}\\\frac{(p_x+ip_y)c}{\Delta}\end{bmatrix} \\
+		&= \frac{|\alpha_G|^2}{r^2}\!\left(1 + \frac{|p|^2 c^2}{\Delta^2}\right)
+	\end{align}
+	
+	Therefore:
+	\begin{equation}
+		\boxed{|\psi|^2 = \frac{|\alpha_G|^2}{r^2}\!\left(1 + \frac{|p|^2 c^2}{\Delta^2}\right)}
+		\label{eq:prob_density}
+	\end{equation}
+	
+	where $\Delta$ contains ALL stress-energy contributions.
+	
+	\subsection{Applying the Exact Bridge}
+	
+	The exact conservation law (Eq.~\eqref{eq:exact_bridge}) states $|\psi|^2 \cdot p \cdot r^2 = C$.
+	
+	Substituting Eq.~\eqref{eq:prob_density}:
+	\begin{equation}
+		\frac{|\alpha_G|^2}{r^2}\!\left(1+\frac{|p|^2 c^2}{\Delta^2}\right)\cdot|p|\cdot r^2 = C
+		\label{eq:momentum_equation}
+	\end{equation}
+	
+	\textbf{The $r^2$ cancels exactly --- a geometric consequence of the spherical wave:}
+	\begin{equation}
+		|\alpha_G|^2|p| + |\alpha_G|^2\frac{c^2|p|^3}{\Delta^2} = C
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{|p| + \frac{c^2|p|^3}{\Delta^2} = \frac{C}{|\alpha_G|^2}}
+		\label{eq:cubic}
+	\end{equation}
+	
+	\textbf{This cubic equation determines the momentum structure from the wavefunction.}  The cancellation is exact, not an approximation.
+	
+	\subsection{Non-Relativistic Limit}
+	
+	For $|p|\ll mc$, $\Delta\approx mc^2$, the cubic term is negligible:
+	\begin{equation}
+		\boxed{|p| \approx \frac{C}{|\alpha_G|^2}}
+		\label{eq:nr_momentum}
+	\end{equation}
+	
+	This connects the normalization constants to momentum.
+	
+	%=============================================================
+	\section{Derivation of Newton's Law and Determination of $\alpha_G$}
+	\label{sec:newton}
+	%=============================================================
+	
+	\subsection{Force from Wavefunction Phase Structure}
+	
+	The momentum and energy fields in the weak-field limit are:
+	\begin{equation}
+		p(r) = \frac{p_0}{\alpha_G^2}\,e^{-2ipr/\hbar}, \qquad
+		E(r) = \frac{p_0 c}{\alpha_G^2\,e^{2ipr/\hbar}}.
+	\end{equation}
+	
+	\subsection{Phase Expansion}
+	
+	Taylor-expanding with $p_0=mc$:
+	\begin{equation}
+		e^{2imcr/\hbar} = 1 + \frac{2imcr}{\hbar} - \frac{2m^2c^2r^2}{\hbar^2} - i\frac{4m^3c^3r^3}{3\hbar^3} + \cdots
+	\end{equation}
+	
+	\subsection{Leading-Term Analysis}
+	
+	Using the first non-trivial term:
+	\begin{equation}
+		E(r) \approx \frac{mc^2}{\alpha_G^2\cdot 2imcr/\hbar} = \frac{c\hbar}{2i\,\alpha_G^2\,r}.
+	\end{equation}
+	
+	For a static gravitational source, $E_{\mathrm{field}} = V = -GMm/r$:
+	\begin{equation}
+		\frac{c\hbar}{2i\,\alpha_G^2\,r} = -\frac{GMm}{r}.
+	\end{equation}
+	
+	Solving:
+	\begin{equation}
+		\boxed{\alpha_G^2 = \frac{ic\hbar}{2GMm}}
+		\label{eq:alphaG2}
+	\end{equation}
+	
+	\subsection{The Complex Gravitational Coupling}
+	
+	Taking the square root using $\sqrt{i}=e^{i\pi/4}=(1+i)/\sqrt{2}$:
+	\begin{equation}
+		\boxed{\alpha_G = e^{i\pi/4}\sqrt{\frac{c\hbar}{2GMm}} = \frac{1+i}{\sqrt{2}}\sqrt{\frac{c\hbar}{2GMm}}}
+		\label{eq:alphaG_full}
+	\end{equation}
+	
+	Verification:
+	\begin{equation}
+		\alpha_G^2 = \frac{(1+i)^2}{2}\cdot\frac{c\hbar}{2GMm} = \frac{2i}{2}\cdot\frac{c\hbar}{2GMm} = \frac{ic\hbar}{2GMm} \quad\checkmark
+	\end{equation}
+	
+	Key derived quantities:
+	\begin{align}
+		|\alpha_G|^2       &= \frac{c\hbar}{2GMm}                             \label{eq:mod_alphaG} \\
+		\mathrm{Re}(\alpha_G) &= \sqrt{\frac{c\hbar}{4GMm}}                  \label{eq:re_alphaG}
+	\end{align}
+	
+	\subsection{Newton's Force from the Leading Term}
+	
+	\begin{equation}
+		F_1 = -\frac{dE}{dr} = \frac{c\hbar}{2i\,\alpha_G^2\,r^2}.
+	\end{equation}
+	
+	Substituting $\alpha_G^2 = ic\hbar/(2GMm)$:
+	\begin{equation}
+		F_1 = \frac{c\hbar}{2ir^2}\cdot\frac{2GMm}{ic\hbar} = \frac{GMm}{r^2} \quad\checkmark
+	\end{equation}
+	
+	Newton's inverse-square law is recovered exactly.
+	
+	%=============================================================
+	\section{Determination of the Normalization Constant $C$}
+	%=============================================================
+	
+	\subsection{Classical Momentum at the Gravitational Bohr Radius}
+	
+	For a particle with zero total energy in a Newtonian potential:
+	\begin{equation}
+		p(r) = \sqrt{\frac{2GMm^2}{r}}.
+	\end{equation}
+	
+	The gravitational Bohr radius $a_0 = \hbar^2/(GMm^2)$ gives:
+	\begin{equation}
+		p(a_0) = \sqrt{\frac{2GMm^2\cdot GMm^2}{\hbar^2}} = \frac{\sqrt{2}\,GMm^2}{\hbar}.
+	\end{equation}
+	
+	\subsection{Value of $C$}
+	
+	From Eq.~\eqref{eq:nr_momentum}, $C = |\alpha_G|^2\cdot p(a_0)$:
+	\begin{equation}
+		C = \frac{c\hbar}{2GMm}\cdot\frac{\sqrt{2}\,GMm^2}{\hbar} = \frac{\sqrt{2}\,cm\cdot m}{2m} = \frac{mc}{\sqrt{2}}.
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{C = \frac{mc}{\sqrt{2}}}
+		\label{eq:C_final}
+	\end{equation}
+	
+	\textbf{Remarks:}  $C$ has dimensions of momentum~\checkmark.  The flux scale is set purely by the test particle's rest momentum; source-mass dependence enters through $\alpha_G$ and $\Delta$.
+	
+	\subsection{The Cubic Momentum Equation}
+	
+	Substituting $C$ and $|\alpha_G|^2$ into Eq.~\eqref{eq:cubic}:
+	\begin{equation}
+		\frac{C}{|\alpha_G|^2} = \frac{mc/\sqrt{2}}{c\hbar/(2GMm)} = \frac{mc}{\sqrt{2}}\cdot\frac{2GMm}{c\hbar} = \frac{\sqrt{2}\,GMm^2}{\hbar} \equiv \mathcal{P}.
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{|p| + \frac{c^2|p|^3}{\Delta^2} = \mathcal{P} = \frac{\sqrt{2}\,GMm^2}{\hbar}}
+		\label{eq:cubic_explicit}
+	\end{equation}
+	
+	%=============================================================
+	\section{Complete Gravitational Wavefunction}
+	%=============================================================
+	
+	\subsection{Normalized Form}
+	
+	\begin{equation}
+		\boxed{\psi(x) = \frac{\alpha_G}{r}\begin{bmatrix}1\\0\\ p_zc/\Delta\\ (p_x+ip_y)c/\Delta\end{bmatrix}e^{-iS(r)/\hbar}}
+		\label{eq:normalized_wavefunction}
+	\end{equation}
+	
+	where $\alpha_G = e^{i\pi/4}\sqrt{c\hbar/(2GMm)}$,
+	\begin{equation}
+		\Delta = E + mc^2 + \int\rho c^2\,dV - \int P\,dV - \frac{J^2}{2mr^2} + V_{EM} + \rho_\Lambda,
+	\end{equation}
+	and $|p|$ satisfies Eq.~\eqref{eq:cubic_explicit}.
+	
+	\subsection{Hamilton-Jacobi Connection}
+	
+	The phase $S(r)$ satisfies:
+	\begin{equation}
+		\frac{1}{2m}\!\left(\frac{dS}{dr}\right)^2 + V(r) = E
+	\end{equation}
+	with $V(r)=-GMm/r$.  With $p(r)=dS/dr$:
+	\begin{equation}
+		F(r) = -\frac{dV}{dr} = -\frac{GMm}{r^2}.
+	\end{equation}
+	Newton's law of gravitation!
+	
+	%=============================================================
+	\section{Relation to Gravitational Potential}
+	%=============================================================
+	
+	For completeness, with $\Phi(r)=-GMm/r$:
+	
+	\subsection{Coupling Constant in Terms of Potential}
+	
+	\begin{equation}
+		|\alpha_G|^2 = \frac{c\hbar}{2GMm} = -\frac{c\hbar}{2r\Phi(r)}
+	\end{equation}
+	
+	\subsection{Wavefunction Amplitude}
+	
+	From the exact bridge $|\psi|^2 \cdot p \cdot r^2 = C$ with $p=\sqrt{-2m\Phi(r)}$ ($\Phi<0$) and $|\psi|^2 = |\alpha_G|^2(1+p^2c^2/\Delta^2)/r^2$:
+	\begin{equation}
+		|\psi|^2 \approx \frac{C}{r^2\,|p|} = \frac{mc/\sqrt{2}}{r^2\sqrt{2m|\Phi(r)|}} = \frac{c\sqrt{m}}{2r^2\sqrt{|\Phi(r)|}}.
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{|\psi|^2 = \frac{c\sqrt{m}}{2\,r^2\sqrt{|\Phi(r)|}}}
+	\end{equation}
+	
+	Or in proportional form:
+	\begin{equation}
+		\boxed{|\psi|^2 \propto \frac{1}{r^2\sqrt{|\Phi(r)|}}}
+	\end{equation}
+	
+	\textbf{Key insight:} The wavefunction probability density has two contributions: the $1/r^2$ geometric falloff from the spherical wave, and a $1/\sqrt{|\Phi(r)|}$ dependence on the gravitational potential --- both encode the same underlying $1/r^2$ inverse-square structure of 3D gravity.
+	
+	%=============================================================
+	\section{Stress-Energy and Einstein's Equations}
+	%=============================================================
+	
+	\subsection{Coarse-Grained Stress-Energy}
+	
+	After averaging over scale $\ell$:
+	\begin{equation}
+		\langle T^{\mu\nu}\rangle = \rho c^2 u^\mu u^\nu + Pg^{\mu\nu} + \tau^{\mu\nu}_{\mathrm{spin}} + \tau^{\mu\nu}_{\mathrm{EM}} + \Lambda g^{\mu\nu}
+		\label{eq:T_fluid}
+	\end{equation}
+	
+	where $\rho=m\langle R^2\rangle$, $P$ from $P(\bar{\psi}\psi)$, $\tau^{\mu\nu}_{\mathrm{spin}}$ from $J_{\mu\nu}J^{\mu\nu}$, $\tau^{\mu\nu}_{\mathrm{EM}}$ from $F_{\mu\nu}F^{\mu\nu}$, and $\Lambda$ from $\rho_\Lambda$.
+	
+	\textbf{This is the standard Einstein stress-energy tensor.}
+	
+	\subsection{Connection to General Relativity}
+	
+	In the weak-field limit, this sources the metric perturbation:
+	\begin{equation}
+		h_{\mu\nu} = \frac{16\pi G}{c^4}\int\frac{T_{\mu\nu}(x')}{|x-x'|}\,d^3x'
+	\end{equation}
+	
+	The $g_{00}$ component gives:
+	\begin{equation}
+		g_{00} = -1 + \frac{2\Phi}{c^2}
+	\end{equation}
+	where $\Phi=-GM/r$ is the Newtonian potential per unit mass.
+	
+	%=============================================================
+	\section{The Four-Component General Solution and the Gravitational Fine Structure Constant}
+	\label{sec:four_component}
+	%=============================================================
+	
+	\subsection{Complete Spinor Solution}
+	
+	\begin{equation}
+		\psi = \frac{\alpha_G}{r}\Bigg[
+		\psi_0\begin{bmatrix}1\\0\\ p_zc/\Delta\\ (p_x+ip_y)c/\Delta\end{bmatrix}e^{-iS/\hbar}
+		+\psi_1\begin{bmatrix}0\\1\\ (p_x-ip_y)c/\Delta\\ -p_zc/\Delta\end{bmatrix}e^{-iS/\hbar}
+		+\psi_2\begin{bmatrix}p_zc/\Delta'\\ (p_x+ip_y)c/\Delta'\\1\\0\end{bmatrix}e^{+iS/\hbar}
+		+\psi_3\begin{bmatrix}(p_x-ip_y)c/\Delta'\\ -p_zc/\Delta'\\0\\1\end{bmatrix}e^{+iS/\hbar}
+		\Bigg]
+		\label{eq:four_component_wavefunction}
+	\end{equation}
+	
+	where the universal normalization is:
+	\begin{equation}
+		\boxed{\alpha_G = e^{i\pi/4}\sqrt{\frac{c\hbar}{2GMm}}}
+		\label{eq:universal_alphaG}
+	\end{equation}
+	
+	This is the \textbf{gravitational fine structure constant}, in direct analogy to QED's $\alpha_{\rm em}=e^2/(4\pi\epsilon_0\hbar c)\approx 1/137$.
+	
+	The energy denominators are:
+	\begin{align}
+		\Delta  &= E + mc^2 + H \quad\text{(particle states)} \\
+		\Delta' &= E - mc^2 - H \quad\text{(antiparticle states)}
+	\end{align}
+	where $H$ contains ALL stress-energy contributions from Eq.~\eqref{eq:hamiltonian}.
+	
+	\subsection{Physical Interpretation}
+	
+	The four components represent:
+	\begin{itemize}
+		\item $\psi_0,\psi_1$: Particle states (spin up/down), forward time evolution $e^{-iS/\hbar}$
+		\item $\psi_2,\psi_3$: Antiparticle states (spin up/down), backward time evolution $e^{+iS/\hbar}$
+	\end{itemize}
+	
+	All four states share the universal coupling $\alpha_G$, which satisfies:
+	\begin{equation}
+		[\alpha_G^2] = \left[\frac{c\hbar}{GMm}\right] = \frac{(LT^{-1})(ML^2T^{-1})}{(L^3M^{-1}T^{-2})\cdot M\cdot M} = 1 \quad\checkmark
+	\end{equation}
+	
+	%=============================================================
+	\section{Probability Density: Full Four-Component Case}
+	%=============================================================
+	
+	\subsection{Spinor Norms}
+	
+	With $\psi = (\alpha_G/r)\,u\,e^{iS/\hbar}$, the probability density is $|\psi|^2 = (|\alpha_G|^2/r^2)\,|u|^2$.  The spinor norms $|u|^2$ are:
+	
+	\textbf{Particle state $\psi_0$:}
+	\begin{align}
+		\left|\begin{bmatrix}1\\0\\ p_zc/\Delta\\ (p_x+ip_y)c/\Delta\end{bmatrix}\right|^2
+		= 1 + \frac{|p|^2 c^2}{\Delta^2}
+		\label{eq:norm_psi0}
+	\end{align}
+	
+	\textbf{Particle state $\psi_1$:}
+	\begin{equation}
+		\left|\begin{bmatrix}0\\1\\ (p_x-ip_y)c/\Delta\\ -p_zc/\Delta\end{bmatrix}\right|^2 = 1 + \frac{|p|^2 c^2}{\Delta^2}
+		\label{eq:norm_psi1}
+	\end{equation}
+	
+	\textbf{Antiparticle state $\psi_2$:}
+	\begin{equation}
+		\left|\begin{bmatrix}p_zc/\Delta'\\ (p_x+ip_y)c/\Delta'\\1\\0\end{bmatrix}\right|^2 = 1 + \frac{|p|^2 c^2}{\Delta'^2}
+		\label{eq:norm_psi2}
+	\end{equation}
+	
+	\textbf{Antiparticle state $\psi_3$:}
+	\begin{equation}
+		\left|\begin{bmatrix}(p_x-ip_y)c/\Delta'\\ -p_zc/\Delta'\\0\\1\end{bmatrix}\right|^2 = 1 + \frac{|p|^2 c^2}{\Delta'^2}
+		\label{eq:norm_psi3}
+	\end{equation}
+	
+	\subsection{Time-Averaged Probability Density}
+	
+	Interference terms $\propto e^{\pm 2iS/\hbar}$ vanish in the semiclassical WKB limit.  With occupation coefficients:
+	\begin{align}
+		A &\equiv |\psi_0|^2+|\psi_1|^2 \quad\text{(particle occupation)} \\
+		B &\equiv |\psi_2|^2+|\psi_3|^2 \quad\text{(antiparticle occupation)}
+	\end{align}
+	
+	The full probability density with the spherical-wave $1/r$ factor is:
+	\begin{equation}
+		\boxed{
+			|\psi|^2 = \frac{|\alpha_G|^2}{r^2}\!\left[A\!\left(1+\frac{|p|^2 c^2}{\Delta^2}\right)+B\!\left(1+\frac{|p|^2 c^2}{\Delta'^2}\right)\right]
+		}
+		\label{eq:prob_density_general}
+	\end{equation}
+	
+	%=============================================================
+	\section{Current Conservation Constraint and the Cubic Equation}
+	%=============================================================
+	
+	From probability current conservation in spherical symmetry:
+	\begin{equation}
+		\boxed{|\psi|^2 = \frac{C}{|p|}}
+	\end{equation}
+	
+	Equating with Eq.~\eqref{eq:prob_density_general} and multiplying by $|p|$:
+	\begin{equation}
+		|\alpha_G|^2\!\left[(A+B)|p| + c^2|p|^3\!\left(\frac{A}{\Delta^2}+\frac{B}{\Delta'^2}\right)\right] = C
+	\end{equation}
+	
+	This yields a depressed cubic:
+	\begin{equation}
+		\boxed{\alpha|p|^3 + \beta|p| - C = 0}
+		\label{eq:cubic_momentum}
+	\end{equation}
+	
+	with:
+	\begin{align}
+		\alpha &= c^2|\alpha_G|^2\!\left(\frac{A}{\Delta^2}+\frac{B}{\Delta'^2}\right) = \frac{c^3\hbar}{2GMm}\!\left(\frac{A}{\Delta^2}+\frac{B}{\Delta'^2}\right) \label{eq:alpha_coeff}\\
+		\beta  &= |\alpha_G|^2(A+B) = \frac{c\hbar}{2GMm}(A+B) \label{eq:beta_coeff}
+	\end{align}
+	
+	Solution via Cardano's formula:
+	\begin{equation}
+		|p| = \left[\frac{C}{2\alpha}+\sqrt{\left(\frac{C}{2\alpha}\right)^2+\left(\frac{\beta}{3\alpha}\right)^3}\right]^{1/3}
+		+ \left[\frac{C}{2\alpha}-\sqrt{\left(\frac{C}{2\alpha}\right)^2+\left(\frac{\beta}{3\alpha}\right)^3}\right]^{1/3}
+		\label{eq:cardano_solution}
+	\end{equation}
+	
+	%=============================================================
+	\section{The Fundamental Momentum Scale $\mathcal{P}$}
+	%=============================================================
+	
+	\subsection{Definition}
+	
+	For the single-component case ($A=1$, $B=0$):
+	\begin{equation}
+		\mathcal{P} \equiv \frac{C}{|\alpha_G|^2} = \frac{mc/\sqrt{2}}{c\hbar/(2GMm)} = \frac{\sqrt{2}\,GMm^2}{\hbar}.
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{\mathcal{P} = \frac{\sqrt{2}\,GMm^2}{\hbar}}
+		\label{eq:B_final}
+	\end{equation}
+	
+	\subsection{Dimensional Analysis}
+	
+	\begin{equation}
+		[\mathcal{P}] = \frac{[G][M][m^2]}{[\hbar]} = \frac{(L^3M^{-1}T^{-2})\cdot M\cdot M^2}{ML^2T^{-1}} = LMT^{-1} \quad\checkmark
+	\end{equation}
+	
+	\subsection{Factorization}
+	
+	\begin{equation}
+		\boxed{C = |\alpha_G|^2\,\mathcal{P}}
+		\label{eq:C_factorization}
+	\end{equation}
+	
+	The probability flux equals the fundamental momentum scale suppressed by the squared modulus of the gravitational coupling.
+	
+	\subsection{The Gravitational Bohr Momentum}
+	
+	$\mathcal{P}$ is the gravitational analogue of the Bohr momentum.  In atomic physics:
+	\begin{equation}
+		p_{\mathrm{Bohr}} = \frac{me^2}{4\pi\epsilon_0\hbar} \sim \alpha_{\mathrm{em}}\,mc.
+	\end{equation}
+	
+	Similarly:
+	\begin{equation}
+		\mathcal{P} = \frac{\sqrt{2}\,GMm^2}{\hbar} = \frac{m}{\hbar}\cdot\frac{\sqrt{2}\,GMm}{\hbar} \cdot \hbar
+		= \frac{\sqrt{2}\,m\,E_{\mathrm{grav}}}{\hbar c}\cdot c
+	\end{equation}
+	
+	\subsection{Regime Classification}
+	
+	\paragraph{Gravity-dominated:} $(C/2\alpha)^2\gg(\beta/3\alpha)^3$:
+	\begin{equation}
+		|p| \approx (C/\alpha)^{1/3} \sim \mathcal{P}^{1/3}.
+	\end{equation}
+	
+	\paragraph{Linear-dominated:} $(\beta/3\alpha)^3\gg(C/2\alpha)^2$:
+	\begin{equation}
+		|p| \approx \frac{C}{\beta} = \frac{\mathcal{P}}{A+B}.
+	\end{equation}
+	
+	%=============================================================
+	\section{Antiparticle Suppression and Hawking Radiation}
+	%=============================================================
+	
+	Near a black hole horizon at Hawking temperature $T_H=\hbar c^3/(8\pi GMk_B)$, the antiparticle occupation is:
+	\begin{equation}
+		\frac{B}{A} \sim \exp\!\left(-\frac{2mc^2}{k_BT_H}\right) = \exp\!\left(-\frac{16\pi GMm}{\hbar c}\right) = \exp\!\left(-\frac{8\pi}{|\alpha_G|^2}\right).
+	\end{equation}
+	
+	For $|\alpha_G|^2\gg1$ (weak gravity): $B\approx0$, theory reduces to single-component particle sector.\\
+	For $|\alpha_G|^2\sim1$ (Planck scale): antiparticle occupation becomes macroscopic, naturally incorporating Hawking radiation.
+	
+	%=============================================================
+	\section{The Graviton Scalar and Special Relativistic Structure}
+	\label{sec:graviton_scalar}
+	%=============================================================
+	
+	\subsection{Motivation from Spinor Components}
+	
+	The lower spinor components have the form $p_ic/\Delta$---dimensionless, analogous to $\beta=v/c$ in special relativity.
+	
+	\subsection{Definition of the Graviton Scalar}
+	
+	\begin{equation}
+		\boxed{\sigma_i \equiv \frac{p_i c}{\Delta}}
+		\label{eq:graviton_scalar}
+	\end{equation}
+	
+	For particle states $\Delta=E+mc^2+H$; for antiparticle states $\Delta'=E-mc^2-H$.
+	
+	\subsection{Physical Interpretation}
+	
+	\begin{enumerate}
+		\item \textbf{Dimensionless rapidity parameter:} $\sigma$ measures how quantum-gravitational a configuration is.
+		\item \textbf{Reduction to SR:} In the non-relativistic limit $\Delta\approx mc^2$, $p=mv$:
+		\begin{equation}
+			\sigma = \frac{pc}{mc^2} = \frac{v}{c} = \beta.
+		\end{equation}
+		\item \textbf{Regime classification:}
+		\begin{itemize}
+			\item $\sigma\ll1$: Classical/Newtonian gravity
+			\item $\sigma\sim1$: Full quantum gravity required
+			\item $\sigma\gg1$: Strongly quantum gravitational
+		\end{itemize}
+	\end{enumerate}
+	
+	\subsection{Four-Component Solution in $\sigma$-Basis}
+	
+	\begin{equation}
+		\psi = \frac{\alpha_G}{r}\Bigg[
+		\psi_0\begin{bmatrix}1\\0\\\sigma_z\\\sigma_x+i\sigma_y\end{bmatrix}e^{-iS/\hbar}
+		+\psi_1\begin{bmatrix}0\\1\\\sigma_x-i\sigma_y\\-\sigma_z\end{bmatrix}e^{-iS/\hbar}
+		+\psi_2\begin{bmatrix}\sigma_z'\\\sigma_x'+i\sigma_y'\\1\\0\end{bmatrix}e^{+iS/\hbar}
+		+\psi_3\begin{bmatrix}\sigma_x'-i\sigma_y'\\-\sigma_z'\\0\\1\end{bmatrix}e^{+iS/\hbar}
+		\Bigg]
+	\end{equation}
+	
+	\subsection{Gravitational Lorentz Factor}
+	
+	\begin{equation}
+		\boxed{|u|^2 = 1+|\boldsymbol{\sigma}|^2 = 1+\frac{p^2c^2}{\Delta^2}}
+		\label{eq:gravitational_lorentz_factor}
+	\end{equation}
+	
+	\begin{center}
+		\begin{tabular}{c|c}
+			\textbf{Special Relativity} & \textbf{Quantum Gravity} \\
+			\hline
+			$\beta = v/c$ & $\sigma = pc/\Delta$ \\
+			$\gamma^2 = 1/(1-\beta^2)$ & $|u|^2 = 1+\sigma^2$ \\
+			Diverges at $v\to c$ & Grows as $p\to\Delta$ \\
+			Time dilation & Wavefunction quantum effects \\
+		\end{tabular}
+	\end{center}
+	
+	\subsection{Cubic Equation in $\sigma$-Form}
+	
+	Multiplying $|p|+c^2|p|^3/\Delta^2=\mathcal{P}$ by $c/\Delta$ and using $\sigma=pc/\Delta$:
+	\begin{equation}
+		\boxed{\sigma + \sigma^3 = \frac{\mathcal{P}c}{\Delta}}
+		\label{eq:cubic_sigma}
+	\end{equation}
+	
+	This nonlinear dispersion relation shows gravitational dynamics are inherently nonlinear at the wavefunction level.
+	
+	\subsection{Post-Newtonian Expansion}
+	
+	Expanding in powers of $\sigma$:
+	\begin{equation}
+		|\psi|^2 = \frac{|\alpha_G|^2}{r^2}(1+\sigma^2+\mathcal{O}(\sigma^4))
+	\end{equation}
+	
+	Each power corresponds to a post-Newtonian order:
+	\begin{itemize}
+		\item $\sigma^0$: Newtonian gravity
+		\item $\sigma^2$: 1PN corrections
+		\item $\sigma^3$: Nonlinear quantum corrections (from cubic equation)
+	\end{itemize}
+	
+	%=============================================================
+	\section{Graviton Frequency}
+	%=============================================================
+	
+	From $\mathcal{P}=\sqrt{2}\,GMm^2/\hbar$, the graviton frequency is:
+	\begin{equation}
+		\omega_g = \frac{\mathcal{P}}{\hbar} = \frac{\sqrt{2}\,GMm^2}{\hbar^2}
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{\mathcal{P} = \hbar\omega_g}
+	\end{equation}
+	
+	%=============================================================
+	\section{Field Energy and Momentum}
+	%=============================================================
+	
+	\subsection{Length Scales}
+	
+	Define the Schwarzschild radius and reduced Compton wavelength:
+	\begin{align}
+		R_s &\equiv \frac{2GM}{c^2}, \qquad \lambda_c \equiv \frac{\hbar}{mc}.
+	\end{align}
+	
+	Key relation:
+	\begin{equation}
+		\frac{R_s}{\lambda_c} = \frac{2GMm}{\hbar c} = \frac{1}{|\alpha_G|^2}
+		\label{eq:Rs_lambda_relation}
+	\end{equation}
+	since $|\alpha_G|^2 = c\hbar/(2GMm)$.
+	
+	\subsection{Field Energy}
+	
+	For massless gravitons ($E=pc$):
+	\begin{equation}
+		E_{\mathrm{field}} = \mathcal{P}\cdot c = \frac{\sqrt{2}\,GMm^2c}{\hbar}.
+	\end{equation}
+	
+	Substituting $GM=R_sc^2/2$ and $\hbar=mc\lambda_c$:
+	\begin{equation}
+		\boxed{E_{\mathrm{field}} = \frac{1}{\sqrt{2}}\,mc^2\left(\frac{R_s}{\lambda_c}\right) = \frac{mc^2}{\sqrt{2}\,|\alpha_G|^2}}
+		\label{eq:E_field}
+	\end{equation}
+	
+	\subsection{Field Momentum}
+	
+	\begin{equation}
+		\boxed{P_{\mathrm{field}} = \mathcal{P} = \frac{\sqrt{2}\,GMm^2}{\hbar} = \frac{1}{\sqrt{2}}\,mc\left(\frac{R_s}{\lambda_c}\right) = \frac{mc}{\sqrt{2}\,|\alpha_G|^2}}
+		\label{eq:P_field}
+	\end{equation}
+	
+	\subsection{Physical Interpretation: Unification}
+	
+	Equation~\eqref{eq:E_field} unifies:
+	\begin{itemize}
+		\item \textbf{Quantum mechanics}: $\lambda_c=\hbar/(mc)$
+		\item \textbf{Special relativity}: $mc^2$ (rest energy)
+		\item \textbf{General relativity}: $R_s=2GM/c^2$
+	\end{itemize}
+	The ratio $R_s/\lambda_c = 1/|\alpha_G|^2$ is the single dimensionless parameter controlling the theory.
+	
+	\subsection{Regime Classification}
+	
+	\begin{enumerate}
+		\item \textbf{Quantum regime} ($|\alpha_G|^2\gg1$, i.e.\ $c\hbar\gg2GMm$):\\
+		Field energy $\ll mc^2$; gravity negligible.
+		\item \textbf{Quantum gravity regime} ($|\alpha_G|^2\sim1$):\\
+		Field energy $\sim mc^2$; full four-component structure necessary.
+		\item \textbf{Classical regime} ($|\alpha_G|^2\ll1$, i.e.\ $2GMm\gg c\hbar$):\\
+		Field energy $\gg mc^2$; antiparticles exponentially suppressed.
+	\end{enumerate}
+	
+	\subsection{Numerical Examples}
+	
+	\textbf{Earth--electron system:}
+	\begin{align}
+		|\alpha_G|^2 &= \frac{(3\times10^8)(1.055\times10^{-34})}{2(6.67\times10^{-11})(5.97\times10^{24})(9.11\times10^{-31})} \approx 1.46\times10^{39}.
+	\end{align}
+	Quantum regime: gravity utterly negligible. $E_{\mathrm{field}}\sim 10^{-34}$~eV.
+	
+	\textbf{Planck-mass particle ($M=m=M_{\rm Pl}$):}
+	\begin{equation}
+		|\alpha_G|^2 = \frac{c\hbar}{2GM_{\rm Pl}^2} = \frac{c\hbar}{2G(\hbar c/G)} = \frac{1}{2}.
+	\end{equation}
+	Quantum gravity regime: $E_{\mathrm{field}} = \sqrt{2}\,M_{\rm Pl}c^2\approx 1.73\times10^{19}$~GeV.
+	
+	\subsection{Connection to $\sigma$-Field Formalism}
+	
+	The covariant vector field $\sigma_\mu(x)=\partial_\mu S(x)/(mc)$ satisfies:
+	\begin{equation}
+		|\sigma| \sim \frac{|p|}{mc} \sim \frac{\mathcal{P}}{mc} = \frac{\sqrt{2}\,GMm}{c\hbar} = \frac{\sqrt{2}}{|\alpha_G|^2}\cdot\frac{1}{2} = \frac{1}{\sqrt{2}\,|\alpha_G|^2}.
+	\end{equation}
+	
+	%=============================================================
+	\section{Newtonian Limit from Phase Oscillations}
+	%=============================================================
+	
+	\subsection{Phase Structure and Expansion}
+	
+	The action $S=pr$ gives phase factor $e^{2ipr/\hbar}$.  Taylor expansion with $p=mc$:
+	\begin{equation}
+		e^{2imcr/\hbar} = 1 + \frac{2imcr}{\hbar} - \frac{2m^2c^2r^2}{\hbar^2} - i\frac{4m^3c^3r^3}{3\hbar^3} + \cdots
+	\end{equation}
+	
+	The leading term $2imcr/\hbar$ reproduces Newton's law as shown in Section~\ref{sec:newton}:
+	\begin{equation}
+		F_1 = \frac{GMm}{r^2}. \quad\checkmark
+	\end{equation}
+	
+	\subsection{Higher-Order Corrections}
+	
+	\paragraph{Second term ($r^2$):}
+	\begin{equation}
+		F_2 \propto r^{-3} \quad\text{(wrong power law---discarded)}.
+	\end{equation}
+	
+	\paragraph{Third term ($r^3$):}
+	Using $-i\,4m^3c^3r^3/(3\hbar^3)$ and substituting $\alpha_G^2=ic\hbar/(2GMm)$:
+	\begin{align}
+		E_3(r) &= -\frac{3\hbar^3}{4im^2c\,\alpha_G^2\,r^3}
+	\end{align}
+	\begin{equation}
+		F_3 = -\frac{dE_3}{dr} = \frac{9GM\hbar^2}{2mc^2r^4}
+	\end{equation}
+	
+	\begin{equation}
+		\boxed{F_3 = \frac{9GM\hbar^2}{2mc^2r^4}}
+	\end{equation}
+	
+	\subsection{Complete Force Law}
+	
+	\begin{equation}
+		\boxed{F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{\lambda_C}{r}\right)^2 + \mathcal{O}(r^{-4})\right]}
+	\end{equation}
+	
+	where $\lambda_C=\hbar/(mc)$ is the Compton wavelength.
+	
+	\subsection{Crossover Scale}
+	
+	Quantum correction equals Newtonian when $\frac{9\hbar^2}{2m^2c^2r^2}=1$:
+	\begin{equation}
+		r_c = \frac{3}{\sqrt{2}}\lambda_C \approx 2.12\,\lambda_C.
+	\end{equation}
+	
+	\subsection{Pattern in Expansion}
+	
+	\begin{align}
+		\text{Term 1} &: \frac{2imcr}{\hbar} \to F_1 \propto r^{-2} \quad\text{(Newtonian)} \\
+		\text{Term 3} &: -i\frac{4m^3c^3r^3}{3\hbar^3} \to F_3 \propto r^{-4} \quad\text{(quantum correction)} \\
+		\text{Term 5} &: \cdots \to F_5 \propto r^{-6}
+	\end{align}
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{lcc}
+			\toprule
+			Regime & Distance & Correction $F_3/F_1$ \\
+			\midrule
+			Classical   & $r\gg\lambda_C$ & $\ll1$ \\
+			Transition  & $r\sim2\lambda_C$ & $\sim1$ \\
+			Quantum     & $r\lesssim\lambda_C$ & $\gg1$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	%=============================================================
+	\section{Mapping Table: Action $\to$ Stress-Energy $\to$ Wavefunction}
+	%=============================================================
+	
+	\begin{center}
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			\textbf{Action Term} & \textbf{Stress-Energy} & \textbf{Enters $\Delta$ as} & \textbf{Effect} \\
+			\hline
+			$-m\bar{\psi}\psi$ & $\rho c^2 u^\mu u^\nu$ & $+mc^2$ & Test mass \\
+			$\frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi$ & $\rho c^2 u^\mu u^\nu$ & $+\int\rho c^2\,dV$ & Source mass \\
+			$-P(\bar{\psi}\psi)$ & $Pg^{\mu\nu}$ & $-\int P\,dV$ & Pressure work \\
+			$-\frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi$ & $\tau^{\mu\nu}_{\rm spin}$ & $-J^2/(2mr^2)$ & Frame-dragging \\
+			$-\frac{1}{4}F_{\mu\nu}F^{\mu\nu}$ & $\tau^{\mu\nu}_{\rm EM}$ & $+V_{EM}$, $p\to p-eA/c$ & EM coupling \\
+			$-\rho_\Lambda$ & $\rho_\Lambda g^{\mu\nu}$ & $+\rho_\Lambda$ & Vacuum energy \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	%=============================================================
+	\section{Summary of Key Results}
+	%=============================================================
+	
+	\subsection{The Gravitational Fine Structure Constant}
+	
+	\begin{equation}
+		\boxed{\alpha_G = e^{i\pi/4}\sqrt{\frac{c\hbar}{2GMm}}, \qquad \alpha_G^2 = \frac{ic\hbar}{2GMm}, \qquad |\alpha_G|^2 = \frac{c\hbar}{2GMm}}
+	\end{equation}
+	
+	\emph{When a real value is required:} use $|\alpha_G|^2$ for densities/fluxes, or $\mathrm{Re}(\alpha_G)=\sqrt{c\hbar/(4GMm)}$ for amplitudes.
+	
+	\subsection{Derived Scales}
+	
+	\begin{align}
+		\mathcal{P} &= \frac{\sqrt{2}\,GMm^2}{\hbar} \quad\text{(fundamental momentum scale)} \\
+		C &= \frac{mc}{\sqrt{2}} = |\alpha_G|^2\mathcal{P} \quad\text{(probability flux)} \\
+		\omega_g &= \frac{\mathcal{P}}{\hbar} = \frac{\sqrt{2}\,GMm^2}{\hbar^2} \quad\text{(graviton frequency)} \\
+		\frac{R_s}{\lambda_c} &= \frac{1}{|\alpha_G|^2} \quad\text{(length-scale ratio)}
+	\end{align}
+	
+	\subsection{The Cubic Momentum Equation}
+	
+	\begin{equation}
+		\boxed{|p| + \frac{c^2|p|^3}{\Delta^2} = \mathcal{P}}
+	\end{equation}
+	
+	Interpolates between:
+	\begin{itemize}
+		\item Linear regime ($|p|\ll\Delta$): $|p|\approx\mathcal{P}$ (classical)
+		\item Cubic regime ($|p|\sim\Delta/c$): $c^2|p|^3/\Delta^2\approx\mathcal{P}$ (quantum)
+	\end{itemize}
+	
+	\subsection{Field Energy and Momentum}
+	
+	\begin{align}
+		E_{\mathrm{field}} &= \frac{1}{\sqrt{2}}\,mc^2\left(\frac{R_s}{\lambda_c}\right) = \frac{mc^2}{\sqrt{2}\,|\alpha_G|^2} \\
+		P_{\mathrm{field}} &= \frac{1}{\sqrt{2}}\,mc\left(\frac{R_s}{\lambda_c}\right) = \frac{mc}{\sqrt{2}\,|\alpha_G|^2}
+	\end{align}
+	
+	\subsection{Force Law}
+	
+	\begin{equation}
+		F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{\lambda_C}{r}\right)^2 + \mathcal{O}(r^{-4})\right]
+	\end{equation}
+	
+
+	%=============================================================
+	\section{The Fundamental Action of QGD}
+	\label{sec:qgd_action}
+	%=============================================================
+	
+	The preceding sections derived the graviton field $\sigma_\mu$ from the Dirac wavefunction and showed that every stress-energy source enters through the unified denominator $\Delta$.  We now state the action principle that governs $\sigma_\mu$ as a dynamical field.
+	
+	The metric is a \textbf{composite field}---not fundamental:
+	\begin{equation}
+		g_{\mu\nu}(\sigma) = T^\alpha{}_\mu\,T^\beta{}_\nu\!\left(M_{\alpha\beta}\circ\left[\eta_{\alpha\beta} - \sum_a\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)} - \kappa\,\ell_Q^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma\right]\right)
+		\label{eq:master_metric_preview}
+	\end{equation}
+	
+	The unique diffeomorphism-invariant action on $\sigma$-space is:
+	\begin{equation}
+		\boxed{S[\sigma] = \int\!\dd^4x\,\sqrt{-g(\sigma)}\left[\frac{R[g(\sigma)]}{16\pi G} + \frac{\hbar^2}{2M}\,g^{\mu\nu}\nabla_\mu\sigma^\alpha\nabla_\nu\sigma_\alpha + \mathcal{L}_{\mathrm{eff}}(\psi,\,g(\sigma))\right]}
+		\label{eq:qgd_action}
+	\end{equation}
+	
+	Three terms:
+	\begin{enumerate}
+		\item \textbf{Einstein--Hilbert in $\sigma$-variables:} $R[g(\sigma)]/(16\pi G)$ is the unique second-order diffeomorphism-invariant scalar.  We do not postulate GR; Einstein gravity \emph{emerges} because curvature is the only available geometric invariant.
+		\item \textbf{The $\sigma$-kinetic term:} $(\hbar^2/2M)(\nabla\sigma)^2$ is forced by dimensional necessity ($\sigma$ is dimensionless; $\hbar^2/M$ is the only available scale), stability, and its quantum origin from coarse-graining the Dirac phase.  It is the gravitational analogue of an elastic stiffness modulus.
+		\item \textbf{Matter coupling:} $\mathcal{L}_{\mathrm{eff}}$ (Eq.~\eqref{eq:Leff_final}) couples to the \emph{derived} metric $g(\sigma)$, preserving the equivalence principle.
+	\end{enumerate}
+	
+	Varying with respect to $\sigma_\alpha$ (\textbf{not} $g_{\mu\nu}$) yields the fundamental field equation:
+	\begin{equation}
+		\boxed{\frac{\hbar^2}{M}\,\nabla^2\sigma^\alpha = \frac{1}{16\pi G}\!\left(G^{\mu\nu} - \frac{8\pi G}{c^4}T^{\mu\nu}\right)\frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}}
+		\label{eq:sigma_field_eq}
+	\end{equation}
+	
+	\textbf{This equation does not exist in general relativity.}
+	
+	At equilibrium ($\nabla^2\sigma = 0$), the left-hand side vanishes, recovering:
+	\begin{equation}
+		\boxed{G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}}
+	\end{equation}
+	
+	The dichotomy is sharp:
+	\begin{equation}
+		\begin{cases}
+			\nabla^2\sigma = 0 &\longrightarrow\quad\text{Classical GR (static $\sigma$ configuration)} \\[4pt]
+			\nabla^2\sigma \neq 0 &\longrightarrow\quad\text{Quantum gravity ($\sigma$ fluctuations)}
+		\end{cases}
+	\end{equation}
+	
+	GR is the equilibrium thermodynamics of the graviton field.  Quantum gravity is its statistical mechanics.
+
+	%=============================================================
+	\section{Conclusion}
+	%=============================================================
+	
+	We have derived classical gravitational dynamics from quantum field theory through a fundamental bridge: current conservation yields $|\psi|^2=C/|p|$, connecting wavefunction amplitude to momentum.
+	
+	The gravitational fine structure constant
+	\begin{equation*}
+		\alpha_G = e^{i\pi/4}\sqrt{\frac{c\hbar}{2GMm}}
+	\end{equation*}
+	is \emph{complex}---a feature, not a deficiency.  The phase $e^{i\pi/4}$ encodes the geometric phase of the gravitational interaction.  Physical observables use $|\alpha_G|^2$ (probability densities) or $\mathrm{Re}(\alpha_G)$ (real amplitudes).
+	
+	With this corrected coupling, the probability flux simplifies to $C=mc/\sqrt{2}$, showing the flux scale is set by the test particle's rest momentum alone.  All source-mass dependence enters through $\alpha_G$ and $\Delta$.
+	
+	The momentum structure satisfies the cubic $|p|+c^2|p|^3/\Delta^2=\mathcal{P}$, where $\mathcal{P}=\sqrt{2}\,GMm^2/\hbar$ is the fundamental gravitational momentum scale.  The graviton scalar $\sigma=pc/\Delta\sim\beta=v/c$ provides a dimensionless measure of quantum gravitational strength with cubic dispersion $\sigma+\sigma^3=\mathcal{P}c/\Delta$.
+	
+	All standard solutions (Schwarzschild, Kerr, Reissner-Nordstr\"om, cosmological fluids) emerge as special cases in flat Minkowski spacetime.
+	
+	\bigskip
+	\noindent\textbf{The action encodes gravity.  The stress-energy manifests it.  The complex wavefunction realizes it.}
+
+\end{document}
