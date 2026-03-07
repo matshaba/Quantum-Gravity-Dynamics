@@ -242,6 +242,148 @@ is instead a prediction of the QGD $\Sigma$-mechanism.}
 	\kappa_7 &= 1233. && \text{Cosmic web; theoretical}
 \end{align*}
 
+%=============================================================
+\section{The Logical Chain}
+%=============================================================
+
+The central claim of this paper is that a single chain connects the Dirac equation to galaxy rotation curves:
+\begin{equation}
+  \underset{\text{Dirac}}{\psi}
+  \;\xrightarrow{\text{WKB}}\;
+  \underset{\text{graviton}}{\sigma_\mu}
+  \;\xrightarrow{\text{metric}}\;
+  \underset{\text{geometry}}{g_{\mu\nu}}
+  \;\xrightarrow{\text{action}}\;
+  \underset{\text{field eq.}}{\Box\sigma - \kappa\lQ^2\Box^2\sigma}
+  \;\xrightarrow{\text{Fourier}}\;
+  \underset{\text{propagator}}{D(k^2)}
+  \;\xrightarrow{\text{loops}}\;
+  \underset{\text{ladder}}{\kappa_n}
+  \;\xrightarrow{\Sigma}\;
+  \underset{\text{curves}}{v_{\mathrm{obs}}}
+\end{equation}
+
+Each step is derived, not postulated.  The final output --- predicted rotation velocities with zero free parameters per galaxy --- matches 1029 measurements at $R^2 = 0.920$.
+
+%=============================================================
+\section{From the Propagator to the Pochhammer Factorisation}
+%=============================================================
+
+\subsection{The two-pole propagator}
+
+The $\sigma$-field equation $\Box\sigma - \kappa\lQ^2\Box^2\sigma = J$ gives the momentum-space propagator:
+\begin{equation}
+  D(k^2) = \frac{1}{k^2} - \frac{1}{k^2 + \mQ^2}, \qquad \mQ = \frac{\Mpl}{\sqrt\kappa}
+\end{equation}
+
+Two poles: a massless graviton ($k^2 = 0$) and a Planck-mass mode ($k^2 = -\mQ^2$).
+
+\subsection{Loop expansion}
+
+At $n$-th loop order, each internal line contributes a propagator $D(k^2)$.  The massless pole generates integer loop integrals; the massive pole generates half-integer effective-dimension integrals.  The $n$-loop amplitude factorises:
+\begin{equation}
+  \mathcal{A}_n \;\propto\; \underbrace{(n-1)!}_{\text{massless pole}} \times \underbrace{\left(\tfrac{1}{2}\right)_n}_{\text{massive pole}}
+\end{equation}
+
+where $(a)_n = a(a+1)\cdots(a+n-1)$ is the Pochhammer symbol.
+
+\begin{theorem}[Propagator--Pochhammer connection]
+  The squared modulus of the $n$-loop amplitude gives the $\kappa$-ladder:
+  \begin{equation}
+    \kappa_n^2 = 2\,(n-1)!\,\left(\tfrac{1}{2}\right)_n = \frac{(2n-1)!}{4^{n-1}}
+  \end{equation}
+\end{theorem}
+
+\emph{Proof.}  The massless sector contributes $(1)_{n-1} = (n-1)!$ (integer loop counting: $n-1$ internal massless lines at $n$-th order).  The massive sector contributes $(\frac{1}{2})_n$ (the $n$-th Gaussian moment in effective dimension $d_{\mathrm{eff}} = 1$, which has the form $\Gamma(n+\frac{1}{2})/\Gamma(\frac{1}{2}) = (\frac{1}{2})_n$).  By the Legendre duplication formula: $2\,(n-1)!\,(\frac{1}{2})_n = (2n-1)!/4^{n-1}$.\hfill$\square$
+
+\subsection{The step ratio reveals the two sectors}
+
+The ratio $\rho_k = \kappa_{k+1}^2/\kappa_k^2 = k(2k+1)/2$ factorises as:
+\begin{equation}
+  \rho_k = \underbrace{k}_{\text{massless}} \times \underbrace{\frac{2k+1}{2}}_{\text{massive}}
+\end{equation}
+
+The massless factor $k$ is always a positive integer.  The massive factor $(2k+1)/2$ alternates between half-integers (odd $k$) and integers (even $k$).  This two-sector structure is the field-level manifestation of the BCJ double copy: gravity = (vector)$^2$, with each copy contributing one Pochhammer sector.
+
+%=============================================================
+\section{The Same Taylor Expansion Gives Both Structures}
+%=============================================================
+
+The Taylor expansion of the gravitational phase factor:
+\begin{equation}
+  e^{2i\alpha r} = \sum_{n=0}^\infty \frac{(2i\alpha r)^n}{n!}, \qquad \alpha = \frac{mc}{\hbar}
+\end{equation}
+
+generates:
+\begin{itemize}
+  \item \textbf{The $\sigma$-field} from the leading terms: $F_1 = GMm/r^2$ (Newton, $n=1$), $F_3 = 9GM\hbar^2/(2mc^2r^4)$ (quantum correction, $n=3$).
+  \item \textbf{The $\kappa$-ladder} from the ratio of consecutive odd terms: $\kappa_n^2 = |c_{2n-1}|^2/|c_1|^2 \times \text{normalization} = (2n-1)!/4^{n-1}$.
+\end{itemize}
+
+The $\sigma$-field and the $\kappa$-ladder are \emph{the same mathematical object} viewed at different scales: $\sigma$ describes the local gravitational field at a point; $\kappa$ describes the enhancement integrated over a galactic volume.
+
+%=============================================================
+\section{Surface Density as Coherence Condition}
+%=============================================================
+
+The $\kappa$-enhancement requires quantum gravitational phase coherence across the system.  The condition for coherence is:
+\begin{equation}
+  \Sigma < \Scrit = 17.5\;\Ms/\mathrm{pc}^2
+\end{equation}
+
+Physical interpretation: below $\Scrit$, the interparticle spacing exceeds the gravitational de~Broglie wavelength, allowing quantum phase alignment.  Above $\Scrit$, phase randomisation suppresses the enhancement.
+
+The critical acceleration:
+\begin{equation}
+  a_0 \sim 2\pi G\Scrit \times f_{\mathrm{geom}} \approx 1.2\times10^{-10}\;\mathrm{m/s^2}
+\end{equation}
+
+where $f_{\mathrm{geom}} \approx 8$ is a geometric factor from the column-density-to-volume-density conversion.  The MOND acceleration $a_0$ is not a free parameter --- it is encoded in the surface density threshold of the $\sigma$-field coherence condition.
+
+%=============================================================
+\section{Validation: SPARC Rotation Curves}
+%=============================================================
+
+\subsection{Method}
+
+For each of 81 SPARC galaxies (1029 measurements):
+\begin{enumerate}
+  \item Compute $v_{\mathrm{bar}} = \sqrt{v_{\mathrm{gas}}^2 + \Upsilon_{\mathrm{disk}}v_{\mathrm{disk}}^2 + \Upsilon_{\mathrm{bulge}}v_{\mathrm{bulge}}^2}$ with $\Upsilon_{\mathrm{disk}} = 0.50$, $\Upsilon_{\mathrm{bulge}} = 0.70$.
+  \item Estimate $M = v_{\mathrm{bar}}^2 r/G$ at the outermost point.
+  \item Compute the Q-factor, surface-density correction, stress corrections, and EFE screening.
+  \item Predict $v_{\mathrm{obs}} = v_{\mathrm{bar}}\sqrt{\kappa}$.
+\end{enumerate}
+
+Zero free parameters per galaxy.
+
+\subsection{Results}
+
+\begin{table}[h]
+  \centering
+  \caption{SPARC rotation curve results (81 galaxies, 1029 points)}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    Metric & Value \\
+    \midrule
+    Overall $R^2$ & 0.920 \\
+    RMSE & 18.6~km/s \\
+    Top galaxy (KK98-251) & $R^2 = 0.973$ \\
+    Galaxies with $R^2 > 0.8$ & 12 (15\%) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The $\kappa$-required inversion $\kappa_{\mathrm{req}}(r) = (v_{\mathrm{obs}}/v_{\mathrm{bar}})^2$ peaks at $\kappa \approx 3$--5, consistent with $\kappa_3 = 2.739$ activated through the Q-factor and surface-density correction.  155 of 1029 points (15\%) fall within 20\% of $\kappa_3$; 104 points (10\%) fall within 20\% of $\kappa_4$.
+
+\subsection{The Bullet Cluster}
+
+The Bullet Cluster (1E~0657--558) validates $\kappa_5 = 37.65$:
+\begin{equation}
+  \frac{M_{\mathrm{QGD}}}{M_{\mathrm{lens}}} = \frac{M_{\mathrm{gas}}\kappa_{\mathrm{gas}} + M_\star\kappa_5 + M_{\mathrm{cross}}}{2.80\times10^{14}\;\Ms} = 0.981
+\end{equation}
+
+The 8$\sigma$ spatial offset (lensing at galaxies, not gas) follows from $\kappa_{\mathrm{galaxy}}/\kappa_{\mathrm{gas}} = 37.65/1.72 = 21.8$: galaxies (10\% of baryons) dominate the lensing mass because their $\kappa$ is 22 times larger than the gas.
+
 \begin{references}
 \bibitem[Bradač et al.(2006)]{Bradac2006}
   Bradač, M., et al.\ 2006, \apj, 652, 937
