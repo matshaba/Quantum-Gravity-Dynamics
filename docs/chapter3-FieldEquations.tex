@@ -1,0 +1,352 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,physics,geometry,booktabs,array,hyperref,mathtools}
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mQ}{m_Q}
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
+
+\title{\textbf{Quantum Gravitational Dynamics}\\[4pt]
+\Large Chapter 3: Field Equations}
+\author{Romeo Matshaba}
+\date{University of South Africa}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We derive the dynamical equations governing the graviton field $\sigma_\mu$ from the QGD action.  Variation with respect to $\sigma_\mu$ yields a fourth-order covariant wave equation
+$\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu + \mathcal{O}(\lQ^4)$
+sourced by gravitational self-interaction, geometric coupling, matter, and quantum stiffness.  The Pais--Uhlenbeck factorisation splits this into massless and Planck-mass sectors, admitting an exact Green's function solution.  Einstein's field equations emerge as the equilibrium limit.
+\end{abstract}
+
+\tableofcontents
+
+%=============================================================
+\section{From the Action to the Field Equations}
+\label{sec:variation}
+%=============================================================
+
+Chapters~1--2 established the graviton field $\sigma_\mu = \partial_\mu S/(mc)$, the master metric
+\begin{equation}
+  g_{\mu\nu}(\sigma) = T^\alpha{}_\mu T^\beta{}_\nu\!\left(M_{\alpha\beta}\circ\left[\eta_{\alpha\beta} - \sum_a\varepsilon_a\sigma_\alpha^{(a)}\sigma_\beta^{(a)} - \kappa\lQ^2\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma\right]\right)
+  \label{eq:master_metric}
+\end{equation}
+and the fundamental action
+\begin{equation}
+  S[\sigma] = \int\!\dd^4x\,\sqrt{-g(\sigma)}\left[\frac{R[g(\sigma)]}{16\pi G} + \frac{\hbar^2}{2M}g^{\mu\nu}\nabla_\mu\sigma^\alpha\nabla_\nu\sigma_\alpha + \mathcal{L}_{\mathrm{matter}}(\psi,g(\sigma))\right]
+  \label{eq:action}
+\end{equation}
+
+The metric is a composite field; $\sigma_\mu(x)$ is the true dynamical variable.
+
+\subsection{Variation with respect to $\sigma_\alpha$}
+
+Define the Einstein error tensor $E^{\mu\nu} \equiv G^{\mu\nu} - (8\pi G/c^4)T^{\mu\nu}$.  The metric variation induced by $\delta\sigma_\alpha$ is
+\begin{equation}
+  \delta g_{\mu\nu} = \frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}\delta\sigma_\alpha = -(\sigma_\mu\delta\sigma_\nu + \sigma_\nu\delta\sigma_\mu) + \text{(Kerr--Schild and radiation terms)}
+\end{equation}
+
+The total variation yields
+\begin{equation}
+  \boxed{\frac{\hbar^2}{M}\nabla^2\sigma^\alpha = \frac{1}{16\pi G}E^{\mu\nu}\frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}}
+  \label{eq:compact}
+\end{equation}
+
+This is the $\sigma$-field equation in compact form.  \textbf{This equation does not exist in general relativity.}
+
+%=============================================================
+\section{The Master Field Equation}
+\label{sec:master_eq}
+%=============================================================
+
+\subsection{The Einstein--wave operator identity}
+
+\begin{lemma}[Einstein--wave operator identity]\label{lem:identity}
+  For the QGD metric~\eqref{eq:master_metric}, the contraction of the Einstein tensor with $\sigma_\nu$ satisfies
+  \begin{equation}
+    G^{\mu\nu}\sigma_\nu = -\Box_g\sigma^\mu + Q^\mu(\sigma,\partial\sigma) + G^\mu(\sigma,\ell,H,q) + \tfrac{1}{2}T^{\mu\nu}\sigma_\nu
+    \label{eq:identity}
+  \end{equation}
+\end{lemma}
+
+\emph{Proof.}  From $G^{\mu\nu} = R^{\mu\nu} - \tfrac{1}{2}g^{\mu\nu}R$.  The Christoffel symbols of the $\sigma$-sector give $\Gamma^\lambda{}_{\mu\nu}|_\sigma = g^{\lambda\rho}[\sigma_\rho\partial_{(\mu}\sigma_{\nu)} - \sigma_{(\mu}\partial_{\nu)}\sigma_\rho]$.  Computing $R^{\mu\nu}\sigma_\nu$ and subtracting $\tfrac{1}{2}g^{\mu\nu}R\sigma_\nu$ yields~\eqref{eq:identity} after collecting the nonlinear and coupling terms into $Q^\mu$ and $G^\mu$.\hfill$\square$
+
+\subsection{The complete master field equation}
+
+Evaluating the right-hand side of~\eqref{eq:compact} using the identity~\eqref{eq:identity} and including the quantum stiffness from the $\sigma$-kinetic term:
+
+\begin{equation}
+  \boxed{\Box_g\sigma_\mu = Q_\mu(\sigma,\partial\sigma) + G_\mu(\sigma,\ell,H,q) + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu + \mathcal{O}(\lQ^4)}
+  \label{eq:master}
+\end{equation}
+
+where $\Box_g = g^{\alpha\beta}\nabla_\alpha\nabla_\beta$ is the covariant d'Alembertian and $\lQ = \sqrt{G\hbar^2/c^4}$.  The four terms:
+
+\paragraph{(1) Quantum self-interaction $Q_\mu$:}
+\begin{equation}
+  Q_\mu(\sigma,\partial\sigma) = \sigma_\mu(\nabla_\alpha\sigma_\beta\nabla^\alpha\sigma^\beta) + (\nabla_\mu\sigma_\alpha)(\sigma_\beta\nabla^\beta\sigma^\alpha)
+  \label{eq:Q}
+\end{equation}
+Gravity gravitates.  The graviton field's own energy curves spacetime.  Analogous to gluon self-coupling $Q \sim A \cdot F$ in Yang--Mills.
+
+\paragraph{(2) Geometric coupling $G_\mu$:}
+\begin{equation}
+  G_\mu = \sum_A\!\left[H_A(\ell^{(A)}\!\cdot\!\nabla)^2\sigma_\mu + (\nabla\sigma)\cdot\nabla(H_A\ell\ell)\right] + \nabla_\alpha(q^{\alpha\beta}\nabla_\beta\sigma_\mu)
+  \label{eq:G}
+\end{equation}
+Strong-field geometry modifies graviton propagation.  Vanishes in weak field.
+
+\paragraph{(3) Matter source $T_\mu$:}
+\begin{equation}
+  T_\mu = \tfrac{1}{2}T^{\mu\nu}\sigma_\nu
+  \label{eq:T}
+\end{equation}
+Universal coupling: every form of energy with $T^{\mu\nu} \neq 0$ sources graviton waves.
+
+\paragraph{(4) Quantum stiffness $\kappa\lQ^2\Box_g^2\sigma_\mu$:}
+The fourth-order term from the $\sigma$-kinetic action.  Negligible at macroscopic scales ($\lQ \sim 10^{-35}$~m); resolves singularities at the Planck scale.
+
+\subsection{Comparison with gauge forces}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Force & Field & Equation & Self-coupling \\
+    \midrule
+    Electromagnetism & $A_\mu$ & $\Box A_\mu = J_\mu$ & None \\
+    Yang--Mills & $A_\mu^a$ & $D_\mu F^{\mu\nu} = j^\nu$ & $Q \sim A \cdot F$ \\
+    \textbf{Gravity (QGD)} & $\sigma_\mu$ & $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ & $Q \sim \sigma(\partial\sigma)^2$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+%=============================================================
+\section{Wave Propagation Regimes}
+\label{sec:regimes}
+%=============================================================
+
+\paragraph{Linear ($|\sigma| \ll 1$):} $Q_\mu \approx 0$, $G_\mu = 0$, $\Box_g \to \Box_\eta$:
+$\;\Box_\eta\sigma_\mu = T_\mu + \kappa\lQ^2\Box_\eta^2\sigma_\mu$.
+
+\paragraph{Quasilinear (moderate field):}
+$\Box_g\sigma_\mu = Q_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$.
+
+\paragraph{Nonlinear (strong field):} Full equation~\eqref{eq:master} with all terms.
+
+%=============================================================
+\section{Gravitational Waves}
+\label{sec:gw}
+%=============================================================
+
+\subsection{Vacuum wave equation}
+
+Far from sources ($Q_\mu, G_\mu, T_\mu \to 0$), the master equation reduces to
+\begin{equation}
+  \Box_g\sigma_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu = 0
+\end{equation}
+
+At astrophysical scales ($r \gg \lQ$) the stiffness term is negligible, giving the pure wave equation $\Box_g\sigma_\mu = 0$.  Plane wave solutions $\sigma_\mu = \epsilon_\mu e^{ik_\nu x^\nu}$ yield:
+\begin{equation}
+  g^{\alpha\beta}k_\alpha k_\beta = 0 \quad(\text{null propagation}), \qquad k^\mu\epsilon_\mu = 0 \quad(\text{transversality})
+\end{equation}
+
+Gravitational waves propagate at speed $c$, are transverse, with two polarisation states.
+
+\subsection{Gravitational waves from binary sources}
+
+The two-body cross-term $h_{\mu\nu}^{\mathrm{GW}} = -2\sigma_\mu^{(1)}\sigma_\nu^{(2)}$ gives, in TT gauge for a circular binary:
+\begin{equation}
+  \boxed{h_+(t) = \frac{G}{c^4 r_{\mathrm{obs}}}M_{\mathrm{tot}}\!\left(\frac{d}{2}\right)^{\!2}\omega^2\cos(2\omega t)}
+  \label{eq:quadrupole}
+\end{equation}
+matching the standard quadrupole formula, derived from $\sigma$-field superposition.
+
+\subsection{LIGO interpretation}
+
+What LIGO detects is the oscillation of $\sigma_\mu$: $\delta g_{\mu\nu} \sim -\sigma_\mu\delta\sigma_\nu - \delta\sigma_\mu\sigma_\nu$.
+
+%=============================================================
+\section{The Fourth-Order Equation and Pais--Uhlenbeck Factorisation}
+\label{sec:PU}
+%=============================================================
+
+Rearranging~\eqref{eq:master} and collecting the quantum stiffness:
+\begin{equation}
+  \boxed{(\Box_g - \kappa\lQ^2\Box_g^2)\sigma_\mu = S_\mu}
+  \label{eq:fourth}
+\end{equation}
+where
+\begin{equation}
+  S_\mu = \frac{8\pi G}{c^4}Q_\mu + \frac{8\pi G}{c^4}G_\mu + \frac{4\pi G}{c^2}T^{\mu\nu}\sigma_\nu
+\end{equation}
+
+\subsection{Factorisation}
+
+The left-hand side factors exactly:
+\begin{equation}
+  \Box_g - \kappa\lQ^2\Box_g^2 = \Box_g(1 - \kappa\lQ^2\Box_g)
+\end{equation}
+
+Setting $1 - \kappa\lQ^2\Box_g = 0$ defines the Planck mass:
+\begin{equation}
+  \mQ^2 = \frac{1}{\kappa\lQ^2} = \frac{\Mpl^2 c^2}{\kappa\hbar^2}, \qquad \mQ = \frac{\Mpl c}{\sqrt{\kappa}\,\hbar}
+\end{equation}
+
+The factored form is:
+\begin{equation}
+  \boxed{\Box_g(\Box_g - \mQ^2)\sigma_\mu = -\mQ^2 S_\mu}
+  \label{eq:PU}
+\end{equation}
+
+Two modes:
+\begin{enumerate}
+  \item \textbf{Massless:} $\Box_g\sigma_\mu^{(0)} = 0$ --- classical gravitational waves at speed $c$.
+  \item \textbf{Massive:} $(\Box_g - \mQ^2)\sigma_\mu^{(m)} = 0$ --- Planck-mass gravitons, exponentially damped on $\tau_Q = \hbar/(\mQ c^2) \sim 10^{-43}$~s.  Unobservable at astrophysical scales.
+\end{enumerate}
+
+%=============================================================
+\section{Exact Solution via Green's Functions}
+\label{sec:green}
+%=============================================================
+
+\subsection{Mode decomposition}
+
+Write $\sigma_\mu = \sigma_\mu^{(0)} + \sigma_\mu^{(m)}$ with
+\begin{equation}
+  \Box_g\sigma_\mu^{(0)} = J_\mu, \qquad (\Box_g - \mQ^2)\sigma_\mu^{(m)} = -J_\mu
+\end{equation}
+where $J_\mu = -\kappa\lQ^2 S_\mu$.  Verification: $\Box_g(\Box_g - \mQ^2)(\sigma^{(0)} + \sigma^{(m)}) = (\Box_g - \mQ^2)J - \Box_g J = -\mQ^2 J = S_\mu$.\;\checkmark
+
+\subsection{Retarded Green's functions}
+
+\begin{align}
+  \Box_g G_0(x,x') &= \delta^{(4)}(x-x')/\sqrt{-g(x')} \quad\text{(massless)} \\
+  (\Box_g - \mQ^2)G_{\mQ}(x,x') &= \delta^{(4)}(x-x')/\sqrt{-g(x')} \quad\text{(massive)}
+\end{align}
+
+In flat spacetime:
+\begin{align}
+  G_0(x-x') &= \frac{\delta(t-t'-|\mathbf{x}-\mathbf{x}'|/c)}{4\pi|\mathbf{x}-\mathbf{x}'|} \\[4pt]
+  G_{\mQ}(x-x') &= \frac{\delta(t-t'-r/c)}{4\pi r} - \frac{\mQ}{4\pi}\frac{J_1(\mQ\sqrt{c^2(t-t')^2-r^2})}{\sqrt{c^2(t-t')^2-r^2}}\,\Theta(c(t-t')-r)
+\end{align}
+
+\subsection{The exact integral solution}
+
+\begin{theorem}[Exact integral solution]\label{thm:exact}
+  The general solution to~\eqref{eq:fourth} on a globally hyperbolic spacetime is:
+  \begin{equation}
+    \boxed{\sigma_\mu(x) = \sigma_\mu^{\mathrm{free}}(x) + \kappa\lQ^2\!\int_{\mathcal{M}}\!\dd^4x'\sqrt{-g(x')}[G_0(x,x') - G_{\mQ}(x,x')]S_\mu(x')}
+    \label{eq:exact}
+  \end{equation}
+\end{theorem}
+
+The composite propagator $G_{\mathrm{QGD}} = \kappa\lQ^2[G_0 - G_{\mQ}]$ separates into:
+\begin{itemize}
+  \item Classical sector ($G_0$): light-cone propagation, $1/r$ potential, reproduces GR.
+  \item Quantum sector ($-G_{\mQ}$): Yukawa-suppressed $e^{-\mQ r}/r$, decay length $\sim\lQ$, resolves singularities.
+\end{itemize}
+
+\textbf{No superluminal propagation:} both propagators are retarded; the massive one is strictly more localised.
+
+\subsection{Iterative solution: Born series}
+
+Since $S_\mu$ depends on $\sigma$ through $Q_\mu$ and $G_\mu$, Eq.~\eqref{eq:exact} is an integral equation solved iteratively.  Each iteration adds corrections of order $\epsilon^2 \sim (GM/rc^2)^2$.
+
+%=============================================================
+\section{Energy-Momentum of the Graviton Field}
+\label{sec:energy}
+%=============================================================
+
+Contracting~\eqref{eq:master} with $\sigma^\mu$:
+\begin{equation}
+  T_\sigma^{\alpha\beta} = \nabla^\alpha\sigma_\mu\nabla^\beta\sigma^\mu - \tfrac{1}{2}g^{\alpha\beta}(\nabla\sigma)^2 + \kappa\lQ^2\text{-corrections}
+\end{equation}
+
+This is a true tensor, positive-definite, locally conserved.  For Schwarzschild: $\rho_{\mathrm{grav}}(r) = GM/(4c^2 r^3)$.
+
+%=============================================================
+\section{Equivalence to Einstein's Field Equations}
+\label{sec:equivalence}
+%=============================================================
+
+\begin{theorem}[QGD $\Rightarrow$ Einstein]\label{thm:forward}
+  Any solution of $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ generates a metric satisfying $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$.
+\end{theorem}
+
+\emph{Proof.}  From the identity~\eqref{eq:identity} and the field equation with $T_\mu = \tfrac{1}{2}T^{\mu\nu}\sigma_\nu$:
+\begin{equation}
+  G^{\mu\nu}\sigma_\nu = -(Q^\mu + G^\mu + T^\mu) + Q^\mu + G^\mu + \tfrac{1}{2}T^{\mu\nu}\sigma_\nu = 0
+\end{equation}
+Combined with analogous projections from the companion field equations for $H_A$, $\ell_\mu^{(A)}$, $q_{\mu\nu}$, the error tensor $E^{\mu\nu} = G^{\mu\nu} - (8\pi G/c^4)T^{\mu\nu}$ vanishes identically.\hfill$\square$
+
+\begin{theorem}[Einstein $\Rightarrow$ QGD]\label{thm:reverse}
+  Any solution of $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$ admits a Debney--Kerr--Schild decomposition into fields satisfying the QGD system.
+\end{theorem}
+
+\begin{corollary}[Mathematical equivalence]\label{cor:equiv}
+  QGD and GR have a one-to-one correspondence of classical solutions:
+  \begin{equation}
+    \nabla^2\sigma = 0 \;\Longleftrightarrow\; G_{\mu\nu} = \frac{8\pi G}{c^4}T_{\mu\nu}
+  \end{equation}
+\end{corollary}
+
+The distinction: GR constrains the metric directly; QGD evolves $\sigma_\mu$ via a wave equation and the metric emerges.
+
+%=============================================================
+\section{Ghost-Freedom and Stability}
+\label{sec:ghosts}
+%=============================================================
+
+\begin{theorem}[Ghost-freedom]\label{thm:ghost}
+  The QGD quantum stiffness is ghost-free for all modes with $m < \Mpl$.
+\end{theorem}
+
+\emph{Proof.}  Dispersion relation $\omega^2 = k^2c^2(1 + \kappa\lQ^2 k^2c^2 + \mathcal{O}(\lQ^4))$ has positive correction for all $k$.  Ghosts appear only at $m > 1/(\sqrt{\kappa}\lQ) = \Mpl c/(\sqrt{\kappa}\hbar)$.\hfill$\square$
+
+%=============================================================
+\section{The Post-Newtonian Hierarchy}
+\label{sec:pn}
+%=============================================================
+
+Expanding $\sigma_\mu = \sum_{k=1}^\infty\epsilon^k\sigma_\mu^{(k)}$:
+\begin{equation}
+  \Box_\eta\sigma_\mu^{(k)} = Q_\mu^{(k)}[\sigma^{(<k)}] + T_\mu^{(k)} + \kappa\lQ^2\Box_\eta^2\sigma_\mu^{(k)}
+\end{equation}
+
+Linear at each order, sourced by lower orders.  Including quantum corrections via $(\hbar,\epsilon)$ double expansion:
+\begin{equation}
+  \Box_g\sigma_\mu^{(n,k)} = S_\mu^{(n,k)}[\sigma^{(n'<n,k'<k)}] + \kappa\lQ^2\Box_g^2\sigma_\mu^{(n,k)}
+\end{equation}
+
+\section{Summary}
+
+The complete QGD field dynamics:
+
+\begin{table}[h]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{@{}lp{9.5cm}@{}}
+    \toprule
+    Equation & Content \\
+    \midrule
+    $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ & Master field equation \\
+    $\Box_g(\Box_g - \mQ^2)\sigma_\mu = S_\mu$ & Pais--Uhlenbeck form \\
+    $\sigma_\mu = \sigma^{\mathrm{free}} + \kappa\lQ^2\!\int(G_0 - G_{\mQ})S_\mu$ & Green's function solution \\
+    $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$ & Einstein at equilibrium \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\end{document}
