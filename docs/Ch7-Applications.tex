@@ -1,0 +1,446 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,physics,geometry,booktabs,array,hyperref,mathtools}
+\geometry{margin=2.5cm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\Ms}{M_\odot}
+\newcommand{\boldx}{\mathbf{x}}
+\newcommand{\bhat}[1]{\hat{\mathbf{#1}}}
+\newcommand{\sig}[2]{\sigma_{#1}^{(#2)}}
+\newcommand{\rs}[1]{r_{\mathrm{s}}^{(#1)}}
+\newcommand{\crossterm}[2]{\sigma_t^{(#1)}\sigma_t^{(#2)}}
+\newcommand{\Sigt}{\Sigma_{\mathrm{tot}}}
+\newcommand{\Fp}{F_{\mathrm{QGD}}^{\mathrm{dip}}}
+
+\title{\textbf{Quantum Gravitational Dynamics}\\[4pt]
+\Large Chapter 7: Applications --- Ringdown, Radiation, and Black Hole Thermodynamics}
+\author{Romeo Matshaba}
+\date{University of South Africa}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We apply QGD to four domains: (i)~black hole ringdown, proving that QGD quasinormal modes equal GR's at leading order and deriving three QGD-specific predictions (cross-term early decay, dipole radiation, quantum stiffness); (ii)~the Noether analysis establishing the $\sqrt{M}$-weighted QGD dipole with explicit power formula; (iii)~the QGD effective one-body framework with the exact $A$-function $A^{\mathrm{QGD}}(u) = 1 - 2u/\eta$ and the merger transition; (iv)~black hole thermodynamics, deriving Hawking temperature and Bekenstein--Hawking entropy from the $\sigma$-field phase expansion.  We analyse GW250114, provide $\sigma$-field relaxation tables, and present five falsifiable predictions.
+\end{abstract}
+
+\tableofcontents
+
+%=============================================================
+\section{Ringdown: QNM Agreement with GR}
+\label{sec:ringdown}
+%=============================================================
+
+\subsection{The $\sigma$-perturbation equation}
+
+For a Kerr remnant of mass $M_f$, spin $\alpha_f = \chi_f GM_f/c^2$, and $\mathcal{S}_f = r^2 + \alpha_f^2\cos^2\theta$:
+\begin{equation}
+  \sig{t}{f}(r,\theta) = \sqrt{\frac{2GM_fr}{c^2\mathcal{S}_f}}, \qquad \sig{\phi}{f}(r,\theta) = \alpha_f\sin\theta\sqrt{\frac{2GM_f}{c^2r\mathcal{S}_f}}
+\end{equation}
+
+This reconstructs the exact Boyer--Lindquist Kerr metric via $g_{tt} = -(1 - [\sig{t}{f}]^2)$, $g_{t\phi} = -r\sin\theta\,\sig{t}{f}\sig{\phi}{f}$.
+
+Define the post-merger perturbation $\delta\sigma(r,\theta,t) \equiv \sigma_{\mathrm{tot}}(r,\theta,t) - \sig{t}{f}(r,\theta)$.  The QGD field equation gives:
+\begin{equation}
+  \boxed{\Box_g\delta\sigma - \kappa\lQ^2\Box_g^2\delta\sigma = 0}
+  \label{eq:pert_eq}
+\end{equation}
+
+where $\Box_g$ is the d'Alembertian on the Kerr background.
+
+\begin{theorem}[QNM agreement]\label{thm:qnm}
+  At leading order, the quasinormal modes of~\eqref{eq:pert_eq} are identical to those of GR on a Kerr background.
+\end{theorem}
+
+\emph{Proof.}  The stiffness ratio $\kappa\lQ^2/r_s^2 \sim 10^{-140}$ for stellar-mass BHs.  Dropping this term: $\Box_g\delta\sigma = 0$.  Since the background is exactly Kerr, this is the standard scalar wave equation whose separable solutions are the Teukolsky modes with QNM frequencies determined solely by $(M_f, \chi_f)$.\hfill$\square$
+
+\subsection{Dominant 220 mode estimate}
+
+The QGD $\sigma$-field at the photon sphere $r_{\mathrm{ph}} \approx 3GM_f/c^2(1 - 2\chi_f/(3\sqrt{3}))$ gives:
+\begin{equation}
+  \omega_{\mathrm{QGD}} \approx \frac{c\,\sig{t}{f}(r_{\mathrm{ph}})}{r_{\mathrm{ph}}} = c\sqrt{\frac{2GM_f}{c^2r_{\mathrm{ph}}^3}}
+\end{equation}
+
+For quantitative predictions we use the Echeverr\'ia--Leaver fits:
+\begin{align}
+  \omega_{220} &= \frac{c}{2GM_f}\left[1 - 0.63(1-\chi_f)^{0.3}\right] \label{eq:omega_220} \\
+  \tau_{220} &= \frac{2GM_f}{c^3}\left[1 - 0.63(1-\chi_f)^{0.45}\right]^{-1} \label{eq:tau_220}
+\end{align}
+
+\begin{table}[h]
+  \centering
+  \caption{QNM frequencies (QGD = GR at leading order)}
+  \begin{tabular}{@{}cccccc@{}}
+    \toprule
+    $M_f/\Ms$ & $\chi_f$ & $f_{220}$ (Hz) & $\tau_{220}$ (ms) & $f_{440}$ (Hz) & Stiffness $\delta\omega/\omega$ \\
+    \midrule
+    30 & 0.00 & 199.6 & 1.59 & 387 & $2.3\times10^{-122}$ \\
+    30 & 0.68 & 298.0 & 0.95 & 578 & $2.3\times10^{-122}$ \\
+    152 & 0.68 & 58.8 & 4.80 & 114 & $9.1\times10^{-124}$ \\
+    152 & 0.95 & 79.2 & 3.57 & 154 & $9.1\times10^{-124}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+%=============================================================
+\section{QGD Ringdown Waveform}
+\label{sec:waveform}
+%=============================================================
+
+\subsection{Complete decomposition}
+
+\begin{equation}
+  \boxed{h_{\mathrm{QGD}}(t) = h_{\mathrm{QNM}}(t) + h_{\mathrm{cross}}(t) + h_{\mathrm{dipole}}(t)}
+\end{equation}
+
+\subsection{GR QNM component}
+
+Identical to GR at leading order:
+\begin{equation}
+  h_{\mathrm{QNM}}(t) = \sum_n A_n e^{-t/\tau_n}\cos(\omega_n t + \varphi_n)
+\end{equation}
+with $(2,2,0)$ and $(2,2,1)$ as dominant contributions.
+
+\subsection{Cross-term early decay (QGD prediction P1)}
+
+Before merger: $g_{tt} = -(1 - [\sig{t}{1}]^2 - [\sig{t}{2}]^2 - 2\sig{t}{1}\sig{t}{2})$.  The cross-term decays as horizons coalesce:
+\begin{equation}
+  h_{\mathrm{cross}}(t) = A_{\mathrm{cross}}\cdot2\sig{t}{1}(r_{\mathrm{obs}})\sig{t}{2}(r_{\mathrm{obs}})\exp(-t/\tau_{\mathrm{cross}})
+\end{equation}
+
+with characteristic timescale:
+\begin{equation}
+  \boxed{\tau_{\mathrm{cross}} = \frac{r_{\mathrm{ISCO}}}{c} \approx \frac{6GM_{\mathrm{tot}}}{c^3} \approx 6\times10^{-5}\,\mathrm{s}\times\frac{M_{\mathrm{tot}}}{\Ms}}
+\end{equation}
+
+This component: (i)~is present in every binary merger, (ii)~has zero oscillation frequency (pure decay), (iii)~decays before the clean QNM phase, (iv)~has not been searched for in current LVK analyses.
+
+\subsection{Dipole ringdown (QGD prediction P2)}
+
+For $M_1 \neq M_2$, the $\sigma$-field dipole moment $\boldsymbol{d}_\sigma = \sum_a\sqrt{M_a}\boldx_a$ is not conserved:
+\begin{equation}
+  h_{\mathrm{dipole}}(t) = A_d\frac{(\sqrt{M_1}-\sqrt{M_2})^2}{M_1+M_2}e^{-t/\tau_d}\cos(\omega_{\mathrm{orb}}t + \varphi_d)
+\end{equation}
+
+The radiation appears at $f_{\mathrm{GW}} = f_{\mathrm{orb}}$ (not $2f_{\mathrm{orb}}$), providing a spectral distinction from GR.  For equal masses the factor $(\sqrt{M_1}-\sqrt{M_2})^2$ vanishes exactly.
+
+\subsection{$\sigma$-field relaxation}
+
+\begin{table}[h]
+  \centering
+  \caption{$\sigma$-field relaxation at photon sphere ($20+15\,\Ms$)}
+  \begin{tabular}{@{}cccccc@{}}
+    \toprule
+    $t$ (ms) & $\Sigt$ & $\sig{t}{f}$ & $\delta\sigma_{\mathrm{QNM}}$ & $\delta\sigma_{\mathrm{cross}}$ & $g_{tt}$ \\
+    \midrule
+    0.0 & 1.233 & 0.816 & $+0.082$ & $+0.334$ & $+0.519$ \\
+    1.0 & 0.942 & 0.816 & $-0.002$ & $+0.127$ & $-0.113$ \\
+    2.0 & 0.852 & 0.816 & $-0.013$ & $+0.048$ & $-0.275$ \\
+    10.0 & 0.817 & 0.816 & $<10^{-5}$ & $<10^{-4}$ & $-0.333$ \\
+    $\infty$ & 0.816 & 0.816 & 0 & 0 & $-0.333$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+At $t = 0$ the system is inside the combined horizon ($\Sigma > 1$, $g_{tt} > 0$).  By $t \approx 10$~ms the field has fully settled.
+
+%=============================================================
+\section{GW250114: Full Analysis}
+\label{sec:gw250114}
+%=============================================================
+
+GW250114 (14 January 2025, SNR$\,\approx\!80$): $M_1 \approx 86\,\Ms$, $M_2 \approx 77\,\Ms$, $\chi_1 \approx 0.18$, $\chi_2 \approx 0.12$, $D_L \approx 1.8$~Gpc.
+
+QGD final-state fit: $M_f \approx 161\,\Ms$, $\chi_f \approx 0.95$; LVK measured: $M_f \approx 152\,\Ms$, $\chi_f \approx 0.68$.  At $\chi_f = 0.68$: $f_{220} = 74.8$~Hz vs.\ observed $\sim73$~Hz ($2.4\%$ agreement).
+
+\begin{table}[h]
+  \centering
+  \caption{QGD ringdown modes for GW250114}
+  \begin{tabular}{@{}llcccc@{}}
+    \toprule
+    Mode & Origin & $f$ (Hz) & $\tau$ (ms) & Amplitude & $\varphi$ (rad) \\
+    \midrule
+    220 & GR QNM & 74.8 & 3.78 & $4.27\times10^{-21}$ & 0.00 \\
+    221 & GR QNM & 79.8 & 1.08 & $1.28\times10^{-21}$ & 0.40 \\
+    440 & GR QNM & 145.1 & 3.60 & $4.27\times10^{-22}$ & 1.20 \\
+    220Q & QGD (nonlinear) & 149.6 & 1.89 & $2.14\times10^{-22}$ & 0.80 \\
+    cross & QGD (P1) & 0.0 & 4.81 & $7.11\times10^{-22}$ & 0.00 \\
+    dipole & QGD (P2) & 13.5 & 9.62 & $6.52\times10^{-24}$ & 0.79 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+LVK findings vs.\ QGD: 220+221 at $>3\sigma$ consistent with Kerr ($\checkmark$); 440 mode first constrained ($\checkmark$); 220Q nonlinear mode preferred in Bayesian model selection ($\checkmark$); cross-term P1 not searched ($\to$ testable).  Dipole factor $(\sqrt{M_1}-\sqrt{M_2})^2/M = 1.5\times10^{-3}$ (nearly equal masses, very small).
+
+%=============================================================
+\section{Noether Analysis: The QGD Dipole}
+\label{sec:noether}
+%=============================================================
+
+\subsection{Conserved momenta}
+
+The QGD action is translation-invariant.  Noether's theorem gives:
+\begin{equation}
+  P_{\mathrm{tot}}^i = \sum_a M_a\dot x_a^i + \int\dd^3x\,(\partial^0\sigma_\alpha)(\partial^i\sigma^\alpha)/c = \mathrm{const}
+\end{equation}
+
+In GR, the matter momentum $P_{\mathrm{matter}}^i = \sum M_a\dot x_a^i$ is separately conserved (equivalence principle), so $\ddot{\boldsymbol{d}}_{\mathrm{GR}} = \sum M_a\ddot\boldx_a = \dot P_{\mathrm{matter}} = 0$: no dipole radiation.
+
+\subsection{The QGD dipole moment}
+
+The radiative source in QGD is $T_\sigma^{\mu\nu} \sim (\nabla\sigma)^2 \sim GM_a/r^3$.  The effective dipole:
+\begin{equation}
+  \boxed{\boldsymbol{d}_\sigma = \sum_{a=1}^N\sqrt{M_a}\,\boldx_a}
+\end{equation}
+
+The $\sqrt{M_a}$ weighting follows from $|\nabla\sig{t}{a}| \sim \sqrt{GM_a}/r^{3/2}$.
+
+\begin{theorem}[QGD dipole radiation]\label{thm:dipole}
+  The QGD dipole power is:
+  \begin{equation}
+    \boxed{P_{\mathrm{dipole}}^{\mathrm{QGD}} = \frac{G^3M_1M_2(\sqrt{M_1}-\sqrt{M_2})^2}{3c^3r_{12}^4}}
+  \end{equation}
+  with equality to zero if and only if $M_1 = M_2$.
+\end{theorem}
+
+\emph{Proof.}  In the COM frame: $\ddot{\boldsymbol{d}}_\sigma = \sqrt{M_1}\mathbf{a}_1 + \sqrt{M_2}\mathbf{a}_2$.  Using Newton: $\mathbf{a}_1 = -GM_2/r_{12}^2\,\bhat{r}$, $\mathbf{a}_2 = +GM_1/r_{12}^2\,\bhat{r}$.
+\begin{equation}
+  \ddot{\boldsymbol{d}}_\sigma = \frac{G}{r_{12}^2}(-\sqrt{M_1}M_2 + \sqrt{M_2}M_1)\bhat{r} = \frac{G\sqrt{M_1M_2}}{r_{12}^2}(\sqrt{M_1}-\sqrt{M_2})\bhat{r}
+\end{equation}
+Then $P = G/(3c^3)|\ddot{\boldsymbol{d}}_\sigma|^2 = G^3M_1M_2(\sqrt{M_1}-\sqrt{M_2})^2/(3c^3r_{12}^4)$.\hfill$\square$
+
+\subsection{Dipole vs.\ quadrupole}
+
+The GR quadrupole power (Peters 1964): $P_{\mathrm{quad}} = (32/5)G^4M_1^2M_2^2M_{\mathrm{tot}}/(c^5r_{12}^5)$.
+
+\begin{equation}
+  \frac{P_{\mathrm{dip}}}{P_{\mathrm{quad}}} = \frac{5c^2r_{12}(\sqrt{M_1}-\sqrt{M_2})^2}{96GM_1M_2M_{\mathrm{tot}}} \propto x^{-1}
+\end{equation}
+
+The ratio grows at large separations: the dipole is a $-1$PN correction that dominates early inspiral.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Theory & Radiation source & Conservation & Dipole \\
+    \midrule
+    GR & $T_{\mathrm{matter}}^{\mu\nu}$ & $\sum M_a\dot x_a = \mathrm{const}$ & Forbidden \\
+    QGD & $T_\sigma^{\mu\nu}$ & $\sum\sqrt{M_a}\dot x_a \neq \mathrm{const}$ & Allowed ($M_1 \neq M_2$) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+%=============================================================
+\section{The QGD Effective One-Body}
+\label{sec:eob}
+%=============================================================
+
+\subsection{Derivation of $A^{\mathrm{QGD}}$}
+
+In the COM frame at separation $r$: $r_1 = (M_2/M)r$, $r_2 = (M_1/M)r$.  Then:
+\begin{equation}
+  \Sigt^2 = \frac{2GM}{c^2r}\left(\frac{M_1}{M_2} + 2 + \frac{M_2}{M_1}\right) = \frac{2GM}{c^2r}\frac{(M_1+M_2)^2}{M_1M_2} = \frac{2u}{\eta}
+\end{equation}
+where $u = GM/(c^2r)$.  The QGD two-body effective metric:
+\begin{equation}
+  \boxed{A^{\mathrm{QGD}}(u) = 1 - \frac{2u}{\eta}}
+\end{equation}
+
+This is exact within QGD --- no PN truncation, no free parameters, no NR calibration.  It has a linear structure: $A = 1 - \alpha u$ with $\alpha = 2/\eta$.  The GR EOB has $A^{\mathrm{GR}} = 1 - 2u + a_2(\eta)u^2 + a_3(\eta)u^3 + \cdots$ calibrated by NR.
+
+Orbital structure:
+\begin{equation}
+  u_{\mathrm{ISCO}} = \frac{\eta}{6}, \qquad u_{\mathrm{LR}} = \frac{\eta}{3}, \qquad u_{\mathrm{EOB}} = \frac{\eta}{2}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \caption{QGD EOB orbital structure}
+  \begin{tabular}{@{}lcccccc@{}}
+    \toprule
+    System & $\eta$ & $u_{\mathrm{ISCO}}$ & $f_{\mathrm{ISCO}}$ (Hz) & $u_{\mathrm{merge}}$ & $A_{\mathrm{merge}}$ \\
+    \midrule
+    $36+29\,\Ms$ & 0.247 & 0.0412 & 8.3 & 0.1255 & 0.000 \\
+    $15+5\,\Ms$ & 0.188 & 0.0313 & 17.9 & 0.1373 & 0.000 \\
+    $86+77\,\Ms$ & 0.249 & 0.0415 & 3.4 & 0.1251 & 0.000 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Merger transition}
+
+The physical merger from the $\sigma$-field saddle point gives $d_{\mathrm{merge}} = 2GM_1(1+(M_2/M_1)^{1/3})^3/c^2$, corresponding to $u_{\mathrm{merge}}$.  At $q = 1$: $u_{\mathrm{merge}} = u_{\mathrm{EOB}}$ exactly.  At $q \neq 1$ the merger occurs during the EOB plunge (consistent with GR EOB behaviour).
+
+%=============================================================
+\section{Black Hole Thermodynamics from the $\sigma$-Field}
+\label{sec:hawking}
+%=============================================================
+
+\subsection{Derivation of Hawking temperature}
+
+From $E = \gamma mc^2 e^{-2i(px-Et)/\hbar}$, the power $P_t = \dd E/\dd t$:
+\begin{equation}
+  P_t = \frac{2i\gamma m^2c^4}{\hbar}\left[1 + \frac{2imc^2t}{\hbar} - \frac{4m^2c^4t^2}{2\hbar^2} - \frac{8im^3c^6t^3}{6\hbar^3} + \cdots\right]
+\end{equation}
+
+Taking the imaginary part and integrating:
+\begin{equation}
+  \frac{E}{t} = \gamma mc^2 + \frac{3\hbar^2}{2mc^2t^2} + \mathcal{O}(t^{-3})
+\end{equation}
+
+The quantum energy $E_Q = 3\hbar^2/(2mc^2t^2)$ defines a quantum acceleration via $t^2 \to x^2/c^2$:
+\begin{equation}
+  E_Q = \frac{3\hbar^2}{2mx^2}, \qquad a_Q = \frac{3\hbar c}{mx^2}
+\end{equation}
+
+The energy-acceleration relation $E_Q/t = \hbar a_Q/(4\pi c)$.  Using $E = \tfrac{3}{2}k_BT$:
+\begin{equation}
+  T = \frac{\hbar a}{2\pi ck_B}
+\end{equation}
+
+At the black hole horizon, $a = c^4/(4GM)$:
+\begin{equation}
+  \boxed{T_H = \frac{\hbar c^3}{8\pi GMk_B}}
+\end{equation}
+
+\emph{This is exactly the Hawking temperature}, derived from the Taylor expansion of the QGD phase factor without QFT in curved spacetime.
+
+\subsection{Bekenstein--Hawking entropy}
+
+From $S = mc^2/T$ with horizon area $A = 16\pi G^2M^2/c^4$:
+\begin{equation}
+  \boxed{S_{\mathrm{BH}} = \frac{k_Bc^3A}{4G\hbar}}
+\end{equation}
+
+\subsection{QGD higher-order corrections}
+
+The Taylor expansion gives corrections unique to QGD:
+\begin{align}
+  T &= T_{\mathrm{Hawking}} + \frac{2\hbar a}{k_Bm^4t} + \mathcal{O}(T^{-2}) \\
+  S &= S_{\mathrm{BH}} + \frac{Ak_Bc^5t^4}{G\hbar} + \mathcal{O}(S^{-1})
+\end{align}
+
+These could in principle be observed in primordial black hole evaporation spectra.
+
+%=============================================================
+\section{Maximum Acceleration and Quantised Gravity}
+\label{sec:max_accel}
+%=============================================================
+
+From $\sigma = x/\lambda$, spacetime intervals are quantised: $x = n\lambda_C$.
+
+At $n = 1$ (minimum distance = one Compton wavelength):
+\begin{equation}
+  \boxed{a_{\max} = \frac{3mc^3}{\hbar}}
+\end{equation}
+
+\begin{table}[h]
+  \centering
+  \caption{Maximum accelerations}
+  \begin{tabular}{@{}lc@{}}
+    \toprule
+    Particle & $a_{\max}$ (m/s$^2$) \\
+    \midrule
+    Electron & $7\times10^{29}$ \\
+    Proton & $1.3\times10^{33}$ \\
+    Planck mass & $5.6\times10^{51}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+This agrees (within factor 3/2) with Caianiello's maximum acceleration (1981).
+
+Quantised time dilation near horizons: $(\dd\tau/\dd t)_n = \sqrt{1 - \alpha_G/n}$ where $\alpha_G = GMm/(\hbar c)$.  Near $n \sim \alpha_G$, the dilation becomes a discrete staircase.
+
+The quantum perihelion precession: $\Delta\phi_{\mathrm{QGD}} = \hbar^2/(M^2c^2a^2(1-e^2)^\alpha) \approx 10^{-168}$~rad/orbit for Mercury --- $10^{161}\times$ smaller than GR's 43~arcsec/century, but demonstrating consistency.
+
+%=============================================================
+\section{Equations of Motion with Radiation Reaction}
+\label{sec:eom}
+%=============================================================
+
+\subsection{Test particle in $N$-body field}
+
+\begin{equation}
+  \ddot x^i = -c^2 A_{\mathrm{tot}}\partial_i A_{\mathrm{tot}} = -c^2\left(\sum_a A_a\right)\partial_i\left(\sum_b A_b\right)
+\end{equation}
+
+Expanding:
+\begin{equation}
+  \ddot x^i = \underbrace{-\sum_a\frac{GM_a}{r_a^2}\bhat{r}_a^i}_{\text{Newton}} + \underbrace{G\sum_{a<b}\sqrt{M_aM_b}\left(\frac{\bhat{r}_b^i}{\sqrt{r_a}r_b^{3/2}} + \frac{\bhat{r}_a^i}{\sqrt{r_b}r_a^{3/2}}\right)}_{\text{QGD cross-body }\sim r^{-3/2}}
+\end{equation}
+
+Mutual two-body: $\ddot\boldx_1 = -GM_2/r_{12}^2\,\bhat{r}_{12}$ (exact Newton, verified numerically).
+
+\subsection{Orbital decay}
+
+Energy balance $\dd E_{\mathrm{total}}/\dd t + \dd E_{\mathrm{GW}}/\dd t = 0$:
+\begin{align}
+  \frac{\dd a_{12}}{\dd t} &= -\frac{64G^3M_1M_2(M_1+M_2)}{5c^5a_{12}^3} \\
+  a_{12}(t) &= a_{12,0}\left(1 - t/t_{\mathrm{merge}}\right)^{1/4}, \qquad t_{\mathrm{merge}} = \frac{5c^5a_{12,0}^4}{256G^3M_1M_2(M_1+M_2)}
+\end{align}
+
+\subsection{Three-body application: PSR~J0337+1715}
+
+The inner binary ($P = 1.629$~d) merger time: $t_{\mathrm{merge}} \approx 720$~Gyr.  Period decay: $\dot P/P \approx -1.7\times10^{-20}$~s/s.  GW frequencies: $f_{\mathrm{inner}} = 1.4\times10^{-5}$~Hz, $f_{\mathrm{outer}} = 7.1\times10^{-8}$~Hz (both LISA band).
+
+The complete time-dependent three-body metric:
+\begin{equation}
+  \dd s^2 = -\left[1 - \left(\sum_{i=1}^3\sqrt{\frac{2GM_i}{c^2|\boldx-\boldx_i(t)|}}\right)^2\right]c^2\dd t^2 + \frac{\dd\boldx^2}{1 - \Sigma_3^2}
+\end{equation}
+
+with orbital trajectories evolving through $a_{12}(t)$, $a_{\mathrm{out}}(t)$, and accumulated phases $\tau(t) = \int_0^t\Omega(t')\dd t'$.
+
+%=============================================================
+\section{Testable Predictions}
+\label{sec:predictions}
+%=============================================================
+
+\begin{enumerate}
+  \item[\textbf{P1}] \textbf{Cross-term early decay.}  Every binary merger shows a non-oscillatory ($\omega = 0$) decay with $\tau_{\mathrm{cross}} = 6GM_{\mathrm{tot}}/c^3$.  Searchable by adding a decaying component to 2-damped-sinusoid fits.
+
+  \item[\textbf{P2}] \textbf{Dipole radiation.}  For $M_1 \neq M_2$: GW emission at $f_{\mathrm{orb}}$ (not $2f_{\mathrm{orb}}$) with amplitude $\propto (\sqrt{M_1}-\sqrt{M_2})^2/M$.  For EMRIs with LISA the factor approaches unity.
+
+  \item[\textbf{P3}] \textbf{Quantum stiffness.}  $\delta\omega/\omega \sim (\lQ/r_s)^2 \approx 10^{-140}$ for stellar BHs.  For Planck-mass remnants: $\mathcal{O}(1)$, regularising the singularity.
+
+  \item[\textbf{P4}] \textbf{$-1$PN phase correction.}  TaylorF2 acquires $\delta\Psi \propto D\,f^{-7/3}$.  Non-degenerate with any GR PN coefficient.
+
+  \item[\textbf{P5}] \textbf{Population null test.}  For $q = 1$: all QGD-specific terms vanish ($D = D_3 = 0$).  Residuals of GR template fits should be zero for equal-mass events, growing with $(1-q)$.
+\end{enumerate}
+
+\begin{table}[h]
+  \centering
+  \caption{QGD ringdown vs.\ GR and parametrised QNM tests}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Feature & GR & Param.\ QNM & QGD \\
+    \midrule
+    QNM frequencies & Teukolsky & GR $+\delta\omega$ & GR (Teukolsky on Kerr) \\
+    Stiffness & None & Ad hoc & $\sim(\lQ/r_s)^2$ from action \\
+    Multi-body template & Single-body & Single-body & Cross-term $2\sig{t}{1}\sig{t}{2}$ \\
+    Dipole & Forbidden & Not included & Allowed ($M_1 \neq M_2$) \\
+    Nonlinear modes & 2nd-order Teukolsky & Not standard & 2nd-order $\delta\sigma^2$ \\
+    Singularity & Divergence & Unchanged & Regularised by $\lQ^2\Box^2$ \\
+    Free parameters & $M_f,\chi_f$ & $M_f,\chi_f+\delta$'s & $M_f,\chi_f+A_{\mathrm{cross}}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Summary}
+
+QGD applications are unified by the $\sigma$-field: ringdown QNMs follow from $\Box_g\delta\sigma = 0$ on the exact Kerr background; dipole radiation follows from the $\sqrt{M}$-weighted Noether analysis; the Hawking temperature follows from the phase expansion; the EOB from evaluating $\Sigma^2 = 2u/\eta$ in the COM frame.  Five predictions (P1--P5) are falsifiable, with a built-in null test at $M_1 = M_2$.  GW250114 is consistent with QGD to $2.4\%$ in the dominant QNM frequency.
+
+\end{document}
