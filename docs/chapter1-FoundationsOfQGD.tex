@@ -1574,7 +1574,56 @@
 	\begin{equation}
 		F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{\lambda_C}{r}\right)^2 + \mathcal{O}(r^{-4})\right]
 	\end{equation}
-	
+
+	\subsection{The Gravitational Wavefunction}
+		
+		In QGD, gravitational phenomena emerge from macroscopic quantum coherence. The gravitational wavefunction:
+		\begin{equation}\label{eq:wavefunction}
+			\psi(x^\mu) = R(x)e^{-\frac{i}{\hbar}S(x)} \cdot u
+		\end{equation}
+		
+		where $S(x)$ is the classical action, $R(x)$ is amplitude, $u$ is a spinor.
+		
+		\subsection{The Fundamental Quantum Constraint}
+		
+		Wavefunction-Field Relation]
+			The probability density and gravitational field strength satisfy:
+			\begin{equation}\label{eq:quantum_constraint}
+				\boxed{|\psi(x)|^2 \sigma_\mu x^\mu = \frac{J}{\hbar}}
+			\end{equation}
+			where $J$ is a conserved quantum number, $\sigma_\mu = \nabla_\mu S/c$, and $x^\mu$ is the spacetime position.
+		
+			From probability current conservation $\nabla \cdot (|\psi|^2\nabla S) = 0$ in spherical symmetry:
+			\begin{equation}
+				|\psi|^2 = \frac{C}{|\mathbf{p}|} = \frac{C\lambda}{\hbar}
+			\end{equation}
+			
+			Using $\sigma_r = r/\lambda$ (natural scalar interpretation) and $p = \hbar/\lambda$:
+			\begin{equation}
+				|\psi|^2 = \frac{C}{r\hbar\sigma_r}
+			\end{equation}
+			
+			Multiplying by $\sigma_r r$ and generalizing covariantly yields (\ref{eq:quantum_constraint}).
+		
+		\textbf{Physical meaning:}
+		\begin{itemize}
+			\item Left side: (Quantum probability) $\times$ (Number of wavelengths from origin)
+			\item Right side: Quantized phase space volume
+			\item Strong field ($\sigma$ large) $\Rightarrow$ suppressed amplitude
+			\item Weak field ($\sigma$ small) $\Rightarrow$ enhanced amplitude
+		\end{itemize}
+		
+		This is the quantum-gravitational uncertainty principle.
+		
+		Connection to sigma Field
+		
+		The phase gradient defines the gravitational field:
+		\begin{equation}
+			\boxed{\sigma_\mu \equiv \frac{1}{c}\partial_\mu S = \frac{p_\mu}{c}}
+		\end{equation}
+		
+		$\sigma_\mu$ is the \textbf{gravitational phase field}, carrying momentum $p_\mu = \hbar\partial_\mu S/\hbar = \hbar\sigma_\mu/c$.
+
 
 	%=============================================================
 	\section{The Fundamental Action of QGD}
