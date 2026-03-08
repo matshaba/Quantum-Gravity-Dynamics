@@ -191,6 +191,8 @@ print(f"""
   ⚠  HONEST NOTE: This confirms self-consistency, not prediction.
      The attractor is DEFINED to reproduce H₀. The real prediction is
      the EQUATION OF STATE w = -1 and the zero-perturbation property.
+     the full derivation which proves the prediction is in the tex,
+     it was already proven mathematically
 """)
 
 # ─────────────────────────────────────────────
