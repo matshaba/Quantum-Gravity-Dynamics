@@ -46,6 +46,10 @@ Fix 3 — at(): enforce g_rr = −1/g_tt after the einsum for the spherical case
          The coordinate transform T alone cannot generate the correct g_rr when
          σ has no radial component.
 
+*special note*
+The g_tt bug: The original code used inner = ETA - sigma_tensor which gives g_tt = -(1+A²) — incorrect. 
+The fix changes this to inner = ETA + sigma_tensor, giving g_tt = -(1-A²) — correct.
+
 References
 ----------
 QGD manuscript, Sections 156–165 (master equation and solutions)
