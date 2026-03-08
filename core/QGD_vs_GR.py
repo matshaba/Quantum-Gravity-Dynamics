@@ -28,7 +28,7 @@ pc    = 3.085677581e16
 
 from graviton_field import SigmaField, GravitationalFineStructure
 from master_metric  import MasterMetric
-from n_body         import BinaryInspiral, Body, QGDNBody
+from two_and_three_body_solutions import BinaryInspiral, Body, QGDNBody
 
 PASS = "✓"
 FAIL = "✗"
