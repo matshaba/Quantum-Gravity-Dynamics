@@ -1,7 +1,4 @@
-# Quantum Gravitational Dynamics — Insights, Novelties & Comparisons
-
-> Analysis based on running all five QGD Python modules:  
-> `graviton_field.py` · `master_metric.py` · `qgd_nbody_exact.py` · `qgd_ringdown.py` · `bullet_cluster.py`
+# Quantum Gravitational Dynamics — Comparisons to General Relativity and Newtonian Gravity
 
 ---
 
@@ -49,7 +46,7 @@ For the Earth–electron system: |α_G|² ~ 10^43 (deep quantum).
 For the Sun–proton: |α_G|² ~ 10^−20 (deep classical).  
 For two Planck masses: |α_G|² = 0.5 — exactly the quantum-gravity threshold.
 
-The Planck scale is not arbitrary in QGD — it is the **natural crossing point** of this coupling constant. This is more satisfying than the dimensional coincidence (G, ħ, c) that defines the Planck length in GR.
+The Planck scale is not arbitrary in QGD — it is the **natural crossing point** of this coupling constant. This seems to be more satisfying than the dimensional coincidence (G, ħ, c) that defines the Planck length in GR.
 
 ---
 
@@ -331,6 +328,6 @@ N-body cross-term count: for N bodies, g_tt has N self-terms + N(N−1)/2 cross-
 
 ### The Deepest Structural Insight
 
-QGD can be summarised in one sentence: **gravity is what happens to spacetime when a quantum field's phase gradient has a convergent radial profile**. The entire structure — Newton, GR, dark matter as enhanced coupling, dark energy as kinetic equilibrium, inflation as the same field at early times — follows from requiring a relativistic wavefunction to be spherically symmetric and normalisable. This is not a model-building exercise; it is an extraction of gravitational physics from first principles of quantum mechanics.
+QGD can be summarised in one sentence: **gravity is a graviton field/wave that manifests itself as curved space-time in the classical regime**. The entire structure — Newton, GR, dark matter as enhanced coupling, dark energy as kinetic equilibrium, inflation as the same field at early times — follows from requiring a relativistic wavefunction to be spherically symmetric and normalisable. This is not a model-building exercise; it is an extraction of gravitational physics from first principles of quantum mechanics.
 
-Whether it is correct is an empirical question. Whether it is conceptually extraordinary is not.
+Whether it is correct is an empirical question. Whether it is conceptually extraordinary is left to the reader.
