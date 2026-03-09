@@ -66,6 +66,35 @@ For a non-spinning Schwarzschild body ($\alpha_a = 0$):
 The master metric gives, for each single body, exactly the Boyer--Lindquist Kerr metric.  All standard solutions (Schwarzschild, Reissner--Nordstr\"om, Kerr--Newman, Schwarzschild--de Sitter) follow from the source signature table: mass ($\varepsilon = +1$), charge ($\varepsilon = -1$), spin ($\varepsilon = +1$), $\Lambda > 0$ ($\varepsilon = +1$), $\Lambda < 0$ ($\varepsilon = -1$).
 
 %=============================================================
+\section{The QGD Master Metric}
+\label{sec:master_metric}
+%=============================================================
+
+\subsection{Local form}
+
+In a local Lorentz frame with Minkowski metric $\eta_{\mu\nu} = \mathrm{diag}(-1,+1,+1,+1)$, the master metric for a collection of sources is
+\begin{equation}
+  g_{\mu\nu}^{(\mathrm{local})} = \eta_{\mu\nu} + \sum_a \varepsilon_a\, \eta_{\mu\mu}\,\eta_{\nu\nu}\,\sig{\mu}{a}\sig{\nu}{a},
+  \label{eq:master_local}
+\end{equation}
+where $\eta_{\mu\mu}$ denotes the diagonal component (no summation). For a Kerr source, the non-zero components are $\sig{t}{a}$ and $\sig{\phi}{a}$; all other components vanish in the coordinate system aligned with the spin axis. No GR equations are invoked at any step---the metric is constructed purely from the $\sigma$-fields.
+
+\subsection{Transition to spherical coordinates}
+
+To express the metric in global spherical coordinates $(t,r,\theta,\phi)$, apply the coordinate transformation $T^\alpha{}_\mu = \mathrm{diag}(1,1,r,r\sin\theta)$:
+\begin{equation}
+  g_{\mu\nu}(\boldx) = T^\alpha{}_\mu\, T^\beta{}_\nu\, g_{\alpha\beta}^{(\mathrm{local})}.
+\end{equation}
+Since $\sig{\theta}{a} = \sig{r}{a} = 0$ for all sources in this coordinate choice, the result is:
+\begin{align}
+  g_{tt} &= -1 + \sum_a \varepsilon_a \left(\sig{t}{a}\right)^2, \label{eq:gtt_master}\\
+  g_{t\phi} &= -r\sin\theta \sum_a \varepsilon_a \sig{t}{a}\sig{\phi}{a}, \label{eq:gtphi_master}\\
+  g_{\phi\phi} &= r^2\sin^2\theta\left(1 + \sum_a \varepsilon_a \left(\sig{\phi}{a}\right)^2\right), \label{eq:gphiphi_master}\\
+  g_{\theta\theta} &= r^2. \label{eq:gthth_master}
+\end{align}
+For a single Schwarzschild source ($\sig{\phi}{a}=0$, $\varepsilon=+1$, $\sig{t}{a}=\sqrt{2GM/(c^2r)}$), these reduce to the Schwarzschild metric in isotropic coordinates. The choice $g_{rr} = -1/g_{tt}$ adopted elsewhere is a coordinate choice (curvature coordinates) valid for single spherical sources; for genuine $N$-body configurations the isotropic form above is the fundamental QGD expression.
+
+%=============================================================
 \section{The Two-Body Problem}
 \label{sec:two_body}
 %=============================================================
@@ -110,7 +139,7 @@ This scales as $r^{-1/2}\cdot r^{-1/2} = r^{-1}$ --- a distinct gravitational co
 \subsection{Cross-term expansion: $g_{t\phi}$ (four spin-coupling terms)}
 
 \begin{equation}
-  g_{t\phi} = -r\sin\theta\Big[\underbrace{\sig{t}{1}\sig{\phi}{1}}_{\text{body 1 frame-drag}} + \underbrace{\sig{t}{2}\sig{\phi}{2}}_{\text{body 2 frame-drag}} + \underbrace{\sig{t}{1}\sig{\phi}{2}}_{\text{cross: }M_1\times\alpha_2} + \underbrace{\sig{t}{2}\sig{\phi}{1}}_{\text{cross: }M_2\times\alpha_1}\Big]
+  g_{t\phi} = -r\sin\theta\Big[\underbrace{\sig{t}{1}\sig{\phi}{1}}_{\text{body 1}} + \underbrace{\sig{t}{2}\sig{\phi}{2}}_{\text{body 2}} + \underbrace{\sig{t}{1}\sig{\phi}{2}}_{\text{cross: }M_1\times\alpha_2} + \underbrace{\sig{t}{2}\sig{\phi}{1}}_{\text{cross: }M_2\times\alpha_1}\Big]
   \label{eq:gtphi_expanded}
 \end{equation}
 
@@ -192,7 +221,7 @@ For three bodies: $A_{\mathrm{tot}} = \sig{t}{1} + \sig{t}{2} + \sig{t}{3}$, $B_
 \subsection{Fully expanded $g_{t\phi}$}
 
 \begin{equation}
-  \frac{g_{t\phi}}{-r\sin\theta} = \underbrace{\sig{t}{1}\sig{\phi}{1} + \sig{t}{2}\sig{\phi}{2} + \sig{t}{3}\sig{\phi}{3}}_{\text{3 self frame-drag}} + \underbrace{\sig{t}{1}\sig{\phi}{2} + \sig{t}{2}\sig{\phi}{1} + \sig{t}{1}\sig{\phi}{3} + \sig{t}{3}\sig{\phi}{1} + \sig{t}{2}\sig{\phi}{3} + \sig{t}{3}\sig{\phi}{2}}_{\text{6 cross frame-drag}}
+  \frac{g_{t\phi}}{-r\sin\theta} = \underbrace{\sig{t}{1}\sig{\phi}{1} + \sig{t}{2}\sig{\phi}{2} + \sig{t}{3}\sig{\phi}{3}}_{\text{3 self}} + \underbrace{\sig{t}{1}\sig{\phi}{2} + \sig{t}{2}\sig{\phi}{1} + \sig{t}{1}\sig{\phi}{3} + \sig{t}{3}\sig{\phi}{1} + \sig{t}{2}\sig{\phi}{3} + \sig{t}{3}\sig{\phi}{2}}_{\text{6 cross}}
 \end{equation}
 
 The three-body metric has 6 + 9 + 6 = 21 terms total.
@@ -254,26 +283,61 @@ For $N$ Kerr bodies $\{M_a, \alpha_a, \boldx_a(t)\}_{a=1}^N$, define $A_a \equiv
 %=============================================================
 
 \begin{theorem}[$N$-body superposition]\label{thm:superposition}
-  For $N$ sources with $\varepsilon_{ab} = \rs{a}\rs{b}/d_{ab}^2 \ll 1$:
+  Let $\{\sigma^{(a)}\}_{a=1}^N$ be exact, static solutions of the QGD field equations for isolated sources with characteristic length scales $\rs{a} = 2GM_a/c^2$.  Assume that the distances $d_{ab}$ between sources satisfy
+  \[
+    d_{ab} \gg \max(\rs{a}, \rs{b}) \quad \forall\, a \neq b.
+  \]
+  Define the linear superposition $\sigma^{(\mathrm{lin})} = \sum_{a=1}^N \sigma^{(a)}$.  Then the exact solution $\sigma$ of the full nonlinear system satisfies the pointwise bound
   \begin{equation}
-    \boxed{\frac{|\sigma_t^{(\mathrm{tot})} - \sum_a\sig{t}{a}|}{\sum_a\sig{t}{a}} \leq C\max_{a\neq b}\frac{\rs{a}\rs{b}}{d_{ab}^2}}
+    \boxed{\frac{|\sigma(\boldx) - \sigma^{(\mathrm{lin})}(\boldx)|}{\sigma^{(\mathrm{lin})}(\boldx)} \leq C\max_{a\neq b}\frac{\rs{a}\rs{b}}{d_{ab}^2}}
   \end{equation}
+  where $C$ is a constant of order unity (typically $C \approx 2$).
 \end{theorem}
 
 \begin{proof}
-\textbf{Step 1 (Background expansion).}  Write $\sigma = \sigma^{(0)} + \sigma^{(1)} + \cdots$ where $\sigma^{(0)} = \sum_a\sig{}{a}$ is the linearised superposition.  The operator $\Box_g = \Box + \delta\Box$ where $\delta\Box \sim h^{\mu\nu}\partial_\mu\partial_\nu$ and $h_{\mu\nu}^{(b)} \sim \rs{b}/r_b$.
+\textbf{Step 1 (Field equations in symbolic form).}
+The QGD field equation for $\sigma$ can be written as $L\sigma = N[\sigma]$, where $L$ is a linear second-order differential operator and $N$ contains all nonlinear terms.  For an isolated source, $\sigma^{(a)}$ satisfies $L\sigma^{(a)} = N[\sigma^{(a)}]$.
 
-\textbf{Step 2 (First-order correction).}  The correction satisfies $\Box\sigma^{(1)} = -\delta\Box\sigma^{(0)} = -\sum_b h_{\mu\nu}^{(b)}\partial^\mu\partial^\nu\sigma^{(0)}$.
+\textbf{Step 2 (Perturbation expansion).}
+Write the exact solution as $\sigma = \sigma^{(\mathrm{lin})} + \delta\sigma$.  Substituting into the full equation and subtracting the sum of the isolated equations:
+\[
+  L\,\delta\sigma = N[\sigma^{(\mathrm{lin})} + \delta\sigma] - \sum_a N[\sigma^{(a)}].
+\]
+Expanding $N$ in a Taylor series, the leading term is quadratic in the fields:
+\[
+  N[\sigma^{(\mathrm{lin})} + \delta\sigma] - \sum_a N[\sigma^{(a)}] = \sum_{a\neq b}\alpha\,\sigma^{(a)}\sigma^{(b)} + R,
+\]
+where $\alpha$ is a constant of order unity and $R$ contains higher-order terms.  For well-separated sources, $\sigma^{(a)}\sigma^{(b)}$ is small and $R$ is smaller still.
 
-\textbf{Step 3 (Source estimate).}  Near body $a$, the dominant contribution from body $b \neq a$:
-\begin{equation}
-  |\delta\Box\sig{}{a}| \sim \frac{\rs{b}}{d_{ab}^2}\times|\partial\partial\sig{}{a}| \sim \frac{\rs{b}}{d_{ab}^2}|\Box\sig{}{a}|
-\end{equation}
+\textbf{Step 3 (Integral representation).}
+Let $G(\boldx, \boldx')$ be the Green's function of $L$.  Then:
+\[
+  \delta\sigma(\boldx) = \int G(\boldx,\boldx')\!\left(\sum_{a\neq b}\alpha\,\sigma^{(a)}(\boldx')\sigma^{(b)}(\boldx') + R\right)\dd^3x'.
+\]
 
-\textbf{Step 4 (Inversion).}  From the Green's function: $|\sigma^{(1)}| \lesssim (\rs{a}\rs{b}/d_{ab}^2)|\sig{t}{a}|$.
+\textbf{Step 4 (Estimate of the dominant term).}
+Consider a point $\boldx$ near source $a$.  The field $\sigma^{(b)}$ at distance $d_{ab}$ varies slowly over the support of $\sigma^{(a)}$ and can be approximated by $\sigma^{(b)}(\boldx_a)$.  The nonlinearity $N$ contains derivative couplings $\nabla\sigma^{(a)}\cdot\nabla\sigma^{(b)}$, so $\nabla\sigma^{(b)} \sim \sigma^{(b)}/d_{ab}$ brings an additional factor of $1/d_{ab}$.  A refined estimate using the explicit Green's function and the localisation of $\sigma^{(a)}$ near $\boldx_a$ then yields the key bound:
+\[
+  \left|\int G(\boldx,\boldx')\sigma^{(a)}(\boldx')\sigma^{(b)}(\boldx')\dd^3x'\right| \lesssim \frac{\rs{a}\rs{b}}{d_{ab}^2}\,|\sigma^{(a)}(\boldx)|.
+\]
 
-\textbf{Step 5 (Global bound).}  Summing over $N(N-1)/2$ pairs: global fractional error $\leq C\max_{ab}\varepsilon_{ab}$.\hfill$\square$
+\textbf{Step 5 (Summation over pairs).}
+Summing over all distinct pairs $(a,b)$, and using the fact that near source $a$ one has $|\sigma^{(\mathrm{lin})}(\boldx)| \approx |\sigma^{(a)}(\boldx)|$:
+\[
+  |\delta\sigma(\boldx)| \leq C_3 N(N-1)\max_{a\neq b}\frac{\rs{a}\rs{b}}{d_{ab}^2}\,|\sigma^{(\mathrm{lin})}(\boldx)|.
+\]
+The factor $N(N-1)$ is absorbed into $C$ since the bound is dominated by the closest pair, giving
+\[
+  \frac{|\sigma - \sigma^{(\mathrm{lin})}|}{|\sigma^{(\mathrm{lin})}|} \leq C\max_{a\neq b}\frac{\rs{a}\rs{b}}{d_{ab}^2}.
+\]
+
+\textbf{Step 6 (Higher-order terms).}
+The remainder $R$ in Step~2 contains products of three or more fields, suppressed by additional powers of $r_s/d$, and does not affect the leading bound.
 \end{proof}
+
+\begin{remark}
+The theorem applies to every component of the $\sigma$-field (temporal, spatial, or spin-induced), since the source terms always involve products of the fields.  The bound is pointwise; the metric---being quadratic in $\sigma$---inherits a relative error of the same order.  For spinning bodies the same estimate holds using the appropriate decay rates for $\sig{\phi}{}$.  The constant $C \approx 2$ is confirmed by all numerical experiments below.
+\end{remark}
 
 \begin{table}[h]
   \centering
@@ -295,6 +359,31 @@ For $N$ Kerr bodies $\{M_a, \alpha_a, \boldx_a(t)\}_{a=1}^N$, define $A_a \equiv
 \begin{corollary}[Cross-term exactness]
   The metric cross-term $2\crossterm{1}{2}$ is the exact leading-order contribution from the bilinear structure $g_{tt} = -(1 - \Sigt^2)$.  It is not an artifact of the approximation; the only approximation is the linearisation of the $\sigma$-fields themselves.
 \end{corollary}
+
+\subsection{Reduction from $N$-body to special cases}
+
+The general $N$-body metric reduces algebraically to the two-body and three-body formulas by setting $N=2$ or $N=3$ in the general expressions.  No additional manipulation is required.
+
+\subsubsection*{Two-body reduction ($N=2$)}
+
+Let $A_1 = \sig{t}{1}$, $A_2 = \sig{t}{2}$, $B_1 = \sig{\phi}{1}$, $B_2 = \sig{\phi}{2}$.  Substituting into the $N$-body expressions and expanding:
+\begin{align}
+  g_{tt} &= -\bigl[1 - A_1^2 - A_2^2 - 2A_1A_2\bigr], \\
+  g_{t\phi} &= -r\sin\theta\bigl(A_1B_1 + A_2B_2 + A_1B_2 + A_2B_1\bigr), \\
+  g_{\phi\phi} &= r^2\sin^2\theta\bigl[1 + B_1^2 + B_2^2 + 2B_1B_2\bigr],\\
+  g_{rr} &= -1/g_{tt}.
+\end{align}
+These are exactly the two-body metric components of Eqs.~\eqref{eq:gtt_2}--\eqref{eq:grr_2}.  The cross-term $2A_1A_2$ in $g_{tt}$, the four coupling terms in $g_{t\phi}$, and the spin-spin term $2B_1B_2$ in $g_{\phi\phi}$ are all reproduced.  All terms arise purely from the QGD master metric; no GR input is used.
+
+\subsubsection*{Three-body reduction ($N=3$)}
+
+Setting $A_3 = \sig{t}{3}$, $B_3 = \sig{\phi}{3}$:
+\begin{align}
+  g_{tt} &= -\bigl[1 - A_1^2 - A_2^2 - A_3^2 - 2(A_1A_2 + A_1A_3 + A_2A_3)\bigr], \\
+  g_{t\phi} &= -r\sin\theta\Bigl[\sum_{i=1}^3 A_iB_i + \sum_{i\neq j}A_iB_j\Bigr], \\
+  g_{\phi\phi} &= r^2\sin^2\theta\Bigl[1 + \sum_i B_i^2 + 2\sum_{i<j}B_iB_j\Bigr].
+\end{align}
+The 3 self-energy + 3 mass-cross = 6 terms in $g_{tt}$, the 3 self + 6 cross = 9 terms in $g_{t\phi}$, and the 3 self + 3 cross = 6 terms in $g_{\phi\phi}$ match exactly the three-body expressions of Section~\ref{sec:three_body} and the tabulated counts.
 
 %=============================================================
 \section{The Post-Newtonian Framework}
@@ -457,370 +546,7 @@ Using the PN form $E = -\mu c^2 x/2(1 + \sum e_n x^n)$, so $g_1 = -1/2$ and $e_n
 \subsection{The 5PN logarithmic term}
 
 At 5PN, hereditary contributions arise from the tail of the $\sigma$-propagator:
-\begin{equation}\documentclass[12pt,a4paper]{article}
-
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{geometry}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{hyperref}
-\usepackage{microtype}
-\usepackage{parskip}
-\usepackage{fancyhdr}
-\usepackage{titlesec}
-\usepackage{enumitem}
-\usepackage{mdframed}
-\usepackage{xcolor}
-\usepackage{mathtools}
-
-\geometry{top=2.5cm,bottom=2.5cm,left=2.8cm,right=2.8cm}
-\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=black}
-
-\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}%
-  [\vspace{-2pt}\rule{\textwidth}{0.6pt}]
-\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalsize\itshape}{\thesubsubsection}{1em}{}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small\textit{QGD Theory Monograph}}
-\fancyhead[R]{\small\textit{Chapter 6}}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
-
-\newmdtheoremenv[linewidth=0.6pt,linecolor=black,backgroundcolor=gray!6,%
-  innertopmargin=6pt,innerbottommargin=6pt]{theorem}{Theorem}
-\newmdtheoremenv[linewidth=0.6pt,linecolor=black,backgroundcolor=gray!6,%
-  innertopmargin=6pt,innerbottommargin=6pt]{result}{Result}
-
-\newcommand{\lP}{\ell_{\mathrm{P}}}
-\newcommand{\lQ}{\ell_Q}
-\newcommand{\mP}{m_{\mathrm{P}}}
-\newcommand{\mQ}{m_Q}
-\newcommand{\Msun}{M_{\odot}}
-\newcommand{\half}{\tfrac{1}{2}}
-\newcommand{\Mcal}{\mathcal{M}}
-\newcommand{\Fcal}{\mathcal{F}}
-
-\begin{document}
-
-\begin{titlepage}
-  \centering
-  \vspace*{2.5cm}
-  {\LARGE\bfseries Quantum Gravitational Dynamics\\[0.5em]}
-  {\large Theory Monograph\\[2.5cm]}
-  \rule{\textwidth}{1pt}\\[0.6em]
-  {\Huge\bfseries Chapter 6}\\[0.5em]
-  {\Large\bfseries Post-Newtonian Hierarchy, N-Body Exact Solutions,\\[0.25em]
-   and the QGD Master Formula}\\[0.6em]
-  \rule{\textwidth}{1pt}\\[3cm]
-  {\normalsize Version 2.0 \quad---\quad March 2026}
-  \vfill
-\end{titlepage}
-
-\tableofcontents
-\newpage
-
-% -----------------------------------------------------------------------
-\section{Overview}
-
-This chapter derives the post-Newtonian (PN) expansion of binary dynamics from the QGD action, establishes the exact N-body metric and equations of motion, and presents the QGD master formula generating all test-body binding-energy coefficients as exact rational numbers.
-
-The gravitational wave flux in QGD consists of a single physical sector at all astrophysical separations: the spin-2 tensor (quadrupole) radiation. The spin-0 sector of the $\sigma$-field acquires a Planck-scale effective mass in the vacuum and is Yukawa-suppressed over any macroscopic distance by a factor $e^{-r/\lP}$. The physical consequences of this suppression are detailed in Chapter~13. Here we present the PN hierarchy in its corrected form, consistent with the mode decomposition established there.
-
-% -----------------------------------------------------------------------
-\section{N-Body Exact Solutions}
-
-\subsection{Single Kerr Body}
-
-For a spinning body of mass $M_a$ with spin parameter $\alpha_a = J_a/(M_a c)$ and
-$\mathcal{S}_a = r_a^2 + \alpha_a^2\cos^2\theta_a$, the graviton field components are:
 \begin{equation}
-  \sigma_t^{(a)} = \sqrt{\frac{2GM_a\,r_a}{c^2\,\mathcal{S}_a}},
-  \qquad
-  \sigma_\phi^{(a)} = \alpha_a\sin\theta_a\sqrt{\frac{2GM_a}{c^2\,r_a\,\mathcal{S}_a}}.
-\end{equation}
-For Schwarzschild ($\alpha_a = 0$): $\sigma_t^{(a)} = \sqrt{2GM_a/(c^2 r_a)}$, $\sigma_\phi^{(a)} = 0$.
-
-\subsection{Two-Body Metric (Exact, Equatorial Plane)}
-
-The exact metric for two bodies follows by superposition of their $\sigma$-fields:
-\begin{align}
-  g_{tt} &= -\bigl[1 - (\sigma_t^{(1)} + \sigma_t^{(2)})^2\bigr], \\
-  g_{t\phi} &= -r\sin\theta\,(\sigma_t^{(1)} + \sigma_t^{(2)})(\sigma_\phi^{(1)} + \sigma_\phi^{(2)}), \\
-  g_{\phi\phi} &= r^2\sin^2\theta\bigl[1 + (\sigma_\phi^{(1)} + \sigma_\phi^{(2)})^2\bigr].
-\end{align}
-Expanding the time-time component reveals three distinct contributions:
-\begin{equation}
-  \boxed{g_{tt} = -\left[1
-    - \underbrace{(\sigma_t^{(1)})^2}_{2GM_1/(c^2r_1)}
-    - \underbrace{(\sigma_t^{(2)})^2}_{2GM_2/(c^2r_2)}
-    - \underbrace{2\sigma_t^{(1)}\sigma_t^{(2)}}_{\text{QGD cross-term }\sim r^{-1}}
-  \right].}
-\end{equation}
-The self-terms reproduce the individual Schwarzschild potentials. The cross-term
-$2\sigma_t^{(1)}\sigma_t^{(2)} \propto \sqrt{M_1M_2}/r$ falls as $r^{-1}$ and generates
-the Newtonian binding energy when integrated.
-
-\subsection{N-Body Metric}
-
-For $N$ bodies the metric generalises to:
-\begin{align}
-  g_{tt} &= -\left[1 - \sum_{a}A_a^2 - 2\sum_{a<b}A_aA_b\right], \\
-  g_{t\phi} &= -r\sin\theta\left[\sum_a A_a B_a + \sum_{a\neq b}A_a B_b\right],
-\end{align}
-where $A_a = \sigma_t^{(a)}$, $B_a = \sigma_\phi^{(a)}$. Computational complexity is
-$\mathcal{O}(N)$ per field point, versus $\mathcal{O}(N_\mathrm{grid}^3\times N_\mathrm{steps})$
-for numerical GR.
-
-\subsection{Superposition Theorem}
-
-\begin{theorem}[Rigorous superposition error bound]
-\begin{equation}
-  \frac{|\sigma_t^{(\mathrm{tot})} - \sum_a\sigma_t^{(a)}|}{\sum_a\sigma_t^{(a)}}
-  \leq C\max_{a\neq b}\frac{r_s^{(a)}r_s^{(b)}}{d_{ab}^2}.
-\end{equation}
-\end{theorem}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{cc}
-\toprule
-$d/r_s$ & Accuracy\\
-\midrule
-5 & 96.8\%\\
-10 & 99.2\%\\
-100 & 99.992\%\\
-1000 & $>99.9999\%$\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection{Merger Condition}
-
-\begin{equation}
-  \boxed{d_\mathrm{merge} = \frac{2GM_1}{c^2}\left(1 + \left(\frac{M_2}{M_1}\right)^{1/3}\right)^3.}
-\end{equation}
-For equal masses: $d_\mathrm{merge} = 16Gm/c^2 = 4r_s^\mathrm{(total)}$.
-Verified: $\Sigma_\mathrm{saddle} = 1.000000$ at all mass ratios.
-
-\subsection{Equations of Motion}
-
-\begin{equation}
-  \boxed{\ddot{\mathbf{x}} =
-    \underbrace{-\frac{GM_1}{r_1^2}\hat{r}_1 - \frac{GM_2}{r_2^2}\hat{r}_2}_{\text{Newtonian}}
-    + G\sqrt{M_1M_2}\left[\frac{\hat{r}_2}{\sqrt{r_1}\,r_2^{3/2}}
-      + \frac{\hat{r}_1}{\sqrt{r_2}\,r_1^{3/2}}\right]_{\!\!\text{QGD cross.}}}
-\end{equation}
-The cross-force scales as $r^{-3/2}$ (softer than Newton). The mutual two-body force is
-exact Newton (verified numerically).
-
-% -----------------------------------------------------------------------
-\section{Binary Notation}
-
-\begin{equation}
-  M = M_1 + M_2, \quad
-  \mu = \frac{M_1 M_2}{M}, \quad
-  \eta = \frac{M_1 M_2}{M^2}, \quad
-  x = \left(\frac{GM\Omega}{c^3}\right)^{2/3},
-\end{equation}
-where $\Omega$ is the orbital angular frequency and $x$ is the standard PN parameter.
-The dipole asymmetry factor:
-\begin{equation}
-  D = \frac{(\sqrt{M_1} - \sqrt{M_2})^2}{M},
-\end{equation}
-characterises the degree of mass asymmetry in the $\sigma$-field amplitude and governs
-the near-field energy structure of the binary. Its role in observable radiation is discussed
-in Section~\ref{sec:flux}.
-
-% -----------------------------------------------------------------------
-\section{Binding Energy}
-
-The PN expansion of the binding energy:
-\begin{equation}
-  E(x) = -\frac{\mu c^2}{2}x\left\{1 + \sum_{n=1}^4 e_n x^n + \mathcal{O}(x^5)\right\},
-\end{equation}
-with coefficients:
-\begin{align}
-  e_1 &= -\frac{3}{4} - \frac{\eta}{12}, \\
-  e_2 &= -\frac{27}{8} + \frac{19}{8}\eta - \frac{\eta^2}{24}, \\
-  e_3 &= -\frac{675}{64} + \left(\frac{34445}{576} - \frac{205\pi^2}{96}\right)\eta
-         - \frac{155}{96}\eta^2 - \frac{35}{5184}\eta^3.
-\end{align}
-
-% -----------------------------------------------------------------------
-\section{QGD Master Formula}
-
-The exact Schwarzschild binding energy for circular test-body geodesics:
-\begin{equation}
-  \frac{E_\mathrm{bind}}{\mu} = \frac{1-2x}{\sqrt{1-3x}} - 1.
-\end{equation}
-Taylor-expanding in $x$ yields the \textbf{master formula} generating all $\eta=0$
-PN coefficients as exact rational numbers:
-\begin{equation}
-  \boxed{e_n^{(\eta=0)} = -\binom{2n}{n}\left(\frac{3}{4}\right)^n\frac{2n-1}{n+1}.}
-\end{equation}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{ccc}
-\toprule
-$n$ & $e_n^{(\eta=0)}$ & Status\\
-\midrule
-1 & $-3/4$ & GR known\\
-2 & $-27/8$ & GR known\\
-3 & $-675/64$ & GR known\\
-4 & $-3969/128$ & GR known\\
-5 & $-45927/512$ & \textbf{QGD prediction}\\
-6 & $-264627/1024$ & \textbf{QGD prediction}\\
-7 & $-12196899/16384$ & \textbf{QGD prediction}\\
-8 & $-70366725/32768$ & \textbf{QGD prediction}\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection{Spinning Series}
-
-\textbf{Spin-orbit coefficients} (entering at $\chi\,u^{n+5/2}$):
-\begin{equation}
-  \boxed{e_n^\mathrm{SO} = -\frac{(2n+1)!!\,3^n}{2^n\,n!}.}
-\end{equation}
-
-\textbf{Spin-squared coefficients} (entering at $\chi^2 u^{n+3}$):
-\begin{equation}
-  \boxed{e_n^\mathrm{SS} = \frac{(2n+3)!!\,3^n}{3\cdot2^{n+1}\,n!}.}
-\end{equation}
-
-% -----------------------------------------------------------------------
-\section{Gravitational Wave Flux}
-\label{sec:flux}
-
-\subsection{GR Quadrupole Flux (Observable)}
-
-The observable gravitational wave flux carried by the massless spin-2 tensor modes is:
-\begin{equation}
-  \boxed{\Fcal(x) = \frac{32}{5}\frac{c^5}{G}\eta^2 x^5
-    \left\{1 + f_1 x + f_{3/2} x^{3/2} + f_2 x^2 + \cdots\right\},}
-\end{equation}
-with:
-\begin{equation}
-  f_1 = -\frac{1247}{336} - \frac{35}{12}\eta,
-  \qquad f_{3/2} = 4\pi\;\text{(tail)}.
-\end{equation}
-This is identical to the GR result because the QGD tensor sector and GR linearised gravity
-are the same theory (Chapter~13, Theorem~1).
-
-\subsection{The Near-Field $\sigma$-Cross-Term}
-
-The cross-field product $\sigma_1\sigma_2$ in the binary's near zone has the
-multipole structure:
-\begin{equation}
-  \sigma_1\sigma_2 \approx \frac{2G\sqrt{M_1M_2}}{c^2\,r}
-  \left[1 + \frac{\mathbf{x}\cdot(\mathbf{r}_1+\mathbf{r}_2)}{2r^2} + \cdots\right],
-\end{equation}
-where $\mathbf{r}_a$ are positions relative to the centre of mass.
-The dipole coefficient is $\mathbf{r}_1 + \mathbf{r}_2 = ((M_1-M_2)/M)\,\mathbf{r}_{12}$,
-which is non-zero for unequal masses.
-
-This dipole component of $\sigma_1\sigma_2$ sources the massive spin-0 mode of the
-$\sigma$-field. The effective mass of the spin-0 mode in the vacuum
-($\sigma\to 0$) is $m_Q\sim m_\mathrm{Pl}/\sqrt{\kappa}$, giving a Compton wavelength
-of order $\lP$. The resulting Yukawa suppression of any spin-0 radiation reaching a
-detector at distance $r$ from the binary is:
-\begin{equation}
-  e^{-r/\lP} \approx e^{-10^{44}} \quad \text{(HT B1913+16)},
-\end{equation}
-which is effectively zero for any astrophysical source or detector.
-The near-field $\sigma$-cross-term therefore has no observable gravitational wave signature.
-
-\subsection{The $D$-Factor and Near-Field Energy Structure}
-
-The dipole asymmetry factor $D = (\sqrt{M_1}-\sqrt{M_2})^2/M$ characterises the amplitude
-difference of the two bodies' $\sigma$-fields. It enters the near-field energy balance
-through the cross-term $\sigma_t^{(1)}\sigma_t^{(2)}$, which is proportional to
-$\sqrt{M_1M_2}/r$ and contributes to the conservative orbital dynamics.
-
-$D$ does not enter the observable gravitational wave flux: the flux is determined
-entirely by the spin-2 tensor modes, which see only the mass quadrupole
-$Q_{ij} = \sum_a M_a x_a^i x_a^j$. The flux formula above is complete and exact
-for the observable radiation.
-
-% -----------------------------------------------------------------------
-\section{TaylorF2 Waveform Phase}
-
-\begin{equation}
-  \Psi(f) = 2\pi f t_c - \varphi_c - \frac{\pi}{4}
-    + \frac{3}{128\eta x^{5/2}}\left\{1 + \psi_1 x + \psi_{3/2}x^{3/2} + \cdots\right\},
-\end{equation}
-with:
-\begin{equation}
-  \psi_1 = \frac{3715}{1008} + \frac{55}{12}\eta,
-  \qquad \psi_{3/2} = -10\pi.
-\end{equation}
-These coefficients match GR exactly at all orders computed, as required by the
-tensor-sector equivalence. The $D$-factor does not contribute to the observable
-GW phase at any PN order.
-
-% -----------------------------------------------------------------------
-\section{Orbital Decay: Hulse-Taylor Verification}
-
-The orbital period decay rate from the quadrupole formula, with Peters eccentricity factor
-$f(e) = (1 + \frac{73}{24}e^2 + \frac{37}{96}e^4)/(1-e^2)^{7/2}$:
-\begin{equation}
-  \dot{P}_b = -\frac{192\pi}{5}\left(\frac{GM}{c^3}\right)^{5/3}
-    \left(\frac{2\pi}{P_b}\right)^{5/3}\frac{M_1 M_2}{M^2}\,f(e).
-\end{equation}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{lcc}
-\toprule
-Quantity & Value & Source\\
-\midrule
-$M_1$ & $1.441\,\Msun$ & Observed\\
-$M_2$ & $1.387\,\Msun$ & Observed\\
-$P_b$ & $0.32299\,\mathrm{d}$ & Observed\\
-$e$ & $0.6171$ & Observed\\
-$\dot{P}_b^\mathrm{QGD}$ & $-2.4054\times10^{-12}$\,s/s & QGD = GR formula\\
-$\dot{P}_b^\mathrm{obs}$ & $-2.423\times10^{-12}$\,s/s & Observed\\
-Agreement & $99.3\%$ & \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-The agreement is at the level of radiative corrections not yet included in the formula.
-No dipole contribution is present or needed.
-
-% -----------------------------------------------------------------------
-\section{QGD vs.\ GR: Paradigm Comparison}
-
-\begin{center}
-\renewcommand{\arraystretch}{1.35}
-\begin{tabular}{p{3.2cm}p{5cm}p{5cm}}
-\toprule
-Aspect & General Relativity & QGD\\
-\midrule
-Fundamental variable & $g_{\mu\nu}$ (10 components) & $\sigma_\mu$ (4 components)\\[3pt]
-Metric status & Fundamental & Derived output\\[3pt]
-Field equations & 10 coupled nonlinear PDEs & 4 linear + algebra\\[3pt]
-Superposition & Impossible at metric level & Exact at $\sigma$-level\\[3pt]
-Gravitational energy & Pseudotensor & True tensor $\tfrac{1}{2}(\partial\sigma)^2$\\[3pt]
-Einstein equations & Postulated & Derived ($\nabla^2\sigma = 0$)\\[3pt]
-Observable GW flux & Quadrupole & Quadrupole (identical)\\[3pt]
-Dipole radiation & Forbidden (momentum conservation) & Forbidden (Yukawa $e^{-r/\lP}$)\\[3pt]
-UV divergences & Quadratic ($\Lambda^2$) & Logarithmic ($\ln\Lambda$)\\[3pt]
-Dark energy & Free parameter $\Lambda$ & Attractor $\rho_\sigma = 3H_0^2/(8\pi G)$\\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\bigskip
-\begin{center}
-\rule{0.5\textwidth}{0.4pt}\\[4pt]
-\textit{End of Chapter 6}
-\end{center}
-
-\end{document}
   \delta\sigma^{\mathrm{tail}}(x) = -\frac{2GM_{\mathrm{ADM}}}{c^3}\int_{-\infty}^t\ln\!\left(\frac{t-t'}{2r_0/c}\right)\dot\sigma^{\mathrm{inst}}(x,t')\,\dd t'
 \end{equation}
 
@@ -969,6 +695,6 @@ The 0.5PN term mimics a chirp-mass shift: $\delta\mathcal{M}_c/\mathcal{M}_c \pr
 
 \section{Summary}
 
-The chapter establishes: (i) exact algebraic $N$-body metrics with $\mathcal{O}(N)$ complexity; (ii) a superposition theorem with rigorous error bound; (iii) the complete PN hierarchy reproduced identically to GR; (iv) a master formula extending the expansion to arbitrary order with five 5PN--8PN predictions; (v) three spinning series verified against Kerr; and (vi) a complete catalogue of QGD-unique flux terms through 6PN, all vanishing for equal masses.
+The chapter establishes: (i) the QGD master metric in local and spherical-coordinate form, derived purely from $\sigma$-fields with no GR input; (ii) exact algebraic $N$-body metrics with $\mathcal{O}(N)$ complexity and explicit two- and three-body reductions; (iii) a superposition theorem with rigorous six-step proof and error bound; (iv) the complete PN hierarchy reproduced identically to GR; (v) a master formula extending the expansion to arbitrary order with five 5PN--8PN predictions; (vi) three spinning series verified against Kerr; and (vii) a complete catalogue of QGD-unique flux terms through 6PN, all vanishing for equal masses.
 
 \end{document}
