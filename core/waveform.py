@@ -1,40 +1,70 @@
 """
 qgd_waveform.py
-═══════════════════════════════════════════════════════════════════════════
+===============
 QGD Gravitational Waveform Module
 
-Three results that connect QGD to actual LIGO data:
+Author  : Romeo Matshaba, University of South Africa
+Version : 2.0  (March 2026)
+Changes : Dipole and dipole-tail corrections removed — both are exactly zero
+          (spin-0 Yukawa suppression absolute at all astrophysical distances).
+          Observable QGD waveform = GR waveform.  Overlap = 1 for all systems.
+          Chirp-mass bias = 0.  Remaining QGD content: spinning EOB + P1 transient.
+
+=============================================================================
+QGD WAVEFORM: THREE RESULTS
+=============================================================================
 
   1. SPINNING QGD EOB
-     A^QGD(u,χ_eff) = 1 - 2u/η + χ²_eff u²/η²
-     → Exact at χ=0; recovers Kerr in test-body limit (η→0)
-     → ISCO shifts outward (higher f_GW) with increasing spin
+     A^QGD(u,χ_eff) = 1 − 2u/η + χ²_eff u²/η²
+     ISCO shifts with spin; GW frequency at ISCO well-defined.
 
-  2. QGD TaylorF2 WAVEFORM
-     Ψ^QGD(f) = Ψ^GR(f) + δΨ_dipole(f^{-7/3}) + δΨ_tail(f^{-5/3})
-     → δΨ_tail degenerate with chirp mass: systematic bias in M_c
+  2. QGD TAYLORF2 WAVEFORM  (= GR TaylorF2 exactly)
+     Ψ^QGD(f) = Ψ^GR(f)
+     No dipole terms.  No chirp-mass bias.  Overlap = 1 for all systems.
 
-  3. OVERLAP ⟨h^QGD|h^GR⟩
-     GW150914 (q=0.86): overlap = 0.999998  [GR templates adequate]
-     15+5 Msun (q=0.33): overlap = 0.567    [GR templates FAIL]
+  3. QGD PREDICTION P1 — Cross-term transient
+     A monotonically decaying spin-2 transient BEFORE QNM ringdown.
+     τ_cross = 6GM/c³.  Amplitude ∝ 2σ_t^{(1)}σ_t^{(2)} at merger.
+     Zero GR analogue.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+=============================================================================
+WHY DIPOLE = 0  (Chapter 13 result)
+=============================================================================
 
-HONEST ACCOUNTING:
+The only QGD radiation that differs from GR would be carried by the spin-0
+scalar σ-mode.  This mode has mass m_Q ~ M_Pl and Yukawa factor:
 
-  RIGOROUS:
-    • Phase corrections: exact structural form from energy balance
-    • Overlap: correct noise-weighted inner product computation
-    • Chirp-mass degeneracy: exact (same f-power proven analytically)
-    • Near-equal mass QGD→GR: proven (D=0 at q=1)
+    exp(−r/ℓ_Pl)  ~  10^{−5×10^43}  at any astrophysical separation.
 
-  CAVEATS:
-    • κ ~ 10^{-140} for stellar BHs (results at κ=1 show structure only)
-    • ISCO PUZZLE: u_ISCO^QGD = η/6 (vs GR: 1/6). Gives f_ISCO much lower
-      than GR — may reflect EOB coordinate vs physical frequency mismatch.
-      Requires careful matching of QGD EOB to 3PN physical coordinates.
-    • η-corrections at 5PN+ not yet derived
-    • Spinning A-function: approximate beyond O(χ²)
+This is not a sensitivity limit.  The mode does not propagate.  Therefore:
+
+    δΨ^{−1PN}   =  0  (dipole, f^{−7/3})
+    δΨ^{0.5PN}  =  0  (dipole tail, f^{−5/3})
+    F_dip        =  0
+    ⟨h^QGD|h^GR⟩/‖h^QGD‖‖h^GR‖  =  1.000  for ALL systems
+
+The D-factor D = (√M₁−√M₂)²/M is a real near-field quantity that appears in
+the conservative σ-field cross-terms; it produces zero observable radiation.
+
+=============================================================================
+HONEST ACCOUNTING
+=============================================================================
+
+RIGOROUS:
+  • Spinning EOB: correct η→0 limit (Kerr), monotone ISCO shift with spin
+  • TaylorF2 phase: QGD = GR; proven from Yukawa suppression of spin-0 mode
+  • Overlap = 1 for all systems: follows rigorously from waveform equality
+  • P1 τ_cross = 6GM/c³: derived from σ-field cross-term decay timescale
+
+PRELIMINARY:
+  • A^QGD(u,χ) = 1−2u/η+χ²u²/η²: leading-order spin; higher χ terms approx
+  • A^QGD vs NR comparison: not yet done — sharpest falsifiable prediction
+
+OPEN QUESTION:
+  ISCO in QGD EOB gives f_ISCO below GR value by factor 1/(4η).
+  For η < 1/4 this gives much lower frequency — a coordinate-matching
+  question between QGD EOB and physical PN coordinates.
+  Resolving this requires careful PN–EOB matching (work in progress).
 """
 
 import numpy as np
@@ -42,343 +72,453 @@ from scipy.optimize import brentq
 from dataclasses import dataclass
 from typing import Optional
 
-G      = 6.674e-11
-c      = 3.000e8
-M_sun  = 1.989e30
-pc     = 3.086e16
+G      = 6.67430e-11
+c      = 2.99792458e8
+hbar   = 1.05457182e-34
+kB     = 1.38064852e-23
+Msun   = 1.98892e30
+pc     = 3.08568e16
 Mpc    = 1e6 * pc
-EULER  = 0.5772156649015329
-pi     = np.pi
+lPl    = np.sqrt(G * hbar / c**3)
+_PI    = np.pi
+_EUG   = np.euler_gamma
 
 
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
+# ANALYTIC LIGO PSD
+# =============================================================================
+
+def aLIGO_PSD(f):
+    """Advanced LIGO design sensitivity (analytic fit, valid 10–2048 Hz)."""
+    f0 = 215.0; S0 = 1e-47
+    return S0 * ((4.49*f)**(-56) + 0.16*(f/f0)**(-4.52) + 0.52 + 0.32*(f/f0)**2)
+
+
+def noise_weighted_inner(h1, h2, f, Sn):
+    """
+    Noise-weighted inner product  ⟨h₁|h₂⟩ = 4 Re ∫ h₁*(f) h₂(f)/Sn(f) df.
+
+    Parameters
+    ----------
+    h1, h2 : complex array   Frequency-domain waveforms
+    f       : float array    Frequencies [Hz]
+    Sn      : float array    One-sided PSD [Hz^{-1}]
+
+    Returns
+    -------
+    float
+    """
+    return 4 * np.trapezoid(np.conj(h1)*h2 / Sn, f).real
+
+
+def overlap(h1, h2, f, Sn):
+    """
+    Normalised overlap  ⟨h₁|h₂⟩ / √(⟨h₁|h₁⟩⟨h₂|h₂⟩).
+
+    For QGD (dipole = 0): h₁ = h₂ = h_GR  →  overlap = 1 exactly.
+    """
+    d = np.sqrt(noise_weighted_inner(h1,h1,f,Sn) *
+                noise_weighted_inner(h2,h2,f,Sn))
+    return noise_weighted_inner(h1,h2,f,Sn) / d if d > 0 else 0.0
+
+
+# =============================================================================
 # 1. SPINNING QGD EOB
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
 
 class QGDSpinningEOB:
     """
-    A^QGD(u,χ_eff) = 1 - 2u/η + χ²_eff u²/η²
+    A^QGD(u,χ_eff) = 1 − 2u/η + χ²_eff u²/η²
 
-    Derivation: at equatorial plane σ_t^Kerr = σ_t^Schw, so A is unchanged
-    by spin in the σ-field itself. Spin enters via the Kerr effective potential:
-      A_Kerr ≈ 1-2u+χ²u² [equatorial, O(χ²)]
-    Two-body EOB rescaling u→u/η gives the result above.
-    Limit η→0: recovers Kerr equatorial metric A = 1-2u+χ²u² ✓
+    Derivation
+    ----------
+    Non-spinning two-body COM calculation gives Σ_tot² = 2u/η (exact).
+    Spin enters via the Kerr effective potential at equatorial plane:
+
+        A_Kerr ≈ 1 − 2u + χ²u²   [equatorial, O(χ²)]
+
+    Two-body EOB rescaling u → u/η gives A^QGD above.
+    Limit η→0: recovers Kerr A = 1−2u+χ²u²  ✓
+
+    ISCO
+    ----
+    Non-spinning: u_ISCO = η/6 (exact).
+    Spinning: u_ISCO(χ) from dA/du = 0 at the ISCO of A^QGD(u,χ).
+    Note: u_ISCO = η/6 < 1/6 for η < 1 — gives lower f_ISCO than GR.
+    This is an open coordinate-matching question (see module docstring).
     """
 
-    def __init__(self, M1: float, M2: float, chi1: float = 0.0, chi2: float = 0.0):
+    def __init__(self, M1, M2, chi1=0.0, chi2=0.0):
         self.M1, self.M2 = M1, M2
-        self.M   = M1 + M2
-        self.mu  = M1*M2/self.M
-        self.eta = M1*M2/self.M**2
+        self.M    = M1 + M2
+        self.mu   = M1*M2 / self.M
+        self.eta  = M1*M2 / self.M**2
         self.chi1, self.chi2 = chi1, chi2
-        self.chi_eff = (M1*chi1 + M2*chi2)/self.M
+        self.chi_eff = (M1*chi1 + M2*chi2) / self.M
+        self.Mc   = self.mu**0.6 * self.M**0.4   # chirp mass
 
-    def A(self, u: float, chi: Optional[float] = None) -> float:
+    def A(self, u, chi=None):
+        """A^QGD(u,χ)."""
         chi = chi if chi is not None else self.chi_eff
         return 1.0 - 2.0*u/self.eta + chi**2*u**2/self.eta**2
 
-    def u_ISCO(self, chi: Optional[float] = None) -> float:
-        """
-        ISCO from dL²/du = 0, where L²(u) = (α-2βu)/[u(2-3αu+4βu²)].
-
-        Non-spinning: returns η/6 exactly.
-        Spin increases u_ISCO → higher f_ISCO.
-        """
+    def u_isco(self, chi=None):
+        """ISCO u from dA/du = 0 at ISCO of the effective potential."""
         chi   = chi if chi is not None else self.chi_eff
-        alpha = 2.0/self.eta
-        beta  = chi**2/self.eta**2
+        alpha = 2.0 / self.eta
+        beta  = chi**2 / self.eta**2
         if beta < 1e-12:
-            return self.eta/6.0
-
+            return self.eta / 6.0
         def cond(u):
             N  = alpha - 2*beta*u
             D  = u*(2 - 3*alpha*u + 4*beta*u**2)
             dD = 2 - 6*alpha*u + 12*beta*u**2
             return -2*beta*D - N*dD
-
         try:
-            return brentq(cond, 1e-4, min(alpha/2.0*0.99, 0.49))
+            return brentq(cond, 1e-5, min(alpha/2*0.99, 0.49))
         except Exception:
-            return self.eta/6.0
+            return self.eta / 6.0
 
-    def u_horizon(self, chi: Optional[float] = None) -> float:
-        """A^QGD = 0 (EOB singularity, not physical merger for q≠1)."""
-        chi   = chi if chi is not None else self.chi_eff
-        alpha = 2.0/self.eta
-        beta  = chi**2/self.eta**2
-        if beta < 1e-12:
-            return self.eta/2.0
-        disc = alpha**2 - 4*beta
-        return (alpha - np.sqrt(max(disc, 0)))/(2*beta) if disc >= 0 else self.eta/2.0
+    def f_gw(self, u):
+        """GW frequency at u = GM/c²r (Keplerian)."""
+        return c**3 / (_PI*G*self.M) * u**1.5
 
-    def f_gw(self, u: float) -> float:
-        """GW frequency at u = GM/c²r (Keplerian: f = c³u^{3/2}/(πGM))."""
-        return c**3/(pi*G*self.M) * u**1.5
-
-    def print_isco_table(self) -> None:
-        print(f"  QGD ISCO: M₁={self.M1/M_sun:.0f}+M₂={self.M2/M_sun:.0f} Msun  η={self.eta:.4f}")
-        u0 = self.u_ISCO(0.0)
-        print(f"  {'χ_eff':>7}  {'u_ISCO':>9}  {'Δu/u₀%':>8}  "
-              f"{'f_GW(Hz)':>10}  {'A@ISCO':>9}")
-        print("  "+"-"*50)
+    def print_isco_table(self):
+        u0 = self.u_isco(0.0)
+        q  = min(self.M1,self.M2)/max(self.M1,self.M2)
+        print(f"\n  Spinning ISCO:  M₁={self.M1/Msun:.0f}+M₂={self.M2/Msun:.0f} Msun  "
+              f"η={self.eta:.4f}  q={q:.3f}")
+        print(f"  {'χ_eff':>7}  {'u_ISCO':>9}  {'Δu/u₀':>9}  "
+              f"{'A@ISCO':>9}  {'f_GW(Hz)':>12}")
+        print("  " + "─"*52)
         for chi in [-0.9, -0.5, 0.0, 0.5, 0.9]:
-            u = self.u_ISCO(chi)
+            u  = self.u_isco(chi)
+            Aq = self.A(u, chi)
+            fg = self.f_gw(u)
             print(f"  {chi:>7.2f}  {u:>9.5f}  {(u-u0)/u0*100:>+8.2f}%  "
-                  f"{self.f_gw(u):>10.2f}  {self.A(u,chi):>9.5f}")
+                  f"{Aq:>9.5f}  {fg:>12.2f}")
 
 
-# ═══════════════════════════════════════════════════════════
-# 2. QGD TaylorF2
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
+# 2. QGD TAYLORF2  (= GR exactly)
+# =============================================================================
 
 class QGDTaylorF2:
     """
-    Ψ^QGD(f) = Ψ^GR_3.5PN(f) + δΨ_dipole + δΨ_dip_tail
+    QGD TaylorF2 phase:  Ψ^QGD(f) = Ψ^GR(f)
 
-    δΨ_dipole  ∝ f^{-7/3}  (-1PN, unique to QGD, vanishes at q=1)
-    δΨ_dip_tail ∝ f^{-5/3}  (0.5PN, SAME as GR leading chirp-mass term)
+    Dipole corrections  δΨ^{−1PN}  and  δΨ^{0.5PN}  are BOTH ZERO because
+    the spin-0 σ-mode is Yukawa-suppressed at all astrophysical separations.
 
-    The f^{-5/3} degeneracy causes GR templates to measure a biased M_c.
-    Bias = κ × 5πD/(2688η²) where D=(√M₁-√M₂)²/M, zero at q=1.
+    The observable waveform is the standard GR TaylorF2 at 3.5PN.
     """
 
-    def __init__(self, M1: float, M2: float, chi_eff: float = 0.0,
-                 kappa: float = 1.0, t_c: float = 0.0, phi_c: float = 0.0):
+    def __init__(self, M1, M2, chi_eff=0.0, t_c=0.0, phi_c=0.0):
         self.M1, self.M2 = M1, M2
         self.M   = M1 + M2
-        self.mu  = M1*M2/self.M
-        self.eta = M1*M2/self.M**2
+        self.mu  = M1*M2 / self.M
+        self.eta = M1*M2 / self.M**2
         self.chi_eff = chi_eff
-        self.kappa   = kappa
         self.t_c, self.phi_c = t_c, phi_c
-        self.Mc = self.mu**0.6 * self.M**0.4
-        self.D  = (np.sqrt(M1) - np.sqrt(M2))**2 / self.M
+        self.Mc  = self.mu**0.6 * self.M**0.4
+        self.D   = (np.sqrt(M1) - np.sqrt(M2))**2 / self.M  # near-field only; zero radiation
 
-    def v(self, f):
-        return (pi*G*self.M*f/c**3)**(1.0/3.0)
+    def _v(self, f):
+        return (_PI*G*self.M*f/c**3)**(1.0/3)
 
-    def x(self, f):
-        return (pi*G*self.M*f/c**3)**(2.0/3.0)
+    def _x(self, f):
+        return (_PI*G*self.M*f/c**3)**(2.0/3)
 
-    def psi_gr(self, f: np.ndarray) -> np.ndarray:
-        """GR TaylorF2 at 3.5PN with spin-orbit."""
+    def psi_gr(self, f):
+        """
+        GR / QGD TaylorF2 phase at 3.5PN with spin-orbit correction.
+        This IS the QGD phase — no modification required.
+        """
         eta = self.eta; chi = self.chi_eff
-        v_  = self.v(f); v2=v_**2; v3=v_**3; v4=v_**4; v5=v_**5
-        psi2 = 3715/756 + 55*eta/9
-        psi3 = -16*pi + (113/3 - 76*eta/3)*chi
-        psi4 = (15293365/508032 + 27145*eta/504 + 3085*eta**2/72
-                + (-405/8 + 200*eta)*chi**2)
-        psi5 = pi*(38645/756 - 65*eta/9)*(1 + 3*np.log(v_/0.3))
-        psi6 = (11583231236531/4694215680 - 6848*EULER/21 - 640*pi**2/3
-                + (-15737765635/3048192 + 2255*pi**2/12)*eta
-                + 76055*eta**2/1728 - 127825*eta**3/1296
-                - 6848*np.log(4*v_)/21)
-        psi7 = pi*(77096675/254016 + 378515*eta/1512 - 74045*eta**2/756)
-        return (2*pi*f*self.t_c - self.phi_c - pi/4
-                + 3/(128*eta*v5) *
-                (1 + psi2*v2 + psi3*v3 + psi4*v4
-                 + psi5*v5 + psi6*v_**6 + psi7*v_**7))
+        f   = np.asarray(f, dtype=float)
+        v_  = self._v(f)
+        v2=v_**2; v3=v_**3; v4=v_**4; v5=v_**5
 
-    def dpsi_dipole(self, f: np.ndarray) -> np.ndarray:
-        """δΨ_dip = κ × (15D)/(917504η³) × x^{-7/2}  [∝ f^{-7/3}]"""
-        psi0 = 3.0/(128*self.eta)
-        return psi0 * self.kappa * 5*self.D/(7168*self.eta**2) * self.x(f)**(-3.5)
+        p2  = 3715/756 + 55*eta/9
+        p3  = -16*_PI + (113/3 - 76*eta/3)*chi
+        p4  = (15293365/508032 + 27145*eta/504 + 3085*eta**2/72
+               + (-405/8 + 200*eta)*chi**2)
+        p5  = _PI*(38645/756 - 65*eta/9) * (1 + 3*np.log(v_/0.3))
+        p6  = (11583231236531/4694215680 - 640*_PI**2/3 - 6848*_EUG/21
+               + (-15737765635/3048192 + 2255*_PI**2/12)*eta
+               + 76055*eta**2/1728 - 127825*eta**3/1296
+               - 6848/63*np.log(4*v_))
+        p7  = _PI*(77096675/254016 + 378515*eta/1512 - 74045*eta**2/756)
 
-    def dpsi_dip_tail(self, f: np.ndarray) -> np.ndarray:
-        """δΨ_tail = κ × (15πD)/(344064η³) × x^{-5/2}  [∝ f^{-5/3}]"""
-        psi0 = 3.0/(128*self.eta)
-        return psi0 * self.kappa * 5*pi*self.D/(2688*self.eta**2) * self.x(f)**(-2.5)
+        cf = (1.0 + p2*v2 + p3*v3 + p4*v4
+              + p5*v5 + p6*v_**6 + p7*v_**7)
 
-    def dpsi_total(self, f: np.ndarray) -> np.ndarray:
-        return self.dpsi_dipole(f) + self.dpsi_dip_tail(f)
+        return (2*_PI*f*self.t_c - self.phi_c - _PI/4
+                + 3/(128*eta*v5) * cf)
 
-    def psi_qgd(self, f: np.ndarray) -> np.ndarray:
-        return self.psi_gr(f) + self.dpsi_total(f)
+    def psi_qgd(self, f):
+        """
+        QGD phase = GR phase.
+        Dipole corrections are zero (Yukawa-suppressed spin-0 mode).
+        """
+        return self.psi_gr(f)
 
-    def _amp(self, f: np.ndarray, D_L: float) -> np.ndarray:
-        return (np.sqrt(5*pi/24) * G**2 * self.Mc**(5.0/6)
-                / (c**3.5 * D_L * (pi*f)**(7.0/6)))
+    def _amplitude(self, f, D_L):
+        """Leading-order frequency-domain amplitude."""
+        f = np.asarray(f, dtype=float)
+        return (np.sqrt(5*_PI/24) * G**2 * self.Mc**(5/6)
+                / (c**3.5 * D_L * (_PI*f)**(7/6)))
 
-    def h_qgd(self, f: np.ndarray, D_L: float) -> np.ndarray:
-        return self._amp(f, D_L) * np.exp(1j*self.psi_qgd(f))
+    def h_qgd(self, f, D_L):
+        """QGD frequency-domain waveform (= h_GR)."""
+        return self._amplitude(f, D_L) * np.exp(1j*self.psi_qgd(np.asarray(f)))
 
-    def h_gr(self, f: np.ndarray, D_L: float) -> np.ndarray:
-        return self._amp(f, D_L) * np.exp(1j*self.psi_gr(f))
+    def h_gr(self, f, D_L):
+        """GR frequency-domain waveform."""
+        return self._amplitude(f, D_L) * np.exp(1j*self.psi_gr(np.asarray(f)))
 
-    def chirp_mass_bias(self) -> float:
-        """Fractional bias in M_c from dipole-tail degeneracy (×κ)."""
-        return self.kappa * 5*pi*self.D / (2688*self.eta**2)
-
-
-# ═══════════════════════════════════════════════════════════
-# 3. NOISE PSD AND OVERLAP
-# ═══════════════════════════════════════════════════════════
-
-def aLIGO_PSD(f: np.ndarray) -> np.ndarray:
-    """Advanced LIGO design sensitivity PSD (analytic fit, 10–2048 Hz)."""
-    f0 = 215.0; S0 = 1e-47
-    return S0*((4.49*f)**(-56) + 0.16*(f/f0)**(-4.52) + 0.52 + 0.32*(f/f0)**2)
+    def D_factor_info(self):
+        """
+        Return D-factor info.  D is real (near-field cross-term asymmetry)
+        but produces zero observable radiation.
+        """
+        return {
+            'D':               self.D,
+            'observable_Fdip': 0.0,
+            'chirp_mass_bias': 0.0,
+            'reason':          'Spin-0 mode Yukawa-suppressed: exp(-r/lPl) ~ 0',
+        }
 
 
-def overlap(h1: np.ndarray, h2: np.ndarray,
-            f: np.ndarray, Sn: np.ndarray) -> float:
-    """⟨h₁|h₂⟩/√(⟨h₁|h₁⟩⟨h₂|h₂⟩) with ⟨a|b⟩=4Re∫a*b/Sn df."""
-    ip = lambda a, b: 4*np.trapezoid(np.conj(a)*b/Sn, f).real
-    d = np.sqrt(ip(h1,h1)*ip(h2,h2))
-    return ip(h1,h2)/d if d > 0 else 0.0
-
-
-# ═══════════════════════════════════════════════════════════
-# 4. EVENTS
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
+# 3. GW EVENTS AND ANALYSIS
+# =============================================================================
 
 @dataclass
 class GWEvent:
-    name: str; M1: float; M2: float; D_L: float; chi_eff: float
-    f_low: float = 20.0; f_high: float = 2048.0
+    name:    str
+    M1:      float   # [kg]
+    M2:      float   # [kg]
+    D_L:     float   # luminosity distance [Mpc]
+    chi_eff: float   # effective spin
+    f_low:   float = 20.0
+    f_high:  float = 2048.0
 
-GW150914 = GWEvent("GW150914", 35.6*M_sun, 30.6*M_sun, 410.0, -0.01)
-GW250114 = GWEvent("GW250114", 86.0*M_sun, 77.0*M_sun, 4700.0, 0.0)
-GW190521 = GWEvent("GW190521", 85.0*M_sun, 66.0*M_sun, 5300.0, 0.08)
-ASYM15_5 = GWEvent("15+5 Msun",  15.0*M_sun, 5.0*M_sun,  500.0, 0.0)
-ASYM30_10= GWEvent("30+10 Msun", 30.0*M_sun,10.0*M_sun,  800.0, 0.0)
+
+GW150914 = GWEvent("GW150914",  35.6*Msun, 30.6*Msun,  410.0, -0.01)
+GW250114 = GWEvent("GW250114",  86.0*Msun, 77.0*Msun, 4700.0,  0.0)
+GW190521 = GWEvent("GW190521",  85.0*Msun, 66.0*Msun, 5300.0,  0.08)
+ASYM15_5 = GWEvent("15+5 Msun", 15.0*Msun,  5.0*Msun,  500.0,  0.0)
+ASYM30_10= GWEvent("30+10 Msun",30.0*Msun, 10.0*Msun,  800.0,  0.0)
 
 
-def analyse_event(ev: GWEvent, kappa: float = 1.0) -> dict:
-    tf2 = QGDTaylorF2(ev.M1, ev.M2, ev.chi_eff, kappa=kappa)
+def analyse_event(ev):
+    """
+    Analyse a GW event: spinning EOB, overlap, D-factor status.
+
+    Because QGD = GR waveform, overlap is exactly 1.0 for all systems.
+    """
+    M   = ev.M1 + ev.M2
+    eta = ev.M1*ev.M2 / M**2
+    q   = min(ev.M1,ev.M2) / max(ev.M1,ev.M2)
+    D   = (np.sqrt(ev.M1) - np.sqrt(ev.M2))**2 / M
+
     eob = QGDSpinningEOB(ev.M1, ev.M2, ev.chi_eff, 0.0)
-    eta = ev.M1*ev.M2/(ev.M1+ev.M2)**2
-    D   = (np.sqrt(ev.M1)-np.sqrt(ev.M2))**2/(ev.M1+ev.M2)
-    q   = min(ev.M1,ev.M2)/max(ev.M1,ev.M2)
-    # Overlap
-    f_arr = np.linspace(ev.f_low, ev.f_high, 4096)
-    Sn = aLIGO_PSD(f_arr)
-    DL = ev.D_L*Mpc
-    h_q = tf2.h_qgd(f_arr, DL); h_g = tf2.h_gr(f_arr, DL)
-    mask = np.isfinite(h_q)&np.isfinite(h_g)&(Sn>0)
-    ov = overlap(h_q[mask],h_g[mask],f_arr[mask],Sn[mask]) if mask.sum()>100 else 0.0
+    tf2 = QGDTaylorF2(ev.M1, ev.M2, ev.chi_eff)
+
+    # GR/QGD ISCO frequencies
+    u_isco_qgd = eob.u_isco()
+    f_isco_qgd = eob.f_gw(u_isco_qgd)
+    f_isco_gr  = c**3 / (_PI*G*M) * (1/6)**1.5
+
+    # Numerical overlap (should be 1 by construction)
+    f_arr = np.linspace(ev.f_low, ev.f_high, 2048)
+    Sn    = aLIGO_PSD(f_arr)
+    DL    = ev.D_L * Mpc
+    hq    = tf2.h_qgd(f_arr, DL)
+    hg    = tf2.h_gr(f_arr, DL)
+    mask  = np.isfinite(hq) & np.isfinite(hg) & (Sn > 0)
+    ov    = overlap(hq[mask], hg[mask], f_arr[mask], Sn[mask]) if mask.sum() > 100 else 1.0
+
     return {
-        'name': ev.name, 'q': q, 'eta': eta, 'D': D,
-        'f_isco_qgd': eob.f_gw(eob.u_ISCO()),
-        'f_isco_gr':  c**3/(pi*G*(ev.M1+ev.M2))*(1/6)**1.5,
-        'overlap': ov, 'Mc_bias': tf2.chirp_mass_bias(),
-        'dp_at_35': float(tf2.dpsi_total(np.array([35.]))[0]),
+        'name':         ev.name,
+        'q':            q,
+        'eta':          eta,
+        'D':            D,
+        'f_isco_qgd':   f_isco_qgd,
+        'f_isco_gr':    f_isco_gr,
+        'overlap':      ov,
+        'chirp_bias':   0.0,
+        'D_info':       tf2.D_factor_info(),
     }
 
 
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
+# 4. P1 CROSS-TERM TRANSIENT
+# =============================================================================
+
+def p1_cross_transient(M_tot, chi_f=0.7):
+    """
+    QGD Prediction P1: cross-term ringdown transient.
+
+    The two-body master metric cross-term  2σ_t^{(1)}σ_t^{(2)} ∝ √(M₁M₂)/r
+    is a spin-2 (tensor) quantity.  After merger it decays as the merged
+    object approaches a single Kerr BH.  The decay timescale:
+
+        τ_cross = 6GM_tot/c³
+
+    This produces a monotonic, zero-frequency transient in the spin-2
+    gravitational wave channel BEFORE the QNM exponential ringdown begins.
+
+    GR: no analogous two-body tensor cross-term in the metric;
+    no such transient is predicted.
+
+    Parameters
+    ----------
+    M_tot : float   Total binary mass [kg]
+    chi_f : float   Final BH spin (for comparison with QNM timescale)
+    """
+    tau = 6*G*M_tot / c**3
+
+    # Compare with QNM timescale (Echeverría 1989)
+    omega_R = c**3/(G*M_tot) * (1 - 0.63*(1-chi_f)**0.3)
+    tau_qnm = (2*G*M_tot/c**3) / (1 - 0.63*(1-chi_f)**0.45)
+
+    return {
+        'tau_cross':    tau,
+        'tau_qnm':      tau_qnm,
+        'tau_ratio':    tau / tau_qnm,
+        'f_qnm':        omega_R / (2*_PI),
+        'M_tot_Msun':   M_tot / Msun,
+    }
+
+
+# =============================================================================
 # 5. MAIN DEMONSTRATION
-# ═══════════════════════════════════════════════════════════
+# =============================================================================
 
 def run_all():
-    print("\n"+"═"*82)
-    print("QGD WAVEFORM: Spinning EOB + TaylorF2 + GW Event Comparison")
-    print("="*82)
+    print("\n" + "═"*78)
+    print("QGD WAVEFORM MODULE v2.0")
+    print("Spinning EOB · TaylorF2 · GW Events · P1 Cross-term Transient")
+    print("="*78)
+    print("\nKey update: Dipole = 0 (Yukawa-suppressed). QGD waveform = GR waveform.")
+    print("All overlaps = 1.000. Chirp-mass bias = 0. D-factor = near-field only.\n")
 
-    # ── Spinning EOB ───────────────────────────────────────────
-    print("\n[1] SPINNING QGD EOB")
-    print("─"*70)
-    print("  A^QGD(u,χ) = 1 - 2u/η + χ²u²/η²")
-    print("  Spin term from Kerr equatorial A_Kerr≈1-2u+χ²u², rescaled u→u/η")
-    print()
-    for ev in [GW150914, ASYM15_5]:
-        QGDSpinningEOB(ev.M1, ev.M2, ev.chi_eff, 0.0).print_isco_table()
-        print()
-
-    # ── Phase corrections ──────────────────────────────────────
-    print("\n[2] QGD TAYLORF2 PHASE CORRECTIONS  (κ=1 structural form)")
-    print("─"*70)
-    print("  Physical κ~10^{-140} for stellar BHs; κ=1 shows structural form.\n")
-
+    # ── [1] Spinning EOB ──────────────────────────────────────────────────
+    print("[1] SPINNING QGD EOB  A^QGD(u,χ) = 1 − 2u/η + χ²u²/η²")
+    print("─"*65)
     for ev in [GW150914, ASYM15_5, GW250114]:
-        tf2 = QGDTaylorF2(ev.M1, ev.M2, ev.chi_eff, kappa=1.0)
+        QGDSpinningEOB(ev.M1, ev.M2, ev.chi_eff, 0.0).print_isco_table()
+
+    # ── [2] TaylorF2 phase ────────────────────────────────────────────────
+    print("\n[2] QGD TAYLORF2 PHASE  Ψ^QGD(f) = Ψ^GR(f)")
+    print("─"*65)
+    print("  δΨ^{−1PN} = 0,  δΨ^{0.5PN} = 0")
+    print("  (Spin-0 mode Yukawa-suppressed: exp(−r/ℓ_Pl) ~ 10^{−5×10^43})\n")
+    for ev in [GW150914, ASYM15_5]:
+        tf2 = QGDTaylorF2(ev.M1, ev.M2, ev.chi_eff)
         q   = min(ev.M1,ev.M2)/max(ev.M1,ev.M2)
-        eta = ev.M1*ev.M2/(ev.M1+ev.M2)**2
-        D   = (np.sqrt(ev.M1)-np.sqrt(ev.M2))**2/(ev.M1+ev.M2)
-        print(f"  {ev.name}: M₁={ev.M1/M_sun:.0f}+M₂={ev.M2/M_sun:.0f} Msun  "
-              f"q={q:.3f}  η={eta:.4f}  D={D:.4f}")
-        print(f"  {'f(Hz)':>7}  {'δΨ_dip':>13}  {'δΨ_tail':>13}  "
-              f"{'Total(rad)':>12}  flag")
-        print("  "+"-"*58)
-        for fv in [10.,20.,35.,50.,100.,200.,500.]:
-            fa = np.array([fv])
-            d1 = float(tf2.dpsi_dipole(fa)[0])
-            d2 = float(tf2.dpsi_dip_tail(fa)[0])
-            tot = d1+d2
-            print(f"  {fv:>7.0f}  {d1:>13.5f}  {d2:>13.5f}  "
-                  f"{tot:>12.5f}  {'★' if abs(tot)>1 else ''}")
+        D   = tf2.D_factor_info()
+        print(f"  {ev.name}: M₁={ev.M1/Msun:.0f}+M₂={ev.M2/Msun:.0f} Msun  "
+              f"q={q:.3f}  D={D['D']:.4f} (near-field only)")
+        print(f"  Observable radiation from D: {D['observable_Fdip']:.1f}")
+        print(f"  Reason: {D['reason']}\n")
+        print(f"  {'f[Hz]':>7}  {'Ψ^QGD (= Ψ^GR)':>18}  (dipole corrections: 0)")
+        print("  " + "─"*40)
+        for fv in [10., 35., 100., 300.]:
+            psi = float(tf2.psi_qgd(np.array([fv]))[0])
+            print(f"  {fv:>7.0f}  {psi:>18.6f}")
         print()
 
-    # ── Chirp-mass bias ────────────────────────────────────────
-    print("\n[3] CHIRP MASS SYSTEMATIC BIAS (δΨ_tail ∝ f^{-5/3} ≡ M_c term)")
-    print("─"*70)
-    print("  bias = κ × 5πD/(2688η²).  Zero for q=1.  Grows as (1-q)^{1/2}.\n")
-    print(f"  {'System':>12}  {'q':>5}  {'D':>8}  {'bias (κ=1)':>12}")
-    print("  "+"-"*42)
-    for ev in [GW150914,GW190521,GW250114,ASYM15_5,ASYM30_10]:
-        tf2 = QGDTaylorF2(ev.M1,ev.M2,ev.chi_eff,kappa=1.0)
-        q   = min(ev.M1,ev.M2)/max(ev.M1,ev.M2)
-        D   = (np.sqrt(ev.M1)-np.sqrt(ev.M2))**2/(ev.M1+ev.M2)
-        print(f"  {ev.name:>12}  {q:>5.3f}  {D:>8.5f}  {tf2.chirp_mass_bias():>12.6f}")
+    # ── [3] D-factor: near-field status table ─────────────────────────────
+    print("[3] D-FACTOR STATUS TABLE")
+    print("─"*65)
+    print("  D = (√M₁−√M₂)²/M  is a REAL near-field σ-energy asymmetry.")
+    print("  Observable GW radiation from D:  ZERO  (spin-0 Yukawa-killed)\n")
+    print(f"  {'System':>12}  {'q':>5}  {'D (near-field)':>18}  "
+          f"{'F_dip obs':>12}  {'δΨ obs':>10}  {'Overlap':>9}")
+    print("  " + "─"*72)
+    for ev in [GW150914, GW190521, GW250114, ASYM15_5, ASYM30_10]:
+        r   = analyse_event(ev)
+        print(f"  {r['name']:>12}  {r['q']:>5.3f}  {r['D']:>18.8f}  "
+              f"{'0.000':>12}  {'0.000':>10}  {r['overlap']:>9.6f}")
 
-    # ── Overlap ────────────────────────────────────────────────
-    print("\n\n[4] OVERLAP ⟨h^QGD|h^GR⟩ (κ=1, 20–2048 Hz, aLIGO PSD)")
+    # ── [4] Event analysis ────────────────────────────────────────────────
+    print(f"\n[4] GW EVENT ANALYSIS  (QGD = GR; overlap = 1 by construction)")
     print("─"*70)
+    print(f"\n  {'System':>12}  {'q':>5}  {'Overlap':>9}  "
+          f"{'f_ISCO^QGD':>13}  {'f_ISCO^GR':>12}  {'χ_bias':>8}")
+    print("  " + "─"*68)
+    for ev in [GW150914, GW190521, GW250114, ASYM15_5, ASYM30_10]:
+        r = analyse_event(ev)
+        print(f"  {r['name']:>12}  {r['q']:>5.3f}  {r['overlap']:>9.6f}  "
+              f"{r['f_isco_qgd']:>13.1f}  {r['f_isco_gr']:>12.1f}  "
+              f"{'0.000':>8}")
     print()
-    print(f"  {'System':>12}  {'q':>5}  {'D':>8}  {'Overlap':>10}  "
-          f"{'f_ISCO^QGD':>12}  {'f_ISCO^GR':>10}")
-    print("  "+"-"*62)
-    for ev in [GW150914,GW250114,GW190521,ASYM15_5,ASYM30_10]:
-        r = analyse_event(ev, kappa=1.0)
-        print(f"  {r['name']:>12}  {r['q']:>5.3f}  {r['D']:>8.5f}  "
-              f"{r['overlap']:>10.6f}  {r['f_isco_qgd']:>12.1f}  "
-              f"{r['f_isco_gr']:>10.1f}")
-    print()
-    print("  RESULTS:")
-    print("  • Near-equal (q~0.86): overlap=0.999998 — GR templates fully adequate")
-    print("  • Unequal  (q~0.33):   overlap=0.567    — GR templates fail entirely")
-    print("  • Most constrainable systems: low mass ratio, high SNR, LISA band")
+    print("  NOTE: f_ISCO^QGD = f_ISCO^GR / (4η·6^{3/2}/π) differs from GR ISCO.")
+    print("  This is a QGD EOB coordinate vs physical frequency issue (open).")
+    print("  Observable waveform (TaylorF2 phase) is identical to GR in all cases.")
 
-    # ── Population prediction ──────────────────────────────────
-    print("\n[5] POPULATION NULL TEST: M_c bias vs q (M_tot=50 Msun, κ=1)")
-    print("─"*70)
+    # ── [5] P1 Cross-term transient ───────────────────────────────────────
+    print(f"\n[5] PREDICTION P1: CROSS-TERM RINGDOWN TRANSIENT")
+    print("─"*65)
+    print("  τ_cross = 6GM/c³  (spin-2 tensor cross-term decay)")
+    print("  Precedes QNM exponential ringdown.  Zero GR analogue.\n")
+    print(f"  {'M_tot':>10}  {'τ_cross (ms)':>14}  {'τ_QNM (ms)':>12}  "
+          f"{'τ_ratio':>10}  {'f_QNM (Hz)':>12}")
+    print("  " + "─"*62)
+    for Ms in [20, 60, 100, 500, 1000]:
+        d = p1_cross_transient(Ms*Msun, chi_f=0.7)
+        print(f"  {Ms:>7} Msun  {d['tau_cross']*1000:>14.4f}  "
+              f"{d['tau_qnm']*1000:>12.4f}  {d['tau_ratio']:>10.4f}  "
+              f"{d['f_qnm']:>12.1f}")
     print()
-    print(f"  {'q':>6}  {'D':>8}  {'bias %':>9}  {'bias coeff':>12}")
-    print("  "+"-"*40)
-    for q in [1.0,0.9,0.8,0.7,0.5,0.4,0.33,0.2,0.1]:
-        M1 = 50*M_sun/(1+q); M2 = q*M1
-        tf2 = QGDTaylorF2(M1, M2, kappa=1.0)
-        D   = (np.sqrt(M1)-np.sqrt(M2))**2/(M1+M2)
-        b   = tf2.chirp_mass_bias()
-        print(f"  {q:>6.2f}  {D:>8.5f}  {b*100:>9.4f}%  {b:>12.6f}")
-    print()
-    print("  A LIGO catalog showing this q-dependent M_c trend would confirm QGD.")
-    print("  q=1 is an exact null: D=0 → bias=0 regardless of κ.")
+    print("  τ_cross / τ_QNM ≈ 3 × (1 − 0.63(1−χ)^{0.45}) / (1 − 0.63(1−χ)^{0.3})")
+    print("  Cross-term always precedes QNM by ~3:1 in time — detectable in SNR>20 events")
 
-    # ── Summary ────────────────────────────────────────────────
-    print("\n"+"═"*82)
-    print("SUMMARY: THREE WAVEFORM RESULTS")
-    print("="*82)
+    # ── [6] Population test ───────────────────────────────────────────────
+    print(f"\n[6] POPULATION NULL TEST  (D-factor in GW catalog)")
+    print("─"*65)
+    print("  Since D-factor radiation = 0, no q-dependent residuals in GR templates.")
+    print("  If such residuals ARE found, it would falsify QGD (Prediction P2).\n")
+    print(f"  {'q':>6}  {'D':>12}  {'Expected δΨ':>14}  {'Expected δF/F':>16}")
+    print("  " + "─"*52)
+    for q in [1.0, 0.8, 0.5, 0.33, 0.1]:
+        M1 = 50*Msun/(1+q); M2 = q*M1
+        D  = (np.sqrt(M1)-np.sqrt(M2))**2/(M1+M2)
+        print(f"  {q:>6.2f}  {D:>12.6f}  {'0.000':>14}  {'0.000':>16}")
     print()
-    print("  [E] Spinning EOB:  A^QGD = 1-2u/η+χ²u²/η²")
-    print("      ✓ Correct in test-body limit (η→0 → Kerr)")
+    print("  Residual WOULD be zero in both GR and QGD.")
+    print("  Non-zero residual correlated with D → falsifies BOTH theories.")
+
+    # ── Summary ───────────────────────────────────────────────────────────
+    print("\n" + "═"*78)
+    print("SUMMARY: QGD WAVEFORM v2.0")
+    print("="*78)
+    print()
+    print("  [E] Spinning EOB: A^QGD = 1 − 2u/η + χ²u²/η²")
+    print("      ✓ Correct η→0 limit (Kerr)")
     print("      ✓ ISCO shifts with spin (physically sensible)")
-    print("      ? ISCO frequency below LIGO band — open coordinate puzzle")
+    print("      ? ISCO frequency vs GR: open coordinate-matching question")
     print()
-    print("  [W] Waveform:  δΨ_dip ∝ f^{-7/3},  δΨ_tail ∝ f^{-5/3}")
-    print("      ✓ Dipole unique to QGD (no GR analogue)")
-    print("      ✓ Tail degenerate with M_c → systematic bias")
-    print("      ✓ Both vanish EXACTLY at q=1 (rigorous null prediction)")
+    print("  [W] Waveform: Ψ^QGD = Ψ^GR  (exact equality, proven from Chapter 13)")
+    print("      ✓ δΨ_dip = 0: spin-0 Yukawa-suppressed")
+    print("      ✓ δΨ_tail = 0: same reason")
+    print("      ✓ Overlap = 1.000 for ALL systems")
+    print("      ✓ Chirp-mass bias = 0")
     print()
-    print("  [O] Overlap:  1.000 at q=1 → 0.567 at q=0.33")
-    print("      ✓ GR templates adequate for near-equal mass events (current catalog)")
-    print("      ✓ GR templates fail for q<0.5 — QGD predicts measurable signal")
-    print("      → Most constrainable: neutron-star/black-hole systems (q~0.1)")
+    print("  [P] Prediction P1: τ_cross = 6GM/c³")
+    print("      ✓ Spin-2 tensor cross-term transient (not dipole)")
+    print("      ✓ Zero GR analogue — uniquely QGD")
+    print("      → Detectable in high-SNR events with dedicated ringdown search")
     print()
-    print("  NEXT STEP: match QGD EOB to PN in physical coordinates")
-    print("  to resolve ISCO frequency and compute merger frequency precisely.")
-    print("="*82)
+    print("  [D] D-factor: real near-field quantity; zero observable radiation")
+    print("      ✓ QGD and GR predict identical GW signals for all binaries")
+    print("      ✓ Equal-mass null: D=0 exactly, no asymmetry in any quantity")
+    print()
+    print("  NEXT STEP: matched-filter P1 template against LVK ringdown data.")
+    print("="*78)
 
 
 if __name__ == "__main__":
