@@ -176,37 +176,68 @@ The neutron star mass prediction with NICER is the **critical near-term falsific
 
 ```
 QGD/
-├── README.md                    ← You are here
-├── docs/
-│   ├── THEORY.md                ← Full mathematical exposition
-│   ├── DERIVATIONS.md           ← Step-by-step proofs
-│   └── COMPARISON_TO_GR.md     ← Explicit GR↔QGD translation table
+├── DarkMatter/
+│   ├── QGD.py
+│   ├── dark_matter.py
+│   ├── bullet_cluster.py
+│   ├── FullStressEnergyTensor.py
+│   ├── Uniqueness_of_kappa_values.py
+│   ├── kappa_inversion.py
+│   ├── darkmatter-theory.tex
+│   ├── insights.md
+│   ├── kappa-inversion-general.md
+│   └── data/
 ├── core/
-│   ├── sigma_field.py           ← σ-field definition, normalization, α_G
-│   ├── master_metric.py         ← Master metric construction
-│   ├── field_equation.py        ← QGD field equation and sources
-│   └── quantum_corrections.py  ← ℓ_Q corrections, singularity resolution
-├── solutions/
-│   ├── schwarzschild.py         ← Algebraic Schwarzschild reconstruction
-│   ├── kerr.py                  ← Kerr with frame-dragging emergence
-│   ├── reissner_nordstrom.py    ← Charge coupling
-│   ├── flrw.py                  ← Cosmological solution
-│   ├── n_body.py                ← Exact N-body superposition
-│   └── rosetta_stone.py         ← Unified comparative engine
-├── predictions/
-│   ├── rotation_curves.py       ← Galaxy rotation curve engine
-│   ├── gravitational_waves.py   ← Waveform generation
-│   ├── neutron_stars.py         ← Quantum-corrected TOV equation
-│   └── cosmology.py             ← Dark energy attractor solution
-├── validation/
-│   ├── dark_matter.py           ← SPARC database fit (4,248 measurements)
-│   ├── gw150914.py              ← GW150914 waveform comparison
-│   └── cmb_peaks.py             ← CMB acoustic peak spacing
-└── notebooks/
-    ├── 01_foundations.ipynb     ← Dirac→σ→metric derivation
-    ├── 02_all_gr_solutions.ipynb← Every GR metric algebraically
-    ├── 03_dark_matter.ipynb     ← Galaxy fits with κ-factors
-    └── 04_binary_bh.ipynb       ← N-body waveforms
+│   ├── graviton_field.py
+│   ├── master_metric.py
+│   ├── qgd_cosmology.py
+│   ├── qgd_energy.py
+│   ├── ringdown.py
+│   ├── PN.py
+│   ├── Effective_One_Body(EOB).py
+│   ├── QGD_superposition.py
+│   ├── QGD_vs_GR.py
+│   ├── Rosseta_Stone.py
+│   ├── two_and_three_body_solutions.py
+│   ├── QGD_bug_fixes.py
+│   └── nrpy/
+│       └── InitialData_QGD.py
+├── comparison/
+│   ├── EFE_solutions_from_QGD_perspective.py
+│   ├── comparison.md
+│   └── comparison.py
+├── docs/                          ← Theory
+│   ├── Ch1-Foundations.tex + .pdf
+│   ├── Ch2-Metric.tex + .pdf
+│   ├── Ch3-FieldEquations.tex + .pdf
+│   ├── Ch4-Energy.tex + .pdf
+│   ├── Ch5-cosmology.tex + .pdf
+│   ├── Ch6-ExactSolutions.tex + .pdf
+│   ├── Ch7-Applications.tex + .pdf
+│   ├── Ch8-GravitonApplications.tex + .pdf
+│   ├── Ch9-QG_QFT.tex + .pdf
+│   ├── Ch10-QGD_QG.tex + .pdf
+│   ├── Ch11-DarkMatter.tex + .pdf
+│   ├── Ch13-Radiation.tex + .pdf
+│   ├── QuantumGravityDynamics.pdf  
+│   ├── complete_paper.tex
+│   ├── extended_summary.md
+│   ├── summary.md
+│   └── references.bib
+├── notebooks/
+│   ├── Energy_and_Cosmology.ipynb
+│   ├── N_Body_solution
+│   ├── dark_matter.ipynb
+│   └── foundations.ipynb
+├── ongoing-work/
+│   ├── DarkEnergy.tex
+│   ├── inflation.tex
+│   ├── ch12.tex
+│   ├── kinetic-term-derivation.tex
+│   ├── quantum-term-derivation.tex
+│   ├── Chq-corrections.md
+│   └── EOB-correction.py
+└── tests/
 ```
 
 ---
