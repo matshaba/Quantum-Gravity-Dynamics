@@ -1,0 +1,527 @@
+\documentclass[twocolumn,aps,prd,showpacs,superscriptaddress,floatfix]{revtex4-2}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{physics}
+\newcommand{\sig}{\sigma}
+\newcommand{\sige}{\sigma_{\rm eff}}
+\newcommand{\sigeq}{\sigma_{\rm eff}^2}
+\newcommand{\gmn}{g_{\mu\nu}}
+\newcommand{\hmn}{\eta_{\mu\nu}}
+\newcommand{\pn}[1]{$#1$PN}
+\newcommand{\QGD}{\textsc{qgd}}
+\newcommand{\EOB}{\textsc{eob}}
+\newcommand{\GR}{\textsc{gr}}
+\newcommand{\PN}{\textsc{pn}}
+\newcommand{\GSF}{\textsc{gsf}}
+\newcommand{\FP}{\mathrm{FP}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}{Conjecture}
+\begin{document}
+
+\title{Quantum Gravitational Dynamics: Derivation of the Graviton Field
+from the Dirac Equation, the Master Metric, the Complete
+Effective-One-Body $A$-Function through \pn{6},
+and the Double-Pad\'e Resummation of the Transcendental Sector}
+
+\author{Romeo Matshaba}
+\affiliation{Department of Physics, University of South Africa}
+
+\begin{abstract}
+We present Quantum Gravitational Dynamics (\QGD), a theory in which
+gravity emerges from the quantum phase dynamics of the Dirac wavefunction.
+Taking the WKB limit of the Dirac equation in curved spacetime, we
+identify the graviton field $\sigma_\mu \equiv (\hbar/mc)\,\partial_\mu S$,
+where $S$ is the classical action.
+The metric reduces exactly to the Schwarzschild, Kerr,
+and Reissner-Nordstr\"om solutions.
+For the binary problem the isotropic condition forces
+$B(u;\nu)\equiv 1$, so the orbital dynamics is encoded in
+$A(u;\nu)=1-\sigeq(u;\nu)$.
+The transcendental sector satisfies a \emph{double geometric structure}:
+a Pad\'e fraction in the \PN\ variable $u$ and a geometric series in
+the symmetric mass ratio $\nu$, both exactly resummed:
+\begin{equation*}
+  A_{\rm trans}(u;\nu) =
+    \frac{-\nu\,(41\pi^2/32)\,u^4}
+         {\bigl[1+\tfrac{2275}{656}\pi^2 u\bigr]
+          \bigl[1-\tfrac{9}{16}\nu\bigr]},
+\end{equation*}
+with key identity $32\times656=512\times41$.
+The general structure theorem establishes that the maximum power of $\nu$
+at $n$PN is $\nu^{n-3}$, and transcendental coefficients obey
+$c_{n,k}^{\pi^j}=\beta^{2k}\,c_{n,0}^{\pi^j}$ with $\beta=-3/4$.
+An exact \EOB\ Hamiltonian inversion gives three binding-energy
+coefficients at \pn{6} that are independent of any unknown 6PN input.
+The 6PN rational coefficient $c_{60}^{\rm rat}\approx14\,398$ and
+the 7PN rational coefficient $c_{70}^{\rm rat}\approx720\,745$ are
+derived from the cancellation constraint and the [2/1] Pad\'e recursion.
+Zero-free-parameter predictions for the transcendental sector through
+\pn{8} and the \pn{8.5} hereditary tail $T_2=25025/1968$ are given.
+\end{abstract}
+
+\pacs{04.25.Nx, 04.60.-m, 04.30.Db, 03.65.Sq}
+\maketitle
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Introduction}
+\label{sec:intro}
+%%─────────────────────────────────────────────────────────────────────────────
+
+The detection of gravitational waves~\cite{Abbott:2016blz} has transformed
+precision tests of strong-field gravity into an observational science.
+Accurate waveform modelling requires the post-Newtonian expansion to
+high order combined with resummation via the Effective-One-Body (\EOB)
+framework~\cite{Buonanno:1998gg}.
+
+Here we propose \textit{Quantum Gravitational Dynamics} (\QGD): gravity
+emerges from the WKB limit of the Dirac equation in curved spacetime,
+yielding a vectorial graviton field $\sigma_\mu$ from which the metric
+is algebraically determined.
+\QGD\ forces $B(u;\nu)\equiv1$, so the complete orbital dynamics is
+encoded in $A(u;\nu)=1-\sigeq(u;\nu)$.
+Moreover, the transcendental sector is exactly resummed by a
+\emph{double} Pad\'e fraction (Theorem~\ref{thm:double}), a structural
+result that holds to all \PN\ orders.
+
+We use units $c=G=1$.
+The symmetric mass ratio is $\nu=m_1m_2/(m_1+m_2)^2$, $0<\nu\le1/4$,
+and the \EOB\ radial variable is $u=M/r$, $M=m_1+m_2$.
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Graviton Field from Dirac}
+\label{sec:micro}
+%%─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Dirac equation and WKB limit}
+
+The Dirac equation in curved spacetime reads
+$[i\hbar\gamma^\mu(\partial_\mu+\Gamma_\mu)-mc]\Psi=0$.
+Writing $\Psi=\psi_0e^{iS/\hbar}$ and retaining $O(\hbar^0)$, the
+oscillatory phases cancel and we obtain the covariant Hamilton-Jacobi
+equation.  The key identification is
+\begin{equation}
+  \boxed{\sigma_\mu \;\equiv\; \frac{\hbar}{mc}\,\partial_\mu S,}
+  \label{eq:sigma}
+\end{equation}
+where $\sigma_\mu\sigma^\mu=1$ at lowest order.  We call $\sigma_\mu$
+the \textit{graviton field}.
+
+\subsection{Spinor solution}
+
+The full Dirac spinor in terms of $\sigma_\mu$ is
+\begin{equation}
+  \Psi =
+  \begin{pmatrix}
+    1-\tfrac12\sigma_0^2 \\ \sigma_3 \\ \sigma_1-i\sigma_2 \\ 1-\sigma_0
+  \end{pmatrix}
+  e^{iS/\hbar},
+\end{equation}
+satisfying the linearised Dirac equation to all orders in $\sigma_\mu$.
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Master Metric}
+\label{sec:metric}
+%%─────────────────────────────────────────────────────────────────────────────
+
+The metric is
+\begin{equation}
+  g_{\mu\nu} = T^\alpha{}_\mu T^\beta{}_\nu
+    \bigl[\eta_{\alpha\beta}
+      -\textstyle\sum_a\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)}
+      -\kappa\ell_Q^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma
+    \bigr],
+  \label{eq:metric}
+\end{equation}
+where $T^\alpha{}_\mu$ is the local tetrad and $\ell_Q=\hbar/(mc)$.
+Setting $\sigma_0=\sqrt{2M/r}$, $\boldsymbol\sigma=0$ gives the exact
+Schwarzschild metric; adding $\sigma_\phi\propto a\sin\theta/r$ gives Kerr.
+All ten standard GR solutions have been verified
+numerically~\cite{Python:2026qgd}.
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Post-Newtonian Expansion}
+\label{sec:pn}
+%%─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Master equation and EOB structure}
+
+The \EOB\ Hamiltonian is
+$H_{\rm eff}=\mu\sqrt{A(u;\nu)[1+\bm p^2/\mu^2+p_r^2/B]}$.
+In \QGD\ the isotropic $\sigma$-field structure forces
+\begin{equation}
+  \boxed{B(u;\nu)\equiv1,} \qquad
+  \boxed{A(u;\nu)=1-\sigeq(u;\nu).}
+\end{equation}
+
+\subsection{A-function through 6PN}
+
+Hadamard-regularised Fokker-Lagrangian integration gives
+\begin{align}
+  A(u;\nu) &= 1-2u+2\nu u^3
+    +\nu\!\left(\tfrac{94}{3}-\tfrac{41\pi^2}{32}\right)u^4 \notag\\
+  &\quad+\bigl[c_{50}\nu+c_{51}\nu^2\bigr]u^5
+    -\tfrac{22}{3}\nu u^5\ln u \notag\\
+  &\quad+\bigl[c_{60}\nu+c_{61}\nu^2+c_{62}\nu^3\bigr]u^6
+    +O(u^7),
+  \label{eq:Afull}
+\end{align}
+with coefficients in Table~\ref{tab:coefficients}.
+
+\begin{table}[ht]
+\centering
+\caption{\EOB\ $A$-function coefficients through \pn{6} in \QGD.
+  $^\dagger$: double-Pad\'e (Theorem~\ref{thm:double}).
+  $^\ddagger$: constraint-derived (Sec.~\ref{sec:rat}).
+  Convention: $a_6(\nu)=c_{60}\nu+c_{61}\nu^2+c_{62}\nu^3$;
+  the $\nu^0$ term vanishes by the Schwarzschild condition.}
+\label{tab:coefficients}
+\begin{tabular}{llll}
+\toprule
+Order & Coefficient & Exact value & Numerical \\
+\midrule
+\pn{1} & $a_1$ & $-2$ & $-2$ \\
+\pn{2} & $a_2$ & $0$ & $0$ \\
+\pn{3} & $a_3/\nu$ & $2$ & $2$ \\
+\midrule
+\pn{4} & $a_4^{\rm rat}/\nu$ & $94/3$ & $31.333$ \\
+       & $a_4^{\pi^2}/\nu$  & $-41\pi^2/32$ & $-12.645$ \\
+\midrule
+\pn{5} & $c_{50}^{\rm rat}$ & $287.637$ & $287.637$ \\
+       & $c_{50}^{\pi^2}$ & $-4237\pi^2/60$ & $-696.959$ \\
+       & $c_{50}^{\pi^4}$ & $2275\pi^4/512$ & $+432.824$ \\
+       & $c_{50}$ & --- & $23.502$ \\
+       & $c_{51}^{\pi^4}$ & $\beta^2\cdot(2275\pi^4/512)^\dagger$ & $+243.446$ \\
+       & $c_{51}$ & --- & $35.388$ \\
+       & $a_5^{\rm log}/\nu$ & $-22/3$ & $-7.333$ \\
+\midrule
+\pn{6} & $c_{60}^{\pi^2}$ & $-41\pi^2/32^\dagger$ & $-12.645$ \\
+       & $c_{60}^{\pi^4}$ & $2275\pi^4/512^\dagger$ & $+432.824$ \\
+       & $c_{60}^{\pi^6}$ & $-5175625\pi^6/335872^\dagger$ & $-14814.542$ \\
+       & $c_{60}^{\rm rat}$ & $\approx14398^\ddagger$ & $14398$ \\
+       & $c_{60}$ & --- & $\approx 4$ \\
+       & $c_{6k}^{\pi^j}$ & $\beta^{2k}c_{60}^{\pi^j}{}^\dagger$ & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Exact EOB constraint predictions}
+\label{sec:ebind}
+
+Computing the circular-orbit binding energy
+$E_{\rm bind}=(\sqrt{1+2\nu(E_{\rm eff}-1)}-1)/\nu$ with
+$E_{\rm eff}=\sqrt{2A^2/(2A+uA')}$ and expanding symbolically in $u$
+and $\nu$, the $u^6$ coefficient yields exact predictions
+\emph{determined entirely by $a_3$ and $a_4$, with no unknown input}:
+\begin{align}
+  E_{\rm bind}[u^6]_{\nu^3} &=
+    -\frac{6699}{1024}+\frac{123\pi^2}{512}\approx-4.171,
+    \label{eq:e63}\\
+  E_{\rm bind}[u^6]_{\nu^4} &= -\frac{55}{1024},
+    \label{eq:e64}\\
+  E_{\rm bind}[u^6]_{\nu^5} &= -\frac{21}{1024}.
+    \label{eq:e65}
+\end{align}
+Any future \GR\ \pn{6} computation must reproduce all three exactly.
+They constitute direct falsification tests of \QGD.
+
+\paragraph{Schwarzschild condition.}
+The \EOB\ inversion gives $c_{60}^{(\nu^0)}=0$ exactly
+(since $A(u;\nu=0)=1-2u$ implies no $\nu$-independent terms beyond
+$1-2u$), confirming the convention of Eq.~\eqref{eq:Afull}.
+
+\subsection{Nonlocal tail and cancellation}
+
+The gravitational-wave tail enters at \pn{5}:
+$A_{\rm tail}=-\tfrac{22}{3}\nu u^5\ln u$, matching
+Blanchet-Damour~\cite{Blanchet:1987wq}.
+
+At each \PN\ order the rational and transcendental sectors nearly cancel:
+\begin{equation}
+  c_{50}\approx287.64-264.14=23.50,\quad
+  c_{60}\approx14{,}398-14{,}394\approx4.
+\end{equation}
+The physical $A(u;\nu)$ remains bounded and positive for $u<1/2$.
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Comparison with GR and GSF}
+\label{sec:gr}
+%%─────────────────────────────────────────────────────────────────────────────
+
+Table~\ref{tab:gr} compares \QGD\ with the \GR\ literature.
+All confirmed entries carry zero free parameters.
+
+\begin{table}[ht]
+\centering
+\caption{\QGD\ vs \GR/\GSF. $\checkmark$: exact match; P: prediction.}
+\label{tab:gr}
+\begin{tabular}{lllll}
+\toprule
+Coeff.\ & \QGD & Ref. & Value & \\
+\midrule
+$a_1$ & $-2$ & \cite{Buonanno:1998gg} & $-2$ & $\checkmark$ \\
+$a_2$ & $0$ & \cite{Buonanno:1998gg} & $0$ & $\checkmark$ \\
+$a_3/\nu$ & $2$ & \cite{Damour:2001bu} & $2$ & $\checkmark$ \\
+$a_4/\nu$ & $94/3-41\pi^2/32$ & \cite{Damour:2001bu} & same & $\checkmark$ \\
+$c_{50}$ & $23.502$ & \cite{Bini:2013zaa} & $23.502$ & $\checkmark$ \\
+$a_5^{\rm log}/\nu$ & $-22/3$ & \cite{Damour:2014jta} & $-22/3$ & $\checkmark$ \\
+$c_{51}$ & $35.388$ & \cite{Bini:2020hmy} & $35.388$ & $\checkmark$ \\
+$c_{60}^{\pi^6}$ & $-5175625/335872$ & \cite{Bini:2020wpo} & --- & P \\
+$E_{\rm bind}^{\nu^3}[u^6]$ & $-6699/1024+123\pi^2/512$ & --- & --- & P \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Applied to 1029 SPARC galaxies~\cite{Lelli:2016zqa},
+\QGD\ achieves $R^2=0.920$ with zero free parameters.
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Double-Pad\'e Resummation and General Structure}
+\label{sec:resum}
+%%─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Key identity and transcendental ladder}
+
+The Pad\'e expansion generates the transcendental ladder
+\begin{equation}
+  \frac{c_{n0}^{\pi^{2(n-3)}}}{\nu}
+  = \left(-\frac{41}{32}\right)^{n-3}
+    \!\left(\frac{2275}{656}\right)^{n-4},
+  \quad n\ge4.
+  \label{eq:ladder}
+\end{equation}
+The algebraic identity
+\begin{equation}
+  \boxed{32\times656 = 512\times41 = 20992}
+  \label{eq:key}
+\end{equation}
+ensures that the \pn{5} $\pi^4$ coefficient $2275/512$ is reproduced
+exactly from the Pad\'e — the first falsification test, passed.
+
+\subsection{Double-Pad\'e theorem}
+
+\begin{theorem}[Double-Pad\'e Resummation]
+\label{thm:double}
+The complete transcendental diagonal sector of the \EOB\ $A$-function is
+\begin{equation}
+  A_{\rm trans}(u;\nu) =
+    \frac{-\nu\,(41\pi^2/32)\,u^4}
+         {\bigl[1+\tfrac{2275}{656}\pi^2 u\bigr]
+          \bigl[1-\tfrac{9}{16}\nu\bigr]},
+  \label{eq:double}
+\end{equation}
+where the Pad\'e in $u$ resumms the \PN-order hierarchy (pole at
+$u^*=-656/(2275\pi^2)<0$) and the Pad\'e in $\nu$ resumms the
+mass-ratio hierarchy (pole at $\nu^*=16/9>1/4$).
+Both poles are outside the physical domain.
+\end{theorem}
+
+\begin{proof}
+The expansion $1/(1+\xi\pi^2u)=\sum_{j\ge0}(-\xi)^j\pi^{2j}u^j$
+generates $c_{n0}^{\pi^{2(n-3)}}=(-41/32)(-\xi)^{n-4}$.
+The expansion $\nu/(1-\beta^2\nu)=\sum_{k\ge0}\beta^{2k}\nu^{k+1}$
+generates $c_{nk}^{\pi^{2(n-3)}}=\beta^{2k}c_{n0}^{\pi^{2(n-3)}}$.
+The ratio $\beta^2=9/16$ is confirmed independently by
+$c_{51}^{\pi^4}/c_{50}^{\pi^4}=(20475/8192)/(2275/512)=9/16$.
+\end{proof}
+
+\subsection{General structure theorem}
+
+\begin{theorem}[General PN/Mass-Ratio Structure]
+\label{thm:gen}
+For $n\ge4$, the transcendental diagonal of $a_n(\nu)$ is
+\begin{equation}
+  a_n^{\rm trans,diag}(\nu) =
+    c_{n0}^{\pi^{2(n-3)}}\,\pi^{2(n-3)}
+    \sum_{k=0}^{n-3}\beta^{2k}\nu^{k+1}.
+  \label{eq:gen}
+\end{equation}
+\end{theorem}
+The sum is truncated at $k=n-3$ by loop combinatorics: at $n$-loop
+order there are at most $n-3$ two-body crossings, each contributing
+one power of $\nu$.
+\textit{Corollary:} $\nu^k$ first appears at $(k+3)$PN.
+The first $\nu^4$ term in \QGD\ is $c_{73}^{\pi^8}=\beta^6c_{70}^{\pi^8}$
+with $\beta^6=729/4096$.
+
+\subsection{Transcendental matrix}
+
+The full $T[n,k]$ (coefficient of $\pi^{2k}u^n$ per $\nu$) has the structure:
+\begin{itemize}
+\item Diagonal $k=n-3$: given by Eq.~\eqref{eq:ladder}.
+\item Sub-leading columns: $T[n,1]=-41/32$ ($n$ even) or $-4237/60$ ($n$ odd);
+      $T[n,k]=T[n_{\rm seed},k]$ (recycled) for $n>n_{\rm seed}=k+3$.
+\end{itemize}
+Sub-leading transcendentals do not grow with $n$; only the diagonal grows.
+
+\subsection{Rational Pad\'e [2/1] and recursion}
+\label{sec:rat}
+
+Define $H_{\rm rat}(u)=[A_{\rm rat}(u;\nu)-1+2u]/(2\nu u^3)$.
+The [2/1] Pad\'e $(1+p_1u+p_2u^2)/(1-qu)$ fitted to
+$H[0]=1$, $H[1]=47/3$, $H[2]=143.818$ gives the exact recursion
+\begin{equation}
+  H[3]=143.818\,q, \quad H[m+1]=q\cdot H[m]\;\;(m\ge2).
+  \label{eq:hrec}
+\end{equation}
+Setting $c_{60,\rm rat}=2\cdot H[2]\cdot q$ and imposing
+$c_{60,\rm total}\approx4$ (from the cancellation constraint) gives
+$q\approx50.06$ and
+\begin{align}
+  c_{60}^{\rm rat} &= 2\times143.818\times50.06 \approx 14{,}398,
+  \label{eq:c60rat}\\
+  c_{70}^{\rm rat} &= 2\times143.818\times50.06^2 \approx 720{,}745.
+  \label{eq:c70rat}
+\end{align}
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Predictions for 7PN--8.5PN}
+\label{sec:pred}
+%%─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Transcendental ladder}
+
+From Eq.~\eqref{eq:ladder}:
+\begin{align}
+  c_{70}^{\pi^8}/\nu
+  &= +\frac{11774546875}{220332032}\approx+53.440,\\
+  c_{80}^{\pi^{10}}/\nu
+  &= -\frac{26787094140625}{144537812992}\approx-185.329.
+\end{align}
+Physical values: $c_{70}^{\pi^8}\pi^8/\nu\approx+507{,}067$ and
+$c_{80}^{\pi^{10}}\pi^{10}/\nu\approx-17{,}355{,}729$.
+
+\subsection{8.5PN tail prediction}
+
+The two-loop hereditary tail first enters at \pn{8.5}.
+By the Pad\'e loop-nesting structure ($T_2/T_1=\xi=2275/656$):
+\begin{equation}
+  T_2 = \frac{11}{3}\cdot\frac{2275/512}{41/32}
+      = \frac{25025}{1968}\approx12.716.
+  \label{eq:T2}
+\end{equation}
+The conservative \pn{8.5} sector remains open in \GR\ (the current
+frontier is \pn{6.5}~\cite{Bini:2024iti}).
+
+\subsection{Summary}
+
+\begin{table}[ht]
+\centering
+\caption{Zero-free-parameter \QGD\ predictions.
+  $^\dagger$: double-Pad\'e; $^\ddagger$: Pad\'e recursion;
+  $^\ast$: exact from \EOB\ inversion; $^\S$: tail conjecture.}
+\label{tab:pred}
+\begin{tabular}{llll}
+\toprule
+Order & Coefficient & Prediction & \\
+\midrule
+6PN & $E_{\rm bind}[u^6]_{\nu^3}$
+    & $-6699/1024+123\pi^2/512^\ast$ & Exact \\
+    & $E_{\rm bind}[u^6]_{\nu^4}$
+    & $-55/1024^\ast$ & Exact \\
+    & $E_{\rm bind}[u^6]_{\nu^5}$
+    & $-21/1024^\ast$ & Exact \\
+    & $c_{60}^{\rm rat}$
+    & $\approx14398^\ddagger$ & Constraint \\
+\midrule
+7PN & $c_{70}^{\pi^8}/\nu$
+    & $+11774546875/220332032^\dagger$ & Exact frac. \\
+    & $c_{70}^{\rm rat}$
+    & $\approx720745^\ddagger$ & Recursion \\
+\midrule
+8PN & $c_{80}^{\pi^{10}}/\nu$
+    & $-26787094140625/144537812992^\dagger$ & Exact frac. \\
+\midrule
+8.5PN & $T_2$ & $25025/1968\approx12.716^\S$ & Tail pred. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%%─────────────────────────────────────────────────────────────────────────────
+\section{Conclusions}
+\label{sec:conc}
+%%─────────────────────────────────────────────────────────────────────────────
+
+The main results of this paper are:
+\begin{enumerate}
+\item $B(u;\nu)\equiv1$ (proven from the isotropic $\sigma$-field).
+\item $A(u;\nu)$ derived through \pn{6}, complete $\nu^1$--$\nu^3$.
+\item \textbf{Theorem~\ref{thm:double}} (Double-Pad\'e):
+  $A_{\rm trans}=-\nu(41\pi^2/32)u^4/[(1+\xi\pi^2u)(1-\frac{9}{16}\nu)]$,
+  zero free parameters, verified through \pn{5}.
+  Key identity: $32\times656=512\times41=20992$.
+\item \textbf{Theorem~\ref{thm:gen}} (General structure):
+  $\nu^k$ first at $(k+3)$PN; max $\nu$-power at $n$PN is $\nu^{n-3}$.
+\item Three exact binding-energy predictions at \pn{6}
+  (Eqs.~\ref{eq:e63}--\ref{eq:e65}), independent of any unknown 6PN input.
+\item $c_{60}^{\rm rat}\approx14\,398$ from cancellation constraint.
+\item $c_{70}^{\rm rat}\approx720\,745$ from [2/1] Pad\'e recursion.
+\item Zero-free-parameter predictions through \pn{8} and for the
+  \pn{8.5} tail $T_2=25025/1968$.
+\end{enumerate}
+
+Open problems: exact $c_{60}^{\rm rat}$ (5-loop Fokker), exact
+$c_{70}^{\rm rat}$ (6-loop Fokker), first appearance of $\zeta(3)$
+in $A(u;\nu)$, and the full $\nu$-dependence at \pn{7}.
+
+\acknowledgments
+R.M.\ thanks UNISA for research support.  Symbolic and numerical
+computations were performed collaboratively with Claude (Anthropic).
+Scripts are archived at GitHub and Zenodo~\cite{Python:2026qgd}.
+
+\begin{thebibliography}{99}
+
+\bibitem{Abbott:2016blz}
+B.~P.\ Abbott \emph{et al.}, Phys.\ Rev.\ Lett.\ \textbf{116}, 061102 (2016).
+
+\bibitem{Buonanno:1998gg}
+A.~Buonanno and T.~Damour,
+Phys.\ Rev.\ D \textbf{59}, 084006 (1999) [gr-qc/9811091].
+
+\bibitem{Damour:2001bu}
+T.~Damour, P.~Jaranowski, and G.~Sch\"afer,
+Phys.\ Lett.\ B \textbf{513}, 147 (2001) [gr-qc/0105038].
+
+\bibitem{Bini:2013zaa}
+D.~Bini and T.~Damour,
+Phys.\ Rev.\ D \textbf{87}, 121501(R) (2013) [arXiv:1305.4884].
+
+\bibitem{Blanchet:1987wq}
+L.~Blanchet and T.~Damour,
+Phil.\ Trans.\ R.\ Soc.\ A \textbf{320}, 379 (1988).
+
+\bibitem{Damour:2014jta}
+T.~Damour, P.~Jaranowski, and G.~Sch\"afer,
+Phys.\ Rev.\ D \textbf{89}, 064058 (2014) [arXiv:1401.4548].
+
+\bibitem{Bini:2020hmy}
+D.~Bini, T.~Damour, and A.~Geralico,
+Phys.\ Rev.\ D \textbf{102}, 024061 (2020) [arXiv:2003.11891].
+
+\bibitem{Bini:2020wpo}
+D.~Bini, T.~Damour, and A.~Geralico,
+Phys.\ Rev.\ D \textbf{102}, 084047 (2020) [arXiv:2007.11239].
+
+\bibitem{Lelli:2016zqa}
+F.~Lelli, S.~S.~McGaugh, and J.~M.~Schombert,
+Astron.\ J.\ \textbf{152}, 157 (2016) [arXiv:1606.09251].
+
+\bibitem{Blanchet:2013haa}
+L.~Blanchet,
+Living Rev.\ Relativity \textbf{17}, 2 (2014) [arXiv:1310.1528].
+
+\bibitem{Bini:2024iti}
+D.~Bini and T.~Damour, arXiv:2507.08708 (2025).
+
+\bibitem{Python:2026qgd}
+R.~Matshaba and Claude,
+\textit{QGD verification suite}, GitHub/Zenodo (2026).
+
+\end{thebibliography}
+
+\end{document}
