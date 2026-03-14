@@ -216,23 +216,11 @@ The σ_μ variable emerges from the Dirac equation without any choice or ansatz.
 
 ---
 
-## Repository structure
-
-```
-qgd_showcase.py          ← this file: executable demonstration
-qgd_master_final.py      ← complete PN programme, all stages 1–9
-graviton_field.py        ← σ-field definitions (10 GR solutions)
-master_metric.py         ← metric construction + EFE verification
-qgd_insights_final.md    ← complete insights register
-qgd_final.tex / .pdf     ← journal paper (revtex4-2)
-```
-
----
-
 ## Verification summary
 
 ```
-python qgd_showcase.py
+python PN-Expansion.py
+https://github.com/matshaba/Quantum-Gravity-Dynamics/blob/main/core/PN-Expansion.py
 ```
 
 ```
