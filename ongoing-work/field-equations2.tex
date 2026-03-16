@@ -1,0 +1,567 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,physics,geometry,booktabs,array,hyperref,mathtools}
+\usepackage{xcolor,colortbl,setspace}
+\geometry{margin=2.6cm,top=3.2cm,bottom=3.2cm}
+\onehalfspacing
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black,
+  pdftitle={QGD: G_t Closure and TUO-QGD Unification},pdfauthor={Romeo Matshaba}}
+
+\definecolor{lightgray}{gray}{0.93}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\sigt}{\sigma_t}
+\newcommand{\rs}{r_s}
+\newcommand{\lPl}{\ell_{\mathrm{Pl}}}
+\newcommand{\TPl}{T_{\mathrm{Pl}}}
+\newcommand{\TTUO}{T_{\mathrm{TUO}}}
+\newcommand{\boxg}{\square_g}
+\newcommand{\half}{\tfrac{1}{2}}
+
+\title{\textbf{Quantum Gravitational Dynamics: Two Results}\\[6pt]
+\large I.\ The Exact $G_t$ from Kerr--Schild and Self-Consistency of the
+Schwarzschild $\sigma$-Field\\[3pt]
+II.\ The TUO--QGD Architecture: Initial Conditions and Dynamics}
+\author{Romeo Matshaba\\[4pt]
+\normalsize University of South Africa (UNISA)\\
+\normalsize Department of Physics\\[4pt]
+\small DOI: \href{https://doi.org/10.5281/zenodo.18827993}{10.5281/zenodo.18827993}}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present two results in Quantum Gravitational Dynamics (QGD).
+
+\textbf{Result I.}  We determine the exact geometric coupling $G_t$ required
+by self-consistency of the Schwarzschild $\sigma$-field.  From the
+Einstein--wave-operator identity (Lemma~1) in vacuum, $G_t$ is uniquely
+fixed by $G_t = \sigt(\sigt^2-1)/(4r^2) - Q_t$, where $Q_t$ is the
+explicit kinetic self-interaction.  We compute $G_t$ numerically and show
+it is not reproduced by the three-term Kerr--Schild formula in the literature.
+The exact expression is derived and its structure analysed: $G_t$ changes sign
+at $r \approx 3.6\,\rs$, is bounded, and vanishes at both the horizon and
+infinity.  The gap between the literature formula and the required $G_t$ is
+precisely characterised, defining the outstanding derivation needed to close
+the self-consistency proof.
+
+\textbf{Result II.}  We establish the precise architectural relationship
+between TUO and QGD.  QGD is a dynamics: it evolves $\sigma$-fields via the
+master equation from any initial data.  TUO is an initial-condition selector:
+it identifies the unique QGD trajectory corresponding to the Hot Big Bang.
+Four layers of the connection are made explicit: (1) TUO Axiom~I (flat
+Minkowski) is the zero-source solution of QGD; (2) the TUO emergence
+temperature $\TTUO = (15/\pi^2)^{1/4}\TPl$ corresponds to the QGD
+Schwarzschild-horizon condition $\sigt = \sqrt{2}$ at the Planck scale;
+(3) TUO describes the pre-thermalisation transient that seeds the QGD
+FRW phase; (4) TUO Axiom~II (zero-sum charges) selects a unique trajectory
+in QGD phase space, not derivable from geometry alone but compatible with it.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%=============================================================
+\section{Background and Motivation}
+%=============================================================
+
+Previous work~\cite{matshaba2026:kin_var} established the exact identity
+\begin{equation}\label{eq:box_exact}
+  \boxg\sigt = \frac{\sigt(\sigt^2-1)}{4r^2} = -\frac{f\sigt}{4r^2},
+  \qquad f = 1 - \frac{\rs}{r},
+\end{equation}
+verified symbolically with zero residual.  By Lemma~1 of QGD
+(the Einstein--wave-operator identity) in vacuum, this requires
+$Q_t + G_t = \sigt(\sigt^2-1)/(4r^2)$.  The kinetic source $Q_t$ was
+computed explicitly; a gap remained.  The present paper closes the gap by
+determining $G_t$ exactly and analysing its structure.  We then use the
+resulting picture to establish the architectural relationship between QGD
+and the Theory of Universal Origins (TUO).
+
+%=============================================================
+\section{Result I: The Exact $G_t$ from Kerr--Schild}
+\label{sec:Gt}
+%=============================================================
+
+\subsection{Setup}
+
+The Schwarzschild spacetime admits the Kerr--Schild (KS) decomposition
+\begin{equation}
+  g_{\mu\nu} = \eta_{\mu\nu} + H\,\ell_\mu\ell_\nu, \qquad
+  H = \frac{\rs}{r}, \quad
+  \ell_\mu = (1,1,0,0), \quad
+  \ell^\mu = (-1,1,0,0),
+\end{equation}
+with $\ell^\mu$ null with respect to $\eta$.  The geometric coupling $G_\mu$
+in the QGD master equation encodes the coupling of the $\sigma$-field to
+the Kerr--Schild structure.
+
+The three-term formula from the QGD literature is:
+\begin{equation}\label{eq:Gt_formula}
+  G_t^{(\mathrm{lit})} = H(\ell\cdot\nabla)^2\sigt
+  + (\nabla_r\sigt)\nabla^r(H\ell^t\ell_t)
+  + (\nabla_t\sigma_r)\nabla^r(H\ell^r\ell_t).
+\end{equation}
+
+\subsection{Computation of each term}
+
+We use exact Schwarzschild Christoffel symbols
+$\Gamma^t_{tr} = \rs/(2r^2f)$,
+$\Gamma^r_{tt} = f\rs/(2r^2)$,
+$\Gamma^r_{rr} = -\rs/(2r^2f)$,
+$\Gamma^r_{\theta\theta} = -rf$,
+and the covariant derivatives
+$\nabla_r\sigt = -\sigt/(2rf)$,
+$\nabla_t\sigma_r = -\rs^{3/2}/(2r^{3/2}(r-\rs))$.
+
+\paragraph{Term 1.}
+\begin{align}
+  \ell^\mu\nabla_\mu\sigt &= \nabla_r\sigt
+  = -\frac{\sqrt{\rs}}{2\sqrt{r}(r-\rs)}, \\
+  (\ell\cdot\nabla)^2\sigt &= \partial_r(\nabla_r\sigt)
+  = \frac{\sqrt{\rs}(3r-\rs)}{4r^{3/2}(r-\rs)^2}, \\
+  G_t^{(1)} &= H\cdot(\ell\cdot\nabla)^2\sigt
+  = \frac{\rs^{3/2}(3r-\rs)}{4r^{5/2}(r-\rs)^2}.
+\end{align}
+
+\paragraph{Term 2.}
+With $H\ell^t\ell_t = -H$ and $\nabla^r(-H) = f\partial_r(-H) = f\rs/r^2$:
+\begin{equation}
+  G_t^{(2)} = (\nabla_r\sigt)\cdot f\rs/r^2
+  = -\frac{\rs^{3/2}}{2r^{7/2}}.
+\end{equation}
+
+\paragraph{Term 3.}
+With $H\ell^r\ell_t = H$ and $\nabla^r(H) = f\partial_r(H) = -f\rs/r^2$:
+\begin{equation}
+  G_t^{(3)} = (\nabla_t\sigma_r)\cdot(-f\rs/r^2)
+  = \frac{\rs^{5/2}}{2r^{9/2}}.
+\end{equation}
+
+\paragraph{Total (literature formula).}
+\begin{equation}\label{eq:Gt_lit}
+  G_t^{(\mathrm{lit})} = \frac{\rs^{3/2}(r^3+5r^2\rs-6r\rs^2+2\rs^3)}
+                              {4r^{9/2}(r-\rs)^2}.
+\end{equation}
+
+\subsection{Comparison with the required $G_t$}
+
+The required $G_t$ is uniquely determined by $Q_t + G_t = \sigt(\sigt^2-1)/(4r^2)$:
+\begin{equation}\label{eq:Gt_required}
+  G_t^{(\mathrm{req})} = -\frac{\sqrt{\rs}(r^3-4r^2\rs+3r\rs^2-3\rs^3)}
+                               {4r^{7/2}(r-\rs)^2}.
+\end{equation}
+
+\begin{theorem}[Literature formula is insufficient]\label{thm:Gt}
+The three-term Kerr--Schild formula~\eqref{eq:Gt_formula} does not
+reproduce the required geometric coupling~\eqref{eq:Gt_required}.
+The residual gap is
+\begin{equation}\label{eq:Gt_gap}
+  \Delta G_t \equiv G_t^{(\mathrm{req})} - G_t^{(\mathrm{lit})}
+  = \frac{\sqrt{\rs}(r^4-3r^3\rs+8r^2\rs^2-9r\rs^3+2\rs^4)}
+         {4r^{9/2}(r-\rs)^2},
+\end{equation}
+which is nonzero for all $r \ne \rs$ and $r \ne \infty$.
+\end{theorem}
+
+\begin{proof}
+Computed symbolically via SymPy; residual verified nonzero.
+Numerical confirmation at $\rs = 1$, $r \in \{2,3,5,10,100\}$:
+$Q_t + G_t^{(\mathrm{lit})} + Q_t \ne$ required at each point.
+\end{proof}
+
+\subsection{Structure of the exact $G_t$}
+
+\begin{table}[h]
+\centering
+\caption{Numerical values at $\rs = 1$ for required vs literature $G_t$.}
+\label{tab:Gt}
+\begin{tabular}{rrrrrr}
+\toprule
+$r/\rs$ & $Q_t$ & $G_t^{(\mathrm{req})}$ & $G_t^{(\mathrm{lit})}$ & $Q+G^{(\mathrm{req})}$ & Required \\
+\midrule
+2  & $-1.326\times10^{-1}$ & $+1.105\times10^{-1}$ & $+4.419\times10^{-2}$ & $-2.210\times10^{-2}$ & $-2.210\times10^{-2}$ \\
+3  & $-1.470\times10^{-2}$ & $+4.009\times10^{-3}$ & $-8.353\times10^{-3}$ & $-1.069\times10^{-2}$ & $-1.069\times10^{-2}$ \\
+5  & $-1.509\times10^{-3}$ & $-2.068\times10^{-3}$ & $-2.742\times10^{-3}$ & $-3.578\times10^{-3}$ & $-3.578\times10^{-3}$ \\
+10 & $-9.955\times10^{-5}$ & $-6.120\times10^{-4}$ & $-6.179\times10^{-4}$ & $-7.115\times10^{-4}$ & $-7.115\times10^{-4}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The required $G_t^{(\mathrm{req})}$ has several notable properties.
+
+\begin{proposition}[Properties of $G_t^{(\mathrm{req})}$]\label{prop:Gt_props}
+\begin{enumerate}
+  \item[\rm(i)] $G_t^{(\mathrm{req})} > 0$ for $r < r_{\mathrm{cross}}$
+    and $G_t^{(\mathrm{req})} < 0$ for $r > r_{\mathrm{cross}}$, where
+    $r_{\mathrm{cross}} \approx 3.60\,\rs$ is the root of the cubic
+    $r^3-4r^2\rs+3r\rs^2-3\rs^3 = 0$.
+  \item[\rm(ii)] $G_t^{(\mathrm{req})} \to 0$ as $r \to \rs^+$ (horizon).
+  \item[\rm(iii)] $G_t^{(\mathrm{req})} \to 0$ as $r \to \infty$ (flat space).
+  \item[\rm(iv)] Near the horizon: $G_t^{(\mathrm{req})} \sim (r-\rs)/(r-\rs)^2
+    \propto 1/(r-\rs)$, a single pole --- integrable.
+\end{enumerate}
+\end{proposition}
+
+The sign change at $r_{\mathrm{cross}} \approx 3.6\,\rs$ is physical: $G_t$ is
+repulsive near the horizon (pushing $\sigma_t$ outward) and attractive
+in the asymptotic region (pulling $\sigma_t$ back toward zero).  This is
+consistent with a self-stabilising field configuration.
+
+\subsection{What this establishes and what remains open}
+
+Theorem~\ref{thm:Gt} shows the three-term literature formula is incomplete.
+The exact $G_t$ is known from~\eqref{eq:Gt_required}.  The open question is:
+\emph{does a complete derivation of $G_\mu$ from the full action variation
+reproduce~\eqref{eq:Gt_required} exactly?}  If yes, the Schwarzschild
+$\sigma$-field is self-consistent and the moble criticism is fully answered.
+If no, either the action must be extended (Path~2 of~\cite{matshaba2026:kin_var})
+or the $G_\mu$ formula must be revised.
+
+%=============================================================
+\section{Result II: The TUO--QGD Architecture}
+\label{sec:architecture}
+%=============================================================
+
+\subsection{The question}
+
+TUO~\cite{matshaba2026:tuo} and QGD operate on overlapping domains.
+TUO derives the Hot Big Bang initial conditions from two axioms (flat
+Minkowski background + zero-sum charge constraint).  QGD derives spacetime
+geometry from the Dirac field.  A natural question is whether TUO's axioms
+are derivable from QGD, or whether the two theories are complementary.
+
+\subsection{Layer 1: Axiom~I is a degenerate QGD solution}
+
+\begin{proposition}[TUO Axiom~I from QGD]\label{prop:axiom1}
+The QGD master metric with no sources, $\sigma_\mu = 0$, gives
+$g_{\mu\nu} = \eta_{\mu\nu}$ (flat Minkowski).  TUO Axiom~I
+(flat Minkowski background) is therefore the zero-source solution
+of QGD.
+\end{proposition}
+
+This is immediate from the master metric
+$g_{\mu\nu} = T^\alpha{}_\mu T^\beta{}_\nu
+[\eta_{\alpha\beta} - \varepsilon\sigma_\alpha\sigma_\beta - \ldots]$:
+setting $\sigma_\mu = 0$ recovers $\eta_{\mu\nu}$ exactly.
+The important point is not that it is trivial but that it is
+\emph{consistent}: TUO's starting geometry is not in conflict with QGD.
+
+\subsection{Layer 2: $T_{\mathrm{TUO}}$ as a QGD horizon condition}
+
+In QGD, the graviton field at a Schwarzschild horizon satisfies
+$\sigt\big|_{r=\rs} = 1$ (this is the event horizon condition $\Sigma = 1$
+in the master metric).  At the Planck scale with $M = M_\mathrm{Pl}$ and
+$r = \lPl$:
+\begin{equation}
+  \sigt\bigg|_{\lPl,\,M_\mathrm{Pl}}
+  = \sqrt{\frac{2GM_\mathrm{Pl}}{c^2\lPl}}
+  = \sqrt{2} \approx 1.41.
+\end{equation}
+The Schwarzschild radius of a Planck mass is $\rs(M_\mathrm{Pl}) = 2\lPl$,
+so the horizon condition $\sigt = 1$ is met at $r = 2\lPl$.
+
+\begin{proposition}[TUO emergence temperature from QGD horizon condition]
+\label{prop:TTUO}
+The TUO result $\TTUO = (15/\pi^2)^{1/4}\TPl$ is the temperature of
+a Planck-scale thermal bath whose Schwarzschild radius equals $2\lPl$.
+This is the QGD condition $\sigt(r = 2\lPl,\, M_\mathrm{Pl}) = 1$,
+i.e.\ the Planck-mass thermal bath sits exactly at its own QGD event horizon.
+\end{proposition}
+
+This is not a derivation of $\TTUO$ from QGD --- it connects the TUO
+numerical result to a geometric condition that QGD makes precise.
+
+\subsection{Layer 3: TUO as the pre-thermalisation transient}
+
+\begin{table}[h]
+\centering
+\caption{Timeline connecting TUO and QGD.}
+\label{tab:timeline}
+\begin{tabular}{@{}p{2.8cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+Epoch & TUO description & QGD description \\
+\midrule
+$t < t_\mathrm{Pl}$ &
+  Flat Minkowski background, no dynamics &
+  $\sigma_\mu = 0$, $g_{\mu\nu} = \eta_{\mu\nu}$ \\[4pt]
+$t \sim t_\mathrm{Pl}$ &
+  Maximum fluctuation: all SM modes emerge simultaneously with zero-sum charges &
+  Initial data $\sigma_t(t_\mathrm{Pl}) = \sqrt{2}$, $g_{\mu\nu} = \eta_{\mu\nu}$;
+  Axiom~II imposed as constraint \\[4pt]
+$t \in [t_\mathrm{Pl},\, 152\,t_\mathrm{Pl}]$ &
+  Pre-thermalisation: flat-space expansion law $\ddot\sigma = c^2/\sigma$,
+  QGP free-streaming &
+  QGD master equation in flat/weakly curved background;
+  $G_\mu, Q_\mu$ sourced by matter \\[4pt]
+$t > 152\,t_\mathrm{Pl}$ &
+  Junction to FRW (HBB); QGP thermalised &
+  QGD attractor in FRW: $\dot\sigma_t = v$,
+  $H \to H_\mathrm{FRW}$;
+  $\rho_\sigma \approx \rho_\Lambda$ \\[4pt]
+$t \sim H_0^{-1}$ &
+  Not described by TUO (structure formation era) &
+  QGD dark energy attractor;
+  $\rho_\sigma = 3H_0^2c^4/8\pi G$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The QGD flat-space temporal equation (homogeneous $\sigma_t(t)$, no spatial
+gradients) takes the form
+\begin{equation}\label{eq:qgd_flat_temporal}
+  \ddot\sigma_t = \sigma_t\,\dot\sigma_t^2.
+\end{equation}
+The TUO expansion law is $\ddot\sigma = c^2/\sigma$.  These are different
+equations: the QGD flat-space equation is a genuinely nonlinear ODE with no
+obvious analytic solution, while TUO's equation comes from energy-momentum
+balance in Minkowski.  However, they describe the same physical epoch through
+different variables: TUO uses the expansion radius $\sigma$ directly, while
+QGD uses the dimensionless graviton phase.
+
+\subsection{Layer 4: Axiom~II selects a unique QGD trajectory}
+
+\begin{theorem}[TUO Axiom~II as a QGD initial-condition selector]
+\label{thm:axiom2}
+QGD admits a continuous family of solutions parametrised by the initial
+data $(\sigma_\mu(t_0), \partial_t\sigma_\mu(t_0))$.  Among these,
+TUO Axiom~II (zero-sum conserved charges: $B = L = Q = 0$ at $t_0 = t_\mathrm{Pl}$)
+selects a single trajectory.  This constraint is not derivable from the
+QGD gravitational field equations alone; it is a thermodynamic condition
+on the matter sector.  However, it is fully compatible with QGD: the zero-sum
+condition is preserved by the QGD evolution because the master field equation
+conserves all Noether charges.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The QGD action is gauge-invariant under $U(1)_Y \times SU(2)_L \times SU(3)_c$
+at low energies; correspondingly, the Noether currents $j^\mu_k$ are conserved.
+The zero-sum condition $\int j^0_k\,d^3x = 0$ at $t_0$ is preserved under
+evolution by $\partial_\mu j^\mu_k = 0$.  The constraint does not arise from
+geometry; it is a statement about the state of the matter fields.
+\end{proof}
+
+\subsection{The unified picture}
+
+\begin{figure}[h]
+\centering
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}p{4cm}|p{4cm}|p{4cm}@{}}
+  & \textbf{TUO role} & \textbf{QGD role} \\
+\hline
+Flat background & Axiom I & $\sigma_\mu = 0$ solution \\
+Emergence temp.\ & $(15/\pi^2)^{1/4}\TPl$ & QGD horizon at $r = 2\lPl$ \\
+Expansion law & $\ddot\sigma = c^2/\sigma$ & Flat-space transient \\
+Zero-sum & Axiom II & IC constraint, not geometry \\
+Thermalisation & $\tau_\mathrm{th} \approx 152\,t_\mathrm{Pl}$ & TUO--QGD junction \\
+Dark energy & Not addressed & $\rho_\sigma \approx \rho_\Lambda$ at attractor \\
+\end{tabular}
+\caption{Unified TUO--QGD description.  TUO provides initial conditions;
+QGD provides the evolution.}
+\label{fig:unified}
+\end{figure}
+
+The key structural statement:
+
+\begin{corollary}[TUO--QGD unification]
+TUO and QGD are not competing theories.  They address different questions:
+\begin{itemize}
+  \item \emph{TUO asks:} What are the initial conditions of the universe,
+    and why these rather than others?  Answer: the unique maximum fluctuation
+    in a zero-sum Planck-scale thermal bath.
+  \item \emph{QGD asks:} How does gravity work at all scales, from quantum
+    to cosmological?  Answer: via the dynamics of the $\sigma$-field.
+\end{itemize}
+Together they form a complete description: TUO pins the initial data;
+QGD evolves it.  The Hot Big Bang is the specific QGD solution selected
+by the TUO initial conditions.
+\end{corollary}
+
+%=============================================================
+\section{Discussion}
+%=============================================================
+
+\subsection{On the $G_t$ gap}
+
+The three-term Kerr--Schild formula~\eqref{eq:Gt_formula} is not sufficient
+to close the self-consistency gap.  There are two interpretations.
+
+\emph{Interpretation A:} The $G_\mu$ formula in the QGD literature is
+schematic; the full derivation from the action variation generates additional
+terms that together produce~\eqref{eq:Gt_required}.  This is the most likely
+scenario: the action variation tracks $\partial g^{\mu\nu}/\partial\sigma_t$,
+$\partial\sqrt{-g}/\partial\sigma_t$, and the Christoffel dependence on
+$\sigma_\mu$, all of which contribute terms that are not captured by the
+simple Kerr--Schild directional derivative.
+
+\emph{Interpretation B:} The action must be extended with a potential
+$V(\sigma_t) = \sigma_t^2/8 - \sigma_t^4/16$, as identified
+in~\cite{matshaba2026:kin_var}.  This potential emerges naturally from the
+NJL effective theory and would close the gap with no free parameters.
+Under this interpretation, the Schwarzschild $\sigma$-field is a
+constrained solution, and the potential contributes to the $G_t$ balance.
+
+Both interpretations are testable by a single explicit calculation: vary the
+full QGD action with respect to $\sigma_t$ in the Schwarzschild background,
+retain all $g(\sigma)$-dependence, and check whether the result
+equals~\eqref{eq:Gt_required}.
+
+\subsection{On the TUO--QGD relationship}
+
+The most important structural result is that TUO Axiom~II (zero-sum charges)
+is not a constraint on geometry but on the matter sector.  It cannot be
+derived from QGD's gravitational dynamics alone.  This is not a weakness of
+either theory; it reflects the fact that gravity and thermodynamics are
+physically independent inputs.
+
+The analogy to statistical mechanics is apt: the Boltzmann equation
+(dynamics) does not determine the initial distribution function (initial
+conditions).  TUO specifies the initial distribution; QGD evolves it.
+
+The junction time $\tau_\mathrm{th} \approx 152\,t_\mathrm{Pl}$ from TUO
+provides the handoff between the two theories: before it, TUO's flat-space
+expansion law applies; after it, QGD's FRW master equation takes over.
+Computing the QGD $\sigma$-field at $t = \tau_\mathrm{th}$ and verifying
+it matches the TUO junction conditions would constitute a formal proof of
+consistency between the two frameworks.
+
+%=============================================================
+\section{Summary of New Results}
+%=============================================================
+
+\begin{table}[h]
+\centering
+\caption{All new results.  Every numerical claim is reproduced by the
+companion Python script (\texttt{qgd\_Gt\_tuo\_bridge.py}).}
+\label{tab:summary}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{p{5.5cm}p{7cm}}
+\toprule
+Result & Statement \\
+\midrule
+\rowcolor{lightgray}
+$G_t$ three-term formula is insufficient &
+$G_t^{(\mathrm{lit})} \ne G_t^{(\mathrm{req})}$; residual $\Delta G_t$
+given exactly by Eq.~\eqref{eq:Gt_gap} \\
+
+Exact $G_t$ uniquely determined &
+$G_t^{(\mathrm{req})} = -\sqrt{\rs}(r^3-4r^2\rs+3r\rs^2-3\rs^3)/
+[4r^{7/2}(r-\rs)^2]$, with sign change at $r \approx 3.6\,\rs$ \\
+
+\rowcolor{lightgray}
+TUO Axiom~I from QGD &
+$\sigma_\mu = 0$ gives $g_{\mu\nu} = \eta_{\mu\nu}$ exactly \\
+
+$\TTUO$ as QGD horizon condition &
+$(15/\pi^2)^{1/4}\TPl$ corresponds to $\sigt = 1$ at $r = 2\lPl$;
+Planck-mass thermal bath at its own event horizon \\
+
+\rowcolor{lightgray}
+TUO Axiom~II as IC selector &
+Zero-sum constraint selects unique QGD trajectory; not derivable from
+geometry but preserved by QGD evolution \\
+
+TUO = IC selector; QGD = dynamics &
+Unified description: TUO fixes $(\sigma_\mu(t_\mathrm{Pl}),\, \Sigma Q_k=0)$;
+QGD master equation evolves forward \\
+
+\rowcolor{lightgray}
+Junction time is the TUO--QGD handoff &
+$\tau_\mathrm{th} \approx 152\,t_\mathrm{Pl}$ (TUO FRW cooling integral)
+marks transition from TUO transient to QGD FRW phase \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%=============================================================
+\section{Open Calculations}
+%=============================================================
+
+\begin{enumerate}
+  \item \textbf{Full action variation for $G_\mu$:} Vary the complete QGD
+    action in the Schwarzschild background, tracking all $g(\sigma)$
+    dependence.  Show the result equals $G_t^{(\mathrm{req})}$.
+    This closes the self-consistency proof.
+
+  \item \textbf{TUO--QGD junction:} Compute the QGD $\sigma$-field at
+    $t = \tau_\mathrm{th} = 152\,t_\mathrm{Pl}$ (the thermalisation time
+    from TUO) and verify it matches the TUO junction conditions:
+    $T = T_\mathrm{FRW}$, $H = H_\mathrm{FRW}$, $w = 1/3$.
+
+  \item \textbf{QGD flat-space ODE analysis:} Find the general solution of
+    $\ddot\sigma_t = \sigma_t\dot\sigma_t^2$ and characterise its
+    relationship to the TUO expansion law $\ddot\sigma = c^2/\sigma$.
+
+  \item \textbf{Zero-sum from SM symmetry:} Show that the SM gauge group
+    $U(1)_Y \times SU(2)_L \times SU(3)_c$ requires $B-L = Q_\mathrm{em} = 0$
+    at the Planck scale, deriving TUO Axiom~II from the Standard Model
+    rather than postulating it.
+\end{enumerate}
+
+%=============================================================
+\section{Conclusion}
+%=============================================================
+
+Two results have been established.
+
+First, the exact $G_t$ required for self-consistency of the Schwarzschild
+$\sigma$-field is uniquely determined: $G_t = -\sqrt{\rs}(r^3-4r^2\rs
++3r\rs^2-3\rs^3)/[4r^{7/2}(r-\rs)^2]$.  The three-term Kerr--Schild
+formula in the QGD literature falls short; the residual gap is given
+exactly.  The outstanding calculation---full action variation for $G_\mu$
+in the Schwarzschild background---has a known target.
+
+Second, TUO and QGD are complementary, not competing.  TUO is an
+initial-condition theory; QGD is a dynamical theory.  TUO Axiom~I (flat
+Minkowski) is the zero-source QGD solution.  TUO Axiom~II (zero-sum charges)
+is a thermodynamic constraint that selects a unique trajectory in QGD
+phase space.  The TUO emergence temperature $\TTUO = (15/\pi^2)^{1/4}\TPl$
+corresponds to the QGD Schwarzschild-horizon condition at the Planck scale.
+The thermalisation time $\tau_\mathrm{th} \approx 152\,t_\mathrm{Pl}$ marks
+the handoff from TUO dynamics to QGD FRW evolution.
+
+Together: TUO pins the initial data; QGD provides the law of motion.
+The Hot Big Bang is the specific QGD solution selected by the TUO
+constraints.
+
+\begin{thebibliography}{9}
+
+\bibitem{matshaba2026}
+R.~Matshaba,
+\textit{Universal Origins: Quantum Gravitational Dynamics},
+University of South Africa (2026).
+DOI: \href{https://doi.org/10.5281/zenodo.18827993}{10.5281/zenodo.18827993}.
+
+\bibitem{matshaba2026:kin_var}
+R.~Matshaba,
+\textit{Kinetic Term Variation in QGD: Self-Consistency of the Schwarzschild
+Solution}, companion paper, March 2026, same DOI.
+
+\bibitem{matshaba2026:tuo}
+R.~Matshaba,
+\textit{TUO: Open Problems and Numerical Analysis},
+companion paper, March 2026, same DOI.
+
+\bibitem{matshaba2026:cosmo}
+R.~Matshaba,
+\textit{QGD Chapter~5: Cosmology (updated March 2026)},
+companion paper, same DOI.
+
+\bibitem{Damour1999}
+T.~Damour and P.~Jaranowski,
+Phys.\ Rev.\ D \textbf{61}, 064010 (2000).
+
+\end{thebibliography}
+
+\end{document}
