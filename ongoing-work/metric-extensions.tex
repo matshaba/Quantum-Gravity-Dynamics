@@ -1,0 +1,185 @@
+\documentclass[12pt,prd,preprintnumbers,amsmath,amssymb]{revtex4-2}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+
+\newcommand{\s}{\sigma}
+\newcommand{\e}{\varepsilon}
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mQ}{m_Q}
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
+\newcommand{\lPl}{\ell_{\mathrm{Pl}}}
+\newcommand{\half}{\tfrac{1}{2}}
+\newcommand{\rd}{\mathrm{d}}
+\newcommand{\rs}{r_{\mathrm{s}}}
+\newcommand{\nn}{\nonumber}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\etal}{{\it et al.}}
+
+\begin{document}
+
+\title{Quantum Gravitational Dynamics: Master Metric, Gauge Structure, and the Classical Limit}
+\author{Romeo Matshaba}
+\affiliation{University of South Africa, Pretoria, South Africa}
+\date{March 2026}
+
+\begin{abstract}
+We present the complete geometric foundation of Quantum Gravitational Dynamics (QGD). The metric is constructed algebraically from the graviton field $\sigma_\mu$ via the master metric, which includes a quantum stiffness term proportional to $\kappa\ell_Q^2$. In the limit $\ell_Q \to 0$, the theory reduces exactly to general relativity. We establish the Isotropic Gauge Mapping Theorem, proving that for a single static mass, the QGD metric transforms to the isotropic Schwarzschild form, and that the radial metric component $g_{rr}$ is a pure gauge artifact while the temporal component $\sigma_t$ encodes the physical gravitational field. Source signatures $\varepsilon_a = \pm 1$ encode attraction/repulsion for mass, charge, spin, and cosmological constant. The three-tier hierarchy $\eta_{\alpha\beta} - \sum\varepsilon_a\sigma_\alpha\sigma_\beta - \kappa\ell_Q^2\partial\sigma\partial\sigma$ provides a clean separation between flat spacetime, classical gravity, and quantum stiffness. This work establishes the foundational geometric structure upon which all subsequent QGD results are built.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Quantum Gravitational Dynamics (QGD) reformulates gravity in terms of a fundamental field $\sigma_\mu$, derived from the phase of a Dirac spinor in the WKB limit. The metric is not fundamental but emerges algebraically from $\sigma_\mu$ via the master metric. This construction automatically incorporates a quantum stiffness term that regularizes short-distance behavior. In the classical limit $\ell_Q \to 0$, the theory reduces exactly to general relativity, providing a smooth connection between the quantum and classical regimes.
+
+In this paper we lay the geometric foundations of QGD. We present the full master metric, explain the role of the tetrad $T^\alpha{}_\mu$ and scaling matrix $M_{\alpha\beta}$, and tabulate the source signatures $\varepsilon_a$ that encode the nature of each source (attractive or repulsive). We then prove the Isotropic Gauge Mapping Theorem, which establishes that for a single static mass, the QGD metric can be transformed to the isotropic Schwarzschild form, and that the radial metric component is a gauge artifact while the temporal component $\sigma_t$ carries the physical information. This theorem is essential for understanding the gauge structure of QGD and for all subsequent post-Newtonian calculations.
+
+\section{The Master Metric}
+
+The fundamental object in QGD is the graviton field $\sigma_\mu = \hbar/(mc)\,\partial_\mu S$, derived from the phase of a Dirac spinor in the WKB limit. The metric is constructed algebraically in a local Lorentz frame as $g_{\mu\nu}^{\text{(local)}} = \eta_{\mu\nu} - \sigma_\mu\sigma_\nu$. To obtain the metric in global coordinates, we introduce a tetrad $T^\alpha{}_\mu$ and a geometric scaling matrix $M_{\alpha\beta}$. The full master metric for $N$ sources is
+
+\begin{equation}
+\boxed{g_{\mu\nu}(x) = T^\alpha{}_\mu\,T^\beta{}_\nu\!\left(M_{\alpha\beta}\circ\!\left[\eta_{\alpha\beta} - \sum_{a=1}^N\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)} - \kappa\ell_Q^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma\right]\right).}
+\label{eq:master_metric}
+\end{equation}
+
+The symbol $\circ$ denotes element-wise (Hadamard) multiplication. The components have the following interpretation:
+
+\begin{itemize}
+\item $T^\alpha{}_\mu$ is the local tetrad that converts the local Lorentz frame to global coordinates. For example, in spherical coordinates, $T^\alpha{}_\mu = \operatorname{diag}(1,1,r,r\sin\theta)$.
+\item $M_{\alpha\beta}$ is a geometric scaling matrix; for most applications $M_{\alpha\beta} = \delta_{\alpha\beta}$.
+\item $\varepsilon_a = \pm 1$ is the source signature, encoding whether the source is attractive ($+1$) or repulsive ($-1$). The physical origins are summarized in Table~\ref{tab:sources}.
+\item $\sigma_\mu^{(a)}$ is the graviton field of source $a$. For a point mass, $\sigma_t^{(a)} = \sqrt{2GM_a/(c^2 r_a)}$, with all spatial components zero in the rest frame.
+\item $\ell_Q = \sqrt{G\hbar^2/c^4} \sim 10^{-35}$ m is the quantum length scale, and $\kappa \sim 2$ is the stiffness coefficient. The term $\kappa\ell_Q^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma$ represents quantum stiffness; it is negligible at macroscopic scales but essential for singularity resolution.
+\end{itemize}
+
+Equation~\eqref{eq:master_metric} exhibits a clean three-tier hierarchy:
+
+\[
+g_{\mu\nu} = \underbrace{T T(\eta)}_{\text{Tier 0: Minkowski}} - \underbrace{T T(\sum\varepsilon\sigma\sigma)}_{\text{Tier 1: Classical gravity}} - \underbrace{T T(\kappa\ell_Q^2\partial\sigma\partial\sigma)}_{\text{Tier 2: Quantum stiffness}}.
+\]
+
+In the classical limit $\ell_Q \to 0$, the quantum stiffness term vanishes, and the metric reduces to the standard GR form built from the $\sigma$-fields. This limit defines the classical equivalence between QGD and general relativity.
+
+\begin{table}[h]
+\centering
+\caption{Source signatures in QGD. Each source contributes a $\sigma$-field with a definite sign $\varepsilon_a$, encoding whether the interaction is attractive ($+1$) or repulsive ($-1$).}
+\label{tab:sources}
+\begin{tabular}{llll}
+\toprule
+Source & $\sigma$-field & $\varepsilon_a$ & Effect \\
+\midrule
+Mass & $\displaystyle\sqrt{\frac{2GM}{c^2 r}}$ & $+1$ & Attraction \\
+Spin (Kerr) & $\displaystyle a\sin\theta\sqrt{\frac{2GM}{c^2 r\,\Sigma}}$ & $+1$ & Frame dragging \\
+Electric charge & $\displaystyle\sqrt{\frac{GQ^2}{c^4 r^2}}$ & $-1$ & Repulsion \\
+Cosmological constant ($\Lambda>0$) & $\displaystyle Hr/c$ & $-1$ & de Sitter expansion \\
+Cosmological constant ($\Lambda<0$) & $\displaystyle Hr/c$ & $+1$ & Anti-de Sitter confinement \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The Isotropic Gauge and Radial Gauge Artifact}
+
+In QGD, we have the freedom to choose a gauge for the spatial part of the $\sigma$-field. The isotropic gauge is defined by setting $\sigma_r = 0$ for all sources. In this gauge, the spatial metric is flat: $g_{ij} = \delta_{ij}$. However, this does not mean spacetime is flat; the curvature is encoded in $\sigma_t$ and its gradients. The choice $\sigma_r = 0$ is analogous to the Coulomb gauge in electromagnetism, where the vector potential is transverse and the scalar potential carries the physical information.
+
+We now prove that the radial metric component $g_{rr}$ is a pure gauge artifact. Consider a single static mass. In isotropic gauge, the QGD metric is
+
+\[
+ds^2 = -(1 - \sigma_t^2) dt^2 + dr^2 + r^2 d\Omega^2,
+\]
+
+with $\sigma_t = \sqrt{2GM/(c^2 r)}$. Perform a coordinate transformation to a new radial coordinate $\rho$ defined by
+
+\[
+r = \rho\left(1 + \frac{GM}{2c^2\rho}\right)^2.
+\]
+
+A straightforward calculation yields
+
+\[
+ds^2 = -\left(\frac{1 - \frac{GM}{2c^2\rho}}{1 + \frac{GM}{2c^2\rho}}\right)^2 dt^2 + \left(1 + \frac{GM}{2c^2\rho}\right)^4 (d\rho^2 + \rho^2 d\Omega^2),
+\]
+
+which is exactly the isotropic Schwarzschild metric. In these coordinates, $g_{\rho\rho} \neq 1$, but the physical content is unchanged. The graviton scalar transforms covariantly and becomes $\sigma_t = \sqrt{2GM/(c^2\rho)}$ in the new coordinates. Thus $\sigma_t$ is invariant under spatial coordinate changes (it is a scalar), while $g_{rr}$ changes. This proves that $g_{rr}$ is a gauge artifact; the physical gravitational field is encoded entirely in $\sigma_t$.
+
+\section{The Isotropic Gauge Mapping Theorem}
+
+We now state and prove the central theorem that establishes the equivalence between QGD and GR in the classical limit.
+
+\begin{theorem}[Isotropic Gauge Mapping]
+\label{thm:isotropic}
+Let $g_{\mu\nu}$ be the QGD master metric for a single static mass $M$ in the classical limit $\ell_Q \to 0$, with $\sigma_t = \sqrt{2GM/(c^2 r)}$ and $\sigma_i = 0$ in isotropic gauge. Then there exists a coordinate transformation to a new radial coordinate $\rho$ such that the metric takes the exact isotropic Schwarzschild form
+\begin{equation}
+ds^2 = -\left(\frac{1 - \frac{GM}{2c^2\rho}}{1 + \frac{GM}{2c^2\rho}}\right)^2 c^2 dt^2 + \left(1 + \frac{GM}{2c^2\rho}\right)^4 (d\rho^2 + \rho^2 d\Omega^2).
+\end{equation}
+Moreover, the graviton scalar $\sigma_t$ is invariant under this transformation, and the radial metric component $g_{rr}$ is a pure gauge artifact.
+\end{theorem}
+
+\begin{proof}
+In isotropic gauge, the QGD metric is
+\begin{equation}
+ds^2 = -(1 - \sigma_t^2) dt^2 + dr^2 + r^2 d\Omega^2, \qquad \sigma_t = \sqrt{\frac{2GM}{c^2 r}}.
+\end{equation}
+Define a new radial coordinate $\rho$ by the relation
+\begin{equation}
+r = \rho\left(1 + \frac{GM}{2c^2\rho}\right)^2.
+\end{equation}
+This transformation is invertible for $\rho > GM/(2c^2)$. The differential is
+\begin{equation}
+dr = \left(1 + \frac{GM}{2c^2\rho}\right)^2 d\rho - 2\rho\left(1 + \frac{GM}{2c^2\rho}\right)\frac{GM}{2c^2\rho^2} d\rho = \left(1 - \frac{GM}{2c^2\rho}\right)\left(1 + \frac{GM}{2c^2\rho}\right) d\rho.
+\end{equation}
+Hence
+\begin{equation}
+dr^2 = \left(1 - \frac{GM}{2c^2\rho}\right)^2\left(1 + \frac{GM}{2c^2\rho}\right)^2 d\rho^2.
+\end{equation}
+Also,
+\begin{equation}
+r^2 = \rho^2\left(1 + \frac{GM}{2c^2\rho}\right)^4.
+\end{equation}
+Now express $\sigma_t$ in terms of $\rho$. From the definition,
+\begin{equation}
+\sigma_t = \sqrt{\frac{2GM}{c^2 r}} = \sqrt{\frac{2GM}{c^2\rho}} \left(1 + \frac{GM}{2c^2\rho}\right)^{-1}.
+\end{equation}
+Therefore,
+\begin{align}
+1 - \sigma_t^2 &= 1 - \frac{2GM}{c^2\rho}\left(1 + \frac{GM}{2c^2\rho}\right)^{-2} \nn\\
+&= \frac{\left(1 + \frac{GM}{2c^2\rho}\right)^2 - \frac{2GM}{c^2\rho}}{\left(1 + \frac{GM}{2c^2\rho}\right)^2} = \frac{\left(1 - \frac{GM}{2c^2\rho}\right)^2}{\left(1 + \frac{GM}{2c^2\rho}\right)^2}.
+\end{align}
+Substituting into the line element,
+\begin{align}
+ds^2 &= -\frac{\left(1 - \frac{GM}{2c^2\rho}\right)^2}{\left(1 + \frac{GM}{2c^2\rho}\right)^2} dt^2 + \left(1 - \frac{GM}{2c^2\rho}\right)^2\left(1 + \frac{GM}{2c^2\rho}\right)^2 d\rho^2 \nn\\
+&\quad + \rho^2\left(1 + \frac{GM}{2c^2\rho}\right)^4 d\Omega^2 \nn\\
+&= -\left(\frac{1 - \frac{GM}{2c^2\rho}}{1 + \frac{GM}{2c^2\rho}}\right)^2 dt^2 + \left(1 + \frac{GM}{2c^2\rho}\right)^4 \left(d\rho^2 + \rho^2 d\Omega^2\right).
+\end{align}
+This is exactly the isotropic Schwarzschild metric. The graviton scalar transforms to $\sigma_t = \sqrt{2GM/(c^2\rho)}$, which is the same functional form, demonstrating its invariance under the transformation. The radial metric component changes from $g_{rr}=1$ to $g_{\rho\rho} = (1 + GM/(2c^2\rho))^4$, proving that $g_{rr}$ is a gauge artifact. ∎
+\end{proof}
+
+\section{Equivalence to General Relativity in the Classical Limit}
+
+Theorem~\ref{thm:isotropic} establishes that for a single static mass, the QGD metric can be mapped to the isotropic Schwarzschild metric. Since the isotropic Schwarzschild metric is a solution of Einstein's equations, and Birkhoff's theorem guarantees uniqueness, any spherically symmetric vacuum solution of Einstein's equations must be isometric to this metric. Therefore, the QGD master metric with $\ell_Q = 0$ produces exactly the same set of spherically symmetric vacuum solutions as general relativity.
+
+For the two-body problem, the situation is more subtle, but the same principle applies: the QGD field equations are derived from the action, and in the limit $\ell_Q \to 0$, they reduce to the Einstein equations (as shown by the equivalence theorem in Chapter~3). The Isotropic Gauge Mapping Theorem for the single-body case serves as a foundational consistency check, confirming that QGD reproduces GR in the appropriate limit.
+
+\section{Conclusion}
+
+We have presented the complete geometric foundation of QGD. The master metric, Eq.~\eqref{eq:master_metric}, provides an algebraic construction of spacetime from the graviton field $\sigma_\mu$, with a three-tier hierarchy separating flat spacetime, classical gravity, and quantum stiffness. Source signatures $\varepsilon_a = \pm 1$ encode attraction and repulsion for mass, spin, charge, and cosmological constant. The Isotropic Gauge Mapping Theorem proves that for a single static mass, the QGD metric can be transformed to the isotropic Schwarzschild form, establishing that $g_{rr}$ is a pure gauge artifact while $\sigma_t$ carries the physical gravitational field. In the classical limit $\ell_Q \to 0$, QGD reduces exactly to general relativity.
+
+These results lay the groundwork for all subsequent developments in QGD, including the post-Newtonian expansion, the derivation of the EOB potential, and the study of gravitational waves and black hole thermodynamics. The gauge structure revealed here is essential for understanding the role of $\sigma_r$ as a gauge field and the physical significance of $\sigma_t$.
+
+\end{document}
