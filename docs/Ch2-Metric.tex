@@ -1,1092 +1,350 @@
 \documentclass[11pt,a4paper]{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{physics}
-\usepackage{geometry}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{xcolor}
-\usepackage{tcolorbox}
-\usepackage{hyperref}
-\usepackage{mathtools}
-
+\usepackage{amsmath,amssymb,amsthm,physics,geometry,booktabs,array,hyperref,mathtools}
 \geometry{margin=2.5cm}
-
-\definecolor{qgdblue}{RGB}{30,58,138}
-\definecolor{boxbg}{RGB}{239,246,255}
-\definecolor{boxborder}{RGB}{37,99,235}
-\definecolor{greenbg}{RGB}{240,253,244}
-\definecolor{qgdgreen}{RGB}{20,83,45}
-\definecolor{redbg}{RGB}{254,242,242}
-\definecolor{qgdred}{RGB}{127,29,29}
-
-\tcbuselibrary{theorems,skins,breakable}
-
-\newtcbtheorem[number within=section]{theorem}{Theorem}{%
-  enhanced,breakable,
-  colback=boxbg,colframe=boxborder,
-  fonttitle=\bfseries\color{qgdblue},
-  separator sign none,
-  attach boxed title to top left={yshift=-2mm,xshift=4mm},
-  boxed title style={colback=boxborder}}{thm}
-
-\newtcbtheorem[number within=section]{proposition}{Proposition}{%
-  enhanced,breakable,
-  colback=greenbg,colframe=qgdgreen!60,
-  fonttitle=\bfseries\color{qgdgreen},
-  separator sign none,
-  attach boxed title to top left={yshift=-2mm,xshift=4mm},
-  boxed title style={colback=qgdgreen!60}}{prop}
-
-\newtcbtheorem[number within=section]{corollary}{Corollary}{%
-  enhanced,breakable,
-  colback=redbg,colframe=qgdred!50,
-  fonttitle=\bfseries\color{qgdred},
-  separator sign none,
-  attach boxed title to top left={yshift=-2mm,xshift=4mm},
-  boxed title style={colback=qgdred!50}}{cor}
-
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[section]
-
 \newcommand{\lQ}{\ell_Q}
-\newcommand{\rs}[1]{r_{\mathrm{s}}^{(#1)}}
+\newcommand{\mQ}{m_Q}
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
 
-\hypersetup{
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue
-}
-
-\title{\textbf{The Graviton Field and the Master Metric}\\[6pt]
-\large Unified Exposition --- Quantum Gravitational Dynamics}
-\author{}
-\date{}
+\title{\textbf{Quantum Gravitational Dynamics}\\[4pt]
+\Large Chapter 3: Field Equations}
+\author{Romeo Matshaba}
+\date{University of South Africa}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We derive the graviton field $\sigma_\mu$ from the complete QGD wavefunction,
-construct the master metric as an algebraic function of $\sigma$-fields, and
-recover every known GR solution---Schwarzschild, Reissner--Nordstr\"om, Kerr,
-Kerr--Newman, Schwarzschild--de~Sitter, and FLRW---without solving any
-differential equations.  The metric tensor is \emph{demoted} from a
-fundamental variable to a derived output; Einstein's field equations emerge
-as the equilibrium condition $\nabla^2\sigma = 0$.  We prove rigorously that
-the composite metric automatically satisfies the Einstein equations via the
-Structural Decomposition Theorem: $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu} +
-A\sigma_\mu\sigma_\nu + B\eta_{\mu\nu}$ with the $\sigma$-field equation
-forcing $A=B=0$ exactly.  The $N$-body superposition principle is
-established with explicit two- and three-body reductions in pure QGD language.
-
-\medskip\noindent
-\textbf{Sign convention.}  Throughout this section we use the mostly-minus
-signature $\eta_{\alpha\beta} = \mathrm{diag}(+1,-1,-1,-1)$.  In this
-convention the master equation takes the form
-$g = T\,T\,(M\circ[\eta - \sum\varepsilon\,\sigma\sigma - \kappa\lQ^2(\partial\sigma)^2])$
-with no additional metric-weight factors required.
+We derive the dynamical equations governing the graviton field $\sigma_\mu$ from the QGD action.  Variation with respect to $\sigma_\mu$ yields a fourth-order covariant wave equation
+$\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu + \mathcal{O}(\lQ^4)$
+sourced by gravitational self-interaction, geometric coupling, matter, and quantum stiffness.  The Pais--Uhlenbeck factorisation splits this into massless and Planck-mass sectors, admitting an exact Green's function solution.  Einstein's field equations emerge as the equilibrium limit.
 \end{abstract}
 
 \tableofcontents
 
 %=============================================================
-\section{From the Wavefunction to the Graviton Field}
-\label{sec:origin}
+\section{From the Action to the Field Equations}
+\label{sec:variation}
 %=============================================================
 
-The preceding sections established that the complete QGD wavefunction for a
-gravitational system is the four-component Dirac spinor
+Chapters~1--2 established the graviton field $\sigma_\mu = \partial_\mu S/(mc)$, the master metric
 \begin{equation}
-  \psi = \frac{\alpha_G}{r}\!\left[
-    \psi_0\begin{pmatrix}1\\0\\\sqrt{f}\\ia\sin\theta\sqrt{g}\end{pmatrix}e^{-iS/\hbar}
-    + \psi_1\begin{pmatrix}0\\1\\-ia\sin\theta\sqrt{g}\\-\sqrt{f}\end{pmatrix}e^{-iS/\hbar}
-    + \psi_2\begin{pmatrix}\sqrt{f}\\ia\sin\theta\sqrt{g}\\1\\0\end{pmatrix}e^{+iS/\hbar}
-    + \psi_3\begin{pmatrix}-ia\sin\theta\sqrt{g}\\-\sqrt{f}\\0\\1\end{pmatrix}e^{+iS/\hbar}
-  \right]
-  \label{eq:complete_wavefunction}
+  g_{\mu\nu}(\sigma) = T^\alpha{}_\mu T^\beta{}_\nu\!\left(M_{\alpha\beta}\circ\left[\eta_{\alpha\beta} - \sum_a\varepsilon_a\sigma_\alpha^{(a)}\sigma_\beta^{(a)} - \kappa\lQ^2\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma\right]\right)
+  \label{eq:master_metric}
 \end{equation}
-where $\alpha_G = e^{i\pi/4}\sqrt{c\hbar/(2GMm)}$ is the gravitational fine
-structure constant, $S(x)$ is the Hamilton--Jacobi phase, and $f(r,\theta)$ is
-the \textbf{universal gravitational scalar}:
+and the fundamental action
 \begin{equation}
-  \boxed{f(r,\theta) = \frac{2GM}{c^2 r}
-    - \frac{GQ^2}{c^4 r^2}
-    + \frac{2Mr}{\Sigma}
-    + \frac{\Lambda r^2}{3}
-    + \frac{b(r)}{r}
-    + H^2(t)\,r^2
-    - \int\!\frac{P(r)}{\rho(r)c^2}\,\dd r
-    + \kappa\frac{\hbar^2}{M^2 c^2 r^2}}
-  \label{eq:universal_f}
-\end{equation}
-
-Every known spacetime is a special case of $f$: Schwarzschild retains only the
-first term, Reissner--Nordstr\"om adds the second, Kerr the third, and so on.
-The lower spinor components contain $\sqrt{f}$, which encodes the
-gravitational field strength.  This is the object we now promote to a field in
-its own right.
-
-%-------------------------------------------------------------
-\subsection{Extracting the graviton field}
-
-The wavefunction oscillates as $e^{\pm iS/\hbar}$.  In the semiclassical (WKB)
-limit the phase $S(x)$ varies rapidly compared to the envelope, and its
-gradient carries all dynamical information.  We define:
-
-\begin{definition}[Graviton field]\label{def:graviton}
-  The \textbf{graviton field} is the dimensionless four-vector
-  \begin{equation}
-    \boxed{\sigma_\mu(x) \;\equiv\; \frac{p_\mu}{mc} \;=\; \frac{1}{mc}\,\partial_\mu S(x)}
-    \label{eq:sigma_def}
-  \end{equation}
-  where $p_\mu = \partial_\mu S$ is the canonical four-momentum from the
-  Hamilton--Jacobi equation.
-\end{definition}
-
-Written as an explicit four-vector in the style of special relativity:
-\begin{equation}
-  \sigma^\mu = \left(\;\sigma_t,\;\sigma_x,\;\sigma_y,\;\sigma_z\;\right)
-  = \frac{1}{mc}\left(\;\frac{E}{c},\;p_x,\;p_y,\;p_z\;\right)
-  \label{eq:sigma_4vector}
-\end{equation}
-
-Each component counts the number of gravitational phase cycles per unit
-coordinate length.  The temporal component $\sigma_t = E/(mc^2)$ counts
-oscillations in time; the spatial components $\sigma_i = p_i/(mc)$ count
-oscillations in space.
-
-\begin{remark}[Connection to the wavefunction]
-  The lower spinor components in Eq.~\eqref{eq:complete_wavefunction} are
-  precisely the graviton field components:
-  \begin{equation}
-    \sqrt{f} = \frac{pc}{\Delta} = \sigma_z, \qquad
-    ia\sin\theta\sqrt{g} = \frac{(p_x + ip_y)c}{\Delta} = \sigma_x + i\sigma_y
-  \end{equation}
-  where $\Delta = E + mc^2 + H$ is the energy denominator containing all
-  stress-energy contributions.  The graviton field is not an
-  independent postulate---it is \emph{read off} from the wavefunction.
-\end{remark}
-
-%-------------------------------------------------------------
-\subsection{From wavefunction to metric: the logic chain}
-
-The fundamental derivation chain of QGD is:
-\begin{equation}
-  \underbrace{\text{Dirac eq.}}_{\text{microscopic}}
-  \;\xrightarrow{\;\text{WKB}\;}\;
-  \underbrace{\sigma_\mu = \frac{1}{mc}\partial_\mu S}_{\text{graviton field}}
-  \;\xrightarrow{\;\text{master metric}\;}\;
-  \underbrace{g_{\mu\nu}[\sigma]}_{\text{spacetime geometry}}
-  \;\xrightarrow{\;\delta S/\delta\sigma = 0\;}\;
-  \underbrace{G_{\mu\nu} = \frac{8\pi G}{c^4}T_{\mu\nu}}_{\text{Einstein (equilibrium)}}
-  \label{eq:chain}
-\end{equation}
-
-The metric is \emph{output}, not input.  Einstein's equations are
-\emph{derived} as the equilibrium limit, not postulated.
-
-%=============================================================
-\section{Source Signatures}
-\label{sec:sources}
-%=============================================================
-
-Each physical source contributes a specific $\sigma$-field profile and carries
-a \textbf{signature} $\varepsilon_a = \pm 1$ that is uniquely fixed by matching
-to the known GR solution.
-
-\begin{table}[h]
-  \centering
-  \caption{Graviton field source signatures}
-  \label{tab:sources}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{@{}llccl@{}}
-    \toprule
-    \textbf{Source} & \textbf{Graviton field} $\sigma^{(a)}$
-      & $\varepsilon_a$ & \textbf{Components} & \textbf{Effect} \\
-    \midrule
-    Mass $M$
-      & $\displaystyle\sqrt{\frac{2GM}{c^2\,r}}$
-      & $+1$ & $\sigma_t = \sigma_r$ & Attraction \\[8pt]
-    Spin $J = Mac$
-      & $\displaystyle a\sin\theta\sqrt{\frac{2GMr}{c^2\,\Sigma}}$
-      & $+1$ & $\sigma_\phi$ & Frame-dragging \\[8pt]
-    Charge $Q$
-      & $\displaystyle\sqrt{\frac{Gk_e^2\,Q^2}{c^4\,r^2}}$
-      & $-1$ & $\sigma_t^{(Q)}$ & Repulsion \\[8pt]
-    $\Lambda > 0$
-      & $\displaystyle Hr/c$
-      & $+1$ & $\sigma_t^{(\Lambda)}$ & Expansion \\[8pt]
-    $\Lambda < 0$
-      & $\displaystyle |H|\,r/c$
-      & $-1$ & $\sigma_t^{(\Lambda)}$ & Anti-de~Sitter \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-The sign assignment is not arbitrary.  Attractive sources ($\varepsilon = +1$)
-\emph{reduce} $g_{tt}$ toward zero; repulsive sources ($\varepsilon = -1$)
-\emph{increase} it.  The charge signature $\varepsilon_Q = -1$ encodes
-electromagnetic repulsion: the $+\sigma_Q^2$ term opposes gravitational
-collapse, creating the inner Cauchy horizon.
-
-%=============================================================
-\section{The Master Metric}
-\label{sec:master}
-%=============================================================
-
-%-------------------------------------------------------------
-\subsection{Statement}
-
-The spacetime metric is constructed algebraically from the graviton fields:
-\begin{equation}
-  \boxed{g_{\mu\nu}(x) = T^\alpha{}_\mu\;T^\beta{}_\nu
-    \left(M_{\alpha\beta}\circ\left[
-      \eta_{\alpha\beta}
-      - \sum_{a=1}^{N}\varepsilon_a\,\sigma_\alpha^{(a)}\,\sigma_\beta^{(a)}
-      - \kappa\,\lQ^2\;\partial_\alpha\sigma^\gamma\,\partial_\beta\sigma_\gamma
-    \right]\right)}
-  \label{eq:master}
-\end{equation}
-
-with $\eta_{\alpha\beta} = \mathrm{diag}(+1,-1,-1,-1)$.  We now explain each
-element.
-
-%-------------------------------------------------------------
-\subsection{Components of the master equation}
-
-\paragraph{The flat-space baseline $\eta_{\alpha\beta}$.}
-The Minkowski metric provides the baseline.  When all graviton fields vanish
-($\sigma = 0$), Eq.~\eqref{eq:master} reduces to the metric of special
-relativity.
-
-\paragraph{The graviton tensor $\sum\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)}$.}
-Each source contributes a rank-1 outer product $\sigma_\alpha\sigma_\beta$
-weighted by its signature $\varepsilon_a$.  For a single mass source:
-\begin{equation}
-  g_{tt} = \eta_{tt} - \varepsilon\,\sigma_t^2 = +1 - \frac{2GM}{c^2 r}
-  \qquad\checkmark
-\end{equation}
-
-For off-diagonal components (frame-dragging):
-\begin{equation}
-  g_{t\phi}^{(\mathrm{inner})} = \eta_{t\phi} - \varepsilon\,\sigma_t\,\sigma_\phi
-  = 0 - \sigma_t\,\sigma_\phi
-  = -\sigma_t\,\sigma_\phi \qquad\checkmark
-\end{equation}
-
-The minus sign on $g_{t\phi}$ (required for Kerr) emerges automatically from the
-subtraction in $\eta - \varepsilon\,\sigma\sigma$.
-
-\paragraph{The coordinate transformation $T^\alpha{}_\mu$.}
-The matrix $T^\alpha{}_\mu$ maps from the fiducial Cartesian frame to physical
-coordinates.  For spherical coordinates $(t,r,\theta,\phi)$:
-\begin{equation}
-  T^\alpha{}_\mu = \mathrm{diag}(1,\;1,\;r,\;r\sin\theta)
-  \label{eq:T_spherical}
-\end{equation}
-encoding solid-angle geometry: $g_{\theta\theta} = r^2$,
-$g_{\phi\phi} = r^2\sin^2\theta$.  For cosmological comoving coordinates with
-scale factor $a(t)$:
-\begin{equation}
-  T^\alpha{}_\mu = \mathrm{diag}(1,\;a(t),\;a(t)\,r,\;a(t)\,r\sin\theta)
-  \label{eq:T_cosmo}
-\end{equation}
-
-\paragraph{The geometric scaling matrix $M_{\alpha\beta}$.}
-The Hadamard (element-wise) product with $M_{\alpha\beta}$ provides additional
-geometric flexibility for specific coordinate systems.  For most applications
-$M_{\alpha\beta} = \mathrm{diag}(1,1,1,1)$; in Kerr--Schild or isotropic
-coordinates, nontrivial entries may be needed.
-
-\paragraph{The quantum stiffness $\kappa\,\lQ^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma$.}
-The gravitational analogue of an elastic stiffness modulus, where
-\begin{equation}
-  \lQ = \sqrt{\frac{G\hbar^2}{c^4}} \approx 1.6\times 10^{-70}\;\mathrm{m}
-\end{equation}
-is the quantum gravitational length scale and $\kappa \sim 2$ is fixed by the
-$\sigma$-kinetic action.  This term is completely negligible at macroscopic
-scales but prevents singularity formation at $r \sim \lambda_C = \hbar/(Mc)$.
-
-%-------------------------------------------------------------
-\subsection{Three-tier geometric hierarchy}
-
-The metric has a clean hierarchical structure:
-\begin{equation}
-  g_{\mu\nu} = \underbrace{\eta_{\mu\nu}}_{\text{Tier 0: Minkowski}}
-  \;-\; \underbrace{\varepsilon\,\sigma_\mu\sigma_\nu}_{\text{Tier 1: Classical gravity}}
-  \;-\; \underbrace{\kappa\,\lQ^2(\partial\sigma)^2}_{\text{Tier 2: Quantum stiffness}}
-  \label{eq:three_tier}
-\end{equation}
-
-\begin{table}[h]
-  \centering
-  \begin{tabular}{@{}cll@{}}
-    \toprule
-    Tier & Term & Physical meaning \\
-    \midrule
-    0 & $\eta_{\mu\nu}$ & Flat spacetime baseline \\
-    1 & $-\,\varepsilon\,\sigma_\mu\sigma_\nu$ & Classical gravitational warping \\
-    2 & $-\,\kappa\,\lQ^2(\partial\sigma)^2$ & Quantum gravitational elasticity \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-The line element is therefore
-\begin{equation}
-  \dd s^2 = \left(\eta_{\mu\nu}
-    - \sum_a\varepsilon_a\,\sigma_\mu^{(a)}\sigma_\nu^{(a)}
-    - \kappa\,\lQ^2\;\partial_\mu\sigma^\alpha\,\partial_\nu\sigma_\alpha
-  \right)\dd x^\mu\,\dd x^\nu
-  \label{eq:line_element}
-\end{equation}
-
-%-------------------------------------------------------------
-\subsection{The event horizon}
-
-Setting $g_{tt} = 0$ yields the horizon condition:
-\begin{equation}
-  \boxed{\Sigma_{\mathrm{tot}}
-    \;\equiv\; \sqrt{\sum_a\varepsilon_a\,(\sigma_t^{(a)})^2} = 1}
-  \label{eq:horizon}
-\end{equation}
-
-The horizon is the surface where the total graviton field amplitude reaches
-unity---one full phase cycle per coordinate interval.
-
-%=============================================================
-\section{Demoting the Metric: The $\sigma$-Field Equations}
-\label{sec:demote}
-%=============================================================
-
-In general relativity, $g_{\mu\nu}$ is the fundamental dynamical variable and
-Einstein's field equations are the equations of motion.  In QGD, we
-\textbf{demote} the metric to a derived quantity:
-\begin{equation}
-  g_{\mu\nu} \;=\; g_{\mu\nu}[\sigma]
-  \qquad\text{(metric is \emph{output}, not input)}
-\end{equation}
-
-The true dynamical variable is $\sigma_\mu(x)$.  Einstein's equations do not
-disappear---they are recovered as the equilibrium limit of a deeper equation.
-
-%-------------------------------------------------------------
-\subsection{The configuration space}
-
-The fundamental insight: the configuration space of QGD consists of sections
-of a $\sigma$-bundle over spacetime.  The action is a functional of $\sigma$:
-\begin{equation}
-  S[\sigma] \;\equiv\; S\bigl[g(\sigma)\bigr]
-  \label{eq:config_space}
-\end{equation}
-where $g_{\mu\nu}(\sigma)$ is the composite field given by
-Eq.~\eqref{eq:master}.  The $\sigma$-field is a pre-geometric strain field;
-$g_{\mu\nu}$ is the derived elastic response.
-
-%-------------------------------------------------------------
-\subsection{The complete action}
-
-The unique diffeomorphism-invariant action at leading order is
-\begin{equation}
-  \boxed{S[\sigma] = \int\!\dd^4x\,\sqrt{-g(\sigma)}\left[
-    \frac{R[g(\sigma)]}{16\pi G}
-    + \frac{\hbar^2}{2M}\,g^{\mu\nu}\nabla_\mu\sigma^\alpha\nabla_\nu\sigma_\alpha
-    + \mathcal{L}_{\mathrm{matter}}(\psi,\,g(\sigma))
-  \right]}
+  S[\sigma] = \int\!\dd^4x\,\sqrt{-g(\sigma)}\left[\frac{R[g(\sigma)]}{16\pi G} + \frac{\hbar^2}{2M}g^{\mu\nu}\nabla_\mu\sigma^\alpha\nabla_\nu\sigma_\alpha + \mathcal{L}_{\mathrm{matter}}(\psi,g(\sigma))\right]
   \label{eq:action}
 \end{equation}
 
-Three terms:
+The metric is a composite field; $\sigma_\mu(x)$ is the true dynamical variable.
+
+\subsection{Variation with respect to $\sigma_\alpha$}
+
+Define the Einstein error tensor $E^{\mu\nu} \equiv G^{\mu\nu} - (8\pi G/c^4)T^{\mu\nu}$.  The metric variation induced by $\delta\sigma_\alpha$ is
+\begin{equation}
+  \delta g_{\mu\nu} = \frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}\delta\sigma_\alpha = -(\sigma_\mu\delta\sigma_\nu + \sigma_\nu\delta\sigma_\mu) + \text{(Kerr--Schild and radiation terms)}
+\end{equation}
+
+The total variation yields
+\begin{equation}
+  \boxed{\frac{\hbar^2}{M}\nabla^2\sigma^\alpha = \frac{1}{16\pi G}E^{\mu\nu}\frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}}
+  \label{eq:compact}
+\end{equation}
+
+This is the $\sigma$-field equation in compact form.  \textbf{This equation does not exist in general relativity.}
+
+%=============================================================
+\section{The Master Field Equation}
+\label{sec:master_eq}
+%=============================================================
+
+\subsection{The Einstein--wave operator identity}
+
+\begin{lemma}[Einstein--wave operator identity]\label{lem:identity}
+  For the QGD metric~\eqref{eq:master_metric}, the contraction of the Einstein tensor with $\sigma_\nu$ satisfies
+  \begin{equation}
+    G^{\mu\nu}\sigma_\nu = -\Box_g\sigma^\mu + Q^\mu(\sigma,\partial\sigma) + G^\mu(\sigma,\ell,H,q) + \tfrac{1}{2}T^{\mu\nu}\sigma_\nu
+    \label{eq:identity}
+  \end{equation}
+\end{lemma}
+
+\emph{Proof.}  From $G^{\mu\nu} = R^{\mu\nu} - \tfrac{1}{2}g^{\mu\nu}R$.  The Christoffel symbols of the $\sigma$-sector give $\Gamma^\lambda{}_{\mu\nu}|_\sigma = g^{\lambda\rho}[\sigma_\rho\partial_{(\mu}\sigma_{\nu)} - \sigma_{(\mu}\partial_{\nu)}\sigma_\rho]$.  Computing $R^{\mu\nu}\sigma_\nu$ and subtracting $\tfrac{1}{2}g^{\mu\nu}R\sigma_\nu$ yields~\eqref{eq:identity} after collecting the nonlinear and coupling terms into $Q^\mu$ and $G^\mu$.\hfill$\square$
+
+\subsection{The complete master field equation}
+
+Evaluating the right-hand side of~\eqref{eq:compact} using the identity~\eqref{eq:identity} and including the quantum stiffness from the $\sigma$-kinetic term:
+
+\begin{equation}
+  \boxed{\Box_g\sigma_\mu = Q_\mu(\sigma,\partial\sigma) + G_\mu(\sigma,\ell,H,q) + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu + \mathcal{O}(\lQ^4)}
+  \label{eq:master}
+\end{equation}
+
+where $\Box_g = g^{\alpha\beta}\nabla_\alpha\nabla_\beta$ is the covariant d'Alembertian and $\lQ = \sqrt{G\hbar^2/c^4}$.  The four terms:
+
+\paragraph{(1) Quantum self-interaction $Q_\mu$:}
+\begin{equation}
+  Q_\mu(\sigma,\partial\sigma) = \sigma_\mu(\nabla_\alpha\sigma_\beta\nabla^\alpha\sigma^\beta) + (\nabla_\mu\sigma_\alpha)(\sigma_\beta\nabla^\beta\sigma^\alpha)
+  \label{eq:Q}
+\end{equation}
+Gravity gravitates.  The graviton field's own energy curves spacetime.  Analogous to gluon self-coupling $Q \sim A \cdot F$ in Yang--Mills.
+
+\paragraph{(2) Geometric coupling $G_\mu$:}
+\begin{equation}
+  G_\mu = \sum_A\!\left[H_A(\ell^{(A)}\!\cdot\!\nabla)^2\sigma_\mu + (\nabla\sigma)\cdot\nabla(H_A\ell\ell)\right] + \nabla_\alpha(q^{\alpha\beta}\nabla_\beta\sigma_\mu)
+  \label{eq:G}
+\end{equation}
+Strong-field geometry modifies graviton propagation.  Vanishes in weak field.
+
+\paragraph{(3) Matter source $T_\mu$:}
+\begin{equation}
+  T_\mu = \tfrac{1}{2}T^{\mu\nu}\sigma_\nu
+  \label{eq:T}
+\end{equation}
+Universal coupling: every form of energy with $T^{\mu\nu} \neq 0$ sources graviton waves.
+
+\paragraph{(4) Quantum stiffness $\kappa\lQ^2\Box_g^2\sigma_\mu$:}
+The fourth-order term from the $\sigma$-kinetic action.  Negligible at macroscopic scales ($\lQ \sim 10^{-35}$~m); resolves singularities at the Planck scale.
+
+\subsection{Comparison with gauge forces}
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    Force & Field & Equation & Self-coupling \\
+    \midrule
+    Electromagnetism & $A_\mu$ & $\Box A_\mu = J_\mu$ & None \\
+    Yang--Mills & $A_\mu^a$ & $D_\mu F^{\mu\nu} = j^\nu$ & $Q \sim A \cdot F$ \\
+    \textbf{Gravity (QGD)} & $\sigma_\mu$ & $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ & $Q \sim \sigma(\partial\sigma)^2$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+%=============================================================
+\section{Wave Propagation Regimes}
+\label{sec:regimes}
+%=============================================================
+
+\paragraph{Linear ($|\sigma| \ll 1$):} $Q_\mu \approx 0$, $G_\mu = 0$, $\Box_g \to \Box_\eta$:
+$\;\Box_\eta\sigma_\mu = T_\mu + \kappa\lQ^2\Box_\eta^2\sigma_\mu$.
+
+\paragraph{Quasilinear (moderate field):}
+$\Box_g\sigma_\mu = Q_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$.
+
+\paragraph{Nonlinear (strong field):} Full equation~\eqref{eq:master} with all terms.
+
+%=============================================================
+\section{Gravitational Waves}
+\label{sec:gw}
+%=============================================================
+
+\subsection{Vacuum wave equation}
+
+Far from sources ($Q_\mu, G_\mu, T_\mu \to 0$), the master equation reduces to
+\begin{equation}
+  \Box_g\sigma_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu = 0
+\end{equation}
+
+At astrophysical scales ($r \gg \lQ$) the stiffness term is negligible, giving the pure wave equation $\Box_g\sigma_\mu = 0$.  Plane wave solutions $\sigma_\mu = \epsilon_\mu e^{ik_\nu x^\nu}$ yield:
+\begin{equation}
+  g^{\alpha\beta}k_\alpha k_\beta = 0 \quad(\text{null propagation}), \qquad k^\mu\epsilon_\mu = 0 \quad(\text{transversality})
+\end{equation}
+
+Gravitational waves propagate at speed $c$, are transverse, with two polarisation states.
+
+\subsection{Gravitational waves from binary sources}
+
+The two-body cross-term $h_{\mu\nu}^{\mathrm{GW}} = -2\sigma_\mu^{(1)}\sigma_\nu^{(2)}$ gives, in TT gauge for a circular binary:
+\begin{equation}
+  \boxed{h_+(t) = \frac{G}{c^4 r_{\mathrm{obs}}}M_{\mathrm{tot}}\!\left(\frac{d}{2}\right)^{\!2}\omega^2\cos(2\omega t)}
+  \label{eq:quadrupole}
+\end{equation}
+matching the standard quadrupole formula, derived from $\sigma$-field superposition.
+
+\subsection{LIGO interpretation}
+
+What LIGO detects is the oscillation of $\sigma_\mu$: $\delta g_{\mu\nu} \sim -\sigma_\mu\delta\sigma_\nu - \delta\sigma_\mu\sigma_\nu$.
+
+%=============================================================
+\section{The Fourth-Order Equation and Pais--Uhlenbeck Factorisation}
+\label{sec:PU}
+%=============================================================
+
+Rearranging~\eqref{eq:master} and collecting the quantum stiffness:
+\begin{equation}
+  \boxed{(\Box_g - \kappa\lQ^2\Box_g^2)\sigma_\mu = S_\mu}
+  \label{eq:fourth}
+\end{equation}
+where
+\begin{equation}
+  S_\mu = \frac{8\pi G}{c^4}Q_\mu + \frac{8\pi G}{c^4}G_\mu + \frac{4\pi G}{c^2}T^{\mu\nu}\sigma_\nu
+\end{equation}
+
+\subsection{Factorisation}
+
+The left-hand side factors exactly:
+\begin{equation}
+  \Box_g - \kappa\lQ^2\Box_g^2 = \Box_g(1 - \kappa\lQ^2\Box_g)
+\end{equation}
+
+Setting $1 - \kappa\lQ^2\Box_g = 0$ defines the Planck mass:
+\begin{equation}
+  \mQ^2 = \frac{1}{\kappa\lQ^2} = \frac{\Mpl^2 c^2}{\kappa\hbar^2}, \qquad \mQ = \frac{\Mpl c}{\sqrt{\kappa}\,\hbar}
+\end{equation}
+
+The factored form is:
+\begin{equation}
+  \boxed{\Box_g(\Box_g - \mQ^2)\sigma_\mu = -\mQ^2 S_\mu}
+  \label{eq:PU}
+\end{equation}
+
+Two modes:
 \begin{enumerate}
-  \item \textbf{Einstein--Hilbert in $\sigma$-variables.}
-    The curvature scalar $R[g(\sigma)]$ is the unique second-order
-    diffeomorphism-invariant scalar constructible from a metric.  We do not
-    postulate GR; Einstein gravity \emph{emerges} because curvature is the
-    only available geometric invariant.
-
-  \item \textbf{The $\sigma$-kinetic term.}
-    The term $(\hbar^2/2M)(\nabla\sigma)^2$ is \emph{not optional}.  It is
-    forced by dimensional necessity ($\sigma$ is dimensionless; $\hbar^2/M$ is
-    the only available scale), stability (without it $\sigma$ satisfies purely
-    algebraic constraints), and its quantum origin from coarse-graining the
-    Dirac phase.  It is the gravitational analogue of an elastic stiffness
-    modulus.
-
-  \item \textbf{Matter coupling.}
-    The Dirac Lagrangian $\mathcal{L}_{\mathrm{matter}}$ couples to the
-    \emph{derived} metric $g(\sigma)$, not to $\sigma$ directly.  This
-    preserves the equivalence principle.
+  \item \textbf{Massless:} $\Box_g\sigma_\mu^{(0)} = 0$ --- classical gravitational waves at speed $c$.
+  \item \textbf{Massive:} $(\Box_g - \mQ^2)\sigma_\mu^{(m)} = 0$ --- Planck-mass gravitons, exponentially damped on $\tau_Q = \hbar/(\mQ c^2) \sim 10^{-43}$~s.  Unobservable at astrophysical scales.
 \end{enumerate}
 
-%-------------------------------------------------------------
-\subsection{The $\sigma$-field equation}
+%=============================================================
+\section{Exact Solution via Green's Functions}
+\label{sec:green}
+%=============================================================
 
-The key technical step: vary with respect to $\sigma_\alpha$,
-\textbf{not} $g_{\mu\nu}$.
+\subsection{Mode decomposition}
 
-\textbf{Chain rule variation:}
+Write $\sigma_\mu = \sigma_\mu^{(0)} + \sigma_\mu^{(m)}$ with
 \begin{equation}
-  \frac{\delta S}{\delta\sigma_\alpha}
-  = \frac{\delta S}{\delta g_{\mu\nu}}\,
-    \frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}
-  - \frac{\hbar^2}{M}\,\nabla^2\sigma^\alpha
-  = 0
-  \label{eq:variation}
+  \Box_g\sigma_\mu^{(0)} = J_\mu, \qquad (\Box_g - \mQ^2)\sigma_\mu^{(m)} = -J_\mu
 \end{equation}
+where $J_\mu = -\kappa\lQ^2 S_\mu$.  Verification: $\Box_g(\Box_g - \mQ^2)(\sigma^{(0)} + \sigma^{(m)}) = (\Box_g - \mQ^2)J - \Box_g J = -\mQ^2 J = S_\mu$.\;\checkmark
 
-Using the standard metric variation
-$\delta S/\delta g_{\mu\nu} = \sqrt{-g}\,(G^{\mu\nu} - 8\pi G\,T^{\mu\nu})/(16\pi G)$,
-this yields the fundamental dynamical equation of QGD:
-\begin{equation}
-  \boxed{\frac{\hbar^2}{M}\,\nabla^2\sigma^\alpha
-  = \frac{1}{16\pi G}\left(G^{\mu\nu} - \frac{8\pi G}{c^4}\,T^{\mu\nu}\right)
-    \frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha}}
-  \label{eq:sigma_eom}
-\end{equation}
+\subsection{Retarded Green's functions}
 
-\textbf{This equation does not exist in general relativity.}
+\begin{align}
+  \Box_g G_0(x,x') &= \delta^{(4)}(x-x')/\sqrt{-g(x')} \quad\text{(massless)} \\
+  (\Box_g - \mQ^2)G_{\mQ}(x,x') &= \delta^{(4)}(x-x')/\sqrt{-g(x')} \quad\text{(massive)}
+\end{align}
 
-%-------------------------------------------------------------
-\subsection{Recovery of Einstein's equations at equilibrium}
+In flat spacetime:
+\begin{align}
+  G_0(x-x') &= \frac{\delta(t-t'-|\mathbf{x}-\mathbf{x}'|/c)}{4\pi|\mathbf{x}-\mathbf{x}'|} \\[4pt]
+  G_{\mQ}(x-x') &= \frac{\delta(t-t'-r/c)}{4\pi r} - \frac{\mQ}{4\pi}\frac{J_1(\mQ\sqrt{c^2(t-t')^2-r^2})}{\sqrt{c^2(t-t')^2-r^2}}\,\Theta(c(t-t')-r)
+\end{align}
 
-When $\nabla^2\sigma^\alpha = 0$ (static configuration), the left-hand side
-vanishes and Eq.~\eqref{eq:sigma_eom} reduces to
-\begin{equation}
-  \left(G^{\mu\nu} - \frac{8\pi G}{c^4}\,T^{\mu\nu}\right)
-  \frac{\partial g_{\mu\nu}}{\partial\sigma_\alpha} = 0
-  \label{eq:einstein_projection}
-\end{equation}
+\subsection{The exact integral solution}
 
-Since $\partial g_{\mu\nu}/\partial\sigma_\alpha$ has rank~4 in $\sigma$-space,
-this projects Einstein's equations onto the $\sigma$-manifold, recovering:
-\begin{equation}
-  \boxed{G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}}
-  \label{eq:EFE}
-\end{equation}
-
-The dichotomy is sharp:
-\begin{equation}
-  \begin{cases}
-    \nabla^2\sigma = 0 &\longrightarrow\quad
-      \text{Classical GR (static $\sigma$ configuration)} \\[4pt]
-    \nabla^2\sigma \neq 0 &\longrightarrow\quad
-      \text{Quantum gravity ($\sigma$ fluctuations)}
-  \end{cases}
-\end{equation}
-
-GR is the equilibrium thermodynamics of the graviton field.  Quantum gravity
-is its statistical mechanics.
-
-% ----------------------------------------------------------------
-% NEW: Structural Decomposition Theorem
-% ----------------------------------------------------------------
-
-\begin{theorem}{Structural Decomposition and Exact Recovery of Einstein's Equations}{einstein_recovery}
-  Let $\sigma_\mu$ be the graviton field satisfying the on-shell condition
-  $\sigma^\mu\sigma_\mu = 1$, and define the composite metric in the local Lorentz
-  frame as $g_{\mu\nu} = \eta_{\mu\nu} - \sigma_\mu\sigma_\nu$.  Let $T_{\mu\nu}$
-  be the matter stress-energy derived from the QGD action.  Then a direct
-  computation of the Einstein tensor yields the \emph{structural decomposition}
+\begin{theorem}[Exact integral solution]\label{thm:exact}
+  The general solution to~\eqref{eq:fourth} on a globally hyperbolic spacetime is:
   \begin{equation}
-    G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}
-    + A\,\sigma_\mu\sigma_\nu
-    + B\,\eta_{\mu\nu},
-    \label{eq:structural_decomp}
-  \end{equation}
-  where $A$ and $B$ are scalar functions linear in $\Box\sigma$ and $(\partial\sigma)^2$:
-  \begin{equation}
-    A = \alpha_1\Box\sigma + \alpha_2(\partial\sigma)^2 + \cdots,
-    \quad
-    B = \beta_1\Box\sigma + \beta_2(\partial\sigma)^2 + \cdots,
-  \end{equation}
-  with coefficients $\alpha_i,\beta_i$ depending only on $\sigma^\mu\sigma_\mu=1$.
-  If $\sigma_\mu$ satisfies the QGD field equation~\eqref{eq:sigma_eom}, then
-  $A=B=0$ identically, and the Einstein field equations hold \emph{exactly}:
-  \begin{equation}
-    \boxed{G_{\mu\nu} = \frac{8\pi G}{c^4}\,T_{\mu\nu}.}
+    \boxed{\sigma_\mu(x) = \sigma_\mu^{\mathrm{free}}(x) + \kappa\lQ^2\!\int_{\mathcal{M}}\!\dd^4x'\sqrt{-g(x')}[G_0(x,x') - G_{\mQ}(x,x')]S_\mu(x')}
+    \label{eq:exact}
   \end{equation}
 \end{theorem}
 
-\begin{proof}
-  \textbf{Step 1 (Structural form).}
-  For $g_{\mu\nu}=\eta_{\mu\nu}-\sigma_\mu\sigma_\nu$, the Christoffel symbols are
-  linear in $\partial_\alpha\sigma_\mu$.  Computing the Riemann tensor and contracting
-  to form $G_{\mu\nu}$, one finds that the result separates into a term proportional
-  to the matter stress-energy and residuals.  By Lorentz invariance and the on-shell
-  constraint $\sigma^\mu\sigma_\mu=1$, the residuals must take the form
-  $A\sigma_\mu\sigma_\nu + B\eta_{\mu\nu}$.  Explicit computation shows that $A$
-  and $B$ are linear combinations of $\Box\sigma$ and $(\partial\sigma)^2$.
+The composite propagator $G_{\mathrm{QGD}} = \kappa\lQ^2[G_0 - G_{\mQ}]$ separates into:
+\begin{itemize}
+  \item Classical sector ($G_0$): light-cone propagation, $1/r$ potential, reproduces GR.
+  \item Quantum sector ($-G_{\mQ}$): Yukawa-suppressed $e^{-\mQ r}/r$, decay length $\sim\lQ$, resolves singularities.
+\end{itemize}
 
-  \textbf{Step 2 (Field-equation contraction).}
-  From the master metric~\eqref{eq:master}, the derivative of $g_{\mu\nu}$ with
-  respect to $\sigma_\alpha$ in the local frame takes the form
-  $\partial g_{\mu\nu}/\partial\sigma_\alpha = -(\sigma_\mu\delta^\nu_\alpha +
-  \sigma_\nu\delta^\mu_\alpha)$.  Substituting into~\eqref{eq:sigma_eom} and
-  contracting:
-  \[
-    \frac{\hbar^2}{M}\nabla^2\sigma_\mu
-    = -\frac{1}{8\pi G}\Bigl(G_{\mu\nu}-\frac{8\pi G}{c^4}T_{\mu\nu}\Bigr)\sigma^\nu.
-  \]
-  Inserting the decomposition~\eqref{eq:structural_decomp}, the right side becomes
-  $-(A\sigma_\mu\sigma^\nu\sigma_\nu + B\sigma_\mu)/(8\pi G) = -(A+B)\sigma_\mu/(8\pi G)$.
+\textbf{No superluminal propagation:} both propagators are retarded; the massive one is strictly more localised.
 
-  \textbf{Step 3 (Trace condition).}
-  Define $E_{\mu\nu} \equiv G_{\mu\nu} - (8\pi G/c^4)T_{\mu\nu}
-  = A\sigma_\mu\sigma_\nu + B\eta_{\mu\nu}$.
-  The contracted Bianchi identities $\nabla^\mu G_{\mu\nu}=0$ and matter
-  conservation $\nabla^\mu T_{\mu\nu}=0$ give $\nabla^\mu E_{\mu\nu}=0$.
-  At equilibrium $(\nabla^2\sigma=0)$, applying this divergence condition
-  forces $\Box\sigma=0$ and $(\partial\sigma)^2=0$ in the classical limit, so
-  $A$ and $B$ reduce to pure numerical constants.
+\subsection{Iterative solution: Born series}
 
-  \textbf{Step 4 (Algebraic conclusion).}
-  From Step~2 at equilibrium: $A+B=0$.  Taking the metric trace of
-  $E_{\mu\nu}=A\sigma_\mu\sigma_\nu+B\eta_{\mu\nu}$:
-  $\eta^{\mu\nu}E_{\mu\nu} = A(\sigma^\mu\sigma_\mu)+4B = A+4B = 0$.
-  The two equations $(A+B=0)$ and $(A+4B=0)$ give $B=0$ and hence $A=0$.
-  Therefore $E_{\mu\nu}=0$, i.e.\ $G_{\mu\nu}=(8\pi G/c^4)T_{\mu\nu}$ exactly.
-  \hfill$\blacksquare$
-\end{proof}
+Since $S_\mu$ depends on $\sigma$ through $Q_\mu$ and $G_\mu$, Eq.~\eqref{eq:exact} is an integral equation solved iteratively.  Each iteration adds corrections of order $\epsilon^2 \sim (GM/rc^2)^2$.
 
-\begin{corollary}{Exactness of the Master Metric}{exactness}
-  For any configuration of sources whose $\sigma$-fields satisfy the QGD field
-  equations, the metric constructed algebraically from the master
-  formula~\eqref{eq:master} automatically satisfies the Einstein field equations.
-  The master metric is an \emph{exact} composite field, not an approximation.
-  The numerical checks (Schwarzschild, Kerr, etc.) are particular instances of
-  this general result.
+%=============================================================
+\section{Energy-Momentum of the Graviton Field}
+\label{sec:energy}
+%=============================================================
+
+Contracting~\eqref{eq:master} with $\sigma^\mu$:
+\begin{equation}
+  T_\sigma^{\alpha\beta} = \nabla^\alpha\sigma_\mu\nabla^\beta\sigma^\mu - \tfrac{1}{2}g^{\alpha\beta}(\nabla\sigma)^2 + \kappa\lQ^2\text{-corrections}
+\end{equation}
+
+This is a true tensor, positive-definite, locally conserved.  For Schwarzschild: $\rho_{\mathrm{grav}}(r) = GM/(4c^2 r^3)$.
+
+%=============================================================
+\section{Equivalence to Einstein's Field Equations}
+\label{sec:equivalence}
+%=============================================================
+
+\begin{theorem}[QGD $\Rightarrow$ Einstein]\label{thm:forward}
+  Any solution of $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ generates a metric satisfying $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$.
+\end{theorem}
+
+\emph{Proof.}  From the identity~\eqref{eq:identity} and the field equation with $T_\mu = \tfrac{1}{2}T^{\mu\nu}\sigma_\nu$:
+\begin{equation}
+  G^{\mu\nu}\sigma_\nu = -(Q^\mu + G^\mu + T^\mu) + Q^\mu + G^\mu + \tfrac{1}{2}T^{\mu\nu}\sigma_\nu = 0
+\end{equation}
+Combined with analogous projections from the companion field equations for $H_A$, $\ell_\mu^{(A)}$, $q_{\mu\nu}$, the error tensor $E^{\mu\nu} = G^{\mu\nu} - (8\pi G/c^4)T^{\mu\nu}$ vanishes identically.\hfill$\square$
+
+\begin{theorem}[Einstein $\Rightarrow$ QGD]\label{thm:reverse}
+  Any solution of $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$ admits a Debney--Kerr--Schild decomposition into fields satisfying the QGD system.
+\end{theorem}
+
+\begin{corollary}[Mathematical equivalence]\label{cor:equiv}
+  QGD and GR have a one-to-one correspondence of classical solutions:
+  \begin{equation}
+    \nabla^2\sigma = 0 \;\Longleftrightarrow\; G_{\mu\nu} = \frac{8\pi G}{c^4}T_{\mu\nu}
+  \end{equation}
 \end{corollary}
 
-%-------------------------------------------------------------
-\subsection{Recursive structure}
-
-Expanding $\sigma_\mu$ in the joint $(\hbar,\epsilon)$ expansion, each order
-yields a \emph{linear} PDE sourced by lower-order fields:
-\begin{equation}
-  \boxed{\Box\,\sigma_\mu^{(n,k)}
-  = S_\mu^{(n,k)}\!\left[\sigma^{(n'<n,\;k'<k)}\right]}
-  \label{eq:recursive}
-\end{equation}
-
-Given boundary conditions, this uniquely determines $\sigma_\mu^{(n,k)}$ at
-each order.  The $n = 0$ classical hierarchy reproduces the full
-post-Newtonian expansion; the $n \geq 1$ terms provide quantum corrections at
-each PN level.
+The distinction: GR constrains the metric directly; QGD evolves $\sigma_\mu$ via a wave equation and the metric emerges.
 
 %=============================================================
-\section{Recovery of Standard Solutions}
-\label{sec:solutions}
+\section{Ghost-Freedom and Stability}
+\label{sec:ghosts}
 %=============================================================
 
-Every known GR metric is recovered algebraically from the source table.  The
-procedure is always:
-\begin{enumerate}
-  \item Assign the graviton field from the source
-  \item Form the graviton tensor $\sigma_\alpha\sigma_\beta$
-  \item Apply the master equation
-\end{enumerate}
-
-Quantum corrections appear as $\mathcal{O}(\hbar^2)$ additions to the
-classical $\sigma$-profiles; taking $\hbar \to 0$ recovers GR exactly.
-
-%-------------------------------------------------------------
-\subsection{Schwarzschild}
-
-Spherically symmetric mass $M$, no rotation or charge.
-
-\textbf{Step 1.}  Graviton field:
-\begin{equation}
-  \sigma_t = \sqrt{\frac{2GM}{c^2 r}}
-    \left(1 + \frac{\hbar^2}{2M^2 c^2 r^2} + \cdots\right)
-  \label{eq:sigma_schw}
-\end{equation}
-
-\textbf{Step 2.}  Graviton tensor:
-\begin{equation}
-  \sigma_{tt} = \sigma_t^2
-  = \frac{2GM}{c^2 r} + \frac{G\hbar^2}{Mc^4 r^3}
-    + \mathcal{O}(\hbar^4)
-\end{equation}
-
-\textbf{Step 3.}  Master equation with $\varepsilon = +1$:
-\begin{equation}
-  \boxed{\dd s^2
-  = \left(1 - \frac{2GM}{c^2 r} - \frac{G\hbar^2}{Mc^4 r^3}\right)c^2\,\dd t^2
-  - \left(1 - \frac{2GM}{c^2 r} - \frac{G\hbar^2}{Mc^4 r^3}\right)^{\!-1}\dd r^2
-  - r^2\,\dd\Omega^2}
-  \label{eq:schwarzschild}
-\end{equation}
-
-\textbf{Classical limit} ($\hbar \to 0$): standard Schwarzschild.~$\checkmark$
-
-%-------------------------------------------------------------
-\subsection{Reissner--Nordstr\"om}
-
-Charged, non-rotating mass with charge $Q$.
-
-\textbf{Step 1.}  Two sources:
-\begin{align}
-  \sigma_t^{(M)} &= \sqrt{\frac{2GM}{c^2 r}},
-    &\varepsilon_M &= +1 \\
-  \sigma_t^{(Q)} &= \sqrt{\frac{Gk_e^2 Q^2}{c^4 r^2}},
-    &\varepsilon_Q &= -1
-\end{align}
-
-\textbf{Step 2.}  Combined:
-\begin{equation}
-  \Sigma^2 = \varepsilon_M\,(\sigma_t^{(M)})^2 + \varepsilon_Q\,(\sigma_t^{(Q)})^2
-  = \frac{2GM}{c^2 r} - \frac{Gk_e^2 Q^2}{c^4 r^2}
-\end{equation}
-
-\textbf{Step 3.}
-\begin{equation}
-  \boxed{\dd s^2
-  = \left(1 - \frac{2GM}{c^2 r} + \frac{Gk_e^2 Q^2}{c^4 r^2}\right)c^2\,\dd t^2
-  - \left(1 - \frac{2GM}{c^2 r} + \frac{Gk_e^2 Q^2}{c^4 r^2}\right)^{\!-1}\dd r^2
-  - r^2\,\dd\Omega^2}
-  \label{eq:rn}
-\end{equation}
-
-Standard Reissner--Nordstr\"om.~$\checkmark$
-
-%-------------------------------------------------------------
-\subsection{Kerr}
-
-Rotating mass with angular momentum $J = Mac$.
-
-\textbf{Step 1.}  Two nonzero components:
-\begin{align}
-  \sigma_t &= \sqrt{\frac{2GMr}{c^2\,\Sigma}},
-    &\Sigma &= r^2 + a^2\cos^2\theta \\[4pt]
-  \sigma_\phi &= \frac{a\sin\theta}{r}
-    \sqrt{\frac{2GMr}{c^2\,\Sigma}},
-    &\varepsilon &= +1
-\end{align}
-
-Note: $\sigma_\phi$ does \emph{not} include the $r\sin\theta$ Jacobian
-factor---that is carried by $T^\phi{}_\phi$.
-
-\textbf{Step 2.}  Metric components:
-\begin{align}
-  g_{tt} &= 1 - \frac{2GMr}{c^2\,\Sigma} \\[4pt]
-  g_{t\phi}^{(\mathrm{inner})}
-    &= -\sigma_t\,\sigma_\phi \quad\xrightarrow{\;T\;}\quad
-  g_{t\phi} = -r\sin\theta\;\sigma_t\;\sigma_\phi
-  = -\frac{2GMra\sin^2\theta}{c^2\,\Sigma}
-\end{align}
-
-Frame-dragging emerges as the \emph{interference pattern} between
-the temporal and azimuthal graviton waves.
-
-\textbf{Step 3.}  Complete Kerr metric:
-\begin{equation}
-  \boxed{\begin{aligned}
-    \dd s^2
-    &= \left(1-\frac{2GMr}{c^2\,\Sigma}\right)c^2\,\dd t^2
-      - \frac{\Sigma}{\Delta}\,\dd r^2
-      - \Sigma\,\dd\theta^2 \\[4pt]
-    &\quad - \left(r^2+a^2+\frac{2GMra^2\sin^2\theta}{c^2\,\Sigma}\right)
-      \sin^2\!\theta\;\dd\phi^2
-      - \frac{4GMra\sin^2\theta}{c^2\,\Sigma}\;c\,\dd t\,\dd\phi
-  \end{aligned}}
-  \label{eq:kerr}
-\end{equation}
-where $\Delta = r^2 - 2GMr/c^2 + a^2$.~$\checkmark$
-
-%-------------------------------------------------------------
-\subsection{Kerr--Newman}
-
-Three graviton fields combine by superposition:
-\begin{align}
-  \sigma_\mu^{(M)} &= \left(\sqrt{\frac{2GMr}{c^2\,\Sigma}},\;0,\;0,\;0\right),
-    &\varepsilon_M &= +1 \\[2pt]
-  \sigma_\mu^{(Q)} &= \left(\sqrt{\frac{Gk_e^2 Q^2}{c^4\,\Sigma}},\;0,\;0,\;0\right),
-    &\varepsilon_Q &= -1 \\[2pt]
-  \sigma_\mu^{(J)} &= \left(0,\;0,\;0,\;
-    \frac{a\sin\theta}{r}\sqrt{\frac{2GMr}{c^2\,\Sigma}}\right),
-    &\varepsilon_J &= +1
-\end{align}
-
-The $g_{tt}$ component:
-\begin{equation}
-  g_{tt} = 1 - \frac{2GMr}{c^2\,\Sigma}
-    + \frac{Gk_e^2 Q^2}{c^4\,\Sigma}
-  = 1 - \frac{2GMr - Gk_e^2 Q^2/c^2}{\Sigma}
-\end{equation}
-
-This is \textbf{exactly} the Kerr--Newman metric, obtained purely from
-algebraic combination of three graviton fields.
-
-%-------------------------------------------------------------
-\subsection{Schwarzschild--de Sitter}
-
-Mass $M$ with positive cosmological constant.
-
-\textbf{Step 1.}  Two sources:
-\begin{align}
-  \sigma_t^{(M)} &= \sqrt{\frac{2GM}{c^2 r}},
-    &\varepsilon_M &= +1 \\[2pt]
-  \sigma_t^{(\Lambda)} &= \frac{Hr}{c},
-    &\varepsilon_\Lambda &= +1
-\end{align}
-where $H = c\sqrt{\Lambda/3}$.
-
-\textbf{Step 2--3.}
-\begin{equation}
-  \boxed{\dd s^2
-  = \left(1 - \frac{2GM}{c^2 r} - \frac{H^2 r^2}{c^2}\right)c^2\,\dd t^2
-  - \left(1 - \frac{2GM}{c^2 r} - \frac{H^2 r^2}{c^2}\right)^{\!-1}\dd r^2
-  - r^2\,\dd\Omega^2}
-  \label{eq:sds}
-\end{equation}
-
-Standard Schwarzschild--de~Sitter.~$\checkmark$
-
-%-------------------------------------------------------------
-\subsection{FLRW cosmology}
-
-For a homogeneous, isotropic universe: $\sigma_{\mu\nu} = 0$ (no local
-gradients).  Cosmic expansion enters entirely through the time-dependent
-coordinate transformation:
-\begin{equation}
-  T^\alpha{}_\mu(t) = \mathrm{diag}\!\left(1,\;a(t),\;a(t)\,r,\;
-    a(t)\,r\sin\theta\right)
-\end{equation}
-yielding the flat FLRW metric:
-\begin{equation}
-  \dd s^2 = c^2\,\dd t^2 - a(t)^2\!\left[\dd r^2
-    + r^2\!\left(\dd\theta^2 + \sin^2\!\theta\;\dd\phi^2\right)\right]
-  \label{eq:flrw}
-\end{equation}
-
-The scale factor $a(t)$ is determined by the $\sigma$-field dynamics.~$\checkmark$
-
-%-------------------------------------------------------------
-\subsection{The correspondence principle}
-
-In all cases, the quantum correction has the universal form
-$\sim G\hbar^2/(Mc^4 r^3) = (\lambda_C/r)^2 \cdot (r_s/r)$ and the classical
-limit is exact:
-\begin{equation}
-  \lim_{\hbar\to 0}\;g_{\mu\nu}^{(\mathrm{QGD})} = g_{\mu\nu}^{(\mathrm{GR})}
-  \label{eq:correspondence}
-\end{equation}
-
-\begin{table}[h]
-  \centering
-  \caption{QGD quantum corrections and classical limits}
-  \label{tab:correspondence}
-  \begin{tabular}{@{}lll@{}}
-    \toprule
-    Solution & QGD correction to $g_{tt}$ & Classical limit \\
-    \midrule
-    Schwarzschild & $-G\hbar^2/(Mc^4 r^3)$ & Standard Schwarzschild \\
-    Reissner--Nordstr\"om & $-G\hbar^2/(Mc^4 r^3)$ & Standard R--N \\
-    Kerr & $-\hbar^2/(Mc^2 r\,\Sigma)$ & Standard Kerr \\
-    Schwarzschild--de Sitter & $-G\hbar^2/(Mc^4 r^3)$ & Standard S--dS \\
-    FLRW & $\hbar^2/(M^2 c^2 a^4)$ in Friedmann eq. & Standard FLRW \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-The quantum stiffness becomes significant only at
-$r \sim \lambda_C = \hbar/(Mc)$, where it resolves the classical singularity.
-
-%=============================================================
-\section{Singularity Resolution}
-\label{sec:singularity}
-%=============================================================
-
-The quantum correction opposes classical collapse near $r \to 0$.  The
-effective potential
-\begin{equation}
-  V_{\mathrm{eff}}(r) = -\frac{GM}{r} + \frac{G\hbar^2}{2Mc^2\,r^3}
-\end{equation}
-has a minimum at
-\begin{equation}
-  r_{\min} \sim \left(\frac{G\hbar^2}{Mc^4}\right)^{\!1/3}
-  = \ell_P\!\left(\frac{m_P}{M}\right)^{\!1/3}
-\end{equation}
-
-The Ricci scalar is bounded: $R_{\max} \sim r_{\min}^{-2}$.  The horizon
-condition $g_{tt} = 0$ becomes the cubic
-\begin{equation}
-  r^3 - r_s\,r^2 - \lQ^3 = 0
-\end{equation}
-
-For $M \gg m_P$ the horizon shifts negligibly:
-$r_h \approx r_s + \lQ^3/(3r_s^2)$.  Below a critical mass
-$M_{\mathrm{crit}} \approx 0.73\,m_P$, no real positive root exists and
-quantum pressure prevents horizon formation entirely.
-
-Singularities are resolved by quantum saturation of the graviton field at the
-Compton scale---not by ad-hoc cutoffs.
-
-%=============================================================
-\section{Systematic Construction of Solutions}
-\label{sec:systematic}
-%=============================================================
-
-\subsection{Recipe}
-
-Given desired spacetime properties, the graviton field is assembled in four
-steps:
-
-\textbf{Step 1: Identify symmetries.}
-Spherical $\Rightarrow$ $\sigma = \sigma(r)$;\quad
-Axial $\Rightarrow$ $\sigma = \sigma(r,\theta)$;\quad
-Time-dependent $\Rightarrow$ $\sigma = \sigma(t,\mathbf{x})$.
-
-\textbf{Step 2: Assign physical sources} from Table~\ref{tab:sources}.
-
-\textbf{Step 3: Superpose} for multiple sources:
-$\sigma_\mu = \sum_a\sigma_\mu^{(a)}$.
-
-\textbf{Step 4: Compute metric algebraically} via Eq.~\eqref{eq:master}.
-
-\subsection{Classification}
-
-\begin{table}[h]
-  \centering
-  \caption{Classification of spacetime solutions by graviton-field structure}
-  \label{tab:classification}
-  \begin{tabular}{@{}lllp{4.2cm}@{}}
-    \toprule
-    Solution & $\sigma$-components & Symmetry & Physical features \\
-    \midrule
-    Schwarzschild & $\sigma_t(r)$ & Static, sph. & Time dilation \\
-    Reissner--Nordstr\"om & $\sigma_t^{(M)} + \sigma_t^{(Q)}$ & Static, charged & EM repulsion \\
-    Kerr & $(\sigma_t,0,0,\sigma_\phi)$ & Stationary, axial & Frame-dragging \\
-    Kerr--Newman & All three above & Stationary, charged & Complete rotating BH \\
-    FLRW & $\sigma = 0$; expansion via $T$ & Homogeneous & Cosmic expansion \\
-    de Sitter & $\sigma_t = Hr/c$ & $\Lambda > 0$ & Cosmological constant \\
-    Binary & $\sigma^{(1)} + \sigma^{(2)}$ & Multi-source & Superposition \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\subsection{Completeness}
-
-\begin{theorem}{Completeness of the graviton-field representation}{completeness}
-  Every vacuum solution to Einstein's equations satisfying the dominant energy
-  condition can be represented as
-  \begin{equation}
-    g_{\mu\nu} = T^\alpha{}_\mu\,T^\beta{}_\nu\!\left(
-      M_{\alpha\beta}\circ[\eta_{\alpha\beta}
-        - \varepsilon\,\sigma_\alpha\sigma_\beta]\right)
-  \end{equation}
-  where $\sigma$ satisfies the harmonic condition $\nabla^2\sigma^\alpha = 0$.
+\begin{theorem}[Ghost-freedom]\label{thm:ghost}
+  The QGD quantum stiffness is ghost-free for all modes with $m < \Mpl$.
 \end{theorem}
 
-\emph{Proof sketch.}  By the spectral decomposition theorem, any symmetric
-tensor admits $A_{\mu\nu} = \sum_a\lambda_a\,v_\mu^{(a)}v_\nu^{(a)}$.  The
-Einstein equations impose constraints selecting harmonic $\sigma$-fields.  All
-vacuum GR solutions therefore correspond to harmonic maps
-$\sigma:(\mathcal{M},\eta)\to\mathbb{R}^{1,3}$.~$\square$
+\emph{Proof.}  Dispersion relation $\omega^2 = k^2c^2(1 + \kappa\lQ^2 k^2c^2 + \mathcal{O}(\lQ^4))$ has positive correction for all $k$.  Ghosts appear only at $m > 1/(\sqrt{\kappa}\lQ) = \Mpl c/(\sqrt{\kappa}\hbar)$.\hfill$\square$
 
 %=============================================================
-\section{The $N$-Body Superposition and Exact Reductions}
-\label{sec:nbody}
+\section{The Post-Newtonian Hierarchy}
+\label{sec:pn}
 %=============================================================
 
-The master metric~\eqref{eq:master} admits an exact superposition principle
-at the level of $\sigma$-fields.  This section states the rigorous theorem
-and shows explicitly how the general $N$-body formula reduces to the
-two- and three-body cases entirely within QGD---no GR input is used.
-
-%-------------------------------------------------------------
-\subsection{The QGD master metric in spherical coordinates}
-
-In global spherical coordinates $(t,r,\theta,\phi)$ with $T^\alpha{}_\mu =
-\mathrm{diag}(1,1,r,r\sin\theta)$, and with $\sigma_\theta^{(a)}=\sigma_r^{(a)}=0$
-for all Kerr sources (spin axis aligned with $z$), the master metric gives:
-\begin{align}
-  g_{tt} &= -1 + \sum_a\varepsilon_a\bigl(\sigma_t^{(a)}\bigr)^2,
-  \label{eq:gtt_N}\\
-  g_{t\phi} &= -r\sin\theta\sum_a\varepsilon_a\,\sigma_t^{(a)}\sigma_\phi^{(a)},
-  \label{eq:gtphi_N}\\
-  g_{\phi\phi} &= r^2\sin^2\theta\!\left[1 + \sum_a\varepsilon_a\bigl(\sigma_\phi^{(a)}\bigr)^2\right],
-  \label{eq:gphiphi_N}\\
-  g_{\theta\theta} &= r^2.
-\end{align}
-
-These expressions are \emph{algebraic} in the $\sigma$-fields; no differential
-equations are required.  For $N$ bodies the total fields are:
+Expanding $\sigma_\mu = \sum_{k=1}^\infty\epsilon^k\sigma_\mu^{(k)}$:
 \begin{equation}
-  A_{\mathrm{tot}} \equiv \sum_{a=1}^N \sigma_t^{(a)},\qquad
-  B_{\mathrm{tot}} \equiv \sum_{a=1}^N \sigma_\phi^{(a)}.
+  \Box_\eta\sigma_\mu^{(k)} = Q_\mu^{(k)}[\sigma^{(<k)}] + T_\mu^{(k)} + \kappa\lQ^2\Box_\eta^2\sigma_\mu^{(k)}
 \end{equation}
 
-Substituting into the master metric and expanding the squares:
-\begin{align}
-  g_{tt} &= -\!\left[1 - \sum_a A_a^2 - 2\sum_{a<b}A_aA_b\right],
-  \label{eq:gtt_Nexpand}\\
-  g_{t\phi} &= -r\sin\theta\!\left[\sum_a A_aB_a + \sum_{\substack{a,b\\a\neq b}}A_aB_b\right],
-  \label{eq:gtphi_Nexpand}\\
-  g_{\phi\phi} &= r^2\sin^2\theta\!\left[1 + \sum_aB_a^2 + 2\sum_{a<b}B_aB_b\right],
-\end{align}
-where $A_a = \sigma_t^{(a)}$ and $B_a = \sigma_\phi^{(a)}$.
+Linear at each order, sourced by lower orders.  Including quantum corrections via $(\hbar,\epsilon)$ double expansion:
+\begin{equation}
+  \Box_g\sigma_\mu^{(n,k)} = S_\mu^{(n,k)}[\sigma^{(n'<n,k'<k)}] + \kappa\lQ^2\Box_g^2\sigma_\mu^{(n,k)}
+\end{equation}
 
-%-------------------------------------------------------------
-\subsection{The superposition theorem}
+\section{Summary}
 
-\begin{theorem}{$N$-Body Superposition}{superposition}
-  Let $\{\sigma^{(a)}\}_{a=1}^N$ be exact, static solutions of the QGD
-  field equations for isolated Kerr sources with Schwarzschild radii
-  $\rs{a} = 2GM_a/c^2$.  Assume the inter-source separations satisfy
-  $d_{ab} \gg \max(\rs{a},\rs{b})$ for all $a\neq b$.  Define the linear
-  superposition $\sigma^{(\mathrm{lin})} = \sum_{a=1}^N\sigma^{(a)}$.  Then
-  the exact solution $\sigma$ of the full nonlinear system satisfies the
-  pointwise bound
-  \begin{equation}
-    \frac{|\sigma(x) - \sigma^{(\mathrm{lin})}(x)|}{|\sigma^{(\mathrm{lin})}(x)|}
-    \;\leq\; C\max_{a\neq b}\frac{\rs{a}\rs{b}}{d_{ab}^2},
-    \label{eq:superposition_bound}
-  \end{equation}
-  where $C$ is a constant of order unity (numerically $C\approx2$).
-\end{theorem}
-
-\begin{proof}[Proof sketch]
-  Write the $\sigma$-field equation as $\mathcal{L}\sigma = \mathcal{N}[\sigma]$ where
-  $\mathcal{L}$ is a linear second-order operator and $\mathcal{N}$ contains all
-  nonlinear terms.  Setting $\sigma = \sigma^{(\mathrm{lin})}+\delta\sigma$ and
-  subtracting the isolated-source equations yields
-  $\mathcal{L}\,\delta\sigma = \mathcal{N}[\sigma^{(\mathrm{lin})}+\delta\sigma]
-  - \sum_a\mathcal{N}[\sigma^{(a)}]$.  The leading nonlinearity is quadratic:
-  \[
-    \mathcal{N}[\sigma^{(\mathrm{lin})}] - \sum_a\mathcal{N}[\sigma^{(a)}]
-    = \sum_{a\neq b}\alpha\,\sigma^{(a)}\sigma^{(b)} + O\!\left(\sigma^3\right).
-  \]
-  Inverting via the Green's function of $\mathcal{L}$ and using the decay
-  $|\sigma^{(b)}(\mathbf{x}_a)| \sim \rs{b}/d_{ab}$, one obtains
-  $|\delta\sigma(x)| \lesssim C(\rs{a}\rs{b}/d_{ab}^2)|\sigma^{(a)}(x)|$
-  for $x$ near source $a$.  Summing over all pairs and noting that
-  $|\sigma^{(\mathrm{lin})}(x)|\approx|\sigma^{(a)}(x)|$ near source $a$
-  gives~\eqref{eq:superposition_bound}.
-  \hfill$\blacksquare$
-\end{proof}
-
-%-------------------------------------------------------------
-\subsection{Reduction to the two-body metric (pure QGD)}
-
-For $N=2$, set $A_1=\sigma_t^{(1)}$, $A_2=\sigma_t^{(2)}$,
-$B_1=\sigma_\phi^{(1)}$, $B_2=\sigma_\phi^{(2)}$ and substitute into
-Eqs.~\eqref{eq:gtt_Nexpand}--\eqref{eq:gphiphi_N}:
-
-\begin{align}
-  g_{tt} &= -\!\left[1
-    - \underbrace{A_1^2}_{\displaystyle 2GM_1/(c^2r_1)}
-    - \underbrace{A_2^2}_{\displaystyle 2GM_2/(c^2r_2)}
-    - \underbrace{2A_1A_2}_{\text{QGD cross-term}}
-  \right],
-  \label{eq:gtt_2body}\\[4pt]
-  g_{t\phi} &= -r\sin\theta\!\left[
-    \underbrace{A_1B_1}_{\text{body 1 frame-drag}}
-    + \underbrace{A_2B_2}_{\text{body 2 frame-drag}}
-    + \underbrace{A_1B_2}_{\text{cross: }M_1\times\alpha_2}
-    + \underbrace{A_2B_1}_{\text{cross: }M_2\times\alpha_1}
-  \right],
-  \label{eq:gtphi_2body}\\[4pt]
-  g_{\phi\phi} &= r^2\sin^2\theta\!\left[1 + B_1^2 + B_2^2 + 2B_1B_2\right].
-  \label{eq:gphiphi_2body}
-\end{align}
-
-\textbf{Physical content of the cross-terms:}
-The term $2A_1A_2 = 4G\sqrt{M_1M_2}/(c^2\sqrt{r_1r_2})$ scales as $r^{-1}$
-and generates the Newtonian binding energy.  The spin-coupling terms
-$A_1B_2$ and $A_2B_1$ describe how body~2's spin drags space through
-body~1's mass field and vice versa---a genuinely two-body effect.  All these
-arise from the QGD master metric; \emph{no GR input is used}.
-
-%-------------------------------------------------------------
-\subsection{Reduction to the three-body metric (pure QGD)}
-
-For $N=3$, define $A_3=\sigma_t^{(3)}$, $B_3=\sigma_\phi^{(3)}$ and expand:
-
-\begin{align}
-  g_{tt} &= -\!\Biggl[1
-    - \underbrace{A_1^2 + A_2^2 + A_3^2}_{\text{3 self-energy terms}}
-    - \underbrace{2(A_1A_2 + A_1A_3 + A_2A_3)}_{\text{3 mass cross-terms}}
-  \Biggr],
-  \label{eq:gtt_3body}\\[6pt]
-  \frac{g_{t\phi}}{-r\sin\theta}
-  &= \underbrace{A_1B_1 + A_2B_2 + A_3B_3}_{\text{3 self frame-drag}}
-  + \underbrace{A_1B_2 + A_2B_1 + A_1B_3 + A_3B_1 + A_2B_3 + A_3B_2}_{\text{6 cross frame-drag}},
-  \label{eq:gtphi_3body}\\[6pt]
-  g_{\phi\phi}
-  &= r^2\sin^2\theta\!\left[1
-    + \underbrace{B_1^2+B_2^2+B_3^2}_{\text{3 spin-sq.\ terms}}
-    + \underbrace{2(B_1B_2+B_1B_3+B_2B_3)}_{\text{3 spin-spin couplings}}
-  \right].
-  \label{eq:gphiphi_3body}
-\end{align}
-
-The three-body metric contains 6+9+6 = 21 terms in total.  All arise
-algebraically from $\sigma$-field superposition; no approximation is made.
+The complete QGD field dynamics:
 
 \begin{table}[h]
   \centering
-  \caption{Cross-term counting: the $N$-body metric is an exact algebraic object}
-  \label{tab:nbody_terms}
-  \begin{tabular}{@{}ccccc@{}}
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{@{}lp{9.5cm}@{}}
     \toprule
-    $N$ & $g_{tt}$ terms & $g_{t\phi}$ terms & $g_{\phi\phi}$ terms & Total \\
+    Equation & Content \\
     \midrule
-    1 & 1 & 1 & 1 & 3 \\
-    2 & 3 & 4 & 3 & 10 \\
-    3 & 6 & 9 & 6 & 21 \\
-    5 & 15 & 25 & 15 & 55 \\
-    10 & 55 & 100 & 55 & 210 \\
-    $N$ & $N(N+1)/2$ & $N^2$ & $N(N+1)/2$ & $N^2+N(N+1)$ \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{corollary}{Computational efficiency}{complexity}
-  Evaluating the $N$-body metric requires $O(N)$ field evaluations plus two
-  summations and two squarings per field point.  This is in sharp contrast
-  with numerical GR, which requires $O(N_{\mathrm{grid}}^3\times N_{\mathrm{steps}})$
-  operations with $N_{\mathrm{grid}}\sim10^9$.  The QGD superposition principle
-  makes $N$-body astrophysical simulations algebraically tractable.
-\end{corollary}
-
-\medskip
-\noindent\textit{Remark on the radial metric component.}  In the isotropic
-form of the master metric (which is derived directly from
-Eq.~\eqref{eq:master}), $g_{rr}=1$ for each isolated source.  The relation
-$g_{rr}=-1/g_{tt}$ that appears in two-body expressions corresponds to
-working in curvature coordinates and is an additional coordinate choice, not
-a consequence of the master metric.  For genuine $N$-body work, the isotropic
-form is the natural choice.
-
-%=============================================================
-\section{Summary: GR vs QGD}
-\label{sec:comparison}
-%=============================================================
-
-\begin{table}[h]
-  \centering
-  \caption{Paradigm comparison}
-  \label{tab:comparison}
-  \renewcommand{\arraystretch}{1.2}
-  \begin{tabular}{@{}lll@{}}
-    \toprule
-    \textbf{Aspect} & \textbf{General Relativity} & \textbf{QGD} \\
-    \midrule
-    Fundamental variable & $g_{\mu\nu}$ (10 components) & $\sigma_\mu$ (4 components) \\
-    Metric status & Fundamental & Derived output \\
-    Field equations & 10 coupled nonlinear PDEs & 4 linear + algebra \\
-    Superposition & Impossible at metric level & Exact at $\sigma$-level \\
-    Singularities & Generic, unavoidable & Resolved at $\lambda_C$ \\
-    Gravitational energy & Pseudotensor & True tensor $\tfrac{1}{2}(\partial\sigma)^2$ \\
-    Einstein equations & Postulated & Derived (equilibrium $\nabla^2\sigma = 0$) \\
-    Exactness of composite metric & N/A & Theorem~\ref{thm:einstein_recovery} \\
-    Computational cost & Exponential (numerical) & Polynomial (algebraic) \\
+    $\Box_g\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\Box_g^2\sigma_\mu$ & Master field equation \\
+    $\Box_g(\Box_g - \mQ^2)\sigma_\mu = S_\mu$ & Pais--Uhlenbeck form \\
+    $\sigma_\mu = \sigma^{\mathrm{free}} + \kappa\lQ^2\!\int(G_0 - G_{\mQ})S_\mu$ & Green's function solution \\
+    $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$ & Einstein at equilibrium \\
     \bottomrule
   \end{tabular}
 \end{table}
