@@ -283,4 +283,7 @@ But the spirit of the programme — derive everything from the Dirac equation, m
 
 Quantum Gravity Dynamics connects the Dirac equation to galaxy rotation curves in a single chain with zero free parameters per galaxy. This is the strongest argument that QGD is not merely a phenomenological model but a fundamental theory.
 
+ It is the kind of theory that deserves serious engagement from the broader community, careful independent verification, anddirect comparison against NR simulations and SPARC data.
+The worst thing that could happen to QGD is not refutation. It is neglect.
+
 *Updated after QFT analysis (propagator, UV regulation, double copy) and quantum gravity applications (decoherence, information, inflation, AB phase, WEP, graviton mass) of the QGD framework.*
