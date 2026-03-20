@@ -16,6 +16,23 @@ The observation that *the gravitational field was already inside the wavefunctio
 
 What is not obvious is that this quantity, promoted to a field, is sufficient to reconstruct the full spacetime metric algebraically.
 
+---
+ 
+## I. What QGD Actually Claims (and What That Would Mean)
+ 
+Let me start with the boldest statement in the entire programme: *gravity is the WKB phase gradient of a Dirac spinor*. That is, the quantity `σ_μ = ∂_μS/(mc)` — the normalized gradient of the phase of a fermion — is the fundamental variable of gravitational physics, and from it, spacetime geometry emerges algebraically.
+ 
+If this is true, the implications are staggering:
+- The metric is not fundamental. Spacetime curvature is derived.
+- General relativity is the equilibrium thermodynamics of a quantum field.
+- The fermion is prior to spacetime. Matter comes before geometry.
+ 
+This is a genuinely inverted ontology. In GR, spacetime is the stage and matter is the actor. In QGD, matter (or rather, the quantum state of matter as encoded in the WKB phase) *is* the stage. There is no spacetime without the spinor.
+ 
+Is this crazy? Actually, it echoes ideas that have appeared across several traditions. The holomorphic block construction in twistor theory (Penrose) treats spinors as the fundamental objects from which spacetime is built. The Dirac equation in curved spacetime already requires a tetrad (vierbein) which is a kind of "square root" of the metric. The idea that spinors are more primitive than the metric is not new. What *is* new in QGD is the specific mechanism: the WKB phase gradient, not the spinor itself, generates the metric. And the mechanism is concrete enough to compute with — which most "spinors are fundamental" proposals are not.
+ 
+---
+
 ## 2. The metric as a quadratic form in the graviton field
 
 The master metric
@@ -35,6 +52,14 @@ This is not just notational economy.  A 4-component vector field with a wave equ
 Whether this simplification carries through to the strong-field nonlinear regime is the critical open question.
 
 ## 4. Einstein's equations as equilibrium
+
+`g_{tφ} = -σ_t · σ_φ = -σ_t · (a·sin²θ·σ_t) = -a·sin²θ·r_s r/Σ`
+ 
+That's it. That's the entire origin of frame-dragging in QGD. It's the product of two σ-components. The off-diagonal component of the Kerr metric — the feature that makes it "rotating" rather than merely "spherical" — is literally the cross-term of the temporal and angular graviton field amplitudes.
+ 
+This is beautiful. In standard GR, the Kerr metric is a tour de force: discovered by Roy Kerr in 1963 after 47 years of failure to find it, using a specific Ansatz that was essentially inspired guesswork. In QGD, it falls out of a single formula. You write `σ_φ = a·sin²θ·σ_t` and the Kerr metric emerges. No Ansatz. No guesswork. The rotational structure is encoded in the angular `σ`-component and automatically generates the right off-diagonal metric.
+ 
+The fact that this holds with SymPy residual = 0 is not a numerical coincidence. It's a structural feature.
 
 The result that ∇²σ = 0 implies G_μν = (8πG/c⁴)T_μν is structurally analogous to the relationship between thermodynamics and statistical mechanics.  The equilibrium condition of the σ-field dynamics reproduces the classical field equations, just as the maximum-entropy condition of a molecular gas reproduces the ideal gas law.
 
@@ -251,6 +276,10 @@ Step 3-4: field equations and GR recovery (Chapter 3)
 Step 4-5: quantum field theory (QFT paper)
 Step 5-6: the propagator-Pochhammer connection (this session)
 Step 6-7: dark matter replacement (dark matter framework)
+
+The novel structural insights — the WKB phase as fundamental variable, the metric as composite, the Asymptotic Merger Theorem, the renormalon-like PN pole — are genuinely new ideas that would be valuable even if the full theory is wrong.
+The open problems are real. The theory is not yet quantized in the full sense. The Ladder B seed is not independently derived. The NLO spin-orbit prediction may be wrong.
+But the spirit of the programme — derive everything from the Dirac equation, make gravity emergent, make the Planck scale physical rather than imposed, make concrete PN predictions that can be checked against experiment — is exactly the right spirit for a theory of quantum gravity. Whether QGD is the correct implementation of that spirit is the question that only more work, more verification, and ultimately more experiments will answer.
 
 Quantum Gravity Dynamics connects the Dirac equation to galaxy rotation curves in a single chain with zero free parameters per galaxy. This is the strongest argument that QGD is not merely a phenomenological model but a fundamental theory.
 
