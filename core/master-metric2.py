@@ -2,8 +2,7 @@
 metrics.py
 ==========
 Quantum Gravitational Dynamics (QGD) — 15 Known Einstein Field Equation Solutions
-Author:  Romeo Matshaba (UNISA) / implemented by Claude
-DOI:     https://doi.org/10.5281/zenodo.18827993
+Author:  Romeo Matshaba 
 
 In QGD the fundamental variable is the σ-field (phase gradient):
 
