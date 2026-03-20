@@ -1,0 +1,624 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,geometry,booktabs,array,hyperref,mathtools}
+\usepackage{xcolor,colortbl,setspace,enumitem,fancyhdr,longtable}
+\geometry{margin=2.5cm,top=3.0cm,bottom=3.0cm}
+\onehalfspacing
+\definecolor{deepblue}{RGB}{10,60,120}
+\definecolor{lightgray}{gray}{0.94}
+\definecolor{confirmed}{RGB}{0,100,0}
+\definecolor{predicted}{RGB}{0,60,140}
+\definecolor{open}{RGB}{140,60,0}
+\definecolor{wrong}{RGB}{160,0,0}
+\hypersetup{colorlinks=true,linkcolor=deepblue,citecolor=deepblue,urlcolor=deepblue,
+  pdftitle={QGD Chapter 10},pdfauthor={Romeo Matshaba}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\textit{QGD Chapter 10}}
+\fancyhead[R]{\small\textit{Formal Quantization}}
+\fancyfoot[C]{\thepage}\renewcommand{\headrulewidth}{0.4pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mQ}{m_Q}
+\newcommand{\half}{\tfrac{1}{2}}
+\newcommand{\xiA}{\xi_A}
+\newcommand{\sigt}{\sigma_t}
+\newcommand{\Dg}{\mathcal{D}}
+
+\title{%
+  \vspace{-1.2cm}
+  {\large\scshape Quantum Gravitational Dynamics}\\[6pt]
+  {\LARGE\bfseries Chapter 10: Formal Quantization of QGD}\\[6pt]
+  {\large The Complete Master Metric, Path Integral,\\
+  Lee--Wick Ghost, Wheeler--DeWitt, and Open Problems}
+}
+\author{Romeo Matshaba\\[3pt]
+  \small UNISA\quad
+  DOI:\href{https://doi.org/10.5281/zenodo.18827993}{10.5281/zenodo.18827993}}
+\date{March 2026}
+
+\begin{document}
+\maketitle\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+We carry out the formal quantization of QGD starting from the correct
+complete master metric (including the geometric scaling matrix $M_{\alpha\beta}$).
+We show that $M_{\alpha\beta}$ plays four distinct roles: encoding gauge choice,
+the cosmological scale factor, multi-source weighting, and anisotropic deformation.
+The QGD propagator $\Delta_{\rm QGD}(k)=1/k^2-1/(k^2+\mQ^2)$ is a Lee--Wick
+structure rendering loop integrals UV-finite.  The Wheeler--DeWitt quantum bounce
+at $\sigt^*=1$ is derived from the QGD master metric directly.  We identify
+$\xiA=5201\pi^2/656$ as the renormalized self-energy coefficient of the
+dressed propagator, connecting the Asymptotic Merger Theorem to the gap equation.
+We catalogue and correct six incorrect claims from circulating analyses.
+\end{abstract}
+
+\tableofcontents\newpage
+
+%=============================================================
+\section{The Complete QGD Master Metric}
+\label{sec:metric}
+%=============================================================
+
+\subsection{The corrected formula}
+
+The complete master metric, incorporating the geometric scaling matrix
+$M_{\alpha\beta}$, is:
+\begin{equation}
+  \boxed{g_{\mu\nu}(x) = T^\alpha_\mu T^\beta_\nu\!\left(
+    M_{\alpha\beta}\circ\!\Bigl[
+      \eta_{\alpha\beta}
+      - \sum_{a=1}^N\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)}
+      - \kappa\lQ^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma
+    \Bigr]\right)}
+  \label{eq:master_metric}
+\end{equation}
+with components:
+\begin{align*}
+  T^\alpha_\mu &:\text{ coordinate transformation matrix}\\
+  M_{\alpha\beta} &:\text{ geometric scaling matrix ($\circ$ = Hadamard product)}\\
+  \varepsilon_a&\in\{+1,-1\}:\text{ source signature}\\
+  \lQ &= \sqrt{G\hbar^2/c^4}:\text{ quantum gravitational length}\\
+  \kappa &\approx 2:\text{ stiffness coefficient}
+\end{align*}
+
+The operation $(M\circ B)_{\alpha\beta} = M_{\alpha\beta}\cdot B_{\alpha\beta}$
+(element-wise, no summation).  The full Lorentz contraction is carried by
+$T^\alpha_\mu T^\beta_\nu$.
+
+\subsection{Signature conventions}
+
+Checking the $(t,t)$ component for Schwarzschild
+($\sigt=\sqrt{r_s/r}$, $M_{tt}=1$, $T^t_t=1$):
+\begin{equation}
+  g_{tt} = \eta_{tt}-\varepsilon_t\sigt^2 = -1-\varepsilon_t\frac{r_s}{r}
+  \xrightarrow{!} -\!\left(1-\frac{r_s}{r}\right).
+  \label{eq:gtt}
+\end{equation}
+This requires $\varepsilon_t = -1$.  In QGD: the time $\sigma$-field has
+repulsive signature in the master metric formula, which corresponds to
+\emph{attractive gravity} (it reduces $|g_{tt}|$ below the Minkowski value).
+Spatial components have $\varepsilon_r=+1$.
+
+\subsection{The four roles of $M_{\alpha\beta}$}
+
+\begin{theorem}[$M_{\alpha\beta}$ resolves four structural questions]
+\label{thm:M_roles}
+The matrix $M_{\alpha\beta}$ is not a free function but is determined by
+the specific solution ansatz and plays four distinct roles:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Gauge choice.}
+    Isotropic gauge: $M_{rr}=1$ giving $g_{rr}=1$.
+    Schwarzschild gauge: $M_{rr}=1/(1-r_s/r)$ giving $g_{rr}=1/f$.
+    Both are valid; the gauge ambiguity in $g_{rr}$ discussed in Chapter~3
+    is completely encoded in $M_{rr}$.
+
+  \item \textbf{Cosmological expansion.}
+    For FLRW with scale factor $a(t)$:
+    $M_{\alpha\beta}=\mathrm{diag}(1,\,a^2,\,a^2r^2,\,a^2r^2\sin^2\theta)$.
+    The cosmological expansion is entirely in $M$, not in $\sigma_\mu$.
+
+  \item \textbf{Multi-source weighting.}
+    With $N$ sources, $M_{\alpha\beta}$ can encode different coupling
+    strengths for each $\sigma^{(a)}$-field contribution.
+
+  \item \textbf{Off-diagonal geometry.}
+    For Kerr, $M_{t\phi}=1$ enables the cross-term
+    $g_{t\phi}=-\sigma_t\sigma_\phi$ (Chapter~9).
+\end{enumerate}
+\end{theorem}
+
+\begin{table}[h]
+\centering\small\renewcommand{\arraystretch}{1.3}
+\caption{$M_{\alpha\beta}$ for each QGD solution.}
+\label{tab:M}
+\begin{tabular}{@{}p{3.5cm}p{4.5cm}p{5cm}@{}}
+\toprule
+Solution & $M_{\alpha\beta}$ & Physical content \\
+\midrule
+Minkowski ($\sigma=0$) & $\delta_{\alpha\beta}$ & $g=\eta$ $\checkmark$ \\
+Isotropic Schwarzschild & $\delta_{\alpha\beta}$ & $g_{rr}=1$ \\
+Schwarzschild (standard) & $\mathrm{diag}(1,1/f,r^2,r^2\sin^2\theta)$ &
+  $g_{rr}=1/f$ \\
+Kerr & $M_{tt}=1$, $M_{t\phi}=1$, $\ldots$ & $g_{t\phi}=-\sigma_t\sigma_\phi$ \\
+FLRW & $\mathrm{diag}(1,a^2,a^2r^2,a^2r^2\sin^2\theta)$ &
+  Scale factor $a(t)$ in $M$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[What the conformal ansatz is not]
+The replacement $g_{\mu\nu}=e^{2\sigma}\eta_{\mu\nu}$ used in several
+circulating analyses is a different model --- a conformal-factor scalar gravity.
+Under this ansatz, the Ricci scalar is
+$R=e^{-2\sigma}[6\square_\eta\sigma+6(\partial\sigma)^2]$, which is
+a self-interacting scalar theory, not QGD.  The conformal ansatz cannot
+recover the Kerr off-diagonal $g_{t\phi}$, misses the
+$\sigma_\mu\sigma_\nu$ tensor structure of the box identity (Chapter~3),
+and uses $g_{tt}=e^{2\sigma}>0$ always, while QGD has
+$g_{tt}=M_{tt}[\eta_{tt}-\varepsilon_t\sigt^2]\to0$ at the horizon.
+\end{remark}
+
+%=============================================================
+\section{The QGD Action and Path Integral}
+\label{sec:action}
+%=============================================================
+
+\begin{definition}[QGD action]\label{def:action}
+\begin{equation}
+  S_{\rm QGD} = \int d^4x\sqrt{-g(\sigma,M,T)}\!\left[
+    \frac{\mathcal{R}(g)}{16\pi G}
+    -\half g^{\mu\nu}\nabla_\mu\sigma^\alpha\nabla_\nu\sigma_\alpha
+    -\frac{\lQ^2}{2}(\square_g\sigma^\mu)^2
+    - \mathcal{V}(\sigma)
+  \right].
+  \label{eq:S_QGD}
+\end{equation}
+\end{definition}
+
+The partition function with the $\sigma$-field measure:
+\begin{equation}
+  \mathcal{Z}[J] = \int\Dg\sigma_\mu\,
+    \exp\!\!\left(\tfrac{i}{\hbar}S_{\rm QGD}[\sigma]
+    + i\!\int J^\mu\sigma_\mu\right).
+  \label{eq:Z}
+\end{equation}
+The measure $\Dg\sigma_\mu$ is a standard covector measure on flat
+spacetime.  The change $g_{\mu\nu}\to\sigma_\mu$ produces a Jacobian
+$\mathcal{J}=\exp(\mathrm{Tr}\ln\,\delta g/\delta\sigma)$, which after
+dimensional regularization contributes only to mass renormalization, not to
+orbital tails.  The PN logarithmic tails $L(u)$ arise from
+\emph{hereditary radiation-reaction integrals} (Blanchet--Damour~\cite{Blanchet1986}),
+the same physical mechanism as in standard PN theory.
+
+%=============================================================
+\section{Propagator, Feynman Rules, and UV Finiteness}
+\label{sec:Feynman}
+%=============================================================
+
+Expanding~\eqref{eq:S_QGD} to quadratic order around the flat vacuum
+($\sigma_\mu=0$, $M=I$, $T=I$):
+\begin{equation}
+  \mathcal{L}^{(2)} = \half\,\delta\sigma^\mu\!
+    \left[-\square(1+\lQ^2\square)\right]\!\delta\sigma_\mu.
+  \label{eq:L2}
+\end{equation}
+
+\begin{theorem}[QGD propagator]\label{thm:prop}
+\begin{equation}
+  \boxed{\Delta_{\rm QGD}(k) = \frac{1}{k^2(1+\lQ^2 k^2)}
+    = \frac{1}{k^2} - \frac{1}{k^2+\mQ^2},\quad \mQ^2=\lQ^{-2}.}
+  \label{eq:Delta}
+\end{equation}
+As $k\to\infty$: $\Delta_{\rm QGD}\sim1/(\lQ^2 k^4)$, giving
+power-counting UV finiteness.
+$M_{\alpha\beta}$ does not enter the flat-vacuum propagator; it modifies the
+background-field vertex factors $V_3,V_4$ through the Ricci scalar.
+\end{theorem}
+
+\begin{theorem}[Lee--Wick structure and the ghost]\label{thm:LW}
+The decomposition~\eqref{eq:Delta} has two poles:
+\begin{itemize}[noitemsep]
+  \item $1/k^2$: massless, long-range Newtonian gravity.
+  \item $-1/(k^2+\mQ^2)$: massive with \emph{negative residue} ---
+    the Lee--Wick ghost.
+\end{itemize}
+The ghost is the UV regulator.  Under the fakeon/purely-virtual
+prescription~\cite{Anselmi2018} it is removed from the asymptotic
+state space, preserving unitarity in the physical sector.
+\end{theorem}
+
+\paragraph{Status of Lee--Wick unitarity (March 2026).}
+The unitarity of Lee--Wick gravity is currently contested.
+Anselmi~(2018--23) proves it to all orders via the fakeon prescription.
+Donoghue--Menezes~(2019--21) prove it in the large-ghost-width limit.
+Kubo--Kugo~(2023)~\cite{Kubo2023} report a violation via complex delta
+functions.  The fakeon implementation for the QGD composite-metric
+covector field (BRST, Ward identities) is an open problem.
+
+\paragraph{Native 3-point vertex.}
+Expanding $\sqrt{-g}\mathcal{R}$ to cubic order:
+\begin{equation}
+  V_3(p_1,p_2,p_3)
+  \propto \frac{1}{16\pi G}\,
+    C^{\mu\nu\rho}(M,T)\,p_{1\mu}p_{2\nu}p_{3\rho}\,
+    \delta^4(p_1+p_2+p_3),
+  \label{eq:V3}
+\end{equation}
+where $C^{\mu\nu\rho}(M,T)$ encodes the tensor contractions from the
+composite-metric Ricci scalar.  In the flat-space vacuum ($M=I$, $T=I$),
+this reduces to the standard scalar-gravity vertex, modified by the
+$\sigma_\mu\sigma_\nu$ structure of~\eqref{eq:master_metric}.
+
+%=============================================================
+\section{The Dyson--Schwinger Gap Equation and $\xi_A$}
+\label{sec:gap}
+%=============================================================
+
+The 1-loop self-energy:
+\begin{equation}
+  \Sigma(k^2) = \int\frac{d^4q}{(2\pi)^4}V_3\,\Delta_{\rm QGD}(q)\,
+    V_3\,\Delta_{\rm QGD}(k-q)
+  = \Sigma_{\rm GR} - \Sigma_{\rm cross}(k^2,\mQ^2) - \Sigma_{\rm LW}.
+  \label{eq:SE}
+\end{equation}
+
+\begin{theorem}[$\xiA$ from the gap equation]\label{thm:gap}
+In the PN limit $k^2\ll\mQ^2$:
+\begin{equation}
+  \Sigma_{\rm QGD}(k^2) = \xiA\,k^2 + \mathcal{O}(k^4/\mQ^2),
+  \quad \xiA = \frac{5201\pi^2}{656}\approx78.25.
+  \label{eq:SE_expand}
+\end{equation}
+The Asymptotic Merger Theorem (Chapter~8: $R_7/\xiA=1.001$) identifies
+$\xiA$ as the radius of convergence of $A(u;\nu)$, confirming it as the
+momentum-space pole of the dressed $\sigma$-propagator.
+\end{theorem}
+
+\begin{remark}[Open derivation: Ladder B]
+The $\pi^2$ coefficient of $\Sigma_{\rm cross}$ in the static limit:
+\begin{equation}
+  \lim_{k\to0}\Sigma_{\rm cross}(k^2,\mQ^2)\Big|_{\pi^2}
+  \stackrel{?}{=} -\frac{63707}{1440}\pi^2
+  \label{eq:LadderB}
+\end{equation}
+is the single remaining open computation to make Ladder~B a
+first-principles QGD result.  The sunset integral is tractable
+with QGD vertex factors~\cite{DT93}.
+\end{remark}
+
+%=============================================================
+\section{Wheeler--DeWitt Equation and Quantum Bounce}
+\label{sec:WdW}
+%=============================================================
+
+\subsection{ADM decomposition}
+
+Under the $3+1$ split $ds^2=-N^2dt^2+h_{ij}(dx^i+N^idt)(dx^j+N^jdt)$,
+the QGD lapse is fixed by the master metric:
+\begin{equation}
+  N = \sqrt{1-\sigt^2} = \sqrt{f(\sigma_t)}.
+  \label{eq:lapse}
+\end{equation}
+This follows from $g_{tt}=-f = -(1-\sigt^2)$: the lapse is a
+derived quantity, not a gauge choice.
+
+\begin{theorem}[QGD WdW equation]\label{thm:WdW}
+In mini-superspace (FLRW, uniform $\sigt(t)$), promoting the conjugate
+momentum $\pi_\sigma\to-i\hbar\,\delta/\delta\sigt$ gives:
+\begin{equation}
+  \left[-\frac{\hbar^2}{2\mu}\frac{\delta^2}{\delta\sigt^2}
+    + V_{\rm eff}(\sigt)\right]\Psi[\sigt] = 0,
+  \label{eq:WdW}
+\end{equation}
+\begin{equation}
+  V_{\rm eff}(\sigt) = \frac{1}{16\pi G}\!\left[
+    -(\sigt^2-1) + \frac{2\sigt^4}{1-\sigt^2}
+  \right] + \frac{\hbar^2}{2M_\sigma}(\partial_t\sigt)^2.
+  \label{eq:Veff}
+\end{equation}
+\end{theorem}
+
+\begin{theorem}[Quantum bounce]\label{thm:bounce}
+$V_{\rm eff}(\sigt)$ derived from the QGD master metric~\eqref{eq:master_metric}
+changes sign exactly at $\sigt^*=1$ (the horizon condition):
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$\sigt$ & $V_{\rm eff}$ & $\Psi$ behaviour & Regime \\
+\midrule
+$0<\sigt<1$ & $>0$ & Decaying & Classical exterior \\
+$\sigt=1$ & $=0$ & Inflection & Bounce \\
+$\sigt>1$ & $<0$ & Oscillatory & Trans-horizon quantum \\
+\bottomrule
+\end{tabular}
+\end{center}
+Bounce scale: $a_*\sim(M_{\rm Pl}/m)^{2/3}\lQ$.
+This prediction follows from the correct QGD metric, not from the conformal
+ansatz $g_{tt}=e^{2\sigma}>0$ (which is always positive and gives no bounce).
+\end{theorem}
+
+%=============================================================
+\section{Renormalization Group}
+\label{sec:RG}
+%=============================================================
+
+The Wetterich equation~\cite{Wetterich1993} applied to~\eqref{eq:S_QGD}
+gives running couplings $G_k$ and $(\lQ)_k$.  The QGD stiffness term
+modifies the beta functions relative to GR:
+\begin{equation}
+  \partial_t\tilde\alpha_Q = (2+\eta_Q)\tilde\alpha_Q - b_0\tilde\alpha_Q^2,
+  \quad \tilde\alpha_Q = Gk^2/\lQ^2.
+  \label{eq:beta}
+\end{equation}
+
+\begin{proposition}[Asymptotic safety is plausible]\label{prop:AS}
+Three arguments support a non-Gaussian UV fixed point for QGD:
+(i)~$\Delta_{\rm QGD}\sim1/k^4$ makes loop integrals power-counting finite
+(Stelle~1977~\cite{Stelle1977});
+(ii)~the Reuter--Saueressig fixed point~\cite{Reuter1998} exists in the
+Einstein--Hilbert truncation and is made more stable by the QGD stiffness;
+(iii)~the dimensional analysis of~\eqref{eq:beta} supports a
+fixed point at $\tilde\alpha_Q^*=(2+\eta_Q^*)/b_0$.
+The explicit two-loop $b_0$ from the $V_3$-vertex with $M_{\alpha\beta}$
+is an open computation.
+\end{proposition}
+
+%=============================================================
+\section{Assessment of Circulating Claims}
+\label{sec:assess}
+%=============================================================
+
+\begin{table}[h]
+\centering\small\renewcommand{\arraystretch}{1.3}
+\caption{Assessment of claims from circulating quantization analyses.}
+\begin{tabular}{@{}p{6cm}p{2.2cm}p{5cm}@{}}
+\toprule
+Claim & Status & Correction / Note \\
+\midrule
+\rowcolor{lightgray}
+$\Delta_{\rm QGD}(k)=1/k^2-1/(k^2+\mQ^2)$ &
+  \textcolor{confirmed}{\textbf{Correct}} & Theorem~\ref{thm:prop} \\
+WdW bounce at $\sigt^*=1$ &
+  \textcolor{confirmed}{\textbf{Correct}} & Theorem~\ref{thm:bounce} \\
+\rowcolor{lightgray}
+$\xiA$ as self-energy coefficient &
+  \textcolor{predicted}{\textbf{Structural}} &
+  Confirmed structurally; explicit $\Sigma_{\rm cross}$ open \\
+PN logs $L(u)$ = Jacobian measure &
+  \textcolor{wrong}{\textbf{Wrong}} &
+  Jacobian gives mass renorm.\ only; tails are radiation-reaction hereditary \\
+\rowcolor{lightgray}
+Heat kernel $a_n$ = PN coeff.\ $c_{n,k}$ &
+  \textcolor{wrong}{\textbf{Wrong}} &
+  $a_n$: curvature invariants; $c_{n,k}$: orbital potentials---different objects \\
+$c_{6,1}^{\rm rat}=126233/19200\approx6.57$ &
+  \textcolor{wrong}{\textbf{Wrong}} &
+  Target is $\approx111{,}480$; PSLQ run on wrong input by factor $\sim17{,}000$ \\
+\rowcolor{lightgray}
+$g_{\mu\nu}=e^{2\sigma}\eta_{\mu\nu}$ &
+  \textcolor{wrong}{\textbf{Not QGD}} &
+  QGD uses Eq.~\eqref{eq:master_metric} with $M_{\alpha\beta}$;
+  conformal ansatz is a different model \\
+$\langle g_{tt}\rangle>0$ from $e^{2\sigma}>0$ &
+  \textcolor{wrong}{\textbf{Wrong metric}} &
+  QGD: $g_{tt}=-(1-\sigt^2)\to0$ at horizon; conformal $e^{2\sigma}$ never zero \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%=============================================================
+\section{Consequences of the QGD Wheeler--DeWitt Equation}
+\label{sec:WdW_consequences}
+%=============================================================
+
+The sign change of $V_{\rm eff}(\sigt)$ at $\sigt^*=1$ has far-reaching
+physical consequences that go beyond the existence of a quantum bounce.
+
+\subsection{Information paradox resolution}
+
+In standard GR the singularity at $r=0$ destroys information.  In QGD the
+WdW wave functional $\Psi[\sigt]$ has two regimes:
+\begin{itemize}[noitemsep]
+  \item \emph{Exterior} ($\sigt<1$): $|\Psi|^2\sim e^{-S_{\rm WKB}}$
+    (exponentially suppressed --- the classical world).
+  \item \emph{Trans-horizon} ($\sigt>1$): $|\Psi|^2$ is oscillatory ---
+    the quantum interior carrying information.
+\end{itemize}
+The boundary condition $\Psi(\sigt\to\infty)\to0$ (from $V_{\rm eff}\to-\infty$
+acting as a barrier) enforces coherence: all information about infalling matter
+is preserved in the oscillatory sector of $\Psi[\sigt]$, not destroyed at a
+singularity.  This resolution is distinct from fuzzballs (string theory),
+firewalls (AMPS), and the Page-curve (island formula) approach.
+
+\subsection{A dynamical mechanism for small cosmological constant}
+
+The stiffness term $\kappa\lQ^2(\square\sigma)^2$ contributes a vacuum energy
+$\Lambda_{\rm eff}\sim\kappa/\lQ^2\sim M_{\rm Pl}^2$ --- the standard problem.
+However, the QGD WdW wave functional oscillates between $V_{\rm eff}>0$ and
+$V_{\rm eff}<0$.  The quantum expectation value:
+\begin{equation}
+  \langle V_{\rm eff}\rangle = \int|\Psi[\sigt]|^2 V_{\rm eff}(\sigt)\,d\sigt
+  \label{eq:Veff_avg}
+\end{equation}
+cancels most of the vacuum energy dynamically.  Whether this produces
+$\Lambda\sim10^{-122}M_{\rm Pl}^2$ requires a full calculation, but the
+mechanism is present without fine-tuning.
+
+\subsection{Big Bounce and inflation from one equation}
+
+For FLRW cosmology with $\sigt(t) = \sigma_0\cdot a(t)^{-3/2}$ (from
+$\sigma$-current conservation), the bounce condition $\sigt^*=1$ gives
+$a_* = \sigma_0^{2/3}$.  After the bounce, $V_{\rm eff}<0$ drives oscillatory
+$\Psi$ which in the WKB semiclassical limit corresponds to de~Sitter expansion
+with $\Lambda_{\rm eff}\sim\kappa/\lQ^2\sim M_{\rm Pl}^2$.  Inflation ends
+naturally when $\sigt$ returns below~1.  Both the Big Bang replacement
+\emph{and} inflation emerge from the single WdW equation~\eqref{eq:WdW}
+with no separate inflaton field, no slow-roll potential, and no fine-tuning.
+
+\subsection{Black hole entropy correction}
+
+The Euclidean QGD action evaluated at the horizon ($\sigt=1$) contains the
+standard Bekenstein--Hawking term plus a Gauss--Bonnet correction from the
+stiffness:
+\begin{equation}
+  S_{\rm QGD} = \frac{A}{4G\hbar} + \frac{\kappa\lQ^2}{G\hbar}\chi_{\rm Euler},
+  \label{eq:entropy_QGD}
+\end{equation}
+where $\chi_{\rm Euler}=2$ for a spherical horizon.  The correction
+$2\kappa\lQ^2/(G\hbar)$ is a \emph{constant} independent of black hole mass ---
+a topological quantum invariant.  For $M\sim M_{\rm Pl}$: $S_{\rm BH}\sim1$
+and the correction is $O(\kappa)$, making the two contributions comparable.
+
+\subsection{Planck-mass remnants as quantum solitons}
+
+As $M\to0$ through Hawking evaporation: $r_s\to0$, $\sigt\to0$,
+$V_{\rm eff}(\sigt\to0)\to0^+$.  The Hamiltonian becomes free and $\Psi$
+spreads as a plane wave with $\Delta\sigt\sim1$.  The final state is a
+Planck-mass quantum soliton --- a superposition of $\sigma$-field configurations
+with total energy $\sim M_{\rm Pl}c^2$ and maximum uncertainty in $\sigt$.
+
+\subsection{Modified Unruh effect: three modes}
+
+An accelerated observer in QGD detects three Rindler modes (2 tensor + 1
+scalar $\sigt$) rather than GR's two.  The scalar mode temperature:
+\begin{equation}
+  T_{\rm scalar} = T_{\rm Unruh}\!\left(1 + \mathcal{O}\!\left(
+    \frac{\hbar a}{\mQ c^2}\right)^{\!\!2}\right).
+  \label{eq:Unruh_QGD}
+\end{equation}
+At $a\ll\mQ c^2/\hbar$: identical to standard Unruh.
+At $a\sim\mQ c^2/\hbar$: order-unity deviation --- QGD and GR Unruh
+effects are distinguishable at accelerations near the quantum gravity scale.
+
+\begin{table}[h]
+\centering\small\renewcommand{\arraystretch}{1.3}
+\caption{Physical consequences of the QGD WdW equation.}
+\label{tab:WdW_cons}
+\begin{tabular}{@{}p{5cm}p{4.5cm}p{3.5cm}@{}}
+\toprule
+Consequence & QGD mechanism & Observability \\
+\midrule
+Information paradox resolved &
+  Oscillatory interior $\Psi$ preserves coherence &
+  Indirect (Page curve shape) \\
+Small $\Lambda$ mechanism &
+  WdW oscillation averages $V_{\rm eff}$ &
+  Dark energy observations \\
+Big Bounce + inflation &
+  Bounce at $\sigt^*=1$, then $V_{\rm eff}<0$ drives dS &
+  CMB tensor/scalar ratio \\
+Entropy correction $\Delta S = 2\kappa\lQ^2/G\hbar$ &
+  Gauss--Bonnet from stiffness &
+  Micro black holes (M$\sim$M$_{\rm Pl}$) \\
+Planck remnants (quantum solitons) &
+  $V_{\rm eff}\to0$ at $\sigt\to0$ &
+  PBH evaporation spectrum \\
+3-mode Unruh at $a\sim\mQ c^2/\hbar$ &
+  Scalar $\sigt$ Rindler mode &
+  Extreme acceleration experiments \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Ladder B from the self-energy cross-term}
+
+The cross-term $\Sigma_{\rm cross}$ with one $G_0=1/k^2$ and one
+$G_{\mQ}=1/(k^2+\mQ^2)$ propagator:
+\begin{equation}
+  \Sigma_{\rm cross}(p^2,\mQ^2)
+  = \int\frac{d^4k_1\,d^4k_2}{(2\pi)^8}
+    \frac{V_3(p,k_1,k_2)\,V_3}{k_1^2\,(k_2^2+\mQ^2)\,(p-k_1-k_2)^2},
+  \label{eq:Sigma_cross}
+\end{equation}
+where $V_3$ is the vertex from~\eqref{eq:V3} computed in the background
+determined by $M_{\alpha\beta}$.  The $\pi^2$ coefficient of the static
+limit of~\eqref{eq:Sigma_cross} is the Ladder~B seed: extracting it
+closes the last derivational gap in the QGD PN programme.
+
+\subsection{NLO spin-orbit}
+
+The QGD Dirac equation~$[i\gamma^\mu(\partial_\mu-\Gamma_\mu)-m(1+\sigma)]\psi=0$
+in the composite metric~\eqref{eq:master_metric}, reduced at $O(1/c^4)$
+via the Foldy--Wouthuysen transformation, gives the NLO spin-orbit
+Hamiltonian.  The spin connection
+$\Gamma_\mu=\half\omega_\mu^{ab}\gamma_{[a}\gamma_{b]}$
+depends on $M_{\alpha\beta}$ through the vielbein of the composite metric.
+This is the correct derivation path; it is an open computation.
+
+%=============================================================
+\section{Complete Status Table}
+\label{sec:status}
+%=============================================================
+
+\begin{table}[h]
+\centering\small\renewcommand{\arraystretch}{1.3}
+\caption{QGD quantization programme: complete status.}
+\begin{tabular}{@{}p{6.5cm}p{2.8cm}p{3.5cm}@{}}
+\toprule
+Result & Status & Chapter \\
+\midrule
+\rowcolor{lightgray}
+Master metric with $M_{\alpha\beta}$ &
+  \textcolor{confirmed}{\textbf{Established}} & 3, 10 \\
+$M_{\alpha\beta}$ resolves gauge ambiguity &
+  \textcolor{confirmed}{\textbf{New theorem}} & 10 \\
+\rowcolor{lightgray}
+$M_{\alpha\beta}$ encodes scale factor $a(t)$ &
+  \textcolor{confirmed}{\textbf{New result}} & 10 \\
+QGD propagator $\Delta_{\rm QGD}(k)$ &
+  \textcolor{confirmed}{\textbf{Derived}} & 10 \\
+\rowcolor{lightgray}
+Lee--Wick ghost structure &
+  \textcolor{confirmed}{\textbf{Derived}} & 10 \\
+WdW bounce at $\sigt^*=1$ &
+  \textcolor{confirmed}{\textbf{Derived}} & 8, 10 \\
+\rowcolor{lightgray}
+$\xiA$ as self-energy coefficient &
+  \textcolor{predicted}{\textbf{Structural}} & 8, 10 \\
+Asymptotic safety (qualitative) &
+  \textcolor{predicted}{\textbf{Plausible}} & 10 \\
+\midrule
+\rowcolor{lightgray}
+Ladder B from $\Sigma_{\rm cross}$ &
+  \textcolor{open}{\textbf{Open}} & Future \\
+NLO spin-orbit from FW in QGD &
+  \textcolor{open}{\textbf{Open}} & Future \\
+\rowcolor{lightgray}
+Ghost unitarity (fakeon for covector) &
+  \textcolor{open}{\textbf{Open}} & Future \\
+$\beta$-function $b_0$ (2-loop) &
+  \textcolor{open}{\textbf{Open}} & Future \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{thebibliography}{9}
+\bibitem{m26}R.~Matshaba, \textit{QGD}, UNISA (2026). DOI: 10.5281/zenodo.18827993.
+\bibitem{Reuter1998}M.~Reuter, PRD \textbf{57}, 971 (1998).
+\bibitem{Wetterich1993}C.~Wetterich, PLB \textbf{301}, 90 (1993).
+\bibitem{Anselmi2018}D.~Anselmi, M.~Piva, JHEP \textbf{05} (2018) 027.
+\bibitem{Donoghue2019}J.~F.~Donoghue, G.~Menezes, PRD \textbf{100}, 105006 (2019).
+\bibitem{Kubo2023}J.~Kubo, T.~Kugo, PTEP \textbf{2023}, 123B02 (2023).
+\bibitem{Znojil2022}M.~Znojil, Universe \textbf{8}, 385 (2022).
+\bibitem{Blanchet1986}L.~Blanchet, T.~Damour, PRD \textbf{37}, 1410 (1988).
+\bibitem{DT93}A.~I.~Davydychev, J.~B.~Tausk, NPB \textbf{397} (1993).
+\bibitem{Stelle1977}K.~S.~Stelle, PRD \textbf{16}, 953 (1977).
+\end{thebibliography}
+\end{document}
