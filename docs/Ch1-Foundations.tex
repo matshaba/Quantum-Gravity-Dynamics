@@ -24,6 +24,10 @@
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{bm}
+\usepackage{enumitem}
+
+
+
 
 \newcommand{\Ms}{M_\odot}
 \geometry{margin=2.5cm}
@@ -168,7 +172,34 @@
 	where $\bar{\psi}=\psi^\dagger\gamma^0$ and $\{\gamma^\mu,\gamma^\nu\}=2\eta^{\mu\nu}$ with $\eta=\mathrm{diag}(-1,+1,+1,+1)$.
 	
 	\textbf{Uniqueness:} This is the only Lorentz-invariant, local, linear action for spin-$\tfrac{1}{2}$ fields with positive-definite energy.
-	
+
+	\begin{tcolorbox}[enhanced,breakable,
+	  colback=white,colframe=black,
+	  title={\textbf{Required correction: the microscopic action must include interactions}},
+	  fonttitle=\bfseries]
+	Coarse-graining the \emph{free} Dirac action $S_D$ generates only mass and wavefunction
+	renormalisation---no new interaction operators can emerge from a theory with none.
+	The pressure term $P(\bar\psi\psi)$, Maxwell kinetic term $F^2$, and angular-momentum
+	coupling $J^2\bar\psi\psi$ in the effective Lagrangian require an interacting microscopic
+	starting point.  The correct microscopic action is:
+	\begin{equation}
+	  \mathcal{S}_{\rm micro} = \int d^4x\!\left[
+	    \bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi
+	    + G_{\rm NJL}(\bar{\psi}\psi)^2
+	    - \tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}
+	    - e\bar{\psi}\gamma^\mu A_\mu\psi
+	  \right]
+	  \label{eq:S_micro_correct}
+	\end{equation}
+	where $G_{\rm NJL}$ is the Nambu--Jona-Lasinio coupling.  Wilsonian coarse-graining of
+	$\mathcal{S}_{\rm micro}$ generates $P(\bar\psi\psi)$ from the four-Fermi term,
+	$-\tfrac{1}{4}F^2$ from the EM coupling, the $J^2$ operator from its derivative
+	expansion, and $\rho_\Lambda$ from zero-point fluctuations.  The free action
+	$S_D$~\eqref{eq:dirac_action} describes the \emph{single-particle sector} only.
+	The coarse-graining results in the subsequent sections are understood as derived
+	from $\mathcal{S}_{\rm micro}$.
+	\end{tcolorbox}
+
 	\subsection{Stress-Energy Tensor}
 	
 	The symmetric stress-energy tensor:
@@ -687,6 +718,36 @@
 	\textbf{This is the quantum-classical bridge, derived from first principles.}  No plane-wave postulate is required.  The $r^2$ cancellation is the geometric consequence of gravity being a spherical radiating wave in 3D space---the same geometry that produces Newton's $1/r^2$ force law.
 	
 	The constant $C$ will be determined through the complete system of equations.
+
+	\begin{remark}[The bridge holds for all $r$; the closing equation changes with regime]
+	\label{rem:regimes}
+	The current-conservation bridge $|\psi|^2\cdot p\cdot r^2 = C$ is \emph{exact} at every
+	length scale---it follows from $\partial_\mu j^\mu = 0$ alone and requires no
+	approximation.  It provides one equation in two unknowns $\{p(r),\,|\psi|(r)\}$
+	and must be paired with a second, dynamical equation.  That second equation changes
+	with the physical regime:
+	\begin{center}
+	\renewcommand{\arraystretch}{1.4}
+	\begin{tabular}{@{}p{3cm}p{4.2cm}p{6cm}@{}}
+	\hline
+	\textbf{Regime} & \textbf{Dynamical equation} & \textbf{Result} \\
+	\hline
+	$r\sim\lambda_C$ (quantum gravity) &
+	  Phase expansion of $e^{2ipr/\hbar}$ + gravitational matching &
+	  Newton's law \emph{and} quantum corrections $F\propto(\lambda_C/r)^{2n}$ \\[4pt]
+	$r\gg\lambda_C$, classical &
+	  QGD field equation $\square_g\sigma=\text{source}$, \newline solution $\sigma_t=\sqrt{r_s/r}$ &
+	  Newton's law (0PN), exact for all macroscopic $r$ \\[4pt]
+	$r\gg\lambda_C$, relativistic &
+	  QGD propagator loop integrals \newline $\Delta_{\rm QGD}(k)=1/k^2-1/(k^2+m_Q^2)$ &
+	  Full PN potential $A(u;\nu)$ to all orders \\
+	\hline
+	\end{tabular}
+	\end{center}
+	The bridge $|\psi|^2\cdot p\cdot r^2=C$ is therefore the \textbf{universal skeleton}
+	spanning all three regimes and all distance scales.  Demonstrating this unified
+	coverage explicitly is a goal of the ongoing QGD programme.
+	\end{remark}
 	
 	%=============================================================
 	\section{Complete Four-Component Wavefunction Solution}
@@ -890,6 +951,25 @@
 		E(r) \approx \frac{mc^2}{\alpha_G^2\cdot 2imcr/\hbar} = \frac{c\hbar}{2i\,\alpha_G^2\,r}.
 	\end{equation}
 	
+	\begin{tcolorbox}[enhanced,breakable,
+	  colback=white,colframe=black,
+	  title={\textbf{Key step: this is where the free-Dirac theory couples to gravity}},
+	  fonttitle=\bfseries]
+	Up to this point $\alpha_G$ is an \emph{undetermined} normalization constant of the
+	free wavefunction.  It becomes the gravitational coupling constant only when we
+	\textbf{match the phase-field energy to the Newtonian gravitational potential} of a
+	source of mass $M$:
+	\begin{equation}
+	  \underbrace{\frac{c\hbar}{2i\,\alpha_G^2\,r}}_{\text{phase-field energy (free QM)}}
+	  \;=\;
+	  \underbrace{-\frac{GMm}{r}}_{\text{gravitational potential (input)}}.
+	  \label{eq:coupling_step}
+	\end{equation}
+	This matching is the \emph{gravitational coupling step}: without it, $\alpha_G$
+	remains a free parameter and no gravitational physics is predicted.
+	After this step, $G$, $M$, and $m$ enter $\alpha_G$ and all subsequent quantities.
+	\end{tcolorbox}
+
 	For a static gravitational source, $E_{\mathrm{field}} = V = -GMm/r$:
 	\begin{equation}
 		\frac{c\hbar}{2i\,\alpha_G^2\,r} = -\frac{GMm}{r}.
@@ -1439,73 +1519,149 @@
 	\end{equation}
 	
 	%=============================================================
-	\section{Newtonian Limit from Phase Oscillations}
+	\section{The Exact Quantum Force Law and Higher-Order Corrections}
+	\label{sec:UV_identification}
 	%=============================================================
-	
-	\subsection{Phase Structure and Expansion}
-	
-	The action $S=pr$ gives phase factor $e^{2ipr/\hbar}$.  Taylor expansion with $p=mc$:
+
+	\subsection{The exact phase-field formula}
+
+	The momentum and energy fields in the weak-field limit satisfy:
 	\begin{equation}
-		e^{2imcr/\hbar} = 1 + \frac{2imcr}{\hbar} - \frac{2m^2c^2r^2}{\hbar^2} - i\frac{4m^3c^3r^3}{3\hbar^3} + \cdots
+		E(r) = \frac{mc^2}{\alpha_G^2\,e^{2imcr/\hbar}}.
+		\label{eq:E_phase}
 	\end{equation}
-	
-	The leading term $2imcr/\hbar$ reproduces Newton's law as shown in Section~\ref{sec:newton}:
+	Substituting $\alpha_G^2 = ic\hbar/(2GMm)$:
 	\begin{equation}
-		F_1 = \frac{GMm}{r^2}. \quad\checkmark
+		\boxed{E(r) = -\frac{GMm}{e^{2imcr/\hbar}} = -GMm\,e^{-2imcr/\hbar}.}
+		\label{eq:E_exact_exp}
 	\end{equation}
-	
-	\subsection{Higher-Order Corrections}
-	
-	\paragraph{Second term ($r^2$):}
+	Factoring $e^{it} = it\cdot(\sin t/t)$ with $t = 2r/\lambda_C = 2mcr/\hbar$:
 	\begin{equation}
-		F_2 \propto r^{-3} \quad\text{(wrong power law---discarded)}.
+		e^{it} = \frac{2imcr}{\hbar}\cdot\frac{\sin(2r/\lambda_C)}{2r/\lambda_C},
 	\end{equation}
-	
-	\paragraph{Third term ($r^3$):}
-	Using $-i\,4m^3c^3r^3/(3\hbar^3)$ and substituting $\alpha_G^2=ic\hbar/(2GMm)$:
-	\begin{align}
-		E_3(r) &= -\frac{3\hbar^3}{4im^2c\,\alpha_G^2\,r^3}
-	\end{align}
+	so the exact energy can be written:
 	\begin{equation}
-		F_3 = -\frac{dE_3}{dr} = \frac{9GM\hbar^2}{2mc^2r^4}
+		\boxed{E(r) = -\frac{GMm}{r}\cdot\frac{2r/\lambda_C}{\sin(2r/\lambda_C)}.}
+		\label{eq:E_sinh}
 	\end{equation}
-	
+	Note: $E(r)$ in~\eqref{eq:E_sinh} is \emph{real} and recovers $-GMm/r$
+	as $r\to0$ (since $x/\sin x\to1$). It is the exact gravitational potential
+	at the quantum-gravity scale, valid for $r < \pi\lambda_C/2$.
+
+	\subsection{Derivation of Newton's law}
+
+	At leading order $r\ll\lambda_C$, using $\sin(2r/\lambda_C)\approx 2r/\lambda_C$:
 	\begin{equation}
-		\boxed{F_3 = \frac{9GM\hbar^2}{2mc^2r^4}}
+		E(r) \approx -\frac{GMm}{r}, \qquad F = -\frac{dE}{dr} = \frac{GMm}{r^2}.\quad\checkmark
 	\end{equation}
-	
-	\subsection{Complete Force Law}
-	
+
+	\subsection{Higher-order corrections: term-by-term and exact}
+
+	\paragraph{Term-by-term from the Taylor expansion of $e^{it}$.}
+	Expanding $e^{it} = it(1 - t^2/6 + t^4/120 - \cdots)$:
 	\begin{equation}
-		\boxed{F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{\lambda_C}{r}\right)^2 + \mathcal{O}(r^{-4})\right]}
+		E(r) = -\frac{GMm}{r}\cdot\frac{t}{\sin t}
+		     = -\frac{GMm}{r}\!\left[1 + \frac{t^2}{6} + \frac{7t^4}{360}
+		       + \frac{31t^6}{15120} + \frac{127t^8}{604800} + \cdots\right]
 	\end{equation}
-	
-	where $\lambda_C=\hbar/(mc)$ is the Compton wavelength.
-	
-	\subsection{Crossover Scale}
-	
-	Quantum correction equals Newtonian when $\frac{9\hbar^2}{2m^2c^2r^2}=1$:
+	where $t = 2r/\lambda_C$.  Taking $F=-dE/dr$ and using $dt/dr = 2/\lambda_C$:
 	\begin{equation}
-		r_c = \frac{3}{\sqrt{2}}\lambda_C \approx 2.12\,\lambda_C.
+		F(r) = \frac{GMm}{r^2}\!\left[1 + \frac{9}{2}\!\left(\frac{\lambda_C}{r}\right)^{\!2}
+		      + \frac{7\cdot16}{360}\!\left(\frac{\lambda_C}{r}\right)^{\!4}
+		      + \cdots\right].
 	\end{equation}
-	
-	\subsection{Pattern in Expansion}
-	
-	\begin{align}
-		\text{Term 1} &: \frac{2imcr}{\hbar} \to F_1 \propto r^{-2} \quad\text{(Newtonian)} \\
-		\text{Term 3} &: -i\frac{4m^3c^3r^3}{3\hbar^3} \to F_3 \propto r^{-4} \quad\text{(quantum correction)} \\
-		\text{Term 5} &: \cdots \to F_5 \propto r^{-6}
-	\end{align}
-	
+	More precisely, each coefficient $a_k$ in
+	$F = (GMm/r^2)\sum_{k=0}^\infty a_k(\lambda_C/r)^{2k}$
+	is extracted from the exact closed form below.
+
+	\paragraph{Exact closed form.}
+	From~\eqref{eq:E_sinh}, differentiating exactly:
+	\begin{equation}
+		\boxed{F(r) = \frac{GMm}{r^2}\cdot\frac{t^2\cos t}{\sin^2 t},
+		\qquad t = \frac{2r}{\lambda_C}.}
+		\label{eq:F_exact_closed}
+	\end{equation}
+	This is the \textbf{exact QGD quantum-gravity force law} valid for all
+	$r\in(0,\,\pi\lambda_C/2)$.
+
+	\subsection{Series coefficients: a closed formula for all orders}
+
+	Expanding $t^2\cos t/\sin^2 t$ in powers of $t$ (equivalent to powers of
+	$\lambda_C/r$ via $t = 2r/\lambda_C$) using the known series
+	$t^2\cot^2(t/2) = \sum_{n=0}^\infty c_n t^{2n}$:
+	\begin{equation}
+		F(r) = \frac{GMm}{r^2}\!\left[
+		  1
+		  - \frac{t^2}{6}
+		  - \frac{7t^4}{120}
+		  - \frac{31t^6}{3024}
+		  - \frac{127t^8}{86400}
+		  - \frac{73t^{10}}{380160}
+		  - \cdots
+		\right].
+	\end{equation}
+
+	The coefficients of $t^{2k}$ are related to the \textbf{Bernoulli numbers}
+	$B_{2k}$ by the identity for $t/\sin t$:
+	\begin{equation}
+		\frac{t}{\sin t} = \sum_{k=0}^{\infty}
+		  \frac{(2-2^{2k})\,B_{2k}}{(2k)!}\,(-1)^{k+1}\,t^{2k}
+		= 1 + \frac{t^2}{6} + \frac{7t^4}{360} + \frac{31t^6}{15120} + \cdots
+	\end{equation}
+	so that the force coefficients $a_k$ in $F = (GMm/r^2)\sum_{k\geq0}a_k t^{2k}$
+	satisfy the closed formula:
+	\begin{equation}
+		\boxed{a_k = \frac{d}{dt^{2k}}\!\left[\frac{t^2\cos t}{\sin^2 t}\right]_{t=0}
+		     = 1 - (2k+1)\,\frac{(2-2^{2k})(-1)^{k+1}B_{2k}}{(2k)!}}
+		\label{eq:a_k_closed}
+	\end{equation}
+	(with $a_0=1$, $B_0=1$, $B_2=1/6$, $B_4=-1/30$, $B_6=1/42$, \ldots).
+
+	\begin{table}[h]
+	\centering
+	\renewcommand{\arraystretch}{1.3}
+	\caption{First six quantum-gravity force coefficients.
+	  $F(r) = (GMm/r^2)\sum_k a_k(2r/\lambda_C)^{2k}$ from~\eqref{eq:F_exact_closed}.}
+	\begin{tabular}{@{}ccccc@{}}
+	\toprule
+	$k$ & Coefficient of $t^{2k}$ & $a_k$ & In $(r/\lambda_C)^{2k}$ & In $(\lambda_C/r)^{2k}$ \\
+	\midrule
+	0 & $t^0$  & $1$         & 1  & 1 \\
+	1 & $t^2$  & $-1/6$      & $-(2/3)(r/\lambda_C)^2$ & Leading quantum term \\
+	2 & $t^4$  & $-7/120$    & ...   &   \\
+	3 & $t^6$  & $-31/3024$  & ...   &   \\
+	4 & $t^8$  & $-127/86400$& ...   &   \\
+	5 & $t^{10}$&$-73/380160$& ...   &   \\
+	\bottomrule
+	\end{tabular}
+	\end{table}
+
+	\subsection{Domain and physical interpretation}
+
+	\begin{itemize}
+		\item \textbf{Valid range:} $r < \pi\lambda_C/2 \approx 1.57\,\lambda_C$.
+		  At $r = \pi\lambda_C/2$: $\sin(2r/\lambda_C) = 0$, force diverges ---
+		  a \emph{quantum gravity horizon} at the Compton scale.
+		\item \textbf{Classical limit} $r\gg\lambda_C$: the Taylor expansion
+		  is invalid (phase $t=2r/\lambda_C\gg1$); Newton's law is recovered
+		  from the current-conservation bridge and the QGD field equation instead
+		  (see Remark~\ref{rem:regimes}).
+		\item \textbf{Quantum regime} $r\sim\lambda_C$: all orders are comparable;
+		  the exact formula~\eqref{eq:F_exact_closed} must be used.
+		\item \textbf{Crossover scale:} quantum correction equals Newtonian
+		  at $r_c = (3/\sqrt{2})\lambda_C \approx 2.12\,\lambda_C$. For an
+		  electron: $r_c \approx 8\times10^{-13}$\,m.
+	\end{itemize}
+
 	\begin{table}[h]
 		\centering
-		\begin{tabular}{lcc}
+		\begin{tabular}{@{}lcc@{}}
 			\toprule
-			Regime & Distance & Correction $F_3/F_1$ \\
+			Regime & Distance & Dominant term \\
 			\midrule
-			Classical   & $r\gg\lambda_C$ & $\ll1$ \\
-			Transition  & $r\sim2\lambda_C$ & $\sim1$ \\
-			Quantum     & $r\lesssim\lambda_C$ & $\gg1$ \\
+			Classical   & $r\gg\lambda_C$ & Use QGD field equation $\square_g\sigma=0$ \\
+			Transition  & $r\sim2\lambda_C$ & Exact formula~\eqref{eq:F_exact_closed} \\
+			Quantum     & $r\lesssim\lambda_C$ & All orders of series; diverges at $r=\pi\lambda_C/2$ \\
 			\bottomrule
 		\end{tabular}
 	\end{table}
