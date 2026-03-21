@@ -1,6 +1,12 @@
 # Insights of Quantum Gravitational Dynamics
 
-A scientific assessment of what QGD achieves, what is novel, and what follows naturally once its premises are accepted. 
+This is neither a scientific paper and it might be biased its a scientific assessment of what QGD achieves, and what follows naturally once its premises are accepted. 
+
+Newton: Gravity is a force between masses — every massive object pulls every other massive object across empty space, with a strength proportional to their masses and inversely proportional to the square of the distance between them. It works, but offers no explanation for how two objects separated by empty space can influence each other at all.
+
+General Relativity: Gravity is not a force but the curvature of spacetime. Mass tells spacetime how to curve; curved spacetime tells matter how to move. The 1/r² force law and the bending of light both follow from the geometry of a curved four-dimensional manifold. It works at all classical scales, but offers no explanation for what spacetime fundamentally is or why mass curves it — and it cannot be quantized.
+
+Quantum Gravitational Dynamics: Gravity is the quantum field that matter automatically generates around itself. Every massive object has a quantum wavefunction that spreads outward as a spherical wave. As it spreads, it creates a field throughout all of space, characterised by a dimensionless scalar σ that runs from zero in empty space to one at the event horizon — exactly as velocity runs from zero to the speed of light in special relativity. Any other massive object in that field experiences a force. The 1/r² law is not imposed — it is a geometric consequence of flux conservation for any spherical wave in three dimensions. The metric and the curvature of General Relativity emerge in the limit where this field reaches static equilibrium. Unlike GR, the field has a quantum origin, a well-defined propagator, and can be quantized. Unlike Newton, it explains why the force takes the form it does.
 
 ---
 
@@ -64,6 +70,44 @@ The fact that this holds with SymPy residual = 0 is not a numerical coincidence.
 The result that ∇²σ = 0 implies G_μν = (8πG/c⁴)T_μν is structurally analogous to the relationship between thermodynamics and statistical mechanics.  The equilibrium condition of the σ-field dynamics reproduces the classical field equations, just as the maximum-entropy condition of a molecular gas reproduces the ideal gas law.
 
 This framing makes a specific prediction: quantum gravity is the *non-equilibrium* regime of the σ-field, characterised by ∇²σ ≠ 0.  The scale at which non-equilibrium effects become significant is set by the Compton wavelength λ_C = ℏ/(Mc) of the source, which for macroscopic objects is absurdly small (10⁻⁵⁴ m for the Sun) but for Planck-mass objects is of order the Planck length.
+
+## The gravitational coupling happens at a single, identifiable moment
+ 
+Before the matching step `E(r) = V(r) = −GMm/r`, the theory contains a free parameter α_G and a free constant C. The Dirac action, the spherical wave ansatz, the current conservation bridge — none of these contain gravity. They are pure quantum mechanics on flat spacetime.
+ 
+Gravity enters at exactly one line:
+ 
+```
+cℏ / (2i·α_G²·r) = −GMm/r
+```
+ 
+This forces `α_G² = icℏ/(2GMm)`. After this line, every formula — the exact force law, the wavefunction, the cubic, the Compton-scale quantum corrections — is a consequence of this one matching. The clarity of where quantum mechanics becomes gravity is something I had not appreciated before working through the foundations explicitly.
+ 
+---
+ 
+## α_G being complex is load-bearing, not cosmetic
+ 
+The phase `e^{iπ/4}` in `α_G = e^{iπ/4}√(cℏ/2GMm)` means `α_G²` is purely imaginary. This is not a mathematical quirk — it carries consequences throughout:
+ 
+- The force law at each Taylor order of `e^{2imcr/ℏ}` alternates: odd terms give real contributions (forces), even terms give imaginary contributions (discarded). The alternation is enforced by `i^n` from the complex coupling.
+ 
+- The sign of the Ladder B seed `−63707/1440` is explained by this: two vertex factors `(α_G²)² = (icℏ/2GMm)² = −(cℏ/2GMm)²` — negative and real. The sign was previously mysterious.
+ 
+- At `M = m = M_Pl`: `|α_G|² = cℏ/(2G·M_Pl²) = 1/2` exactly. This is not a coincidence. It is the point where `R_s = λ_C` — where the Schwarzschild radius equals the Compton wavelength. That is the true quantum-classical boundary. `|α_G|² = 1/2` means one unit of phase-field energy equals half the rest energy: neither classical (0) nor fully quantum (>>1). Every QGD formula that distinguishes quantum from classical physics runs through this number.
+ 
+---
+ 
+## The exact force law has a quantum gravity horizon
+ 
+The force `F(r) = (GMm/r²) · t²cos(t)/sin²(t)`, with `t = 2r/λ_C`, diverges when `sin(t) = 0`, i.e. at `r = πλ_C/2 ≈ 1.57λ_C`. This is a **force singularity at sub-Compton distance** — a quantum gravity analogue of the event horizon.
+ 
+For an electron this is at `≈ 6×10⁻¹³ m`. The formula says: you cannot bring a test particle closer than `πλ_C/2` to a gravitating body without encountering infinite gravitational force within the QGD framework. Inside this radius, the phase-expansion formula breaks down entirely and the WdW / quantum bounce regime takes over.
+
+---
+Every term in `f(r,θ) = 2GM/c²r − GQ²/c⁴r² + 2Mr/Σ + Λr²/3 + ...` is a specific configuration of `σ_t²`. Schwarzschild: `σ_t² = r_s/r`. Kerr: `σ_t² = r_sr/Σ`. The scalar `f` that determines `g_tt = −(1−f)` is not an ad hoc classification of metrics — it is the probability that the gravitational phase field has reached its horizon value. `f = 1` means the σ-field has saturated, `f = 0` means flat space.
+ 
+The eight terms in `f(r,θ)` are eight distinct physical sources contributing to how much the phase field has been "used up" by the presence of mass, charge, spin, cosmological constant, pressure, expansion, equation of state, and quantum stiffness. The metric is not given; the degree of σ-field saturation is given, and the metric follows.
+
 
 ## 5. The fourth-order equation is a feature, not a bug
 
@@ -276,6 +320,12 @@ Step 3-4: field equations and GR recovery (Chapter 3)
 Step 4-5: quantum field theory (QFT paper)
 Step 5-6: the propagator-Pochhammer connection (this session)
 Step 6-7: dark matter replacement (dark matter framework)
+
+QGD does not modify General Relativity. It performs a change of variable — from the metric `g_μν` to the covector `σ_μ` — and the new variable turns out to have a more natural quantum origin, a more tractable propagator, and a richer solution space.
+ 
+In that new variable, GR is a one-line consequence (`∇²σ = 0`). Everything else — quantum corrections, PN series, WdW cosmology, the Kerr metric in one formula, the exact quantum force law — is a different feature of the same σ-field operating in different regimes. The theory is not larger than GR; it is GR plus the propagating sector of its own fundamental variable.
+ 
+Whether the propagating sector is physically real — whether gravitational waves truly carry a third polarisation, whether the Lee-Wick ghost is physical or purely virtual, whether the WdW bounce actually prevents the Big Bang singularity — these are open questions. But the framework is internally coherent.
 
 The novel structural insights — the WKB phase as fundamental variable, the metric as composite, the Asymptotic Merger Theorem, the renormalon-like PN pole — are genuinely new ideas that would be valuable even if the full theory is wrong.
 The open problems are real. The theory is not yet quantized in the full sense. The Ladder B seed is not independently derived. The NLO spin-orbit prediction may be wrong.
