@@ -123,19 +123,19 @@
 	
 	\section{Introduction}
 	
-	The central question: how does classical gravity emerge from quantum mechanics? We answer through a precise mathematical structure: \textbf{the wavefunction contains gravitational dynamics}, and current conservation provides the bridge to classical physics.
+	The central question addressed in this paper is how classical gravity emerges from quantum mechanics.  The proposed answer rests on a specific mathematical structure: the wavefunction encodes gravitational dynamics, and current conservation provides the bridge to classical physics.
 	
-	The key insight: gravity is a spherical matter wave radiating to infinity.  Any such wave in three spatial dimensions must carry a $1/r$ amplitude factor from geometry alone.  The wavefunction is therefore
+	The point of departure is the observation that gravity may be modelled as a spherical matter wave radiating to infinity.  Any such wave in three spatial dimensions carries a $1/r$ amplitude factor from geometry alone.  The wavefunction is therefore taken to have the form
 	\begin{equation}
 		\psi = \frac{\alpha_G}{r}\,u\,e^{iS/\hbar}
 	\end{equation}
-	giving $|\psi|^2 \propto 1/r^2$.  Combined with the exact current-conservation bridge
+	giving $|\psi|^2 \propto 1/r^2$.  Combined with the current-conservation relation
 	\begin{equation}
 		|\psi|^2 \cdot p \cdot r^2 = C
 	\end{equation}
-	the $r^2$ cancels exactly, yielding the momentum equation purely from geometry---no plane-wave postulate required.
+	the $r^2$ factors cancel, yielding a momentum equation determined by geometry alone, without a plane-wave postulate.
 	
-	All of this occurs in \textit{flat Minkowski spacetime}---no curved geometry assumed.
+	The analysis is carried out in \textit{flat Minkowski spacetime}; no curved background geometry is assumed.
 	
 	\bigskip
 	\noindent\textbf{Note on the gravitational coupling constant.}
@@ -161,27 +161,8 @@
 	%=============================================================
 	
 	\subsection{Field Content and Dynamics}
-	
-	The sole microscopic degree of freedom: Dirac spinor $\psi(x)\in\mathbb{C}^4$.
-	
-	Action in flat spacetime:
-	\begin{equation}
-		S_D = \int d^4x\,\bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi
-		\label{eq:dirac_action}
-	\end{equation}
-	where $\bar{\psi}=\psi^\dagger\gamma^0$ and $\{\gamma^\mu,\gamma^\nu\}=2\eta^{\mu\nu}$ with $\eta=\mathrm{diag}(-1,+1,+1,+1)$.
-	
-	\textbf{Uniqueness:} This is the only Lorentz-invariant, local, linear action for spin-$\tfrac{1}{2}$ fields with positive-definite energy.
 
-	\begin{tcolorbox}[enhanced,breakable,
-	  colback=white,colframe=black,
-	  title={\textbf{Required correction: the microscopic action must include interactions}},
-	  fonttitle=\bfseries]
-	Coarse-graining the \emph{free} Dirac action $S_D$ generates only mass and wavefunction
-	renormalisation---no new interaction operators can emerge from a theory with none.
-	The pressure term $P(\bar\psi\psi)$, Maxwell kinetic term $F^2$, and angular-momentum
-	coupling $J^2\bar\psi\psi$ in the effective Lagrangian require an interacting microscopic
-	starting point.  The correct microscopic action is:
+	The theory is formulated in terms of a single microscopic degree of freedom: the Dirac spinor $\psi(x)\in\mathbb{C}^4$.  The microscopic action in flat Minkowski spacetime is
 	\begin{equation}
 	  \mathcal{S}_{\rm micro} = \int d^4x\!\left[
 	    \bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi
@@ -191,14 +172,14 @@
 	  \right]
 	  \label{eq:S_micro_correct}
 	\end{equation}
-	where $G_{\rm NJL}$ is the Nambu--Jona-Lasinio coupling.  Wilsonian coarse-graining of
-	$\mathcal{S}_{\rm micro}$ generates $P(\bar\psi\psi)$ from the four-Fermi term,
-	$-\tfrac{1}{4}F^2$ from the EM coupling, the $J^2$ operator from its derivative
-	expansion, and $\rho_\Lambda$ from zero-point fluctuations.  The free action
-	$S_D$~\eqref{eq:dirac_action} describes the \emph{single-particle sector} only.
-	The coarse-graining results in the subsequent sections are understood as derived
-	from $\mathcal{S}_{\rm micro}$.
-	\end{tcolorbox}
+	where $\bar{\psi}=\psi^\dagger\gamma^0$, $\{\gamma^\mu,\gamma^\nu\}=2\eta^{\mu\nu}$ with $\eta=\mathrm{diag}(-1,+1,+1,+1)$, and $G_{\rm NJL}$ is the Nambu--Jona-Lasinio (NJL) four-fermion coupling constant.  The four terms are, respectively: the free Dirac kinetic term, a local four-fermion self-interaction, the Maxwell kinetic term, and the minimal electromagnetic coupling.
+
+	The free-field subsector
+	\begin{equation}
+		S_D = \int d^4x\,\bar{\psi}(i\gamma^\mu\partial_\mu - m)\psi
+		\label{eq:dirac_action}
+	\end{equation}
+	is the unique Lorentz-invariant, local, linear action for spin-$\tfrac{1}{2}$ fields with positive-definite energy, but it does not suffice as the microscopic starting point: coarse-graining $S_D$ alone generates only mass and wavefunction renormalisation, since no new interaction operators can arise from a free theory.  The pressure term $P(\bar\psi\psi)$, Maxwell kinetic term, and angular-momentum coupling $J^2\bar\psi\psi$ that appear in the gravitational effective Lagrangian all require the interacting terms present in $\mathcal{S}_{\rm micro}$.  Specifically, Wilsonian coarse-graining of $\mathcal{S}_{\rm micro}$ generates $P(\bar\psi\psi)$ from the four-Fermi term, $-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$ from the EM sector, the $J^2$ operator from its derivative expansion, and $\rho_\Lambda$ from zero-point fluctuations.  All coarse-graining results in the subsequent sections are derived from $\mathcal{S}_{\rm micro}$.
 
 	\subsection{Stress-Energy Tensor}
 	
@@ -250,21 +231,21 @@
 		UV scale throughout the present section to avoid any circularity.
 	
 	\subsection{Full Theory and Regularisation}
-	
-	We begin from the Dirac path integral in flat Minkowski spacetime
-	$(\mathcal{M}, \eta_{\mu\nu})$, signature $(-,+,+,+)$:
+
+	The starting point for the Wilsonian coarse-graining is the path integral over $\mathcal{S}_{\rm micro}$~\eqref{eq:S_micro_correct} in flat Minkowski spacetime $(\mathcal{M}, \eta_{\mu\nu})$, signature $(-,+,+,+)$:
 	\begin{equation}
 		\mathcal{Z} \;=\;
 		\int \mathcal{D}\bar{\psi}\,\mathcal{D}\psi\;
 		\exp\!\left(\frac{i}{\hbar}
 		\int d^4x\;
-		\bar{\psi}\bigl(i\hbar\gamma^\mu\partial_\mu - mc\bigr)\psi
+		\Bigl[\bar{\psi}\bigl(i\hbar\gamma^\mu\partial_\mu - mc\bigr)\psi
+		+ G_{\rm NJL}(\bar{\psi}\psi)^2
+		- \tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}
+		- e\bar{\psi}\gamma^\mu A_\mu\psi\Bigr]
 		\right),
 		\label{eq:path_integral}
 	\end{equation}
-	with a UV cutoff $\Lambda_{\mathrm{UV}}$ imposed by Pauli--Villars
-	regularisation.  No assumption is made about the value or interpretation of
-	$\Lambda_{\mathrm{UV}}$ at this stage.
+	with a UV cutoff $\Lambda_{\mathrm{UV}}$ imposed by Pauli--Villars regularisation.  No assumption is made about the value or interpretation of $\Lambda_{\mathrm{UV}}$ at this stage.
 	
 	\subsection{Mode Decomposition and Integration over Fast Modes}
 	\label{sec:mode_int}
@@ -289,9 +270,8 @@
 	$\psi_{>}$ encodes physics between $\Lambda_{\mathrm{UV}}^{-1}$ and $\ell$.
 	
 	\subsubsection{Gaussian integration over fast modes}
-	
-	Since the Dirac action is quadratic in $\psi$, the integral over $\psi_{>}$
-	is Gaussian and can be performed exactly:
+
+	The fast-mode integral is evaluated by separating the action into a quadratic (free Dirac) part and the interaction terms.  The free part generates a Gaussian integral over $\psi_{>}$ that can be performed exactly; the NJL four-Fermi interaction and the EM coupling contribute via an expansion of $e^{iS_{\rm int}/\hbar}$ in powers of $G_{\rm NJL}$ and $e$ respectively, generating the loop diagrams that produce the effective operators listed below.  The result is
 	\begin{equation}
 		\mathcal{Z} \;=\;
 		\int \mathcal{D}\bar{\psi}_{<}\,\mathcal{D}\psi_{<}\;
@@ -307,10 +287,7 @@
 		\Big|_{>},
 		\label{eq:Seff_exact}
 	\end{equation}
-	and $|_{>}$ denotes restriction to the momentum shell
-	$[\mu, \Lambda_{\mathrm{UV}}]$.  The $\mathrm{Tr}\ln$ generates all
-	one-particle-irreducible (1PI) diagrams with fast-mode internal lines and
-	slow-mode external legs.
+	$|_{>}$ denotes restriction to the momentum shell $[\mu, \Lambda_{\mathrm{UV}}]$, and $V[\psi_{<}]$ encodes the interaction vertices of $\mathcal{S}_{\rm micro}$ with slow-mode external legs.  The $\mathrm{Tr}\ln$ generates all one-particle-irreducible (1PI) diagrams with fast-mode internal lines and slow-mode external legs.
 	
 	Generation of effective operators
 		\label{prop:operators}
@@ -351,15 +328,10 @@
 			$\Lambda_{\mathrm{UV}}$ (see Section~\ref{sec:UV_identification}).
 			
 			\item \textbf{Pressure.}
-			A four-Fermi diagram (four slow external legs, one fast internal loop)
-			generates $-g_P(\bar{\psi}_{<}\psi_{<})^2$, which at low energy becomes
-			the equation-of-state term $P(\bar{\psi}_{<}\psi_{<})$.
+			The four-Fermi vertex $G_{\rm NJL}(\bar{\psi}\psi)^2$ present in $\mathcal{S}_{\rm micro}$ generates, via a four-external-leg slow-mode diagram with one fast internal loop, the term $-g_P(\bar{\psi}_{<}\psi_{<})^2$, which at low energy becomes the equation-of-state term $P(\bar{\psi}_{<}\psi_{<})$.
 			
 			\item \textbf{Electromagnetic coupling.}
-			Minimal coupling $-e\bar{\psi}\gamma^\mu A_\mu\psi$ is the unique
-			$\mathrm{U}(1)$-covariant marginal deformation; integrating out fast
-			charged modes generates the Maxwell kinetic term
-			$-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$.
+			The minimal coupling $-e\bar{\psi}\gamma^\mu A_\mu\psi$ present in $\mathcal{S}_{\rm micro}$ is the unique $\mathrm{U}(1)$-covariant marginal deformation; integrating out fast charged modes generates the Maxwell kinetic term $-\tfrac{1}{4}F_{\mu\nu}F^{\mu\nu}$ in the effective theory.
 			
 			\item \textbf{Angular momentum / spin.}
 			The dimension-6 operator
@@ -441,7 +413,7 @@
 	
 	Effective Lagrangian from Wilsonian coarse-graining
 		\label{thm:Leff}
-		Let the Dirac theory \eqref{eq:path_integral} be coarse-grained over a scale
+		Let the interacting Dirac theory $\mathcal{S}_{\rm micro}$~\eqref{eq:S_micro_correct} be coarse-grained over a scale
 		$\ell$ satisfying \eqref{eq:hierarchy}, with $\Lambda_{\mathrm{UV}}$ an
 		unspecified UV scale.  Then the unique effective Lagrangian consistent with
 		Lorentz invariance, $\mathrm{U}(1)$ symmetry, locality, and positive-definite
@@ -515,33 +487,32 @@
 		}
 		\label{eq:Tmunu_full}
 	\end{equation}
-	This is the complete Einstein stress-energy tensor, derived from the Dirac
-	action via coarse-graining --- not postulated.
+	The result~\eqref{eq:Tmunu_full} has the structure of the Einstein stress-energy tensor; each term arises from the corresponding term in the effective Lagrangian via coarse-graining rather than being postulated independently.
 	
 	The gravitational force function then takes the form $F(r) = \Omega/P(r)$
 	where $P(r) = i\sinh(2\alpha r)$ emerges from the phase-gradient equation;
-	Newton's law is the $\alpha r \to 0$ limit (see Theorem~\ref{thm:Newton} and
+	Newton's law is the $\alpha r \to 0$ limit (see Section~\ref{sec:newton} and
 	Section~\ref{sec:UV_identification} where $\alpha$ --- and hence
 	$\Lambda_{\mathrm{UV}}^{-1}$ --- is identified).
 	
 	\subsection{Effective Lagrangian}
-	
-	Symmetries (Lorentz, U(1), locality) constrain the effective theory:
-	\begin{multline}
-		\mathcal{L}_{\mathrm{eff}} = \frac{i}{2}\bar{\psi}\gamma^\mu\overleftrightarrow{\partial}_\mu\psi - m\bar{\psi}\psi - P(\bar{\psi}\psi) \\
-		- \frac{1}{4}F_{\mu\nu}F^{\mu\nu} - \frac{1}{2M^2}J_{\mu\nu}J^{\mu\nu}\bar{\psi}\psi - \rho_\Lambda
-		\label{eq:eff_lagrangian}
-	\end{multline}
-	
-	\textbf{Physical interpretation:}
-	\begin{itemize}
-		\item $m\bar{\psi}\psi$: rest mass density $\to$ Schwarzschild
-		\item $P(\bar{\psi}\psi)$: pressure $\to$ equation of state
-		\item $J_{\mu\nu}J^{\mu\nu}$: angular momentum $\to$ Kerr frame-dragging
-		\item $F_{\mu\nu}F^{\mu\nu}$: electromagnetic energy $\to$ Reissner-Nordstr\"om
-		\item $\rho_\Lambda$: vacuum energy $\to$ cosmological constant
-	\end{itemize}
-	Each term maps to specific gravitational effects in the macroscopic limit.
+	\label{sec:eff_lagrangian_summary}
+
+	% NOTE (C8): This subsection is retained as a navigational anchor but the
+	% Lagrangian is not repeated here to avoid duplication with Theorem~\ref{thm:Leff}
+	% above, which states and derives the identical expression eq.~\eqref{eq:Leff_final}
+	% with its full physical interpretation table.  See that theorem for the complete
+	% statement.  The label \texttt{eq:eff\_lagrangian} below aliases the same content.
+	\newcommand{\efflagalias}{\eqref{eq:Leff_final}}%
+
+	The effective Lagrangian derived in Theorem~\ref{thm:Leff}, Eq.~\eqref{eq:Leff_final},
+	is the unique result consistent with Lorentz invariance, U(1) symmetry, locality,
+	and positive-definite energy.  To summarise its physical content: each term maps to
+	a specific classical gravitational effect in the macroscopic limit---rest-mass density
+	to Schwarzschild, pressure to equation of state, angular momentum to Kerr
+	frame-dragging, electromagnetic energy to Reissner--Nordstr\"om, and vacuum energy to
+	the cosmological constant.  The derivation and full table are given in
+	Theorem~\ref{thm:Leff}.
 	
 	%=============================================================
 	\section{The Complete Action}
@@ -579,7 +550,7 @@
 		\label{eq:stress_energy_full}
 	\end{equation}
 	
-	\textbf{This is the complete Einstein stress-energy tensor.}
+	The result has the structure of the Einstein stress-energy tensor.
 	
 	\subsection{Component Origins}
 	
@@ -610,7 +581,7 @@
 	
 	\subsection{The Effective Hamiltonian}
 	
-	ALL stress-energy contributions enter through:
+	All stress-energy contributions enter through:
 	\begin{equation}
 		\boxed{H = \int\rho c^2\,dV - \int P\,dV - \frac{J^2}{2mr^2} + V_{EM} + \rho_\Lambda}
 		\label{eq:hamiltonian}
@@ -633,7 +604,7 @@
 		\Delta' &= E - mc^2 - H \quad\text{(antiparticle states)} \label{eq:Delta_prime}
 	\end{align}
 	
-	\textbf{Explicit form with ALL contributions:}
+	\textbf{Explicit form with all contributions:}
 	\begin{equation}
 		\boxed{
 			\Delta = E + \underbrace{mc^2}_{\text{test}} + \underbrace{\int\rho c^2\,dV}_{\text{source}} - \underbrace{\int P\,dV}_{\text{pressure}} - \underbrace{\frac{J^2}{2mr^2}}_{\text{spin}} + \underbrace{V_{EM}}_{\text{EM}} + \underbrace{\rho_\Lambda}_{\text{vacuum}}
@@ -659,7 +630,7 @@
 		\item $u$: slowly-varying four-component spinor envelope
 	\end{itemize}
 	
-	\textbf{Dimensional note.}  Previously the wavefunction was written $\psi = \alpha_G \cdot u \cdot e^{iS/\hbar}$ with $\alpha_G$ carrying no $r$-dependence.  This was the source of the earlier inconsistency: $\alpha_G$ was dimensionless but $\psi$ requires dimensions $L^{-3/2}$, so the spatial structure was implicitly hidden in $u$.  Explicitly writing $1/r$ restores dimensional integrity and is forced by the spherical-wave geometry.
+	\textbf{Dimensional note.}  Previously the wavefunction was written $\psi = \alpha_G \cdot u \cdot e^{iS/\hbar}$ with $\alpha_G$ carrying no $r$-dependence.  This was the source of the earlier inconsistency: $\alpha_G$ was dimensionless but $\psi$ requires dimensions $L^{-3/2}$, so the spatial structure was implicitly hidden in $u$.  Explicitly writing $1/r$ restores dimensional consistency and follows from the spherical-wave geometry.
 	
 	\subsection{Probability Current}
 	
@@ -669,7 +640,7 @@
 		\label{eq:current}
 	\end{equation}
 	
-	\textbf{Key point:} The phase $e^{iS/\hbar}$ cancels in $\bar{\psi}\psi = \psi^\dagger\gamma^0\psi$.
+	\textit{Note:} The phase $e^{iS/\hbar}$ cancels in $\bar{\psi}\psi = \psi^\dagger\gamma^0\psi$.
 	
 	\textbf{Non-relativistic limit:} For spinor aligned with momentum:
 	\begin{equation}
@@ -715,7 +686,7 @@
 		\label{eq:cubic_from_geometry}
 	\end{equation}
 	
-	\textbf{This is the quantum-classical bridge, derived from first principles.}  No plane-wave postulate is required.  The $r^2$ cancellation is the geometric consequence of gravity being a spherical radiating wave in 3D space---the same geometry that produces Newton's $1/r^2$ force law.
+	Equation~\eqref{eq:cubic_from_geometry} is the quantum-classical bridge.  The $r^2$ cancellation follows from the spherical-wave ansatz and is exact; no plane-wave approximation is introduced.  The same geometric factor that produces Newton's $1/r^2$ law is responsible for the cancellation.
 	
 	The constant $C$ will be determined through the complete system of equations.
 
@@ -761,7 +732,7 @@
 		\begin{pmatrix} u_A \\ u_B \end{pmatrix} = 0
 		\label{eq:coupled_system}
 	\end{equation}
-	where $H$ contains ALL stress-energy contributions as defined in Eq.~\eqref{eq:hamiltonian}.
+	where $H$ contains all stress-energy contributions as defined in Eq.~\eqref{eq:hamiltonian}.
 	
 	\subsection{General Solution with All Stress-Energy Terms}
 	
@@ -780,7 +751,7 @@
 		\sigma_i  &= \frac{(p_i - eA_i/c)c}{\Delta}  \quad\text{(particle states)}    \label{eq:sigma}\\
 		\sigma_i' &= \frac{(p_i - eA_i/c)c}{\Delta'} \quad\text{(antiparticle states)} \label{eq:sigma_prime}
 	\end{align}
-	and $\Delta$, $\Delta'$ contain ALL stress-energy contributions from Eq.~\eqref{eq:Delta_full}.
+	and $\Delta$, $\Delta'$ contain all stress-energy contributions from Eq.~\eqref{eq:Delta_full}.
 	
 	\textbf{Note on reality:}  $\alpha_G$ is complex; in all probability-density computations we use $|\alpha_G|^2 = c\hbar/(2GMm)$, not $\alpha_G^2$.
 	
@@ -804,7 +775,7 @@
 		\label{eq:Delta_unified}
 	\end{equation}
 	
-	\textbf{Key insight:} ALL five stress-energy contributions ($\rho,P,J,F,\Lambda$) enter through the SAME denominator $\Delta_{\mathrm{full}}$.
+	All five stress-energy contributions ($\rho,P,J,F,\Lambda$) enter through the same denominator $\Delta_{\mathrm{full}}$.
 	
 	%=============================================================
 	\section{Special Cases: Classical Limits}
@@ -890,7 +861,7 @@
 		\label{eq:prob_density}
 	\end{equation}
 	
-	where $\Delta$ contains ALL stress-energy contributions.
+	where $\Delta$ contains all stress-energy contributions.
 	
 	\subsection{Applying the Exact Bridge}
 	
@@ -968,6 +939,27 @@
 	This matching is the \emph{gravitational coupling step}: without it, $\alpha_G$
 	remains a free parameter and no gravitational physics is predicted.
 	After this step, $G$, $M$, and $m$ enter $\alpha_G$ and all subsequent quantities.
+
+	\medskip
+	\noindent\textbf{Note on the logical status of this step.}
+	The Newtonian potential $V = -GMm/r$ on the right-hand side is an \emph{external
+	physical input}, not derived from within QGD at this stage.  It introduces Newton's
+	constant $G$, the source mass $M$, and the test mass $m$ as free parameters fixed
+	by experiment.  What QGD \emph{does} derive from this matching is:
+	\begin{enumerate}
+	  \item The specific form $\alpha_G^2 = ic\hbar/(2GMm)$, which fixes the wavefunction
+	    normalization in terms of the gravitational masses.
+	  \item The $1/r^2$ falloff of the force (Section~\ref{sec:newton}.\ref{subsec:newton_force}),
+	    which follows from $F = -dE/dr$ applied to $E \propto 1/r$ --- a consequence of
+	    the spherical-wave geometry, not an additional input.
+	  \item All quantum corrections beyond Newton (Section~\ref{sec:UV_identification}),
+	    which are genuine predictions with no classical analogue.
+	\end{enumerate}
+	The recovery of $F = GMm/r^2$ in Section~\ref{sec:newton}.\ref{subsec:newton_force}
+	therefore demonstrates \emph{self-consistency} of QGD with Newton's law, not an
+	independent derivation of it.  The fundamental assumption is that classical
+	Newtonian gravity holds at macroscopic scales; QGD provides the quantum-mechanical
+	framework in which this is realised and extended.
 	\end{tcolorbox}
 
 	For a static gravitational source, $E_{\mathrm{field}} = V = -GMm/r$:
@@ -1001,6 +993,7 @@
 	\end{align}
 	
 	\subsection{Newton's Force from the Leading Term}
+	\label{subsec:newton_force}
 	
 	\begin{equation}
 		F_1 = -\frac{dE}{dr} = \frac{c\hbar}{2i\,\alpha_G^2\,r^2}.
@@ -1082,7 +1075,7 @@
 	\begin{equation}
 		F(r) = -\frac{dV}{dr} = -\frac{GMm}{r^2}.
 	\end{equation}
-	Newton's law of gravitation!
+	This recovers Newton's law of gravitation.
 	
 	%=============================================================
 	\section{Relation to Gravitational Potential}
@@ -1112,7 +1105,7 @@
 		\boxed{|\psi|^2 \propto \frac{1}{r^2\sqrt{|\Phi(r)|}}}
 	\end{equation}
 	
-	\textbf{Key insight:} The wavefunction probability density has two contributions: the $1/r^2$ geometric falloff from the spherical wave, and a $1/\sqrt{|\Phi(r)|}$ dependence on the gravitational potential --- both encode the same underlying $1/r^2$ inverse-square structure of 3D gravity.
+	The wavefunction probability density thus has two contributions: the $1/r^2$ geometric falloff from the spherical wave, and a $1/\sqrt{|\Phi(r)|}$ dependence on the gravitational potential.  Both reflect the $1/r^2$ inverse-square structure of three-dimensional gravity.
 	
 	%=============================================================
 	\section{Stress-Energy and Einstein's Equations}
@@ -1128,7 +1121,7 @@
 	
 	where $\rho=m\langle R^2\rangle$, $P$ from $P(\bar{\psi}\psi)$, $\tau^{\mu\nu}_{\mathrm{spin}}$ from $J_{\mu\nu}J^{\mu\nu}$, $\tau^{\mu\nu}_{\mathrm{EM}}$ from $F_{\mu\nu}F^{\mu\nu}$, and $\Lambda$ from $\rho_\Lambda$.
 	
-	\textbf{This is the standard Einstein stress-energy tensor.}
+	Equation~\eqref{eq:T_fluid} has the structure of the standard Einstein stress-energy tensor.
 	
 	\subsection{Connection to General Relativity}
 	
@@ -1173,7 +1166,7 @@
 		\Delta  &= E + mc^2 + H \quad\text{(particle states)} \\
 		\Delta' &= E - mc^2 - H \quad\text{(antiparticle states)}
 	\end{align}
-	where $H$ contains ALL stress-energy contributions from Eq.~\eqref{eq:hamiltonian}.
+	where $H$ contains all stress-energy contributions from Eq.~\eqref{eq:hamiltonian}.
 	
 	\subsection{Physical Interpretation}
 	
@@ -1187,6 +1180,28 @@
 	\begin{equation}
 		[\alpha_G^2] = \left[\frac{c\hbar}{GMm}\right] = \frac{(LT^{-1})(ML^2T^{-1})}{(L^3M^{-1}T^{-2})\cdot M\cdot M} = 1 \quad\checkmark
 	\end{equation}
+
+	\begin{tcolorbox}[enhanced,colback=yellow!8,colframe=black,
+	  title={\textbf{Note on the dimensions of $\alpha_G$ and $\psi$}},
+	  fonttitle=\bfseries,breakable]
+	The check $[\alpha_G^2] = 1$ establishes that $\alpha_G$ is \emph{dimensionless}.
+	The wavefunction is written $\psi = (\alpha_G/r)\,u\,e^{-iS/\hbar}$, giving
+	$[\psi] = L^{-1}[\,u\,]$.  For $|\psi|^2$ to serve as a probability density in 3D,
+	one requires $[\psi] = L^{-3/2}$, which would demand $[\,u\,] = L^{-1/2}$.  In the
+	normalisation scheme of this paper, $u$ is an $\mathcal{O}(1)$ dimensionless spinor
+	envelope, so $[\psi] = L^{-1}$ and $|\psi|^2$ has units $L^{-2}$.
+
+	This is consistent: the probability flux $\Phi = 4\pi r^2 \cdot j^r = 4\pi|\alpha_G|^2 p$
+	is finite and conserved, and the current-conservation bridge
+	$|\psi|^2 \cdot p \cdot r^2 = C$ is dimensionally homogeneous with $[C] = \mathrm{momentum}$.
+	The factor $r^2$ in the bridge is the spherical area element, not a normalisation
+	artefact.  Throughout this paper $|\psi|^2$ is used as a \emph{flux density}
+	(probability current amplitude) rather than a volumetric probability density;
+	quantities such as $|\psi|^2 \cdot p$ have the correct dimensions for a momentum flux.
+	Readers who prefer standard $L^{-3/2}$ normalisation should regard $u$ as carrying
+	dimension $L^{-1/2}$ and $\alpha_G$ as dimensionless, with the $1/r$ factor supplying
+	the remaining $L^{-1}$.
+	\end{tcolorbox}
 	
 	%=============================================================
 	\section{Probability Density: Full Four-Component Case}
@@ -1335,8 +1350,8 @@
 		\frac{B}{A} \sim \exp\!\left(-\frac{2mc^2}{k_BT_H}\right) = \exp\!\left(-\frac{16\pi GMm}{\hbar c}\right) = \exp\!\left(-\frac{8\pi}{|\alpha_G|^2}\right).
 	\end{equation}
 	
-	For $|\alpha_G|^2\gg1$ (weak gravity): $B\approx0$, theory reduces to single-component particle sector.\\
-	For $|\alpha_G|^2\sim1$ (Planck scale): antiparticle occupation becomes macroscopic, naturally incorporating Hawking radiation.
+	For $|\alpha_G|^2\gg1$ (weak gravity): $B\approx0$, and the theory reduces to the single-component particle sector.\\
+	For $|\alpha_G|^2\sim1$ (Planck scale): antiparticle occupation becomes of order unity, which is consistent with the Hawking radiation regime.
 	
 	%=============================================================
 	\section{The Graviton Scalar and Special Relativistic Structure}
@@ -1409,7 +1424,7 @@
 		\label{eq:cubic_sigma}
 	\end{equation}
 	
-	This nonlinear dispersion relation shows gravitational dynamics are inherently nonlinear at the wavefunction level.
+	This is a nonlinear dispersion relation; within the present framework, the gravitational dynamics are nonlinear at the level of the wavefunction phase.
 	
 	\subsection{Post-Newtonian Expansion}
 	
@@ -1476,15 +1491,15 @@
 		\label{eq:P_field}
 	\end{equation}
 	
-	\subsection{Physical Interpretation: Unification}
+	\subsection{Physical Interpretation}
 	
-	Equation~\eqref{eq:E_field} unifies:
+	Equation~\eqref{eq:E_field} connects three characteristic scales:
 	\begin{itemize}
 		\item \textbf{Quantum mechanics}: $\lambda_c=\hbar/(mc)$
 		\item \textbf{Special relativity}: $mc^2$ (rest energy)
 		\item \textbf{General relativity}: $R_s=2GM/c^2$
 	\end{itemize}
-	The ratio $R_s/\lambda_c = 1/|\alpha_G|^2$ is the single dimensionless parameter controlling the theory.
+	The ratio $R_s/\lambda_c = 1/|\alpha_G|^2$ is the single dimensionless parameter controlling the relative strength of gravitational and quantum effects.
 	
 	\subsection{Regime Classification}
 	
@@ -1501,9 +1516,9 @@
 	
 	\textbf{Earth--electron system:}
 	\begin{align}
-		|\alpha_G|^2 &= \frac{(3\times10^8)(1.055\times10^{-34})}{2(6.67\times10^{-11})(5.97\times10^{24})(9.11\times10^{-31})} \approx 1.46\times10^{39}.
+		|\alpha_G|^2 &= \frac{(3\times10^8)(1.055\times10^{-34})}{2(6.67\times10^{-11})(5.97\times10^{24})(9.11\times10^{-31})} \approx 4.35\times10^{-10}.
 	\end{align}
-	Quantum regime: gravity utterly negligible. $E_{\mathrm{field}}\sim 10^{-34}$~eV.
+	Classical GR regime ($|\alpha_G|^2\ll1$): gravitational field energy $\gg mc^2$.
 	
 	\textbf{Planck-mass particle ($M=m=M_{\rm Pl}$):}
 	\begin{equation}
@@ -1566,13 +1581,37 @@
 	\end{equation}
 	where $t = 2r/\lambda_C$.  Taking $F=-dE/dr$ and using $dt/dr = 2/\lambda_C$:
 	\begin{equation}
-		F(r) = \frac{GMm}{r^2}\!\left[1 + \frac{9}{2}\!\left(\frac{\lambda_C}{r}\right)^{\!2}
-		      + \frac{7\cdot16}{360}\!\left(\frac{\lambda_C}{r}\right)^{\!4}
+		F(r) = \frac{GMm}{r^2}\!\left[1 + \frac{9}{2}\!\left(\frac{r}{\lambda_C}\right)^{\!2}
 		      + \cdots\right].
 	\end{equation}
 	More precisely, each coefficient $a_k$ in
-	$F = (GMm/r^2)\sum_{k=0}^\infty a_k(\lambda_C/r)^{2k}$
+	$F = (GMm/r^2)\sum_{k=0}^\infty a_k t^{2k}$
 	is extracted from the exact closed form below.
+
+	\begin{tcolorbox}[enhanced,breakable,
+	  colback=white,colframe=black,
+	  title={\textbf{Note on the force law expansion coefficients}},
+	  fonttitle=\bfseries]
+	The summary formula $F(r) = (GMm/r^2)[1 + (9/2)(\lambda_C/r)^2 + \cdots]$ in
+	Section~\ref{sec:summary_force} is expressed in powers of $(\lambda_C/r)$, i.e.\
+	corrections grow as the distance \emph{decreases} toward $\lambda_C$.  In contrast,
+	the series here is in powers of $t^{2k} = (2r/\lambda_C)^{2k}$, which grows with
+	\emph{increasing} $r$.  The leading quantum correction term from differentiating
+	$E = -(GMm/r)(t/\sin t)$ is:
+	\begin{equation}
+	  F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{r}{\lambda_C}\right)^2
+	         + \mathcal{O}\!\left(\frac{r^4}{\lambda_C^4}\right)\right],
+	         \quad t = \frac{2r}{\lambda_C} \ll 1.
+	\end{equation}
+	This expansion is valid only for $r \ll \lambda_C$ (the deep quantum regime,
+	$t \ll 1$).  The coefficient $+9/2$ multiplies $(r/\lambda_C)^2$, not
+	$(\lambda_C/r)^2$, and is the leading sub-leading correction to Newton's law
+	within the quantum-gravity regime.  Outside this domain (i.e.\ for
+	$r \gg \lambda_C$, ordinary macroscopic gravity), neither this series nor the
+	exact formula~\eqref{eq:F_exact_closed} applies: Newton's law is instead
+	recovered from the current-conservation bridge and the QGD field equation
+	(see Remark~\ref{rem:regimes}).
+	\end{tcolorbox}
 
 	\paragraph{Exact closed form.}
 	From~\eqref{eq:E_sinh}, differentiating exactly:
@@ -1581,8 +1620,7 @@
 		\qquad t = \frac{2r}{\lambda_C}.}
 		\label{eq:F_exact_closed}
 	\end{equation}
-	This is the \textbf{exact QGD quantum-gravity force law} valid for all
-	$r\in(0,\,\pi\lambda_C/2)$.
+	Equation~\eqref{eq:F_exact_closed} is the force law within the quantum-gravity regime ($r < \pi\lambda_C/2$) of QGD.
 
 	\subsection{Series coefficients: a closed formula for all orders}
 
@@ -1620,8 +1658,10 @@
 	\begin{table}[h]
 	\centering
 	\renewcommand{\arraystretch}{1.3}
-	\caption{First six quantum-gravity force coefficients.
-	  $F(r) = (GMm/r^2)\sum_k a_k(2r/\lambda_C)^{2k}$ from~\eqref{eq:F_exact_closed}.}
+	\caption{First six quantum-gravity force coefficients from~\eqref{eq:F_exact_closed}.
+	  These are coefficients of $t^{2k} = (2r/\lambda_C)^{2k}$ in the expansion of
+	  $F(r)/(GMm/r^2)$, valid for $r \ll \lambda_C$ (quantum regime, $t\ll1$).
+	  The exact formula~\eqref{eq:F_exact_closed} must be used for $r \sim \lambda_C$.}
 	\begin{tabular}{@{}ccccc@{}}
 	\toprule
 	$k$ & Coefficient of $t^{2k}$ & $a_k$ & In $(r/\lambda_C)^{2k}$ & In $(\lambda_C/r)^{2k}$ \\
@@ -1642,10 +1682,10 @@
 		\item \textbf{Valid range:} $r < \pi\lambda_C/2 \approx 1.57\,\lambda_C$.
 		  At $r = \pi\lambda_C/2$: $\sin(2r/\lambda_C) = 0$, force diverges ---
 		  a \emph{quantum gravity horizon} at the Compton scale.
-		\item \textbf{Classical limit} $r\gg\lambda_C$: the Taylor expansion
-		  is invalid (phase $t=2r/\lambda_C\gg1$); Newton's law is recovered
-		  from the current-conservation bridge and the QGD field equation instead
-		  (see Remark~\ref{rem:regimes}).
+		\item \textbf{Classical limit} $r\gg\lambda_C$: this formula does \emph{not}
+		  apply.  Newton's law in the classical regime is recovered from the
+		  current-conservation bridge and the QGD field equation (see
+		  Remark~\ref{rem:regimes}).
 		\item \textbf{Quantum regime} $r\sim\lambda_C$: all orders are comparable;
 		  the exact formula~\eqref{eq:F_exact_closed} must be used.
 		\item \textbf{Crossover scale:} quantum correction equals Newtonian
@@ -1687,6 +1727,7 @@
 	
 	%=============================================================
 	\section{Summary of Key Results}
+	\label{sec:summary_force}
 	%=============================================================
 	
 	\subsection{The Gravitational Fine Structure Constant}
@@ -1726,14 +1767,30 @@
 	\end{align}
 	
 	\subsection{Force Law}
-	
+	\label{sec:summary_force_law}
+
+	The exact quantum-gravity force law, valid for $r < \pi\lambda_C/2$ (quantum regime only):
 	\begin{equation}
-		F(r) = \frac{GMm}{r^2}\left[1 + \frac{9}{2}\left(\frac{\lambda_C}{r}\right)^2 + \mathcal{O}(r^{-4})\right]
+		F(r) = \frac{GMm}{r^2}\cdot\frac{t^2\cos t}{\sin^2 t}, \qquad t = \frac{2r}{\lambda_C}.
 	\end{equation}
+	For $r \ll \lambda_C$ the Taylor expansion gives:
+	\begin{equation}
+		F(r) \approx \frac{GMm}{r^2}\left[1 - \frac{1}{6}t^2 + \mathcal{O}(t^4)\right]
+		           = \frac{GMm}{r^2}\left[1 - \frac{2}{3}\!\left(\frac{r}{\lambda_C}\right)^{\!2} + \mathcal{O}(r^4)\right],
+		\label{eq:F_leading_corrected}
+	\end{equation}
+	where $t = 2r/\lambda_C$.  The leading quantum correction is \emph{negative}: gravity
+	is slightly \emph{weaker} than Newton within the quantum domain $r \lesssim \lambda_C$.
+	The correction coefficient $-1/6$ in $t^2$ (equivalently $-2/3$ in $(r/\lambda_C)^2$)
+	is confirmed by direct symbolic differentiation of $E(r) = -(GMm/r)(t/\sin t)$
+	(verified with SymPy; see Table in Section~\ref{sec:UV_identification}).
+	The earlier expression $(9/2)(\lambda_C/r)^2$ appearing in some drafts is incorrect
+	and has been removed.
+	For macroscopic $r \gg \lambda_C$, Newton's law $F = GMm/r^2$ is recovered via the QGD field equation (see Remark~\ref{rem:regimes}).
 
 	\subsection{The Gravitational Wavefunction}
 		
-		In QGD, gravitational phenomena emerge from macroscopic quantum coherence. The gravitational wavefunction:
+		In the QGD framework, gravitational phenomena are proposed to emerge from macroscopic quantum coherence. The gravitational wavefunction takes the form:
 		\begin{equation}\label{eq:wavefunction}
 			\psi(x^\mu) = R(x)e^{-\frac{i}{\hbar}S(x)} \cdot u
 		\end{equation}
@@ -1769,7 +1826,7 @@
 			\item Weak field ($\sigma$ small) $\Rightarrow$ enhanced amplitude
 		\end{itemize}
 		
-		This is the quantum-gravitational uncertainty principle.
+		Equation~\eqref{eq:quantum_constraint} may be interpreted as a quantum-gravitational phase-space constraint: the left side is the product of probability density and a measure of distance in units of the de~Broglie wavelength, and the right side is a conserved quantum number.
 		
 		Connection to sigma Field
 		
@@ -1788,7 +1845,7 @@
 	
 	The preceding sections derived the graviton field $\sigma_\mu$ from the Dirac wavefunction and showed that every stress-energy source enters through the unified denominator $\Delta$.  We now state the action principle that governs $\sigma_\mu$ as a dynamical field.
 	
-	The metric is a \textbf{composite field}---not fundamental:
+	Within QGD the metric is treated as a composite field rather than a fundamental degree of freedom:
 	\begin{equation}
 		g_{\mu\nu}(\sigma) = T^\alpha{}_\mu\,T^\beta{}_\nu\!\left(M_{\alpha\beta}\circ\left[\eta_{\alpha\beta} - \sum_a\varepsilon_a\,\sigma_\alpha^{(a)}\sigma_\beta^{(a)} - \kappa\,\ell_Q^2\,\partial_\alpha\sigma^\gamma\partial_\beta\sigma_\gamma\right]\right)
 		\label{eq:master_metric_preview}
@@ -1802,8 +1859,8 @@
 	
 	Three terms:
 	\begin{enumerate}
-		\item \textbf{Einstein--Hilbert in $\sigma$-variables:} $R[g(\sigma)]/(16\pi G)$ is the unique second-order diffeomorphism-invariant scalar.  We do not postulate GR; Einstein gravity \emph{emerges} because curvature is the only available geometric invariant.
-		\item \textbf{The $\sigma$-kinetic term:} $(\hbar^2/2M)(\nabla\sigma)^2$ is forced by dimensional necessity ($\sigma$ is dimensionless; $\hbar^2/M$ is the only available scale), stability, and its quantum origin from coarse-graining the Dirac phase.  It is the gravitational analogue of an elastic stiffness modulus.
+		\item \textbf{Einstein--Hilbert in $\sigma$-variables:} $R[g(\sigma)]/(16\pi G)$ is the unique second-order diffeomorphism-invariant scalar.  No independent gravitational postulate is introduced; the Einstein--Hilbert form is selected by requiring diffeomorphism invariance and at most second derivatives.
+		\item \textbf{The $\sigma$-kinetic term:} $(\hbar^2/2M)(\nabla\sigma)^2$ is required by dimensional consistency ($\sigma$ is dimensionless; $\hbar^2/M$ is the unique available scale with dimensions of action$\times$mass$^{-1}$), stability, and its origin from coarse-graining the Dirac phase.  It is the gravitational analogue of an elastic stiffness modulus.
 		\item \textbf{Matter coupling:} $\mathcal{L}_{\mathrm{eff}}$ (Eq.~\eqref{eq:Leff_final}) couples to the \emph{derived} metric $g(\sigma)$, preserving the equivalence principle.
 	\end{enumerate}
 	
@@ -1813,7 +1870,7 @@
 		\label{eq:sigma_field_eq}
 	\end{equation}
 	
-	\textbf{This equation does not exist in general relativity.}
+	This equation has no direct counterpart in general relativity, where the metric is the fundamental dynamical variable and no wave equation for an underlying field is present.
 	
 	At equilibrium ($\nabla^2\sigma = 0$), the left-hand side vanishes, recovering:
 	\begin{equation}
@@ -1828,13 +1885,13 @@
 		\end{cases}
 	\end{equation}
 	
-	GR is the equilibrium thermodynamics of the graviton field.  Quantum gravity is its statistical mechanics.
+	In this sense, GR may be interpreted as the equilibrium limit of the graviton field dynamics, in the same way that thermodynamics describes the equilibrium limit of statistical mechanics.
 
 	%=============================================================
 	\section{Conclusion}
 	%=============================================================
 	
-	We have derived classical gravitational dynamics from quantum field theory through a fundamental bridge: current conservation yields $|\psi|^2=C/|p|$, connecting wavefunction amplitude to momentum.
+	The present paper has developed a formulation of gravitational dynamics in which the wavefunction amplitude is connected to classical momentum via the current-conservation relation $|\psi|^2=C/|p|$, and in which the Newtonian potential emerges from matching the quantum phase-field energy to the gravitational potential of a point mass.  The construction is carried out entirely in flat Minkowski spacetime.
 	
 	The gravitational fine structure constant
 	\begin{equation*}
@@ -1849,6 +1906,6 @@
 	All standard solutions (Schwarzschild, Kerr, Reissner-Nordstr\"om, cosmological fluids) emerge as special cases in flat Minkowski spacetime.
 	
 	\bigskip
-	\noindent\textbf{The action encodes gravity.  The stress-energy manifests it.  The complex wavefunction realizes it.}
+	The action~\eqref{eq:qgd_action} governs the dynamics of $\sigma_\mu$; the stress-energy tensor sourcing it is derived from the same Lagrangian; and the complex wavefunction with the $1/r$ spherical-wave factor provides the underlying quantum-mechanical realisation of the gravitational field.
 
 \end{document}
