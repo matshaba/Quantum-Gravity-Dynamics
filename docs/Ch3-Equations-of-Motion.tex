@@ -1,0 +1,580 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{physics}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\geometry{margin=2.6cm, top=3.2cm, bottom=3.2cm}
+\onehalfspacing
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  pdftitle={QGD Chapter 4: Equations of Motion},
+  pdfauthor={Romeo Matshaba}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Quantum Gravitational Dynamics}}
+\fancyhead[R]{\small\textit{Chapter 4: Equations of Motion}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\sigt}{\sigma_t}
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mQ}{m_Q}
+\newcommand{\boxg}{\square_g}
+\newcommand{\half}{\tfrac{1}{2}}
+\newcommand{\Mpl}{M_{\mathrm{Pl}}}
+
+\title{%
+  \vspace{-1.2cm}
+  {\large\scshape Quantum Gravitational Dynamics}\\[6pt]
+  {\LARGE\bfseries Chapter 4: Equations of Motion}\\[8pt]
+  {\normalsize From the $\sigma$-Field to the Worldline}
+}
+\author{%
+  Romeo Matshaba\\[4pt]
+  \normalsize Department of Physics, University of South Africa
+}
+\date{March 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\noindent
+We derive the equations of motion in Quantum Gravitational Dynamics at three levels
+of description: (i) the $\sigma$-field equation governing the entire system; (ii) the
+modified worldline equation for a test particle, which replaces the geodesic equation
+of General Relativity; and (iii) the conserved stress-energy equation encoding the
+interplay between matter, the $\sigma$-field, and the Pais--Uhlenbeck massive mode.
+The central structural result is the Advection Tensor $\Omega^\lambda_{\mu\nu}$, which
+arises from the composite nature of the QGD metric $g_{\mu\nu}(\sigma_t)$ and encodes
+the field-dragging effect absent in GR.  We derive $\Omega^\lambda_{\mu\nu}$ exactly
+from the particle action, compute its explicit components in the Schwarzschild sector,
+and establish the precise sense in which it generalises and reduces to the standard
+Levi-Civita connection.  The relationship between the three levels is made explicit,
+and a comparison table between GR and QGD motions is provided.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%=============================================================
+\section{Overview: Three Levels of Motion in QGD}
+\label{sec:overview}
+%=============================================================
+
+In General Relativity the motion of matter is governed by two logically separate
+laws: the geodesic equation (worldline) and the Einstein field equations (geometry).
+In QGD these are unified.  The metric is a composite functional of the $\sigma$-field,
+$g_{\mu\nu} = g_{\mu\nu}(\sigma_t)$, so the field equation and the worldline equation
+are both consequences of the same master action.
+
+The equations of motion appear at three levels, each a projection of the same
+underlying field theory:
+
+\begin{enumerate}
+\item \textbf{Field level.}  The Pais--Uhlenbeck master equation governs the
+  $\sigma$-field sourced by all matter:
+  \begin{equation}
+    \boxg\!\left(1 - \kappa\lQ^2\,\boxg\right)\sigma_\mu = S_\mu,
+    \qquad S_\mu = Q_\mu + G_\mu + T_\mu.
+    \label{eq:PU_field}
+  \end{equation}
+  This is the most fundamental statement of motion in QGD.
+
+\item \textbf{Worldline level.}  For a test particle of mass $\mu$, varying the
+  particle action $S_{\rm pp} = -\mu\int ds$ with respect to the worldline
+  $x^\mu(\lambda)$ in the composite metric $g_{\mu\nu}(\sigma_t)$ gives:
+  \begin{equation}
+    \frac{d^2 x^\mu}{ds^2}
+    + \left(\Gamma^\mu_{\alpha\beta} + \Omega^\mu_{\alpha\beta}\right)
+      \frac{dx^\alpha}{ds}\frac{dx^\beta}{ds} = 0,
+    \label{eq:modified_geodesic}
+  \end{equation}
+  where $\Gamma^\mu_{\alpha\beta}$ is the standard Levi-Civita connection of the
+  background field $g_{\mu\nu}(\sigma_2)$ and $\Omega^\mu_{\alpha\beta}$ is the
+  \emph{Advection Tensor} arising from the composite metric structure.
+
+\item \textbf{Conservation level.}  The stress-energy of the full system---matter,
+  $\sigma$-field, and Pais--Uhlenbeck massive mode---is covariantly conserved:
+  \begin{equation}
+    \nabla_\nu\!\left(
+      T^{\mu\nu}_{\rm matter}
+      + T^{\mu\nu}_{\rm field}
+      + \Theta^{\mu\nu}_{\rm PU}
+    \right) = 0.
+    \label{eq:full_conservation}
+  \end{equation}
+\end{enumerate}
+
+In the limit $\lQ \to 0$ and for a static, weak $\sigma$-field, all three levels
+reduce to the standard GR results.  The QGD corrections---the Advection Tensor at
+the worldline level and the PU stress tensor at the conservation level---become
+non-negligible only at post-Newtonian order or near the Planck scale.
+
+%=============================================================
+\section{The Field-Level Equation of Motion}
+\label{sec:field_eom}
+%=============================================================
+
+\subsection{Particles as field configurations}
+
+In QGD a particle of mass $m_a$ is not a structureless point on a background
+geometry; it is identified with its own single-body $\sigma$-field configuration,
+\begin{equation}
+  \sigt^{(a)}(\mathbf{x}) = \sqrt{\frac{r_s^{(a)}}{|\mathbf{x} - \mathbf{x}_a|}},
+  \qquad r_s^{(a)} \equiv \frac{2Gm_a}{c^2}.
+  \label{eq:single_body_field}
+\end{equation}
+This is the exact Schwarzschild solution for body $a$ in isolation.  The ``position''
+of the particle is the center of mass of this field configuration, and its ``motion''
+is the evolution of that center of mass as the field adjusts to the sources present.
+
+The total field for an $N$-body system is the superposition plus interactions:
+\begin{equation}
+  \sigt^{\rm tot}(\mathbf{x},t)
+  = \sum_{a=1}^N \sigt^{(a)}(\mathbf{x}-\mathbf{x}_a(t))
+    + \delta\sigma(\mathbf{x},\{\mathbf{x}_a\},\{\mathbf{v}_a\}).
+\end{equation}
+The interaction field $\delta\sigma$ is determined by the integral equation from
+Chapter~3: $\sigma = \sigma^{\rm free} + \int[G_0 - G_{\mQ}]S$.
+
+\subsection{The self-consistent field equation}
+
+The motion of body $a$ is encoded in the requirement that the master field
+equation~\eqref{eq:PU_field} is satisfied at all times.  Projected onto the worldline
+of body $a$, this becomes a self-consistency condition: the field $\sigt^{(a)}$ centred
+on $\mathbf{x}_a(t)$ must satisfy the field equation in the background of all other
+bodies.  There is no separate ``geodesic equation'' at the fundamental level.
+
+The trajectory $\mathbf{x}_a(t)$ is determined implicitly by
+\begin{equation}
+  \boxg\!\left(1 - \kappa\lQ^2\,\boxg\right)
+  \sigt^{(a)}\bigl(\mathbf{x} - \mathbf{x}_a(t)\bigr)
+  = -Q_\mu^{\rm cross}\!\left[\sigt^{(a)}, \sum_{b\neq a}\sigt^{(b)}\right] + \cdots,
+  \label{eq:self_consistent}
+\end{equation}
+where $Q_\mu^{\rm cross}$ is the cross-source from the nonlinear self-interaction
+(Section~4.1 of Chapter~3).
+
+%=============================================================
+\section{The Modified Geodesic Equation}
+\label{sec:modified_geodesic}
+%=============================================================
+
+\subsection{Derivation from the particle action}
+
+For a test particle (a body whose own $\sigma$-field does not appreciably back-react
+on the background), the effective worldline is derived by varying the particle action
+\begin{equation}
+  S_{\rm pp} = -\mu\int \sqrt{-g_{\mu\nu}(\sigt)\,\dot x^\mu\,\dot x^\nu}\;d\lambda
+  \label{eq:particle_action}
+\end{equation}
+with respect to $x^\mu(\lambda)$.  The Euler--Lagrange equations give the standard-looking
+form with modified Christoffel symbols.
+
+The crucial step is the evaluation of $\partial g_{\alpha\beta}/\partial x^\mu$.  Since
+$g_{\alpha\beta} = g_{\alpha\beta}(\sigt)$ and $\sigt = \sigt(\mathbf{x})$ is a field, the
+chain rule gives:
+\begin{equation}
+  \frac{\partial g_{\alpha\beta}}{\partial x^\mu}
+  = \frac{\partial g_{\alpha\beta}}{\partial\sigt}\,\nabla_\mu\sigt.
+  \label{eq:metric_chain}
+\end{equation}
+Substituting~\eqref{eq:metric_chain} into the definition of the Christoffel symbol
+$\Gamma^\lambda_{\mu\nu} = \half g^{\lambda\rho}(\partial_\mu g_{\rho\nu}
++ \partial_\nu g_{\rho\mu} - \partial_\rho g_{\mu\nu})$ yields the exact QGD
+connection:
+\begin{equation}
+  \boxed{
+  \Gamma^\lambda_{\mu\nu}[\sigt]
+  = \frac{1}{2}\,g^{\lambda\rho}
+  \!\left[
+    \frac{\partial g_{\rho\nu}}{\partial\sigt}\nabla_\mu\sigt
+  + \frac{\partial g_{\rho\mu}}{\partial\sigt}\nabla_\nu\sigt
+  - \frac{\partial g_{\mu\nu}}{\partial\sigt}\nabla_\rho\sigt
+  \right].
+  }
+  \label{eq:QGD_connection}
+\end{equation}
+This is the complete Levi-Civita connection, now expressed as a linear functional of
+$\nabla_\mu\sigt$ scaled by the metric's structural sensitivity $\partial g/\partial\sigt$.
+What GR calls spacetime curvature is, in QGD, the kinematic gradient flow of the
+$\sigma$-field.
+
+\subsection{The Advection Tensor}
+
+For the two-body problem, the total field is $\sigt^{\rm tot} = \sigt^{(1)} + \sigt^{(2)}$,
+so $\nabla_\mu\sigt^{\rm tot} = \nabla_\mu\sigt^{(1)} + \nabla_\mu\sigt^{(2)}$.
+Substituting into~\eqref{eq:QGD_connection}, the connection of the effective one-body
+system splits as:
+\begin{equation}
+  \widetilde\Gamma^\lambda_{\mu\nu}
+  = \mathring\Gamma^\lambda_{\mu\nu}\!\left[\sigt^{(2)}\right]
+  + \Omega^\lambda_{\mu\nu}\!\left[\sigt^{(1)},\sigt^{(2)}\right],
+  \label{eq:connection_split}
+\end{equation}
+where $\mathring\Gamma^\lambda_{\mu\nu}[\sigt^{(2)}]$ is the background connection
+generated by body~2 alone (driving the standard Keplerian orbit), and the
+\emph{Advection Tensor} is:
+
+\begin{definition}[Advection Tensor]
+\label{def:advection}
+\begin{equation}
+  \boxed{
+  \Omega^\lambda_{\mu\nu}
+  = \frac{1}{2}\,g^{\lambda\rho}
+  \!\left[
+    \frac{\partial g_{\rho\nu}}{\partial\sigt}\,\nabla_\mu\sigt^{(1)}
+  + \frac{\partial g_{\rho\mu}}{\partial\sigt}\,\nabla_\nu\sigt^{(1)}
+  - \frac{\partial g_{\mu\nu}}{\partial\sigt}\,\nabla_\rho\sigt^{(1)}
+  \right].
+  }
+  \label{eq:advection}
+\end{equation}
+\end{definition}
+
+\begin{remark}
+The Advection Tensor is \emph{exact}---it follows from the chain rule
+applied to $g_{\mu\nu}(\sigt^{(1)} + \sigt^{(2)})$ and does not require any
+perturbative approximation.  The factor $\nu$ appearing in the post-Newtonian force
+law is not intrinsic to $\Omega^\lambda_{\mu\nu}$ itself; it enters via the
+Tamir--Mino energy mapping when the two-body system is reduced to an effective
+one-body description (Chapter~5).  The notes' representation of $\Omega$ as
+``$\propto \nu$'' is an approximation valid only after the EOB reduction.
+\end{remark}
+
+\subsection{Explicit components in the Schwarzschild sector}
+
+For the composite Schwarzschild metric $g_{tt} = -(1-\sigt^2)$, $g_{rr} = 1$
+(isotropic gauge), the only non-vanishing metric sensitivity is:
+\begin{equation}
+  \frac{\partial g_{tt}}{\partial\sigt} = 2\sigt,
+  \qquad
+  \frac{\partial g_{ij}}{\partial\sigt} = 0.
+  \label{eq:metric_sensitivity}
+\end{equation}
+The inverse metric components are $g^{tt} = -1/(1-\sigt^2)$ and $g^{rr} = 1$.
+From Definition~\ref{def:advection}, the non-vanishing Advection Tensor components
+for a static test body~1 ($\nabla_t\sigt^{(1)} = 0$) are:
+\begin{align}
+  \Omega^t_{tr}
+  &= \frac{1}{2}\,g^{tt}\cdot 2\sigt^{(2)}\cdot\nabla_r\sigt^{(1)}
+  = -\frac{\sigt^{(2)}\,\nabla_r\sigt^{(1)}}{1-(\sigt^{(2)})^2},
+  \label{eq:Omega_ttr}\\
+  \Omega^r_{tt}
+  &= -\frac{1}{2}\,g^{rr}\cdot 2\sigt^{(2)}\cdot\nabla_r\sigt^{(1)}
+  = -\sigt^{(2)}\,\nabla_r\sigt^{(1)}.
+  \label{eq:Omega_rtt}
+\end{align}
+Substituting the single-body fields $\sigt^{(2)} = \sqrt{r_s^{(2)}/r}$ and
+$\nabla_r\sigt^{(1)} = -\tfrac{1}{2}\sqrt{r_s^{(1)}}\,r^{-3/2}$:
+\begin{equation}
+  \Omega^r_{tt}
+  = \frac{1}{2}\,\sqrt{\frac{r_s^{(1)}\,r_s^{(2)}}{r^3}}
+  = \frac{1}{2}\,\frac{\sqrt{4G^2 m_1 m_2/c^4}}{r^{3/2}}
+  \propto \frac{\sqrt{m_1 m_2}}{r^2}.
+  \label{eq:Omega_rtt_explicit}
+\end{equation}
+After the Tamir--Mino mapping $\sqrt{m_1 m_2} \to \mu\sqrt{\nu}\,M$, this becomes
+a $\nu$-weighted correction to the Newtonian force, generating the Ladder~A PN terms.
+
+\subsection{The modified geodesic equation: explicit form}
+
+Substituting~\eqref{eq:connection_split} into the geodesic condition, the equation
+of motion for body~1 in the field of body~2 is:
+\begin{equation}
+  \frac{d^2 x^\mu}{ds^2}
+  + \mathring\Gamma^\mu_{\alpha\beta}\,\frac{dx^\alpha}{ds}\frac{dx^\beta}{ds}
+  = -\Omega^\mu_{\alpha\beta}\,\frac{dx^\alpha}{ds}\frac{dx^\beta}{ds}.
+  \label{eq:modified_geodesic_explicit}
+\end{equation}
+The left side is the standard geodesic equation in the field of body~2; the right
+side is the Advection force---the resistance of body~1's $\sigma$-field to being
+``dragged'' through body~2's gradient.
+
+In the static, non-relativistic limit with $dx^r/ds \ll 1$ and $dx^t/ds \approx 1$:
+\begin{equation}
+  \ddot r \approx
+  -\frac{GM_2}{r^2}
+  \underbrace{- \Omega^r_{tt}}_{\text{Advection force}}
+  = -\frac{GM_2}{r^2}
+  + \sigt^{(2)}\,\nabla_r\sigt^{(1)}.
+  \label{eq:NR_limit}
+\end{equation}
+At Newtonian order, the second term is $\mathcal{O}(r_s^2/r^3)$ — a higher-order
+PN correction — confirming that the advection force is invisible at Solar-System
+scales and becomes significant only in the strong-field regime.
+
+%=============================================================
+\section{Stress-Energy Conservation}
+\label{sec:conservation}
+%=============================================================
+
+\subsection{The stress-energy tensors}
+
+In QGD three distinct stress-energy contributions arise from the master action:
+
+\paragraph{Matter stress-energy.}
+This is the standard $T^{\mu\nu}_{\rm matter}$, derived from varying
+$\mathcal{L}_{\rm eff}(\psi, g(\sigma))$ with respect to the metric.
+
+\paragraph{$\sigma$-field stress-energy.}
+From the kinetic term in the action, contraction of the master field
+equation~\eqref{eq:PU_field} with $\sigma^\mu$ via the Noether procedure gives:
+\begin{equation}
+  T^{\alpha\beta}_{\rm field}
+  = \nabla^\alpha\sigma_\mu\,\nabla^\beta\sigma^\mu
+  - \frac{1}{2}\,g^{\alpha\beta}\,(\nabla\sigma)^2
+  + \kappa\lQ^2\text{-corrections},
+  \label{eq:T_field}
+\end{equation}
+which is positive-definite in the exterior region and locally conserved.
+
+\paragraph{Pais--Uhlenbeck stress-energy.}
+The massive mode $G_{\mQ}$ carries its own stress-energy through the fourth-order
+kinetic sector:
+\begin{equation}
+  \Theta^{\mu\nu}_{\rm PU}
+  \sim \kappa\lQ^2
+  \!\left[
+    \nabla^2\sigma_\rho\,\nabla^\mu\nabla^\nu\sigma^\rho
+    - \frac{1}{2}\,g^{\mu\nu}\,\nabla^2\sigma_\rho\,\nabla^2\sigma^\rho
+  \right].
+  \label{eq:T_PU}
+\end{equation}
+This tensor carries the repulsive pressure associated with the massive graviton mode
+and is responsible for the UV regulation of the theory near $r \sim \lQ$.
+
+\subsection{The full conservation law}
+
+The total stress-energy conservation is:
+\begin{equation}
+  \boxed{
+  \nabla_\nu\!\left(
+    T^{\mu\nu}_{\rm matter}
+    + T^{\mu\nu}_{\rm field}
+    + \Theta^{\mu\nu}_{\rm PU}
+  \right) = 0.
+  }
+  \label{eq:total_conservation}
+\end{equation}
+In the test-particle limit ($T^{\mu\nu}_{\rm matter} = \mu\,u^\mu u^\nu\,\delta^{(3)}$),
+equation~\eqref{eq:total_conservation} reduces to the modified geodesic
+equation~\eqref{eq:modified_geodesic_explicit}, with the divergence of
+$T^{\mu\nu}_{\rm field}$ supplying the Advection force on the right side.
+
+In the quantum-gravity regime ($r \sim \lQ$), the $\Theta^{\mu\nu}_{\rm PU}$ term
+contributes a pressure that prevents the total stress-energy from diverging at a
+point: the conservation law~\eqref{eq:total_conservation} holds everywhere, including
+at $r = 0$, with $\Theta^{\mu\nu}_{\rm PU}$ providing the necessary compensating
+pressure.
+
+\subsection{Reduction to standard GR}
+
+\begin{proposition}[GR limit]
+\label{prop:GR_limit}
+In the limits $\lQ \to 0$ and $|\sigma| \ll 1$ (weak field):
+\begin{enumerate}[nosep]
+  \item $\Theta^{\mu\nu}_{\rm PU} \to 0$, so matter and field stress-energies
+    are conserved separately.
+  \item $\Omega^\lambda_{\mu\nu} \to 0$, recovering the standard geodesic equation.
+  \item $T^{\mu\nu}_{\rm field} = T^{\mu\nu}_{\rm GW}$ (standard gravitational
+    wave stress-energy tensor).
+  \item Equation~\eqref{eq:total_conservation} reduces to $\nabla_\nu T^{\mu\nu} = 0$
+    (Einstein's conservation law).
+\end{enumerate}
+\end{proposition}
+
+The corrections are suppressed by $\kappa\lQ^2/r^2 \sim 10^{-70}\,\mathrm{m}^{-2}/r^2$
+at astrophysical scales, consistent with all current tests of GR.
+
+%=============================================================
+\section{Comparison: GR versus QGD Equations of Motion}
+\label{sec:comparison}
+%=============================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{4.5cm}p{5cm}p{5cm}}
+\toprule
+\textbf{Feature} & \textbf{General Relativity} & \textbf{QGD} \\
+\midrule
+Fundamental law &
+  Geodesic equation &
+  $\sigma$-field equation \\
+Connection &
+  Levi-Civita $\Gamma[\partial g]$ &
+  Composite $\Gamma[(\partial g/\partial\sigma)\nabla\sigma]$ \\
+Advection term &
+  Absent &
+  $\Omega^\lambda_{\mu\nu}[\sigma_1, \sigma_2]$ \\
+Particle nature &
+  Test mass on background &
+  Source of the $\sigma$-field \\
+Stress conservation &
+  $\nabla_\nu T^{\mu\nu}_{\rm m} = 0$ &
+  $\nabla_\nu(T_{\rm m} + T_{\rm field} + \Theta_{\rm PU})^{\mu\nu} = 0$ \\
+High-curvature limit &
+  Singular at $r = 0$ &
+  Regulated by $\Theta^{\mu\nu}_{\rm PU}$ \\
+Force law (radial) &
+  $-GM/r^2 \times [1 + \text{PN}]$ &
+  $-GM/r^2 \times [1 - 3\nu u^2 + \tfrac{63707}{720}\nu u^3]$ \\
+Weak-field limit &
+  Newton's law &
+  Newton's law (identical) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=============================================================
+\section{The QGD Force Law}
+\label{sec:force_law}
+%=============================================================
+
+\subsection{From the connection to the radial force}
+
+The radial component of the modified geodesic equation~\eqref{eq:modified_geodesic_explicit},
+projected along the separation vector, gives the effective radial force law.  In the
+post-Newtonian expansion, using $u \equiv GM/rc^2$ as the small parameter:
+
+\begin{theorem}[QGD radial force law]
+\label{thm:force_law}
+The effective radial acceleration in the QGD two-body system, derived from the
+Advection-corrected geodesic equation and expressed in terms of the EOB potential
+$A(u)$ (Chapter~5), is:
+\begin{equation}
+  \boxed{
+  a_r = -\frac{GM}{r^2}
+  \left[
+    1
+    \underbrace{-\,3\nu u^2\vphantom{\frac{X}{X}}}_{\text{Ladder A}}
+    \underbrace{+\,\frac{63707}{720}\,\nu u^3}_{\text{Ladder B}}
+  \right]
+  + \mathcal{O}(u^4).
+  }
+  \label{eq:force_law}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The EOB potential $A(u) = 1 - 2u + 2\nu u^3 - (63707/1440)\nu u^4$ is derived
+from the QGD integral solution in Chapter~5.  The effective radial force is
+$a_r = -\tfrac{1}{2}(GM/r^2)(dA/du)$, which gives:
+\begin{equation}
+  \frac{dA}{du} = -2 + 6\nu u^2 - \frac{63707}{360}\nu u^3.
+\end{equation}
+Multiplying by $-\tfrac{1}{2}$ yields~\eqref{eq:force_law}.  \qquad
+\end{proof}
+
+\subsection{Physical interpretation of each term}
+
+\paragraph{Newtonian term ($1$).}
+At $u \to 0$ (large separations), the brackets reduce to unity and the force
+recovers Newton's inverse-square law exactly.  This is mandatory: both the
+Levi-Civita connection and the Advection Tensor vanish in the Newtonian limit.
+
+\paragraph{Ladder A term ($-3\nu u^2$, attractive).}
+This is the leading PN correction.  The coefficient $-3\nu$ arises from the
+cross-source $Q_t^{\rm cross} = 2\nabla\sigma_1\cdot\nabla\sigma_2$, which is the
+$\sigma$-field analogue of the graviton self-interaction.  It deepens the potential
+well, driving perihelion precession and the post-Newtonian inspiral.  In the GR
+limit ($G_0$-only propagator), this is the standard 1PN force.
+
+\paragraph{Ladder B term ($+63707\nu u^3/720$, repulsive).}
+This term arises exclusively from the massive propagator $G_{\mQ}$ in the QGD
+dual-propagator $G_0 - G_{\mQ}$.  Its positive sign means it acts as a repulsive
+``quantum pressure'' that opposes the Ladder A attraction at high curvatures.  At
+$u \sim 0.15$ (near the ISCO), the Ladder B contribution is approximately 30\%
+of the Ladder A term for $\nu = 1/4$.
+
+\subsection{Hierarchy of scales}
+
+The three terms in~\eqref{eq:force_law} become comparable at different curvatures:
+
+\begin{itemize}[nosep]
+  \item Newtonian dominates for $u \ll 1$ (all astrophysical scales).
+  \item Ladder A is $\mathcal{O}(\epsilon^2)$ where $\epsilon = v/c = \sqrt{u}$:
+    significant for tight binaries and LIGO/LISA sources.
+  \item Ladder B is $\mathcal{O}(\epsilon^3)$: a 1.5PN correction relative to
+    Ladder A, detectable in principle with next-generation detectors.
+\end{itemize}
+
+The force law~\eqref{eq:force_law} is thus the connecting expression between the
+abstract $\sigma$-field dynamics (Chapter~3) and the observable gravitational wave
+phasing (Chapter~5).
+
+%=============================================================
+\section{Summary}
+\label{sec:summary}
+%=============================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{6.5cm}p{6.5cm}}
+\toprule
+Equation & Meaning \\
+\midrule
+$\boxg(1-\kappa\lQ^2\boxg)\sigma_\mu = S_\mu$ &
+  Field-level EoM: all motion encoded here \\
+$g_{\mu\nu} = g_{\mu\nu}(\sigma_t)$ &
+  Metric compositeness: no geometry without field \\
+$\partial_\mu g_{\alpha\beta} = (\partial g_{\alpha\beta}/\partial\sigma_t)\,\nabla_\mu\sigma_t$ &
+  Chain rule: curvature = $\sigma$-gradient flow \\
+$\Gamma^\lambda_{\mu\nu} = \tfrac{1}{2}g^{\lambda\rho}[(\partial g/\partial\sigma)\nabla\sigma]^{\rm sym}$ &
+  QGD composite connection \\
+$\Omega^\lambda_{\mu\nu} = \Gamma^\lambda[\sigma_{\rm tot}] - \Gamma^\lambda[\sigma_2]$ &
+  Advection Tensor: field-dragging correction \\
+$\ddot x^\mu + (\Gamma^\mu + \Omega^\mu)_{\alpha\beta}\dot x^\alpha\dot x^\beta = 0$ &
+  Modified worldline equation \\
+$\nabla_\nu(T_{\rm m} + T_{\rm field} + \Theta_{\rm PU})^{\mu\nu} = 0$ &
+  Total stress-energy conservation \\
+$a_r = -(GM/r^2)[1 - 3\nu u^2 + (63707/720)\nu u^3]$ &
+  QGD force law (to 4PN) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{What is established.}
+\begin{itemize}[nosep]
+  \item The QGD connection is derived exactly from the particle action via the
+    composite-metric chain rule~\eqref{eq:metric_chain}.
+  \item The Advection Tensor $\Omega^\lambda_{\mu\nu}$ is defined precisely
+    (Definition~\ref{def:advection}) and its components computed explicitly
+    (equations~\eqref{eq:Omega_ttr}--\eqref{eq:Omega_rtt_explicit}).
+  \item The $\nu$-dependence in the force law does not originate from $\Omega$
+    itself but from the Tamir--Mino EOB energy mapping.
+  \item The three stress-energy contributions and their conservation law are
+    identified (equation~\eqref{eq:total_conservation}).
+  \item The GR limit is recovered exactly (Proposition~\ref{prop:GR_limit}).
+\end{itemize}
+
+\end{document}
