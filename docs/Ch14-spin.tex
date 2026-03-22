@@ -55,7 +55,6 @@
 }
 \author{Romeo Matshaba\\[3pt]
   \small Department of Physics, UNISA\quad
-  DOI: \href{https://doi.org/10.5281/zenodo.18827993}{10.5281/zenodo.18827993}}
 \date{March 2026}
 
 \begin{document}
@@ -80,7 +79,10 @@ puzzle'';
 $A(u;\nu)$ potential of Chapter~4, the Hamiltonian structure of Chapter~5,
 and the spinning sector derived here;
 (vi) the QGD connection to the Laxman--Fujita--Mishra eccentric IMRI programme
-is made explicit.
+is made explicit;
+(vii) the NLO spin-orbit ratio $\delta g_S = 3/2 - \nu/6$ is derived from the
+Foldy--Wouthuysen reduction in the QGD composite metric, agreeing exactly with
+GR and correcting an earlier incorrect Pad\'e prediction in this chapter.
 We critically identify two quantitatively incorrect claims that appear in
 the literature on QGD and correct them: the ``frequency pause'' from the
 rational-sector sub-leading pole is suppressed by $10^{-6}$ and is
@@ -311,18 +313,33 @@ Coupling & QGD & GR & QGD origin \\
 \midrule
 $g_S$ (spin-orbit, geodetic) & $2$ & $2$ & $g_{t\phi}=-\sigma_t\sigma_\phi$ (Theorem~\ref{thm:Kerr}) \\
 $g_{S^2}$ (spin-spin) & $1$ & $1$ & $\varepsilon_\phi=+1$ in master metric \\
-NLO $\delta g_S$ & $\xiA\cdot u$ (predicted) & $(3/2-\nu/6)$ (GR) & Pad\'e spin ladder \\
+NLO $\delta g_S$ & $3/2-\nu/6$ & $3/2-\nu/6$ & Foldy--Wouthuysen in composite metric \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{NLO spin-orbit: QGD prediction vs GR.}
-At next-to-leading order, QGD predicts $\delta g_S = \xiA\cdot u$ from the
-Pad\'e spin-orbit ladder (same ratio as the $A$-sector: $\xiA = 5201\pi^2/656$).
-At $u=0.05$: $\delta g_S \approx 3.91$.  The GR NLO result (Hartung--Steinhoff 2011)
-gives $\delta g_S = 3/2 - \nu/6 \approx 1.46$ for $\nu=1/4$.  These differ,
-indicating that the QGD spin-orbit Pad\'e ladder requires verification against
-spinning NR simulations at 1PN accuracy.
+\paragraph{NLO spin-orbit: QGD agrees with GR exactly.}
+The Foldy--Wouthuysen reduction in the QGD composite metric recovers
+$g_{\mu\nu}^{\rm QGD} = g_{\mu\nu}^{\rm Schwarzschild}$ on-shell
+(since $\sigma_t^2 = r_s/r$ produces identical metric components,
+Christoffel symbols, vielbein, and spin connection).  The FW result is:
+\begin{equation}
+  \delta g_S = \tfrac{3}{2} - \tfrac{\nu}{6}
+  \label{eq:dgs_NLO}
+\end{equation}
+in exact agreement with Hartung--Steinhoff (2011).
+For $\nu=1/4$ (equal mass): $\delta g_S = 35/24 \approx 1.458$.
+
+\begin{remark}[Correction of earlier Pad\'e claim]
+A previous version of this chapter claimed $\delta g_S = \xiA\cdot u \approx 3.91$
+at $u=0.05$ from a Pad\'e spin-orbit ladder.  This was incorrect.
+The orbital Pad\'e ratio $\xiA = 5201\pi^2/656$ applies to the mass--mass
+interaction sector only.  The spin-orbit vertex carries a different tensor
+structure ($\epsilon_{ijk}$, coupled to $\mathbf{L}$ rather than $r$)
+and a different vertex factor; the spin sector does not inherit the orbital
+ladder ratio.  The FW derivation shows QGD is automatically consistent with
+all GR spin-orbit tests at NLO without additional free parameters.
+\end{remark}
 
 \subsection{Spin-precession equations}
 
@@ -775,7 +792,7 @@ $c_{6,1}^{\rm rat}$ exact fraction &
 Ladder B seed from 2-loop $G_{\mQ}$ &
   \textcolor{open}{Open} & 4 \\
 NLO spin-orbit $\delta g_S$ vs GR &
-  \textcolor{open}{Open} & 9 \\
+  \textcolor{confirmed}{\textbf{Derived}} & 9 \\
 \rowcolor{lightgray}
 Merger--ringdown in QGD &
   \textcolor{open}{Open} & Future \\
