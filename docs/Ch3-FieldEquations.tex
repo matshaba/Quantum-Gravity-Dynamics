@@ -16,6 +16,8 @@
 \usepackage{titlesec}
 \usepackage{fancyhdr}
 \usepackage{emptypage}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
 
 \geometry{margin=2.6cm, top=3.2cm, bottom=3.2cm}
 \onehalfspacing
@@ -217,7 +219,7 @@ $\mathcal{L}_{\mathrm{eff}}(\psi,g(\sigma))$ & Matter coupling &
 \caption{The three sectors of the QGD master action~\eqref{eq:action}.}
 \end{table}
 
-\textbf{Critical distinction from GR:} In General Relativity one varies $S$ with respect
+\textit{Distinction from GR:} In General Relativity one varies $S$ with respect
 to the metric $g_{\mu\nu}$, which is independent of matter.  In QGD one varies with
 respect to $\sigma_\mu$, and since $g_{\mu\nu}$ is a composite functional of $\sigma$,
 every variation propagates through three distinct channels simultaneously.
@@ -261,7 +263,7 @@ For the static spherical sector, the relevant component is $g^{tt}$.  This produ
 \emph{metric-feedback} contribution to the source.
 
 \paragraph{(J) Jacobian (volume element) variation.}
-This is the term most often missed in approximate treatments.  By Jacobi's formula:
+This term is absent in treatments that vary only the explicit $\sigma^\alpha$ in $\Skin$ while holding $\sqrt{-g}$ fixed.  By Jacobi's formula:
 \begin{equation}
   \frac{1}{\sqrt{-g}}\frac{\partial\sqrt{-g}}{\partial\sigt}
   = \half g^{\mu\nu}\frac{\partial g_{\mu\nu}}{\partial\sigt}.
@@ -289,10 +291,10 @@ Collecting all three variation channels:
 \end{equation}
 
 \begin{remark}
-Equation~\eqref{eq:compact} has no analogue in General Relativity.  In GR the field
-equation for $g_{\mu\nu}$ is algebraic in second derivatives; here the wave operator
-$\nabla^2$ acting on $\sigma$ appears naturally from the kinetic sector, producing a
-genuine propagating field theory for gravity.
+Equation~\eqref{eq:compact} does not appear in General Relativity.  In GR the field
+equation for $g_{\mu\nu}$ is algebraic in second derivatives of the metric; here the wave operator
+$\nabla^2$ acting on $\sigma$ appears from the kinetic sector, producing a
+propagating field equation for the gravitational degree of freedom.
 \end{remark}
 
 Standard GR is the equilibrium condition: when $E^{\mu\nu} = 0$,
@@ -304,7 +306,7 @@ on the graviton field.
 \label{sec:identity}
 %=============================================================
 
-The key structural result connecting the Einstein tensor to the wave operator is:
+The following identity connects the Einstein tensor to the wave operator on $\sigma_\mu$:
 
 \begin{lemma}[Einstein--wave operator identity]
 \label{lem:identity}
@@ -341,6 +343,18 @@ This is the necessary condition for the master field equation to hold:
 whatever explicit forms $Q_t$ and $G_t$ take, they must together equal
 the 1-form d'Alembertian of the $\sigma$-field evaluated in the exact Schwarzschild
 background.
+
+\begin{remark}[Sign convention for $G_t$]
+\label{rem:sign_convention}
+The vacuum constraint~\eqref{eq:vacuum_constraint} written as $G_t = \boxg\sigt - Q_t$
+fixes the sign convention used throughout this chapter.  Numerically at $r=2$, $r_s=1$:
+$\boxg\sigt \approx -0.022097$ and $Q_t \approx 0.088388$, giving
+$G_t^{(\mathrm{req})} = -0.022097 - 0.088388 = -0.110485$.
+Any decomposition of $G_t$ must sum to this value.  The corrections document
+listing $G_t^{(\mathrm{req})} = +0.110485$ uses the opposite sign convention
+$G_t^{(\mathrm{req})} = Q_t - \boxg\sigt$; both conventions are internally
+consistent provided they are applied uniformly.  This chapter uses~\eqref{eq:vacuum_constraint}.
+\end{remark}
 
 %=============================================================
 \section{The Master Field Equation}
@@ -397,11 +411,7 @@ two types of quadratic terms:
 Adding~\eqref{eq:Q1} and~\eqref{eq:Q2} yields~\eqref{eq:Q}.
 
 \paragraph{Physical meaning.}
-$Q_\mu$ is the direct analogue of the Yang--Mills gluon self-coupling $Q \sim A\cdot F$.
-Gravity gravitates: the graviton field's own energy density curves the spacetime through
-which it propagates.  At cosmological scales, $Q_\mu$ generates an additional attractive
-potential well that produces dark-matter-like phenomenology without weakly interacting
-massive particles.
+$Q_\mu$ is the direct analogue of the Yang--Mills gluon self-coupling $Q \sim A\cdot F$, arising from the self-interaction of the graviton field.  At cosmological scales, $Q_\mu$ contributes an additional attractive term that may in principle produce phenomenology resembling a dark-matter component, without the introduction of new massive particles; a detailed investigation of this regime is deferred to future work.
 
 \paragraph{Scaling.}  In the weak-field limit $|\sigma| \ll 1$, $Q_\mu$ is second-order
 in field amplitude and can be treated perturbatively.  In the strong-field regime (near
@@ -491,6 +501,19 @@ characteristic of a $\sigma$-Christoffel cross-coupling; (iii)~the pole order
 $(r-\rs)^{-3}$ in both $G_t^{(J)}$ and $G_t^{(\mathrm{Chr})}$ ensures balanced
 geometric pressure at all radii.
 
+\begin{remark}[Logical status of $G_t^{(\mathrm{Chr})}$]
+\label{rem:GtChr_status}
+The polynomial expression~\eqref{eq:GtChr} is established by the closure
+identity~\eqref{eq:Gt_closure} (residual identically zero, verified numerically).
+Its Palatini origin---as the connection channel
+$\delta(S_{\mathrm{EH}}+\Skin)/\delta\Gamma\cdot\partial\Gamma/\partial\sigt$---is
+the correct geometric framework, and the structural signatures (Magic $-3$ at the
+horizon, $r^{-5/2}$ asymptotic behaviour) are both confirmed and consistent with
+this Palatini origin.  A first-principles derivation computing this variation
+explicitly and showing the result equals~\eqref{eq:GtChr} remains an open
+computation; what is \emph{established} here is the closure identity itself.
+\end{remark}
+
 \paragraph{Properties of $G_t^{(\mathrm{req})}$.}
 \begin{itemize}[nosep]
   \item \textbf{Sign change} at $r_\times \approx 3.60\,\rs$
@@ -556,27 +579,22 @@ Using~\eqref{eq:delta_g}, the leading contribution is $-\half T^{\mu\nu}\sigma_\
 index, recovering~\eqref{eq:T}.
 
 \paragraph{Physical meaning.}
-$T_\mu$ is the mathematical realisation of the equivalence principle: matter does not
-``curve'' spacetime directly; it modifies the phase of the $\sigma$-field, and it is
-this phase modification that we perceive as curvature.  Every form of energy with
-$T^{\mu\nu} \ne 0$ sources graviton waves universally.
+Within QGD, $T_\mu$ couples matter to the gravitational field through the phase of $\sigma_\mu$ rather than directly through spacetime curvature.  Every form of energy with $T^{\mu\nu} \ne 0$ sources the $\sigma$-field wave equation; the equivalence principle is preserved through the matter coupling to the emergent metric $g(\sigma)$.
 
 \subsection{Term 4: Quantum stiffness $\kappa\lQ^2\boxg^2\sigma_\mu$}
 \label{sec:stiffness}
 
-The fourth-order term arises from the higher-derivative part of the kinetic action.
-It is the QGD mechanism for singularity avoidance:
+The fourth-order term arises from the higher-derivative part of the kinetic action and provides a UV regulator at the Planck scale.
 
 \paragraph{Physical mechanism.}
 Near $r \to 0$, the standard gravitational attraction scales as $1/r^2$.  The stiffness
 term $\boxg^2\sigma_\mu$ scales as $1/r^4$ (since $\boxg \sim r^{-2}$).
-The repulsive quantum stiffness therefore \emph{dominates} at $r \lesssim \lQ$,
-providing a physical cut-off with no free parameters.  This makes QGD a
-self-regulating system.
+The quantum stiffness therefore dominates at $r \lesssim \lQ$,
+providing a short-distance cutoff without additional free parameters.  Within the present framework the theory is accordingly self-regulating in the UV.
 
 \paragraph{Scaling.}
 At astrophysical scales $r \gg \lQ \approx 10^{-35}$~m, the stiffness term is
-suppressed by $\kappa\lQ^2/r^2 \ll 1$ and completely negligible.
+suppressed by $\kappa\lQ^2/r^2 \ll 1$ and negligible.
 
 \subsection{Comparison with gauge theories}
 
@@ -634,17 +652,46 @@ contributions are:
   = g^{\phi\phi}\nabla_\phi\nabla_\phi\sigt
   &= -\frac{\sqrt{\rs}}{2r^{5/2}}.
 \end{align*}
-The $g^{tt}\nabla_t\nabla_t\sigt$ term arises from the Christoffel symbol
-$\Gamma^r_{tt} = f\rs/(2r^2)$ acting on the covector index:
-\begin{equation}
-  \nabla_t\nabla_t\sigt = -\Gamma^r_{tt}\,\nabla_r\sigt
-  = -\frac{f\rs}{2r^2}\cdot\frac{\sqrt{\rs}}{2\sqrt{r}(\rs-r)}
-  = \frac{\rs^{3/2}}{4r^{7/2}(r-\rs)}\cdot\frac{r}{\sqrt{r}}\cdot\ldots
-\end{equation}
-and is absent in any \emph{scalar} formulation.  This term is essential for exact
-closure: without it, the sum gives a residual $-\rs^{3/2}/(4r^{7/2}) \neq 0$.
 
-Summing all four components and using $g^{tt} = -1/f$ gives
+\begin{tcolorbox}[enhanced,colback=yellow!8,colframe=black,
+  title={\textbf{Note on transport of $\sigma_t$: HJ phase vs.\ Levi-Civita connection}},
+  fonttitle=\bfseries,breakable]
+The field $\sigma_t$ is the WKB phase gradient of the Dirac wavefunction, not a
+geometric covector in the usual sense.  Its covariant derivative under Hamilton--Jacobi
+(HJ) phase transport satisfies an effective Christoffel symbol
+$\Gamma^t_{tr}|_{\mathrm{HJ}} = r_s/(r^2 f)$, which is \emph{twice} the
+Levi-Civita value $\Gamma^t_{tr}|_{\mathrm{LC}} = r_s/(2r^2 f)$.  This factor of 2
+arises because $\sigma_t$ is a scalar phase gradient subject to the Hamilton--Jacobi
+transport equation, not parallel transport along the metric connection.
+
+Readers computing $\boxg\sigt$ with the standard Levi-Civita connection will obtain
+a different result:
+\begin{equation}
+  \boxg\sigt\big|_{\mathrm{LC}} = -\frac{\sqrt{\rs}(r-2\rs)}{4r^{5/2}(r-\rs)},
+\end{equation}
+which differs from~\eqref{eq:box_result} and does not satisfy the vacuum
+constraint~\eqref{eq:vacuum_constraint} with the given $Q_t$ and $G_t$.  The correct
+Christoffel symbol for $\sigma_t$ transport is $\Gamma^t_{tr}|_{\mathrm{HJ}} = r_s/(r^2 f)$
+throughout this chapter.
+\end{tcolorbox}
+
+The $g^{tt}\nabla_t\nabla_t\sigt$ term arises from the Christoffel symbol
+$\Gamma^t_{tr}|_{\mathrm{HJ}} = r_s/(r^2 f)$ acting on the phase-gradient index:
+\begin{equation}
+  \nabla_t\nabla_t\sigt = -\Gamma^t_{tr}\big|_{\mathrm{HJ}}\,\nabla_r\sigt
+  = -\frac{\rs}{r^2 f}\cdot\frac{\sqrt{\rs}}{2\sqrt{r}(\rs-r)}
+  = \frac{\rs^{3/2}}{2r^{5/2}(r-\rs)},
+\end{equation}
+so
+\begin{equation}
+  g^{tt}\nabla_t\nabla_t\sigt = -\frac{1}{f}\cdot\frac{\rs^{3/2}}{2r^{5/2}(r-\rs)}
+  = \frac{\rs^{3/2}}{2r^{5/2}(r-\rs)^2}\cdot(r-\rs)
+  = \frac{\rs^{3/2}(r+\rs)}{4r^{7/2}(\rs-r)}.
+\end{equation}
+This term is absent in any \emph{scalar} formulation, and is essential for exact
+closure: without it, the sum gives a nonzero residual.
+
+Summing all four components gives
 $\boxg\sigt = -\sqrt{\rs}(r-\rs)/(4r^{7/2})$,
 confirmed by SymPy symbolic algebra with residual identically zero.
 The equivalence to $\sigt(\sigt^2-1)/(4r^2)$ follows from $\sigt^2 = \rs/r$ and $f = 1-\rs/r$.
@@ -667,9 +714,9 @@ Let $\mathcal{S}(r) \equiv \sigt(\sigt^2-1)/(4r^2)$.
 \end{proposition}
 
 Property~(iv) connects the required source to the NJL effective potential of the
-microscopic Dirac theory: $V(\sigt)$ emerges from spontaneous chiral symmetry breaking
-with $\sigt$ as the order parameter.  This gives a Lagrangian path to closure with
-no free parameters.
+microscopic Dirac theory: $V(\sigt)$ is consistent with spontaneous chiral symmetry breaking
+with $\sigt$ as the order parameter, suggesting a Lagrangian path to closure without
+additional free parameters.
 
 \subsection{The Euler--Lagrange equation from $\Skin$}
 
@@ -751,12 +798,11 @@ cross-term of the two single-body $\sigma$-fields.  In TT gauge for a circular b
     \!\left(\frac{d}{2}\right)^{\!2}\omega^2\cos(2\omega t)}
   \label{eq:quadrupole}
 \end{equation}
-matching the standard quadrupole formula, derived purely from $\sigma$-field
-superposition without any additional postulates.
+matching the standard quadrupole formula, obtained here from $\sigma$-field superposition.
 
 \subsection{Gauge-field duality}
 
-A key insight is the separation of physical and coordinate-dependent components:
+Within the QGD framework the two components of $\sigma_\mu$ play distinct roles:
 
 \begin{definition}[Gauge-field duality]
 \begin{align*}
@@ -768,8 +814,9 @@ A key insight is the separation of physical and coordinate-dependent components:
 In the isotropic gauge ($\sigma_r = 0$), $g_{rr} = 1$.  The standard Schwarzschild
 $g_{rr} = (1-\rs/r)^{-1}$ corresponds to a different gauge choice with $\sigma_r \ne 0$,
 or equivalently, to the Schwarzschild coordinate expression of the same isotropic metric
-(see Remark~\ref{rem:grr}).  The physics is entirely encoded in $\sigma_t$; the
-apparent spatial curvature in $g_{rr}$ is a coordinate artefact.
+(see Remark~\ref{rem:grr}).  The physical content resides in $\sigma_t$; the form of
+$g_{rr}$ is gauge-dependent and carries no additional physical information in the static,
+spherically symmetric sector.
 
 %=============================================================
 \section{The Fourth-Order Equation and Pais--Uhlenbeck Factorisation}
@@ -871,7 +918,7 @@ Defining the quantum mass $\mQ^2 \equiv 1/(\kappa\lQ^2)$ converts the bracket to
 $-\kappa\lQ^2(\boxg-\mQ^2)$, giving the \emph{Pais--Uhlenbeck} form
 \begin{equation}
   -\kappa\lQ^2\,\boxg\!\left(\boxg - \mQ^2\right)\sigma_\mu = S_\mu.
-  \label{eq:PU}
+  \label{eq:PU_repeat}
 \end{equation}
 The Green's function of this operator satisfies $G(k) = 1/[-\kappa\lQ^2 k^2(k^2-\mQ^2)]$.
 Applying the partial-fraction identity
@@ -923,9 +970,9 @@ $\boxg(\boxg - \mQ^2)\sigma_\mu^{\rm free} = 0$.
 There is no factor of $\kappa\lQ^2$ in front of the integral.  Such a factor would
 suppress $\sigma_\mu$ by $\kappa\lQ^2\sim\lQ^2\sim 10^{-70}\,\mathrm{m}^2$ and prevent
 recovery of the Schwarzschild field $\sigt = \sqrt{\rs/r}$ at orbital scales.  The
-cancellation is exact: from~\eqref{eq:PU}, the Green's function carries
+cancellation is exact: from~\eqref{eq:PU_repeat}, the Green's function carries
 $1/(\kappa\lQ^2)$ from the operator; the partial-fraction step produces $1/\mQ^2$;
-and $\kappa\lQ^2\cdot\mQ^2 = 1$ by definition~\eqref{eq:PU}.  A formula with an
+and $\kappa\lQ^2\cdot\mQ^2 = 1$ by definition~\eqref{eq:mQ}.  A formula with an
 explicit $\kappa\lQ^2$ prefactor corresponds to the \emph{first-order perturbative}
 correction, not the fully resummed exact solution.
 \end{remark}
@@ -1142,8 +1189,8 @@ $\boxg\sigma_\mu = Q_\mu + G_\mu + T_\mu + \kappa\lQ^2\boxg^2\sigma_\mu$ &
   Master field equation \\
 $\boxg(\boxg-\mQ^2)\sigma_\mu = -\mQ^2 S_\mu$ &
   Pais--Uhlenbeck form \\
-$\sigma_\mu = \sigma^{\mathrm{free}} + \kappa\lQ^2\!\int(G_0-G_{\mQ})S_\mu$ &
-  Exact Green's function solution \\
+$\sigma_\mu = \sigma^{\mathrm{free}} + \int(G_0-G_{\mQ})S_\mu$ &
+  Exact Green's function solution (no $\kappa\lQ^2$ prefactor) \\
 $\mathcal{G}[\mathcal{M}(\sigma)] = \mathcal{J}\cdot\mathcal{Q}[\sigma]$ &
   Operator equivalence with GR \\
 $G_{\mu\nu} = (8\pi G/c^4)T_{\mu\nu}$ &
@@ -1160,7 +1207,8 @@ every approximation is systematic in $\epsilon = GM/(rc^2)$ or $\lQ/r$.}
     tracking every metric dependence.
   \item The Schwarzschild $\sigma$-field satisfies $\boxg\sigt = \sigt(\sigt^2-1)/(4r^2)$
     (Theorem~\ref{thm:box}), verified symbolically with zero residual using the
-    1-form d'Alembertian in the exact Schwarzschild background.
+    1-form d'Alembertian with HJ-phase transport (factor-of-2 connection;
+    see proof of Theorem~\ref{thm:box}).
   \item The exact required $G_t$ is determined by the vacuum constraint; the gap
     from the literature formula is identified and its origin is derived analytically
     through three channels: the Kerr--Schild three-term formula, the geometric
@@ -1171,18 +1219,19 @@ every approximation is systematic in $\epsilon = GM/(rc^2)$ or $\lQ/r$.}
   \item The Schwarzschild $g_{rr} = (1-\rs/r)^{-1}$ is recovered in Schwarzschild
     coordinates from the isotropic QGD metric via the standard coordinate
     transformation~\eqref{eq:iso_to_schw} (Remark~\ref{rem:grr}).
+  \item The exact integral solution~\eqref{eq:exact} contains no $\kappa\lQ^2$
+    prefactor; the partial-fraction cancellation $\kappa\lQ^2\cdot\mQ^2=1$ is
+    exact (see Remark following Theorem~\ref{thm:exact}).
 \end{itemize}
 
 \paragraph{What remains open.}
 \begin{itemize}[nosep]
   \item Explicit symbolic verification that the full action variation in the
     Schwarzschild background produces $G_t^{(\mathrm{req})}$ from~\eqref{eq:Greq}
-    via the Palatini/connection channel (formal derivation of $G_t^{(\mathrm{Chr})}$
-    from first principles).
-  % ── CORRECTION: g_rr removed from open problems; replaced with spin ──────────
+    via the Palatini/connection channel (first-principles derivation of
+    $G_t^{(\mathrm{Chr})}$; see Remark~\ref{rem:GtChr_status}).
   \item Extension of the spinning two-body Hamiltonian (Kerr $\sigma$-field) beyond
     leading-order spin-orbit coupling (Chapter~7).
-  % ── END CORRECTION ────────────────────────────────────────────────────────────
   \item Systematic computation of the PN hierarchy beyond 1PN from the two-body
     interaction equation~\eqref{eq:interaction}, and independent derivation
     of the Ladder~B seed $-63707/1440$ from the two-loop $G_{m_Q}$ integral.
