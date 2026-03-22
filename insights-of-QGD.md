@@ -2,11 +2,11 @@
 
 This is neither a scientific paper and it might be biased its a scientific assessment of what QGD achieves, and what follows naturally once its premises are accepted. 
 
-In General Relativity (GR), gravity is the stage (the metric), and gravitational waves (GWs) are vibrations of that stage. In Quantum Gravity Dynamics (QGD), the stage does not exist independently. There is only the $\sigma$-field. What we perceive as "static gravity" is simply the steady-state (DC) limit of a field that is inherently "wavy" (AC).1. 
+In General Relativity (GR), gravity is the stage (the metric), and gravitational waves (GWs) are vibrations of that stage. In Quantum Gravity Dynamics (QGD),  what we perceive as "static gravity" is simply the steady-state (DC) limit of a field that is inherently "wavy" (AC).1. 
 
 The Electromagnetic Parallel: $\sigma_\mu$ as the "Gravitational 4-Potential"If we look at Electromagnetism (EM), the field $A_\mu$ (the 4-potential) manifests in two primary ways:Electrostatics: The $1/r$ Coulomb potential (the static $A_0$ component).Radiation: Light and Radio waves (the oscillating $\vec{A}$ vector components).
 
-In QGD, the $\sigma_\mu$ field behaves with the exact same dual-nature:Newtonian Gravity: The $1/\sqrt{r}$ field, which is the steady-state "Coulomb" limit of the temporal scalar $\sigma_t$.Gravitational Waves: The propagating ripples $\delta \sigma_\mu$ moving at the speed of light $c$.2. Gravity as a "Refractive Medium"Because "gravity is just waves," the space surrounding a mass like a black hole is not "empty curved space"—it is a region of high $\sigma$-field density
+In QGD, the $\sigma_\mu$ / graviton field behaves with the exact same dual-nature:Newtonian Gravity: The $1/\sqrt{r}$ field, which is the steady-state "Coulomb" limit of the temporal scalar $\sigma_t$.Gravitational Waves: The propagating ripples $\delta \sigma_\mu$ moving at the speed of light $c$.2. Gravity as a "Refractive Medium"Because "gravity is just waves," the space surrounding a mass like a black hole is not "empty curved space"—it is a region of high graviton field density
 
 ---
 
