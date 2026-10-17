@@ -44,7 +44,8 @@ $$\alpha_G^2 = \frac{ic\hbar}{2GMm}, \qquad |\alpha_G|^2 = \frac{c\hbar}{2GMm}, 
 
 | System | $|\alpha_G|^2$ | Regime |
 |--------|----------------|--------|
-| Earth–electron | $\approx 1.46 \times 10^{39}$ | Quantum (gravity negligible) |
+| Earth–electron | $\approx 4.36 \times 10^{-11}$ | Classical GR ($|\alpha_G|^2\ll1$) |
+| Electron–electron | $\approx 2.9 \times 10^{44}$ | Quantum (gravity negligible) |
 | Planck mass ($M = m = M_\mathrm{Pl}$) | $= 1/2$ | Quantum gravity |
 
 ---

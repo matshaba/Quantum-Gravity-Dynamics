@@ -51,8 +51,11 @@ References
 QGD manuscript, Sections 156–165 (master equation and solutions)
 """
 
+import os
+import sys
 import numpy as np
 from typing import List, Optional
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'core'))  # graviton_field.py lives in core/
 from graviton_field import SourceSignature, G, c, hbar, l_pl
 
 # Quantum gravitational length scale: ℓ_Q = √(Gℏ²/c⁴)

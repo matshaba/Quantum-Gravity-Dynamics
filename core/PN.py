@@ -1041,7 +1041,7 @@ print("""
 
   SYMPLECTIC STRUCTURE:
   The QGD phase space has the symplectic form:
-    Omega = int d^3x [d Pi^mu /\ d sigma_mu]
+    Omega = int d^3x [d Pi^mu \\wedge d sigma_mu]
   
   This is the standard field-theory symplectic form.
   The Poisson bracket is:

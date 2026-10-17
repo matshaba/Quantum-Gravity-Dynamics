@@ -126,9 +126,9 @@ This is unique to QGD — no analogue in GR.
 | `\|α_G\|²` | `cℏ/(2GMm)` | Real; used in probability densities | ✓ |
 | **At Planck scale** (`M=m=M_Pl`) | `\|α_G\|² = cℏ/(2G·M_Pl²) = 1/2` | Exactly 1/2; neither classical nor quantum | ✓ |
 | **Analogy with QED** | No GR analogue | `α_G ↔ α_em = e²/(4πε₀ℏc) ≈ 1/137` | ✓ |
-| **Regime** `\|α_G\|² ≫ 1` | Quantum (gravity negligible) | Earth-electron: `\|α_G\|² ≈ 1.46×10³⁹` | ✓ |
+| **Regime** `\|α_G\|² ≫ 1` | Quantum (gravity negligible) | Electron-electron: `\|α_G\|² ≈ 2.9×10⁴⁴` | ✓ |
 | **Regime** `\|α_G\|² ~ 1` | Quantum gravity | Planck-mass particles: `\|α_G\|² = 1/2` | ✓ |
-| **Regime** `\|α_G\|² ≪ 1` | Classical (antiparticles suppressed) | Large macroscopic masses | ✓ |
+| **Regime** `\|α_G\|² ≪ 1` | Classical (antiparticles suppressed) | Earth-electron: `\|α_G\|² ≈ 4.36×10⁻¹¹`; large macroscopic masses | ✓ |
 
 ---
 

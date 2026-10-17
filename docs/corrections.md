@@ -13,19 +13,18 @@ All corrections below are the result of independent SymPy verification. Each ite
 
 **Replace:** `≈ 4.36×10⁻¹¹` with label "Classical GR regime (|α_G|² ≪ 1)"
 
-**Evidence:** α_G = Gm_earth·m_electron/ħc. Computing directly:
-- G = 6.674×10⁻¹¹, m_earth = 5.97×10²⁴ kg, m_electron = 9.11×10⁻³¹ kg, ħc = 3.16×10⁻²⁶ J·m
-- α_G = (6.674×10⁻¹¹ × 5.97×10²⁴ × 9.11×10⁻³¹) / (3.16×10⁻²⁶) ≈ 1.15×10⁻²⁰
-- |α_G|² ≈ 1.33×10⁻⁴⁰... 
+**Evidence:** with |α_G|² = cħ/(2GMm), G = 6.674×10⁻¹¹, M = 5.97×10²⁴ kg, m = 9.11×10⁻³¹ kg and
+cħ = 3.16×10⁻²⁶ J·m, the denominator is 2GMm ≈ 7.26×10⁻¹⁶ J·m, so |α_G|² ≈ 4.36×10⁻¹¹.
+The regime labelling in the original text was inverted (|α_G|² ≪ 1 is the classical regime).
 
-Actually recheck: α_G = Gm1m2/(ħc) gives ≈ 4.36×10⁻⁶; |α_G|² ≈ 1.9×10⁻¹¹.
+**Correct regime table** (all with |α_G|² = cħ/(2GMm)):
+- electron–electron: |α_G|² ≈ 2.9×10⁴⁴ (quantum regime, gravity negligible)
+- Earth–electron: |α_G|² ≈ 4.4×10⁻¹¹ (classical GR regime)
+- Planck–Planck: |α_G|² = 1/2 (quantum-gravity transition)
 
-The sign of the exponent is wrong in the paper. The correct value is |α_G|² ≪ 1 (classical GR regime), not |α_G|² ≫ 1 (quantum regime). The regime labelling is inverted.
-
-**Correct regime table:**
-- electron-electron: |α_G|² ~ 10⁻⁴⁵ (quantum regime, gravity negligible)
-- Earth-electron: |α_G|² ~ 10⁻¹¹ (classical GR regime)
-- Planck-Planck: |α_G|² ~ 0.5 (quantum-gravity transition) ← this entry is correct
+Note: the number 10⁻⁴⁵ that sometimes appears for the electron–electron case is G m_e²/(ħc), the usual
+gravitational fine-structure constant, which equals 1/(2|α_G|²).
+`Ch1-Foundations.tex` previously gave 4.35×10⁻¹⁰ for the Earth–electron case, which is a factor 10 too large; it now reads 4.36×10⁻¹¹.
 
 ---
 

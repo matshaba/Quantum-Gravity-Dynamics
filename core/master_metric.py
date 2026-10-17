@@ -42,8 +42,10 @@ rs  = 2*G*M/c**2          # Schwarzschild radius
 f0  = rs / r              # leading mass term  2GM/c²r
 Sigma_kerr = r**2 + a**2*cos(theta)**2   # Kerr Σ
 
-# ── Metric signature convention: (+,-,-,-) → η = diag(1,-1,-1,-1) ────────────
-eta = Matrix([[1,0,0,0],[0,-1,0,0],[0,0,-1,0],[0,0,0,-1]])
+# ── Metric signature convention: (-,+,+,+) → η = diag(-1,1,1,1) ───────────────
+# (was (+,-,-,-), which contradicted g_tt = -(1-f) used throughout: with (+,-,-,-)
+#  the flat limit has g_tt = +1.  All spatial entries below are now positive.)
+eta = Matrix([[-1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]])
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SECTION 1: σ-field definitions (from Table 1 in the paper)
@@ -116,12 +118,12 @@ def master_metric_diagonal(f_val, r_var=r, th=theta, coords='spherical',
     isotropic_grr : bool
         If True (improved), reconstruct g_rr from σ_t so it is
         gauge-consistent with the Isotropic Gauge Mapping Theorem.
-        If False, use the naive g_rr = -1 (isotropic gauge artifact = 1).
+        If False, use the naive g_rr = +1 (flat spatial part).
 
     Returns
     -------
     g : sympy Matrix (4×4 diagonal)
-    labels : list of coordinate labels
+        (only the matrix is returned; there is no separate list of labels)
 
     Key insight from 15-solution survey:
       g_tt = -(1 - f) always encodes the physical field.
@@ -140,22 +142,22 @@ def master_metric_diagonal(f_val, r_var=r, th=theta, coords='spherical',
         g_rr_factor = (1 + half_f)**4   # conformal factor
         if coords == 'spherical':
             # Convert back: dr² term gets (1-f/2)²(1+f/2)² from the Jacobian
-            g_rr = -((1 - half_f)**2 * (1 + half_f)**2)
-            g_thth = -(r_var**2 * (1 + half_f)**4)
-            g_phph = -(r_var**2 * sin(th)**2 * (1 + half_f)**4)
+            g_rr = ((1 - half_f)**2 * (1 + half_f)**2)
+            g_thth = (r_var**2 * (1 + half_f)**4)
+            g_phph = (r_var**2 * sin(th)**2 * (1 + half_f)**4)
         elif coords == 'isotropic':
-            g_rr  = -(1 + half_f)**4
-            g_thth= -(r_var**2 * (1 + half_f)**4)
-            g_phph= -(r_var**2 * sin(th)**2 * (1 + half_f)**4)
+            g_rr  = (1 + half_f)**4
+            g_thth= (r_var**2 * (1 + half_f)**4)
+            g_phph= (r_var**2 * sin(th)**2 * (1 + half_f)**4)
         else:  # cartesian / flat spatial
-            g_rr  = -sp.Integer(1)
-            g_thth= -r_var**2
-            g_phph= -r_var**2 * sin(th)**2
+            g_rr  = sp.Integer(1)
+            g_thth= r_var**2
+            g_phph= r_var**2 * sin(th)**2
     else:
         # Naive (original) isotropic gauge: g_rr = -1 always
-        g_rr  = -sp.Integer(1)
-        g_thth= -r_var**2
-        g_phph= -r_var**2 * sin(th)**2
+        g_rr  = sp.Integer(1)
+        g_thth= r_var**2
+        g_phph= r_var**2 * sin(th)**2
 
     g = Matrix([[g_tt, 0, 0, 0],
                 [0, g_rr, 0, 0],
@@ -176,7 +178,7 @@ def register(name, f_expr, g_tt_standard, g_rr_standard, note="", eps=None):
         'g_tt_GR'    : g_tt_standard,
         'g_rr_GR'    : g_rr_standard,
         'g_tt_QGD'   : -(1 - f_expr),
-        'g_rr_iso'   : -(1 - f_expr/2)**2*(1 + f_expr/2)**2,
+        'g_rr_iso'   : (1 - f_expr/2)**2*(1 + f_expr/2)**2,
         'note'       : note,
         'epsilon'    : eps,
     }
@@ -396,7 +398,8 @@ def improved_master_metric(f_val, r_var=r, th=theta, quantum=False):
        • Kerr, Vaidya, interior solutions show g_rr breaking the 1/(1-f) rule.
 
     3. Improvement: reconstruct g_rr from σ_t via the isotropic mapping:
-         g_rr_improved = -(1 - f/2)²(1 + f/2)²
+         g_rr_improved = +(1 - f/2)²(1 + f/2)²   (mixes areal and isotropic gauges: see
+         schwarzschild_gauge_metric for the consistent areal-gauge form)
        This is gauge-consistent, reduces to GR at ℓ_Q → 0, and avoids
        the coordinate singularity at f = 1 (horizon) better than 1/(1-f).
 
@@ -407,11 +410,11 @@ def improved_master_metric(f_val, r_var=r, th=theta, quantum=False):
     g_tt   = -(1 - f_val)
 
     # Improved g_rr: isotropic-consistent, derived from σ_t
-    g_rr   = -((1 - half_f)**2 * (1 + half_f)**2)
+    g_rr   = ((1 - half_f)**2 * (1 + half_f)**2)
 
     # Angular parts (unchanged — tetrad gives r² and r²sin²θ)
-    g_thth = -r_var**2 * (1 + half_f)**4
-    g_phph = -r_var**2 * sin(th)**2 * (1 + half_f)**4
+    g_thth = r_var**2 * (1 + half_f)**4
+    g_phph = r_var**2 * sin(th)**2 * (1 + half_f)**4
 
     if quantum:
         # Add quantum stiffness correction to g_rr (from κ ℓ_Q² ∂σ·∂σ term)
@@ -427,6 +430,21 @@ def improved_master_metric(f_val, r_var=r, th=theta, quantum=False):
                 [0, 0, 0, g_phph]])
     return g
 
+def schwarzschild_gauge_metric(f_val, r_var=r, th=theta):
+    """
+    Static metric in areal (Schwarzschild) gauge, signature (-,+,+,+):
+
+        g = diag( -(1 - f),  1/(1 - f),  r^2,  r^2 sin^2 th ).
+
+    For the static universal scalar f this is the GR solution with that g_tt (Schwarzschild for f = 2GM/c^2 r,
+    Reissner-Nordstrom, de Sitter and Schwarzschild-de Sitter for the corresponding f), so it is the gauge-consistent
+    counterpart of `improved_master_metric`, which combines the areal g_tt with an isotropic-gauge g_rr.
+    """
+    return Matrix([[-(1 - f_val), 0, 0, 0],
+                   [0, 1/(1 - f_val), 0, 0],
+                   [0, 0, r_var**2, 0],
+                   [0, 0, 0, r_var**2*sin(th)**2]])
+
 def verify_classical_limit(f_val, r_var=r, th=theta):
     """
     Verify ℓ_Q → 0 gives GR isotropic Schwarzschild.
@@ -436,9 +454,9 @@ def verify_classical_limit(f_val, r_var=r, th=theta):
     half_f = f_val / 2
     g_iso_schw = Matrix([
         [-(1 - half_f)**2/(1 + half_f)**2, 0, 0, 0],
-        [0, -(1 + half_f)**4, 0, 0],
-        [0, 0, -(r_var**2*(1 + half_f)**4), 0],
-        [0, 0, 0, -(r_var**2*sin(th)**2*(1 + half_f)**4)]
+        [0, (1 + half_f)**4, 0, 0],
+        [0, 0, (r_var**2*(1 + half_f)**4), 0],
+        [0, 0, 0, (r_var**2*sin(th)**2*(1 + half_f)**4)]
     ])
     # g_tt comparison: QGD vs isotropic GR
     diff_tt = simplify(g_qgd[0,0] - g_iso_schw[0,0])
@@ -448,6 +466,81 @@ def verify_classical_limit(f_val, r_var=r, th=theta):
         'g_tt_diff': diff_tt,
         'match': diff_tt == 0 or simplify(diff_tt).equals(sp.Integer(0))
     }
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  SECTION 6b: Numerical MasterMetric  (reconstructed)
+# ─────────────────────────────────────────────────────────────────────────────
+#
+#  core/QGD_vs_GR.py imports a class `MasterMetric` that was missing from the
+#  repository.  This is a reconstruction from how that script uses it; the
+#  script's own checks are the specification.  What it does and does not do:
+#
+#    coordinates (t, r, theta, phi), signature (-, +, +, +), Schwarzschild-like gauge
+#    g_tt    = -1 + sum_a eps_a sigma_t,a^2
+#    g_t phi = -sum_a eps_a (r sin th) sigma_t,a sigma_phi,a
+#    g_phi phi = r^2 sin^2 th + sum_a eps_a (r sin th)^2 sigma_phi,a^2
+#    g_rr    = -1/g_tt          (static gauge; this is the Schwarzschild/RN/SdS
+#                                value, but NOT Kerr's Sigma/Delta)
+#    g_th th = r^2
+#
+#  For rotating sources only g_tt, g_t phi and the sigma part of g_phi phi are
+#  generated by the sigma-fields; g_rr and g_th th above are the static-gauge
+#  placeholders, not the Boyer-Lindquist values.  Nothing in the sigma-fields
+#  supplies Sigma and Delta.
+#
+import numpy as _np
+
+
+class MasterMetric:
+    """Numerical master metric built from a list of SourceSignature objects
+    (see graviton_field.SigmaField)."""
+
+    def __init__(self, sources):
+        self.sources = list(sources)
+
+    @staticmethod
+    def _call(fn, r, th):
+        try:
+            return fn(r, th)
+        except TypeError:
+            return fn(r)
+
+    def _f(self, r, th):
+        """f = sum_a eps_a sigma_t,a^2, so that g_tt = -(1 - f)."""
+        return sum(s.epsilon * self._call(s.sigma_t, r, th) ** 2 for s in self.sources)
+
+    def g_tt(self, r, th=_np.pi / 2):
+        return -1.0 + self._f(r, th)
+
+    def at(self, r, th=_np.pi / 2):
+        """4x4 metric at (r, theta) in (t, r, theta, phi)."""
+        g = _np.zeros((4, 4))
+        gtt = self.g_tt(r, th)
+        sin = _np.sin(th)
+        g[0, 0] = gtt
+        with _np.errstate(divide="ignore"):
+            g[1, 1] = -1.0 / gtt if gtt != 0 else _np.inf
+        g[2, 2] = r ** 2
+        g_phph = (r * sin) ** 2
+        g_tph = 0.0
+        for s in self.sources:
+            if s.sigma_phi is not None:
+                st, sp_ = self._call(s.sigma_t, r, th), self._call(s.sigma_phi, r, th)
+                g_tph += -s.epsilon * (r * sin) * st * sp_
+                g_phph += s.epsilon * (r * sin) ** 2 * sp_ ** 2
+        g[0, 3] = g[3, 0] = g_tph
+        g[3, 3] = g_phph
+        return g
+
+    def gravitational_energy_density(self, r, th=_np.pi / 2):
+        """rho_grav = (1/2) (d sigma_t / d r)^2 for the total sigma_t = sum_a sigma_t,a,
+        in the units of the QGD notes (for Schwarzschild: G M / (4 c^2 r^3)).
+        The derivative is taken by complex step, so it is exact to rounding."""
+        h = 1e-30 * max(abs(r), 1.0)
+        z = complex(r, h)
+        d = sum(_np.imag(self._call(s.sigma_t, z, th)) / h for s in self.sources)
+        return 0.5 * float(d) ** 2
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  SECTION 7: Main — run analysis and print results
