@@ -1,0 +1,1509 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=25mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm,mathrsfs}
+\usepackage{booktabs,array,longtable,graphicx,xcolor}
+\usepackage{microtype,enumitem,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\lQ}{\ell_Q}
+\newcommand{\mc}{\mathcal M}
+\newcommand{\EH}{\mathcal E}
+\definecolor{qgdblue}{RGB}{24,58,110}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\pagestyle{fancy}\fancyhf{}
+\lhead{Quantum Gravity Dynamics | Field Equations}
+\rhead{QGD--075 | Integrated 2026}
+\cfoot{\thepage}
+\hypersetup{pdfauthor={Romeo Matshaba},pdftitle={Quantum Gravity Dynamics: Master Metric and Field Equations}}
+\title{\vspace{-9mm}\textbf{Quantum Gravity Dynamics}\\[4pt]
+\large Chapter 2: The Full Master Metric and Field Equations\\[6pt]
+\normalsize Universal Representation, Variational Completeness, Exact Solutions and Computational Structure}
+\author{Romeo Matshaba}
+\date{Research revision --- 19 October 2026 (QGD--075 research integration)}
+\begin{document}
+\maketitle
+\begin{abstract}
+This chapter takes the \emph{complete} QGD tetrad/signed-sector/derivative master metric as its organizing equation. It proves general algebraic properties, constructive local representation and completeness results for its stated classical specialization, and conditional local lifting theorems for two \emph{explicit trial} multi-sector derivative prescriptions with nonzero correction. An exact solution protocol separates reconstructing an already known Einstein geometry from solving source-conditioned equations for independent natural-invariant amplitudes. Schwarzschild, Kerr, Kerr--Newman, time-dependent, wave, cosmological and anisotropic examples are catalogued alongside a sourced Dirac Fermi-gas star and leading rotation. The chapter also derives the complete metric-mediated natural-invariant Euler equations, distinguishes Einsteinian gravitational-wave modes from sector redundancies, proves a counterexample to one-sector projected completeness, and replaces an unsupported historical wave/source split with an exact action-defined natural-invariant balance $S_{(s)}=G_{(s)}+T_{(s)}+Q_{(s)}=0$. Computational simplifications are established for specific structural classes; neither a universal speed advantage nor a microscopic derivation of the derivative operator or Einstein--Hilbert action is claimed. The research integration also establishes the explicit 32-to-10 signed-sector Jacobian, preserves its 22 representation redundancies, and incorporates the covariantly coupled Dirac determinant, complete first/second geometric vertices, induced local curvature term, and nonlocal vacuum response. These are controlled algebraic and external-source results, not a derivation of autonomous QGD gravity. All restrictions, variational assumptions, and open physical questions are made explicit.
+\end{abstract}
+\noindent\textbf{Status legend.} \emph{Master postulate}: QGD's full geometric proposal. \emph{Proved algebra}: exact statements under explicit hypotheses. \emph{Classical benchmark}: the \(\lambda=0\) restriction with an adopted Einstein--Hilbert/matter action. \emph{Derivative trial}: a deliberately specified, unverified completion of \(\mathcal Q\). \emph{Open}: no derivation or theorem is claimed.
+\medskip
+\noindent\textbf{Governing QGD master equation (all results below are explicitly scoped to this equation or a declared specialization):}
+\[
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\left[\eta_{ab}-\sum_{s=1}^{N}\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+-\lambda\mathcal Q_{ab}\right],\quad \varepsilon_s=\pm1.}
+\]
+
+\medskip
+\noindent\textbf{Three defining mathematical statements.}
+\begin{equation}\label{eq:qgd062-three-pillars}
+\boxed{\begin{aligned}
+\text{Geometry:}\quad& g=g[\sigma,T,\mathcal Q],\\
+\text{Effective dynamics:}\quad& S_{(s)}=(D_{\sigma^{(s)}}g)^{*}\mathcal E_g=0,\\
+\text{Correspondence:}\quad& \operatorname{Im}D_\sigma g=\operatorname{Sym}^2(T^*M)
+\ \Longrightarrow\ \mathcal E_g=0.
+\end{aligned}}
+\end{equation}
+The first line is the original geometric postulate, the second is derived
+\emph{conditionally} from an adopted metric-mediated action, and the third
+requires surjectivity over the admissible test variations. In the second line,
+$Dg^{*}$ denotes the measure-weighted functional adjoint, not an
+ordinary pointwise transpose. The names $S,G,T,Q$ below refer to the
+\emph{Euler variation channels}, never to unverified historical wave sources.
+
+
+\tableofcontents
+
+% Cross-chapter reading orientation, added without changing the original master equations.
+\noindent\textbf{Reading orientation.}
+Chapter~1 motivates the quantum-matter interpretation and states which
+spinor and source observables follow from specified microscopic models.
+This chapter supplies the proposed complete signed natural-invariant
+metric and the resulting variational geometry.  \emph{Representing an
+Einstein solution} and \emph{deriving a new gravitational dynamical law}
+are different statements.  The former is established in several sectors;
+the latter is not implied by factorization alone.  Chapter~3 determines
+the exterior strength by Newtonian correspondence and separates classical
+redshift effects from conditional matter-loop corrections.  Chapter~4
+interprets the exact sector balance $S=G+T+Q$ and states what additional
+physical content would distinguish QGD from metric-only general relativity.
+
+\section{Origin, conventions and the independent hypothesis}\label{sec:origin}
+Chapter~1 establishes, in a specified scalar-effective-mass and local/WKB regime, the spinor-block identity
+\begin{equation}\label{eq:origin-ratio}
+ u_B=\mathsf R u_A,\qquad
+ \mathsf R=\frac{c\bm\tau\cdot\bm\pi}{\mathcal E_++\mc c^2},
+\end{equation}
+where $\bm\tau$ are the Pauli matrices and $\bm\pi$ is the gauge-invariant momentum. The original four-component mode construction, including the negative-energy branch, is restored and corrected in Chapter~1. Its four mode coefficients are \emph{not} the four spacetime components of a gravitational field, and are \emph{not} four independently varied signed source sectors.
+
+\begin{definition}[The QGD natural invariant: physical promotion postulate]\label{def:natural-invariant}
+$\sigma_\mu$ denotes a generalized macroscopic covector inspired by the spinor-component structure of Eq.~\eqref{eq:origin-ratio}, but \emph{promoted} to a gravitational variable whose allowable configurations are governed by the QGD metric postulate, a specified action, macroscopic source observables and boundary conditions. It is not defined in general by $\partial_\mu S/(\mc c)$, nor by the local average of the spatial Dirac momentum ratio.
+\end{definition}
+The term ``natural invariant'' is the historical conceptual name; strictly $\sigma_\mu$ is a one-form, while contractions such as $\sigma_\mu\sigma^\mu$ are scalars when an appropriate metric is supplied. For a smooth scalar WKB phase, $k_\mu=\partial_\mu S$ is locally closed, but the generalized field need not be an exact differential. A stationary gravitational field can extend into a source-free exterior even when the local material spinor is absent there, so a dynamical or nonlocal source-to-field prescription is needed.
+
+We use signature $(-+++)$ and $G=c=1$ in geometric solutions unless otherwise stated. $\eta_{ab}=\mathrm{diag}(-1,1,1,1)$ denotes the flat \emph{frame} metric; $T^a{}_\mu$ converts frame to coordinate components. When $T$ is chosen as a coordinate-dependent orthonormal frame of flat spacetime, that dependence does not itself insert curvature. The physical freedom of a separately dynamical tetrad remains a distinct, unresolved part of the unrestricted master theory.
+
+
+\subsection*{Physical meaning: the geometry of a proposed collective matter-wave response}\label{sec:qgd064-interpretation}
+In QGD's intended ontology, gravity is a hypothesized collective macroscopic consequence of underlying quantum matter, \emph{not} an ordinary single-particle de Broglie oscillation writ large. Microscopic Dirac phases, energy, stresses and quantum correlations motivate the search for source-selected, long-range natural-invariant sectors. Ordinary quantum coarse-graining can produce stable matter observables under correlation-decay hypotheses; it does not, without additional dynamics, select the $\sigma_\mu^{(s)}$, propagate them in a vacuum exterior or fix their gravitational coupling.  The mathematical role of this chapter is to study what follows \emph{if} those fields exist and satisfy the full master-metric postulate.
+
+The complete signed metric does not require macroscopic phase coherence of every constituent. Its quadratic structure is compatible with a source-amplitude scaling $\sigma^2\sim M/r$ in a selected exterior branch, but the scaling is derived here from the adopted Einsteinian dynamics and Newtonian calibration, not from random-phase $\sqrt N$ arguments. The four spinor mode labels of Chapter~1 are not the signed sector labels of the metric. The metric-only equivalence results establish a macroscopic correspondence, \emph{not} the microscopic origin of a universal gravitational mode.
+
+\section{The complete QGD master metric}\label{sec:master}
+The original manuscript proposes the architecture
+\begin{equation}\label{eq:master-metric-original}
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\left[\eta_{ab}-\sum_{s}\varepsilon_s\,
+\sigma_a^{(s)}\sigma_b^{(s)}
+-\lambda\,\mathcal Q_{ab}\right].}
+\end{equation}
+Here $s$ labels physical signed source sectors, not spinor modes or coordinate directions. In the \emph{verified classical representation benchmark} we write $s_s=-\varepsilon_s=\pm1$ and isolate
+\begin{equation}\label{eq:master-classical}
+\boxed{g^{\rm cl}_{\mu\nu}=
+T^a{}_{\mu}T^b{}_{\nu}
+\left[\eta_{ab}+\sum_s s_s\sigma_a^{(s)}\sigma_b^{(s)}\right].}
+\end{equation}
+In signature $(-+++)$, the positive mass-sector rank-one addition used for Schwarzschild/Kerr corresponds to $\varepsilon_{\rm mass}=-1$ in Eq.~\eqref{eq:master-metric-original}; the historical text instead stated $\varepsilon_{\rm mass}=+1$. That sign mismatch must \emph{not} be hidden. Our tested positive branch is a declared classical convention, not an identity proving the historical signs consistent.
+
+The historical derivative-metric correction is an explicitly \emph{unmatched trial}:
+\begin{equation}\label{eq:metric-trial}
+\mathcal Q_{ab}\overset{\rm trial}{=}
+(\bar\nabla_a\sigma^c)(\bar\nabla_b\sigma_c),
+\qquad \lambda\overset{?}{=}\kappa\ell_Q^2.
+\end{equation}
+The connection, signed-sector generalization, dimensional coefficient and derivation from macroscopic Dirac theory have not been established. Replacing ordinary derivatives with a chosen flat-background covariant derivative is a \emph{test convention}, not microscopic matching. The historical $\ell_Q=\sqrt{G\hbar^2/c^4}$ is dimensionally not a length. We therefore do not use Eq.~\eqref{eq:metric-trial} to claim exact GR solutions or quantum forces, while preserving its provenance in the archived original source.
+
+\subsection{Signed natural-invariant Gram structure and its local reach (QGD--056)}\label{sec:qgd060-gram}
+In the \emph{classical restriction} of Eq.~\eqref{eq:master-metric-original} with a fixed flat reference coframe and $\lambda=0$, collect signed one-forms into the matrix $\mathsf\Sigma_{s\mu}=\sigma_\mu^{(s)}$, and set $\mathsf C=\operatorname{diag}(s_1,\dots,s_N)$. Then the physical metric modification is the \emph{indefinite Gram tensor}
+\begin{equation}\label{eq:qgd060-gram}
+ \boxed{h_{\mu\nu}:=g^{\rm cl}_{\mu\nu}-\bar g_{\mu\nu}
+ =\sum_{s=1}^N s_s\sigma_\mu^{(s)}\sigma_\nu^{(s)}
+ =(\mathsf\Sigma^{\mathsf T}\mathsf C\mathsf\Sigma)_{\mu\nu}.}
+\end{equation}
+\begin{theorem}[Smooth local signed-covector representation]\label{thm:qgd060-eight}
+Relative to a fixed smooth reference metric $\bar g$ on a four-dimensional coordinate neighborhood, every smooth symmetric deformation $h=g-\bar g$ admits a representation of the form \eqref{eq:qgd060-gram} using four positive and four negative smooth real one-forms.  This is a \emph{local algebraic sufficiency theorem}, not a count of necessary physical QGD sectors.
+\end{theorem}
+\begin{proof}
+Choose a local coframe $\theta^a$ and its dual $E_a$, and put $w^a=\frac14 h(E_a,\cdot)$. Define $\sigma^{(a,\pm)}=\theta^a\pm w^a$. The polarization identity gives
+\begin{equation}\label{eq:qgd060-eight}
+ \boxed{\sum_{a=0}^3\bigl(\sigma^{(a,+)}\!\otimes\sigma^{(a,+)}-
+ \sigma^{(a,-)}\!\otimes\sigma^{(a,-)}\bigr)
+ =2\sum_a(\theta^a\!\otimes w^a+w^a\!\otimes\theta^a)=h.}
+\end{equation}
+All quantities are smooth even where $h$ changes sign or vanishes.
+\end{proof}
+The theorem includes arbitrary Lorentzian target metrics whenever $g=\bar g+h$ is Lorentzian, but it \emph{does not} establish a unique physical sector choice, microscopic generation, or the unrestricted nonzero-$\lambda$ metric correction.  In particular, universal representability alone is not evidence that a specific quantum state selected those sectors.
+
+\subsection{How one natural invariant builds the metric matrix}
+In a selected coordinate frame a single covector may have the four independent components
+$\sigma=(\sigma_t,\sigma_r,\sigma_\theta,\sigma_\phi)$. Its signed quadratic contribution is
+\begin{equation}\label{eq:outer-matrix}
+\sigma_\mu\sigma_\nu=
+\begin{pmatrix}
+\sigma_t^2 & \sigma_t\sigma_r & \sigma_t\sigma_\theta & \sigma_t\sigma_\phi\\
+\sigma_r\sigma_t & \sigma_r^2 & \sigma_r\sigma_\theta & \sigma_r\sigma_\phi\\
+\sigma_\theta\sigma_t & \sigma_\theta\sigma_r & \sigma_\theta^2 & \sigma_\theta\sigma_\phi\\
+\sigma_\phi\sigma_t & \sigma_\phi\sigma_r & \sigma_\phi\sigma_\theta & \sigma_\phi^2
+\end{pmatrix}.
+\end{equation}
+Thus $g_{tr}$, $g_{t\phi}$ and $g_{r\phi}$ emerge as correlated cross-products in an adapted frame; there is no independent ``$\sigma_{tr}$ force'' being postulated. For multiple sectors, \emph{signed outer products add at the metric level}. Summing raw $\sqrt{\text{potential}}$ amplitudes and then squaring instead introduces cross terms and is not automatically a valid multi-source composition rule.
+
+\subsection{A signed null direction yields exact algebraic simplification}
+\begin{theorem}[Kerr--Schild representation identity]\label{thm:null}
+Suppose $k_\mu$ is null with respect to a flat background $\bar g_{\mu\nu}$ and, on a region of fixed signs, signed QGD sectors are parallel to $k_\mu$ so that $\sum_s s_s\sigma_\mu^{(s)}\sigma_\nu^{(s)}=\mathcal H k_\mu k_\nu$. Then
+\begin{equation}\label{eq:ks-identity}
+ g_{\mu\nu}=\bar g_{\mu\nu}+\mathcal H k_\mu k_\nu,
+\qquad
+ g^{\mu\nu}=\bar g^{\mu\nu}-\mathcal H k^\mu k^\nu,
+\qquad \det g=\det\bar g.
+\end{equation}
+\end{theorem}
+\begin{proof}
+The rank-one determinant lemma gives $\det(g)/\det(\bar g)=1+\mathcal H\bar g^{\mu\nu}k_\mu k_\nu=1$; the inverse follows by direct multiplication and nullity. These are established Kerr--Schild identities realized within a specialized QGD master metric, not a derivation of $\mathcal H$ or $k$ from spinor dynamics.
+\end{proof}
+
+\subsection{Full-master-metric coframe and Dirac propagation (QGD--057/058)}\label{sec:qgd060-clifford}
+For the \emph{complete} master metric of Eq.~\eqref{eq:master-metric-original}, with internal quadratic form
+\begin{equation}\label{eq:qgd060-internal-metric}
+ \mathfrak h_{ab}=\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+ -\lambda\mathcal Q_{ab},\qquad g_{\mu\nu}=T^a{}_{\mu}\mathfrak h_{ab}T^b{}_{\nu}.
+\end{equation}
+\begin{theorem}[Local Clifford compatibility of the full master metric]\label{thm:qgd060-clifford}
+If $T$ is invertible and the resulting smooth $\mathfrak h$ is nondegenerate and Lorentzian, there is locally an invertible factor $L$ such that $\mathfrak h_{ab}=\eta_{cd}L^c{}_a L^d{}_b$.  Setting $e^c{}_{\mu}=L^c{}_aT^a{}_{\mu}$ and its inverse $e_c{}^\mu$, the matrices $\Gamma^\mu=e_c{}^\mu\gamma^c$ obey
+\begin{equation}\label{eq:qgd060-Clifford}
+ \boxed{\{\Gamma^\mu,\Gamma^\nu\}=-2g^{\mu\nu}\mathbf1.}
+\end{equation}
+\end{theorem}
+This is the standard local orthonormal-frame construction \emph{applied to} the full QGD composite metric, with the spin connection required in the corresponding covariant Dirac operator.  It is an exact algebraic/kinematic compatibility result wherever the proposed metric is smooth and Lorentzian; it neither determines $\mathcal Q_{ab}$ nor proves microscopic QFT generated the coframe.  The compact null Kerr--Schild matrices are a special corollary, not the general formula.
+
+\subsection{Exact matrix structure of the full master metric}\label{sec:full-matrix}
+Write \(U_{as}=\sigma_a^{(s)}\), \(C=\operatorname{diag}(-\varepsilon_1,\ldots,-\varepsilon_N)\), and
+\begin{equation}\label{eq:full-matrix-block}
+ H=\eta-\lambda\mathcal Q,\qquad
+ \mathfrak h=H+UCU^{\mathsf T},\qquad
+ \boxed{g=T^{\mathsf T}(H+UCU^{\mathsf T})T.}
+\end{equation}
+Here \(T\) is invertible, \(\mathcal Q\) is symmetric, and the output is required to be Lorentzian. If \(H\) is invertible and so is the indicated \(N\)-sector matrix, the Woodbury and determinant identities give
+\begin{align}\label{eq:full-woodbury}
+ g^{-1}&=T^{-1}\!\left[H^{-1}-H^{-1}U(C^{-1}+U^{\mathsf T}H^{-1}U)^{-1}U^{\mathsf T}H^{-1}\right]\!T^{-\mathsf T},\\
+ \det g&=(\det T)^2\det H\det(I_N+CU^{\mathsf T}H^{-1}U).
+\end{align}
+These formulas include \(\lambda\mathcal Q\) exactly, but are \emph{not} a kinetic equation for \(\sigma\). Their stated intermediate inverses may fail even when \(g\) remains nonsingular; direct inversion of \(\mathfrak h\) remains valid then. The Woodbury representation is computationally attractive only if \(N\) is suitably small and \(H^{-1}\) is inexpensive to obtain.
+
+\begin{proposition}[The derivative trial is a constrained Gram tensor]\label{prop:Q-Gram}
+For the historical single-field trial \(\mathcal Q_{ab}=(\bar\nabla_a\chi^c)(\bar\nabla_b\chi_c)\), let \(J_a{}^c=\bar\nabla_a\chi^c\). Then
+\begin{equation}\label{eq:Q-gram}
+ \mathcal Q=J\eta J^{\mathsf T}\quad\text{in an orthonormal flat-reference frame}.
+\end{equation}
+Consequently \(-\lambda\mathcal Q\) is an indefinite Gram contribution, but its generating columns are derivatives of \(\chi\), \emph{not independent natural-invariant fields}.
+\end{proposition}
+
+\subsection{The scope of the full and restricted constructions}\label{sec:regimes}
+\begin{center}\small
+\begin{tabular}{@{}p{0.28\linewidth}p{0.64\linewidth}@{}}\toprule
+Full master & Arbitrary declared sector count \(N\), invertible \(T\), and as-yet unmatched \(\mathcal Q\); founding geometric architecture, not a universal derivative-theory theorem.\\
+Classical specialization & Fixed flat reference frame and \(\lambda=0\); theorems in Sections~\ref{sec:qgd060-gram}, \ref{sec:representation-strengthening} and classical examples apply.\\
+Structured subfamilies & Null/Kerr--Schild, spherical, stationary rotating, or homogeneous ans\"atze; lower-rank \emph{solution methods}, not the complete master.\\
+Specified derivative completions & \(\lambda\ne0\) and an explicitly chosen designated-sector or signed-sector \(\mathcal Q\); conditional new results in Section~\ref{sec:derivative-existence}.\\
+\bottomrule\end{tabular}
+\end{center}
+
+\section{Universal representation, sharp sector bounds and local rank}\label{sec:representation-strengthening}
+The local eight-sector polarization theorem (Theorem~\ref{thm:qgd060-eight}) already proves that any smooth target metric \(g\), Einsteinian or not, admits an algebraic signed-sector lift relative to a fixed reference on a coordinate neighborhood. This is an \emph{existence} statement: the target is supplied first, not solved for dynamically.
+
+\begin{theorem}[Sharp fixed-sign universal inventory]\label{thm:sharp-eight}
+Fix the four-dimensional Minkowski reference metric and require a \emph{single preassigned inventory} of real positive and negative outer-product sectors to represent every local Lorentzian deformation. At least four positive and four negative sectors are necessary. The eight-sector construction of Theorem~\ref{thm:qgd060-eight} attains the bound.
+\end{theorem}
+\begin{proof}
+The positive and negative inertia indices of \(h=UCU^{\mathsf T}\) obey \(n_+(h)\le N_+\) and \(n_-(h)\le N_-\). With \(\eta=\operatorname{diag}(-1,1,1,1)\), both target metrics \(g_\pm=\eta\pm\delta I_4\), \(0<\delta<1\), are Lorentzian. Their deformations \(h_+=\delta I_4\) and \(h_-=-\delta I_4\) require \(N_+\ge4\) and \(N_-\ge4\), respectively. The previously proved polarization construction uses exactly four of each sign.\end{proof}
+\noindent The theorem does \emph{not} establish that every particular Einstein solution needs eight physical sectors, or that the full nonzero-\(\lambda\) model requires eight.
+
+\begin{theorem}[Every metric perturbation has an explicit eight-sector preimage]\label{thm:eight-right-inverse}
+In the parallel-coframe construction \(\sigma^{(a,\pm)}=\theta^a\pm w^a\), with \(w^a=\frac14 h(E_a,\cdot)\), the metric differential has a right inverse at \emph{every} represented \(h\). In particular, the image has all ten independent symmetric metric directions.
+\end{theorem}
+\begin{proof}
+For any smooth symmetric \(\delta h\), take \(\delta w^a=\frac14\delta h(E_a,\cdot)\) and \(\delta\sigma^{(a,\pm)}=\pm\delta w^a\). The exact polarization identity is linear in \(w^a\); its variation is precisely \(\delta h\). This is a differential right inverse, not just a component count.\end{proof}
+
+\begin{proposition}[Four-sector local full-rank branch]\label{prop:four-rank}
+For \(g=\bar g+\Sigma^{\mathsf T}C\Sigma\) with four independent one-forms \(\Sigma\) and fixed invertible signature matrix \(C\), every infinitesimal symmetric \(\delta g\) is attained by
+\begin{equation}\label{eq:four-right-inverse}
+ \delta\Sigma=\frac12C^{-1}\Sigma^{-\mathsf T}\delta g.
+\end{equation}
+The Jacobian therefore has rank ten and a six-dimensional kernel. It is locally sufficient near a nonzero spanning background, but does not guarantee a smooth global four-sector representation of arbitrary deformations.
+\end{proposition}
+\begin{proof}
+Substitute the displayed \(\delta\Sigma\) into \(\delta g=\delta\Sigma^{\mathsf T}C\Sigma+\Sigma^{\mathsf T}C\delta\Sigma\). Each term equals \(\delta g/2\).\end{proof}
+
+\noindent General sector transformations \(\Sigma\mapsto L\Sigma\) with \(L^{\mathsf T}CL=C\) preserve the classical metric pointwise. This metric-representation freedom is not automatically a local gauge invariance of a derivative-dependent action. Additional independent sector dynamics may distinguish classically equivalent representations.
+
+
+\begin{theorem}[Natural-Invariant Redundancy Theorem]
+\label{thm:qgd062-redundancy}
+Let $C$ be a fixed, invertible symmetric $4\times4$ signature matrix and
+let $\Sigma$ be an invertible matrix of four smooth covectors. In the
+classical metric-only construction $g=\bar g+\Sigma^{\mathsf T}C\Sigma$,
+(1) every smooth local $L(x)$ satisfying $L^{\mathsf T}CL=C$ leaves
+$g$ invariant; and (2) the kernel of the metric differential consists
+\emph{precisely} of $\delta\Sigma=X\Sigma$ with
+$X^{\mathsf T}C+CX=0$, a six-dimensional space at every point.
+\end{theorem}
+\begin{proof}
+The first statement follows by multiplication:
+$(L\Sigma)^{\mathsf T}C(L\Sigma)=\Sigma^{\mathsf T}C\Sigma$.
+For a kernel perturbation let $X=\delta\Sigma\,\Sigma^{-1}$.
+Then
+$0=\delta g=\Sigma^{\mathsf T}(X^{\mathsf T}C+CX)\Sigma$;
+invertibility of $\Sigma$ proves the stated condition, and its
+converse is immediate. The matrix $CX$ is skew-symmetric, so the
+kernel has dimension $4(4-1)/2=6$. The remaining ten directions are
+accessible by Eq.~\eqref{eq:four-right-inverse}.
+\end{proof}
+\noindent For an action depending on $\Sigma$ only through $g$,
+this local pseudo-orthogonal freedom is an exact field-redefinition
+symmetry. An active derivative term $\mathcal Q[\sigma,\bar\nabla\sigma]$
+need not share it: derivatives of $L(x)$ can change $\mathcal Q$.
+Neither the existence of six representation directions nor the
+invariance of the effective action establishes six propagating particles.
+
+
+
+% ===================== QGD-075 GEOMETRIC INTEGRATION =====================
+\subsection{Eight signed natural-invariant sectors: exact Jacobian and redundancy (QGD--073C)}\label{sec:qgd075-signed-rank}
+The classical eight-sector instance of Eq.~\eqref{eq:master-classical}
+can be chosen in a fixed flat coframe as
+\begin{equation}\label{eq:qgd075-eight-sectors}
+ g_{\mu\nu}=\bar g_{\mu\nu}
+ +\sum_{a=0}^{3}\left[
+ \sigma_\mu^{(a,+)}\sigma_\nu^{(a,+)}
+ -\sigma_\mu^{(a,-)}\sigma_\nu^{(a,-)}\right].
+\end{equation}
+Set $\sigma^{(a,+)}=\sigma^{(a,-)}=v\,dx^a$ on a coordinate
+patch, with $v\ne0$. This is a \emph{nonzero cancelling sector background}:
+$g=\bar g$ although all eight covectors are nonzero. The derivative
+$L=D_\sigma g:\mathbb R^{32}\to\operatorname{Sym}^2(\mathbb R^4)$
+has $\operatorname{rank}L=10$ and $\dim\ker L=22$.
+With $v=1$ and \emph{Euclidean component norms} for the domain and an
+orthonormal Frobenius basis for symmetric output tensors, the explicit
+Jacobian obeys
+\begin{equation}\label{eq:qgd075-L-normal}
+ \boxed{LL^{\mathsf T}=8I_{10},\qquad
+ \operatorname{rank}L=10,\qquad
+ \dim\ker L=22.}
+\end{equation}
+This component norm is a \emph{linear-algebra convention}, not a
+physical Euclidean signature for the Lorentzian spacetime.
+The metric remains many-to-one: full variational reach does not
+select physical sectors from the microscopic four-mode state.
+At the \emph{zero} sector background, by contrast,
+\begin{equation}\label{eq:qgd075-zero-jacobian}
+ \boxed{D_\sigma g\big|_{\sigma=0}=0}
+\end{equation}
+for the fixed-frame metric-only quadratic Gram map. This prevents an
+ordinary Gaussian sector kinetic term from appearing merely by pulling
+back a metric kinetic term about $\sigma=0$.
+% ===================== END QGD-075 GEOMETRIC RANK =====================
+
+
+\section{The action: established benchmarks versus proposals}\label{sec:action}
+The successful \emph{classical benchmark} is a specified model using QGD's composite metric map as the variable choice and a macroscopic Dirac matter description:
+\begin{equation}\label{eq:benchmark-action}
+\boxed{S_0[\sigma,T,\Psi]=\frac1{16\pi G}\int\dd^4x\sqrt{-g[\sigma,T]}\,R[g[\sigma,T]]
++S_D[\Psi,g[\sigma,T];\mc].}
+\end{equation}
+The Einstein--Hilbert term is an \emph{input}, not derived from the microscopic Dirac action. In restricted calculations the tetrad is a fixed frame of flat spacetime and $\sigma$ contains independently varied components; if the tetrad is physically independent, its variation must also be specified.
+
+The historical manuscript additionally wrote a standalone $\hbar^2/(2M)(\nabla\sigma)^2$ term and the metric operator in Eq.~\eqref{eq:metric-trial}. Neither has a proven microscopic matching coefficient. In the tested spherical branch the former creates a nonuniform large-distance logarithmic perturbation for a fixed nonzero coefficient; we therefore \emph{do not silently include it in Eq.~\eqref{eq:benchmark-action}} or claim it must vanish in the unrestricted theory. The previously proposed wave/source decomposition is superseded in this chapter by the action-derived balance in Section~\ref{sec:qgd062-balance}; standalone wave, fourth-order and force operators are not included in the effective action without independent microscopic matching.
+
+\subsection{Conditional quantum-effective action from macroscopic Dirac matter}
+In a stated minimal model where the fermion couples to $\sigma$ only through $g[\sigma,T]$, formally integrating quadratic Dirac fluctuations gives
+\begin{equation}\label{eq:dirac-det}
+\Gamma_D^{(1)}[g,\mc]=-i\hbar\operatorname{Tr}
+\ln\bigl(i\hbar\gamma^\mu\nabla_\mu[g]-\mc\bigr).
+\end{equation}
+Its local derivative expansion may contain $\sqrt{-g}$ times $1$, $R$, $R^2$, $R_{\mu\nu}R^{\mu\nu}$ and $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}$, plus model-dependent mass, gradient, nonlocal and higher-order operators. Coefficients depend on the microscopic content, matching and renormalization; the fermion determinant does \emph{not} automatically yield the historical standalone natural-invariant kinetic term or a unique polynomial $\hbar^2/r^2$ metric correction. Four-dimensional local curvature-squared bulk variations vanish on Ricci-flat Schwarzschild in the specified model, but this alone establishes neither quantum gravity nor full radiative stability.
+
+
+% ===================== QGD-075 INDUCED RESPONSE AND WARD =====================
+\section{Quantum Dirac source response and the conditional geometric action (QGD--070--073C)}\label{sec:qgd075-induced-geometry}
+The microscopic results from Chapter~1 now permit a sharper separation
+between \emph{Dirac matter generating a response to an external geometric
+source} and \emph{Dirac matter generating a physical gravitational field}.
+Only the first has been calculated in the following restricted setting.
+
+\subsection{The covariantly coupled Dirac determinant and its two derived metric vertices}
+\label{sec:qgd075-geometric-vertices}
+Introduce a \emph{nondynamical external tetrad} with torsion-free spin
+connection, and Euclideanize a massive Dirac field. This is an explicitly
+added geometric source coupling, not a consequence of the historical
+flat-space scalar-contact action. For the parity-even free determinant,
+\begin{equation}\label{eq:qgd075-det}
+ \Gamma_D[g]=-\log\det\mathbb D[g],\qquad
+ \Gamma_D^{\rm even}[g]=-\frac12\operatorname{Tr}\log
+ \left(-\nabla_g^2+\frac{R[g]}4+m^2\right).
+\end{equation}
+Let $S=\mathbb D^{-1}$, $V_H=D_g\mathbb D[H]$ and
+$W_{HK}=D_g^2\mathbb D[H,K]$. For the same regularized operator,
+\begin{equation}\label{eq:qgd075-VW-hessian}
+ \boxed{\begin{aligned}
+ D_g\Gamma_D[H]&=-\operatorname{Tr}(SV_H),\\
+ D_g^2\Gamma_D[H,K]&=\operatorname{Tr}(SV_HSV_K)
+ -\operatorname{Tr}(SW_{HK}).
+ \end{aligned}}
+\end{equation}
+The second, \emph{seagull/contact}, term is required by the
+functional derivative and must not be fitted to repair a Ward defect.
+In a symmetric tetrad gauge $g_{\mu\nu}=\delta_{\mu\nu}+h_{\mu\nu}$
+with density-rescaled fermions, incoming momentum $p$ and symmetric
+Fourier perturbations $He^{ikx}$, $Ke^{ilx}$, direct first and second
+operator variations yield
+\begin{equation}\label{eq:qgd075-dirac-vertices}
+ \boxed{\begin{aligned}
+ V_H(p,k)&=-\frac{i}{4}\gamma^aH_{a\mu}(2p+k)^\mu,\\
+ W_{H,K}(p;k,l)&=\frac{3i}{8}\gamma^a(HK+KH)_{a\mu}
+ \left(p+\frac{k+l}{2}\right)^\mu\\
+ &\quad-\frac{i}{16}\gamma^{abc}(HK)_{ac}(k_b-l_b).
+ \end{aligned}}
+\end{equation}
+Here $\gamma^{abc}=\gamma^{[a}\gamma^b\gamma^{c]}$ and all signs
+follow the declared Euclidean/Fourier conventions. The spin-connection
+three-gamma contribution is part of the \emph{derived} contact vertex.
+All 55 independent unordered pairs of ten symmetric perturbation
+components passed the independent operator-differentiation checks;
+the one-metric-vertex off-shell diffeomorphism Ward check also passed.
+This is \emph{vertex-level verification}, not yet a direct loop integration
+of every renormalized interacting ten-by-ten component.
+
+\subsection{Regulated local curvature response from quantum Dirac matter}
+\label{sec:qgd075-heat}
+Under a covariant Euclidean proper-time regulator $t\ge\Lambda^{-2}$,
+the traced four-component Dirac heat-kernel coefficients (without
+integrated total derivatives) include
+\begin{equation}\label{eq:qgd075-heat}
+ \boxed{\begin{aligned}
+ \operatorname{tr}a_0&=4,\qquad\operatorname{tr}a_1=-\frac13R,\\
+ \operatorname{tr}a_2&=\frac{R^2}{72}
+ -\frac{R_{\mu\nu}R^{\mu\nu}}{45}
+ -\frac{7R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}}{360}.
+ \end{aligned}}
+\end{equation}
+With $I_1=\Lambda^2e^{-m^2/\Lambda^2}
+-m^2E_1(m^2/\Lambda^2)$, the local fermion-induced term is
+\begin{equation}\label{eq:qgd075-induced-EH}
+ \boxed{\Gamma_D^{\rm loc}\supset-\frac{M_{\rm ind}^2}{2}
+ \int\dd^4x\sqrt g\,R[g],\qquad
+ M_{\rm ind}^2=\frac{I_1}{48\pi^2}.}
+\end{equation}
+At $m=0.8,\Lambda=4$ this particular proper-time scheme gives
+$M_{\rm ind}^2\simeq0.02882719026$. The induced TT action for
+$h_{xy}=h_{yx}=h(z)$ is $M_{\rm ind}^2\int(h')^2/4$ at quadratic
+order after a boundary integration, and the corresponding source
+Hessian in four-momentum $Q$ is, at a stationary flat background,
+\begin{equation}\label{eq:qgd075-induced-kernel}
+ \boxed{K_{\rm EH}(Q)=\frac{M_{\rm ind}^2Q^2}{4}
+ \left(P^{(2)}-2P^{(0)}\right).}
+\end{equation}
+The transverse projectors $P^{(2)},P^{(0)}$ have off-shell
+ranks five and one; their four other symmetric-tensor directions are
+pure gauge. They do \emph{not} count physical graviton polarizations.
+The vacuum tadpole must be cancelled or accounted for before using
+an on-shell flat background. \emph{Finite local covariant
+counterterms} can change $M_{\rm eff}^2=M_{\rm bare}^2+
+M_{\rm ind}^2+\delta M_{\rm finite}^2$; the microscopic flat Dirac
+model by itself therefore does not fix Newton's constant.
+
+\subsection{Momentum-dependent vacuum response and finite-density control}
+\label{sec:qgd075-form-factors}
+For the free massive Dirac vacuum the spin-two and spin-zero
+pair-production spectral functions have thresholds $s=4m^2$ and no
+isolated massless pole at this order. In the convention of the
+three-subtracted \emph{nonlocal} Euclidean response, the
+momentum-dependent form factors are
+\begin{equation}\label{eq:qgd075-form-factors}
+ \boxed{\begin{aligned}
+ \mathcal F_2(Q^2)&=-\frac{Q^6}{240\pi}\int_0^1
+ \frac{t^{3/2}(5-2t)}{4m^2+Q^2(1-t)}\,\dd t,\\
+ \mathcal F_0(Q^2)&=-\frac{Q^6}{48\pi}\int_0^1
+ \frac{t^{3/2}(1-t)}{4m^2+Q^2(1-t)}\,\dd t.
+ \end{aligned}}
+\end{equation}
+These begin at $\mathcal F_2=-Q^6/(672\pi m^2)+O(Q^8)$ and
+$\mathcal F_0=-Q^6/(1680\pi m^2)+O(Q^8)$.
+The total metric-source response \emph{also} has independent local
+$Q^0,Q^2,Q^4$ subtraction terms. Thus the nonlocal $Q^6$ onset is
+\emph{not} a claim that the complete kernel lacks a $Q^2$ term.
+The transverse Ward-compatible spectral reconstruction is not a direct
+calculation of all uncontracted seagull integrals.
+
+For the controlled sharp-three-momentum-cutoff Hartree finite-density
+state of Chapter~1, the leading particle--hole ten-component response
+has rank nine and a helicity decomposition. One selected longitudinal
+raw-bubble Ward contraction obeys
+\begin{equation}\label{eq:qgd075-ward-contact}
+ \boxed{\omega\chi_{00,03}-q\chi_{30,03}
+ =\frac{q\mu p_F^3}{3\pi^2}.}
+\end{equation}
+This exact \emph{bubble-level} background-stress term is the contact
+target for a complete geometric variation. The operator-derived
+seagull exists, but all components of the interacting loop-plus-contact
+matrix have \emph{not} been evaluated. The finite-density sharp
+three-momentum cutoff and the vacuum proper-time cutoff are distinct
+regulators; their illustrative numerical coefficients must not be
+combined as if a common renormalization scheme had been fixed.
+
+At a scalar Hubbard--Stratonovich stationary solution, the exact
+Schur-complement identity is
+\begin{equation}\label{eq:qgd075-schur}
+ \boxed{\Gamma_{gg}^{\rm red}=\Gamma_{gg}
+ -\Gamma_{g\phi}\Gamma_{\phi\phi}^{-1}\Gamma_{\phi g}}
+\end{equation}
+where each $\Gamma_{AB}$ denotes a \emph{second functional derivative}.
+The scalar--TT mixing vanishes in an isotropic parity-even state,
+so direct scalar relaxation adds no TT pole by this route. Higher-order
+exchange and other collective phases are not excluded.
+
+\subsection{Pullback to the complete QGD natural-invariant fields}
+\label{sec:qgd075-ind-sigma}
+For $g=g[\sigma]$ in the fixed-coframe classical restriction, the
+actual off-shell second variation obeys
+\begin{equation}\label{eq:qgd075-pullback}
+ \boxed{\Gamma_{\sigma\sigma}^{(2)}
+ =L^*\Gamma_{gg}^{(2)}L
+ +\Gamma_g\,D_\sigma^2g,\qquad L=D_\sigma g.}
+\end{equation}
+The second term is indispensable off shell and in media with
+nonvanishing metric tadpoles. At the cancelling nonzero
+signed-sector background of Section~\ref{sec:qgd075-signed-rank},
+the on-shell flat induced kernel has six nonzero off-shell
+metric-source eigen-directions (five transverse traceless and one
+transverse scalar) and four metric gauge directions. Its pullback to
+32 sector components has rank six and 26 null directions: 22
+algebraic map redundancies and four gauge directions. At
+$\sigma=0$, $L=0$ and there is no ordinary quadratic
+$\sigma$-sector kinetic term from this pullback.
+
+\noindent\textbf{Status of the microscopic claim.}
+The derivation above establishes a \emph{conditional induced geometric
+response}, with full Dirac vertex and seagull formulas and separately
+verified nonlocal spectral pieces. It does \emph{not} promote an
+external metric into an independently integrated dynamical variable,
+prove a universally coupled massless spin-two composite, fix a physical
+$\sigma$ background, or derive the unrestricted $\lambda\mathcal Q$
+operator. Those additional ingredients must come from actual
+microscopic dynamics or an explicitly labelled effective assumption.
+% ===================== END QGD-075 INDUCED RESPONSE =====================
+
+
+\section{Proper variations and the projected-equation problem}\label{sec:variation}
+Let $\mathcal E_g^{\mu\nu}=(1/\sqrt{-g})\delta S_0/\delta g_{\mu\nu}$ denote the metric field-equation residual, including matter. For a metric that is algebraic in independently varied natural-invariant components and a fixed tetrad, the chain rule gives
+\begin{equation}\label{eq:proj-chain}
+ \frac1{\sqrt{-g}}\frac{\delta S_0}{\delta\sigma_\rho^{(s)}}
+ =2s_s\mathcal E_g^{\rho\nu}\sigma_\nu^{(s)}.
+\end{equation}
+Coordinate-frame matrices are understood in this compact expression. When a metric contains $\nabla\sigma$ or an independently varying tetrad, it is incomplete and must be augmented by the corresponding derivative/tetrad Euler--Lagrange terms, including boundary contributions. In local schematic notation,
+\begin{equation}\label{eq:derivative-chain}
+\mathcal E_\sigma^\rho=\mathcal E_{\sigma,\rm direct}^\rho
++\mathcal E_g^{\mu\nu}\frac{\partial g_{\mu\nu}}{\partial\sigma_\rho}
+-\frac1{\sqrt{-g}}\partial_\lambda\!\left(\sqrt{-g}\,\mathcal E_g^{\mu\nu}
+\frac{\partial g_{\mu\nu}}{\partial(\partial_\lambda\sigma_\rho)}\right),
+\end{equation}
+subject to the actual independent-variable definitions.
+
+\begin{proposition}[Projection does not generally imply the full metric equations]\label{prop:projection}
+For a single nonzero one-form with $g=\bar g+\sigma\otimes\sigma$, $\mathcal E_g^{\mu\nu}\sigma_\nu=0$ need not imply $\mathcal E_g^{\mu\nu}=0$. The metric Jacobian has rank at most four in the ten-dimensional symmetric metric space and rank zero at $\sigma=0$.
+\end{proposition}
+\begin{proof}
+Any nonzero symmetric residual supported entirely in directions orthogonal to $\sigma$ yields a counterexample. At $\sigma=0$, $\delta g_{\mu\nu}=\sigma_\mu\delta\sigma_\nu+\sigma_\nu\delta\sigma_\mu$ vanishes to first order. A positive pp-wave profile with $\sigma=\sqrt{H(x,y)}\dd u$ also provides a geometric example: $G_{uu}$ need not vanish even though $G^{\mu\nu}\sigma_\nu=0$.
+\end{proof}
+
+\begin{theorem}[Conditional spanning-sector sufficiency]\label{thm:span}
+For the metric-mediated action, if independently variable signed one-form sectors $\{\sigma^{(s)}\}$ span the cotangent space at a point, and their complete equations are Eq.~\eqref{eq:proj-chain}, then $\mathcal E_g^{\mu\nu}=0$ there.
+\end{theorem}
+\begin{proof}
+The equations annihilate each spanning covector. Linearity implies they annihilate every covector, so the symmetric tensor $\mathcal E_g^{\mu\nu}$ vanishes.
+\end{proof}
+In the four-sector metric-only model, the $4\times4$ matrix of covectors has sixteen components; where its metric Jacobian has rank ten, six infinitesimal combinations leave the ten-component metric unchanged.  These are metric-representation redundancies, not established gauge symmetries of the full derivative-corrected QGD action.  A fixed reference tetrad and a freely varying physical tetrad also define different variational models; they must not be interchanged to obtain completeness by fiat.
+
+Four spinor modes are \emph{not} automatically four independently varied physical one-forms. Likewise, parallel mass/charge sectors in Kerr--Newman have rank one despite two source labels. Symmetry-reduced models may have fewer physical metric functions and hence fewer required independent variations; this must be checked through the reduced metric Jacobian rather than presumed in unrestricted spacetime.
+
+\section{Full-master variation and field-equation hierarchy (QGD--052)}\label{sec:qgd052-ch2}
+This section supplements rather than supersedes the full metric
+Eq.~\eqref{eq:master-metric-original}.  The classical outer-product map is a
+\emph{restriction}; neither it nor the single-rank-one Schwarzschild/Kerr
+representation is the complete QGD master equation.
+
+\subsection{Conditional recovery of all ten effective Einstein equations}
+In a fixed flat reference frame and with the derivative trial operator disabled,
+let $g_{\mu\nu}=\bar g_{\mu\nu}+\sum_s s_s\sigma^{(s)}_\mu\sigma^{(s)}_\nu$.
+For an action depending on $\sigma$ only through $g$, the exact metric functional
+chain rule gives
+\begin{equation}\label{eq:qgd052-chain}
+ \mathcal E_{(s)}^\rho=2s_s\mathcal E_g^{\rho\nu}\sigma^{(s)}_\nu,
+ \qquad \mathcal E_g^{\mu\nu}:=\frac1{\sqrt{-g}}\frac{\delta S_{\rm eff}}{\delta g_{\mu\nu}}.
+\end{equation}
+For $S_{\rm eff}=S_{\rm EH}+S_m$ and a conventional matter stress tensor,
+\begin{equation}\label{eq:qgd052-EFE-residual}
+ \mathcal E_g^{\mu\nu}= -\frac1{16\pi G}G^{\mu\nu}+\frac12 T^{\mu\nu},
+ \qquad
+ \mathcal E_{(s)}^\rho=2s_s\left(-\frac1{16\pi G}G^{\rho\nu}
+ +\frac12 T^{\rho\nu}\right)\sigma_\nu^{(s)}.
+\end{equation}
+Here $c=1$; the usual $c^{-4}$ factor is restored in the Einstein equation.
+Four linearly independent, \emph{independently varied} sector one-forms imply
+$G^{\mu\nu}=8\pi G T^{\mu\nu}$ on shell.  A single one-form gives only its
+four projected equations.  This proves effective metric-equation completeness
+under the stated hypotheses; it does not derive the Einstein--Hilbert action.
+
+A constructive flat full-rank background uses four sector signs
+$s_a=(-1,+1,+1,+1)$ and four nonzero covectors $\sigma^{(a)}=v e^a$.
+Then $g=(1+v^2)\bar g$ is flat.  For any Kerr--Schild metric
+$g_{\rm target}=\eta_{\rm phys}+Hk\otimes k$ with null $k$, set
+$\bar g=\eta_{\rm phys}/(1+v^2)$, choose an orthonormal coframe $e^a$
+of $\bar g$, and define
+\begin{equation}\label{eq:qgd052-ks-sectors}
+ \sigma^{(a)}=v e^a+\frac{H}{2v}k^a k,
+ \qquad k^a=s_a k_a,\qquad k=k_a e^a.
+\end{equation}
+Because $\sum_a s_a(k^a)^2=0$, the full classical signed sector sum
+reproduces $g_{\rm target}$ \emph{exactly}.  Its metric Jacobian is
+full rank wherever $v\ne0$ and the reference coframe is nonsingular.
+The underlying physical sectors and their vacuum stability are still assumptions.
+
+\subsection{What changes when the historical derivative metric term is retained}
+The \emph{full} proposal includes $-\lambda\mathcal Q_{ab}$, and its
+Euler--Lagrange equations require an additional chain-rule channel.  For
+an explicitly specified \emph{illustrative trial} on a fixed flat reference,
+\begin{equation}\label{eq:qgd052-trial-Q}
+ \mathcal Q_{\mu\nu}=(\bar\nabla_\mu\chi^\rho)
+ (\bar\nabla_\nu\chi_\rho),
+ \qquad g_{\mu\nu}=\bar g_{\mu\nu}
+ +\sum_s s_s\sigma_\mu^{(s)}\sigma_\nu^{(s)}-\lambda\mathcal Q_{\mu\nu},
+\end{equation}
+where indices on $\chi$ in $\mathcal Q$ are raised with $\bar g$.
+The historical source does not uniquely identify $\chi$ for multiple sectors;
+that identification is an extra dynamical choice, not already proved.
+Holding $\bar g$ and $\bar\nabla$ fixed, and varying the trial field $\chi_\rho$
+independently in a metric-only action, its explicit derivative-channel contribution is
+\begin{equation}\label{eq:qgd052-Q-variation}
+ \left.\frac1{\sqrt{-g}}\frac{\delta S}{\delta\chi_\rho}\right|_{\mathcal Q}
+ =\frac{2\lambda}{\sqrt{-g}}\bar\nabla_\mu
+ \left(\sqrt{-g}\,\mathcal E_g^{\mu\nu}\bar\nabla_\nu\chi^\rho\right),
+\end{equation}
+with the free index lowered using the fixed reference metric if needed.
+When $\chi$ is a specified function of the physical $\sigma^{(s)}$, the
+corresponding chain rule must be added to their Euler equations; if the frame
+$T^a{}_\mu$ varies, all of its induced variations must also be included.
+Thus the classical projected equation \eqref{eq:qgd052-chain} does not by itself
+establish completeness for the unrestricted full master metric.  The
+full-rank Jacobian proof is a theorem \emph{for the specified metric-only
+algebraic branch}, not automatically a theorem about every derivative correction.
+
+
+% ===== QGD--061: complete pre-Chapter-3 field-equation audit, incorporated in Chapter 2 =====
+\section{General effective natural-invariant equations and their limits}\label{sec:qgd061-general}
+The role of the Einstein--Hilbert functional here is \emph{macroscopic and
+conditional}. Its use does not make the composite metric an independently varied
+microscopic field: the independent QGD gravitational variables are the natural
+invariants, together with a specifically declared tetrad prescription. The
+choice of Einstein--Hilbert dynamics is an adopted correspondence benchmark,
+\emph{not} a result already obtained from the microscopic Dirac equation.
+The historical natural-invariant wave equation is a distinct, as-yet-unmatched
+proposal (Section~\ref{sec:qgd062-balance}). All formulas in this section
+follow from the \emph{complete} master metric
+\eqref{eq:master-metric-original} and an explicitly identified variational
+model; earlier static and null metric calculations are its specialized tests.
+
+\subsection{Metric residual and the full-master variational chain}
+Include an optional effective cosmological constant and set $c=1$:
+\begin{equation}\label{eq:qgd061-action}
+S_{\rm eff}[\sigma,T,\Psi]=\frac{1}{16\pi G}
+\int\!\dd^4x\,\sqrt{-g[\sigma,T,\mathcal Q]}\,(R-2\Lambda)
++S_m[g[\sigma,T,\mathcal Q],\Psi].
+\end{equation}
+We use covariant metric variation and the convention
+$\delta S_m=\frac12\int\sqrt{-g}\,T^{\mu\nu}\delta g_{\mu\nu}$.
+Define the \emph{metric residual}, not a new fundamental metric variable,
+\begin{equation}\label{eq:qgd061-metric-residual}
+\boxed{\mathcal R^{\mu\nu}:=G^{\mu\nu}+\Lambda g^{\mu\nu}
+-8\pi G\,T^{\mu\nu},\qquad
+\mathcal E_g^{\mu\nu}:=\frac1{\sqrt{-g}}\frac{\delta S_{\rm eff}}
+{\delta g_{\mu\nu}}=-\frac{\mathcal R^{\mu\nu}}{16\pi G}.}
+\end{equation}
+The metric residual is an intermediate derivative of the effective functional.
+Actual Euler equations arise by varying the prescribed independent natural
+invariants. In the internal frame let
+$\Pi^{ab}:=T^a{}_\mu T^b{}_\nu\mathcal E_g^{\mu\nu}$,
+$s_s=-\varepsilon_s$, and let
+$(D_s\mathcal Q)^*$ denote the \emph{weighted formal adjoint} of the
+linearization of $\mathcal Q$ with the measure $\sqrt{-g}\,\dd^4x$.
+For fixed $T$ and fixed reference connection, the most general
+metric-mediated sector equations are
+\begin{equation}\label{eq:qgd061-full-euler}
+\boxed{\mathcal E_{(s)}^{a}
+=2s_s\Pi^{ab}\sigma_b^{(s)}
+-\lambda\bigl[(D_s\mathcal Q)^*\Pi\bigr]^a=0,
+\qquad s=1,\ldots,N.}
+\end{equation}
+The definition of the formal adjoint includes all required integrations by
+parts and boundary prescriptions. If the matter action or an additional action
+has \emph{direct} dependence on $\sigma$, its Euler derivative must be added.
+If $T$ varies, its induced Euler derivative must be included as well. Equation
+\eqref{eq:qgd061-full-euler} is consequently \emph{general in form}, but its
+explicit differential operator remains underdetermined until $\mathcal Q$ is
+specified. The distinct historical wave ansatz cannot be inferred from this
+chain rule alone.
+
+
+\begin{theorem}[QGD Natural-Invariant Field Equation]
+\label{thm:qgd062-field-equation}
+Assume $T$ and the reference connection are fixed; the full master
+metric is smooth, Lorentzian and depends on independently varied
+sector covectors and their derivatives via a specified differentiable
+$\mathcal Q[\sigma]$. Suppose the effective action contains only the
+Einstein--Hilbert/cosmological and metric-coupled matter functionals,
+and take compactly supported sector variations (or prescribe boundary
+terms that eliminate their boundary contributions). The complete
+natural-invariant Euler equation is Eq.~\eqref{eq:qgd061-full-euler}.
+\end{theorem}
+\begin{proof}
+With $s_s=-\varepsilon_s$, fixed $T$, and
+$\Pi^{ab}=T^a{}_{\mu}T^b{}_{\nu}\mathcal E_g^{\mu\nu}$,
+\[
+\delta g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\biggl[\sum_s s_s(\delta\sigma_a^{(s)}\sigma_b^{(s)}
++\sigma_a^{(s)}\delta\sigma_b^{(s)})
+-\lambda\delta\mathcal Q_{ab}\biggr].
+\]
+Insert this into $\delta S=\int\sqrt{-g}\,\mathcal E_g^{\mu\nu}
+\delta g_{\mu\nu}$ and integrate the term containing
+$\delta\mathcal Q=D_s\mathcal Q[\delta\sigma^{(s)}]$ by parts.
+The algebraic terms give $2s_s\Pi^{ab}\sigma_b^{(s)}$,
+while the derivative terms give
+$-\lambda(D_s\mathcal Q)^*\Pi$ by definition of the
+weighted formal adjoint. The resulting coefficient of each independent
+$\delta\sigma_a^{(s)}$ is exactly Eq.~\eqref{eq:qgd061-full-euler}.
+\end{proof}
+\noindent An independently varied tetrad or a direct microscopic
+sector action adds distinct Euler equations; neither is included
+in this theorem.
+
+\begin{theorem}[On-Shell Pullback Theorem]
+\label{thm:qgd062-hessian}
+Let $g[\sigma]$ be a twice differentiable composite-metric map
+(possibly involving derivatives), and let
+$S_{\rm QGD}[\sigma]=S_{\rm eff}[g[\sigma]]$, with the effective
+action twice differentiable on the chosen function space.
+At a background $\sigma_0$, let $L=D_\sigma g[\sigma_0]$.
+For admissible perturbations $a,b$,
+\begin{equation}\label{eq:qgd062-hessian-general}
+\boxed{\begin{aligned}
+\delta^2S_{\rm QGD}[a,b]
+={}&\delta^2S_{\rm eff}[La,Lb]\\
+&+\big\langle\delta S_{\rm eff}/\delta g,
+D^2g[a,b]\big\rangle.
+\end{aligned}}
+\end{equation}
+At a background satisfying the complete metric equations,
+$\delta S_{\rm eff}/\delta g=0$, this reduces to
+\begin{equation}\label{eq:qgd062-hessian-onshell}
+\boxed{H_{\rm QGD}=L^*H_{\rm eff}L.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Differentiate the exact first-order chain rule
+$DS_{\rm QGD}[a]=DS_{\rm eff}[Dg[a]]$
+once more in direction $b$. The two resulting terms are the
+second derivative of $S_{\rm eff}$ applied to the metric variations
+and the first derivative of $S_{\rm eff}$ applied to the second
+variation of the composite metric map. The second term vanishes on metric shell.
+\end{proof}
+\noindent The Hessian identity does \emph{not} assert that every
+configuration lies on a complete branch or that direct microscopic
+sector dynamics have no additional modes. After accounting for spacetime
+diffeomorphism gauge and representation redundancies, it explains why a
+regular metric-only branch has the same linearized metric observables as
+its Einsteinian effective action. It is not a full nonmetric-sector
+Hamiltonian degree-of-freedom count.
+
+
+If $T^a{}_\mu$ is itself unrestricted and $\mathfrak h_{ab}$ is independent
+of $T$ under that variation, the separate tetrad equation is
+\begin{equation}\label{eq:qgd061-tetrad}
+\frac1{\sqrt{-g}}\frac{\delta S_{\rm eff}}
+{\delta T^a{}_{\mu}}=2\mathcal E_g^{\mu\nu}
+T^b{}_{\nu}\mathfrak h_{ab}=0.
+\end{equation}
+When $T$ and $\mathfrak h$ are invertible, this alone implies the
+Einstein equations. Hence allowing an unrestricted physical tetrad is a
+\emph{different} variational model; it cannot be used to claim that the
+natural-invariant sectors themselves fixed the geometry. If $\mathcal Q$
+depends on $T$ or its derivatives, extra tetrad terms follow by the chain rule.
+
+\subsection{Two explicit forms, and what their completeness means}
+In the classical fixed-reference limit $\lambda=0$, Eq.~\eqref{eq:qgd061-full-euler}
+becomes the exact projected Einstein residual equation
+\begin{equation}\label{eq:qgd061-projected-EFE}
+\boxed{\mathcal R^{\mu\nu}\sigma^{(s)}_\nu=0,
+\qquad s=1,\ldots,N.}
+\end{equation}
+For independently varied covectors spanning the cotangent space, these
+projections are equivalent to all ten metric Einstein equations
+(Theorem~\ref{thm:span}). Otherwise they can be weaker. For the
+\emph{specific trial} signed derivative tensor in Eq.~\eqref{eq:Q-completions},
+working in an affine flat-reference coordinate frame, the full equation becomes
+\begin{equation}\label{eq:qgd061-signed-differential}
+\boxed{0=2s_s\left[\mathcal E_g^{\rho\nu}\sigma_\nu^{(s)}
++\frac{\lambda}{\sqrt{-g}}\partial_\mu\left(
+\sqrt{-g}\,\mathcal E_g^{\mu\nu}
+\partial_\nu\sigma^{(s)\rho}\right)\right].}
+\end{equation}
+The index $\rho$ on the differentiated $\sigma$ is raised with the
+\emph{fixed reference} metric. This formula is \emph{conditional on the signed
+trial}, not the uniquely established field equation of the unrestricted
+microscopic QGD proposal. A designated-field prescription contributes this
+derivative channel only to its designated field. On a branch with an explicit
+metric-map right inverse (Theorem~\ref{thm:full-rank-nine}), Eq.~\eqref{eq:qgd061-signed-differential}
+and the remaining sector equations reproduce EFE for a metric-only action;
+on other branches this equivalence is not automatic.
+
+
+\begin{theorem}[QGD--Einstein Correspondence Theorem]
+\label{thm:qgd062-correspondence}
+Assume the hypotheses of Theorem~\ref{thm:qgd062-field-equation},
+including the matter Euler equations. Suppose that on a chosen
+solution branch the differential metric map
+$L=D_\sigma g$ admits a right inverse $K$ on the relevant space of
+smooth compactly supported symmetric metric variations, with
+$LK=I$ and boundary conditions compatible with integration by parts.
+Then the complete natural-invariant equations $L^*\mathcal E_g=0$
+and the effective Einstein equations $\mathcal E_g=0$ are equivalent
+on that branch.
+\end{theorem}
+\begin{proof}
+The implication $\mathcal E_g=0\Rightarrow L^*\mathcal E_g=0$
+is immediate. Conversely, for every compactly supported metric
+test variation $h$, use the admissible sector test variation $Kh$:
+$0=\langle L^*\mathcal E_g,Kh\rangle
+=\langle\mathcal E_g,LKh\rangle=\langle\mathcal E_g,h\rangle$.
+The fundamental lemma of the calculus of variations gives
+$\mathcal E_g=0$. Matter equations are imposed separately.
+\end{proof}
+\noindent This is a theorem about a specified metric-mediated action,
+not a microscopic derivation of Einstein--Hilbert dynamics. It does not
+cover a degenerate one-sector branch lacking the right inverse, or
+an unspecified derivative tensor. The classical spanning theorem
+(Theorem~\ref{thm:span}) and the explicit signed derivative-trial
+nine-sector right inverse (Theorem~\ref{thm:full-rank-nine})
+provide two independently justified sufficient situations.
+
+
+\subsection{A constructive failure of a single projected vacuum equation}
+\begin{proposition}[One-sector pp-wave counterexample]\label{prop:qgd061-pp-counter}
+Let $\Lambda=0$, $\dd\bar s^2=-2\dd u\dd v+\dd x^2+\dd y^2$,
+$F=1+x^2+y^2$ and $\sigma=\sqrt F\,\dd u$. Then the classical
+one-sector vacuum equation $G^{\mu\nu}\sigma_\nu=0$ holds identically,
+whereas the full vacuum EFE do not.
+\end{proposition}
+\begin{proof}
+For $\dd s^2=\dd\bar s^2+F\dd u^2$,
+$G_{uu}=-(F_{xx}+F_{yy})/2=-2$ and all other covariant Einstein components
+vanish. Consequently $G^{vv}=-2$ is the sole nonzero raised component,
+but $\sigma_\nu$ has only a $u$ component. Thus
+$G^{\mu\nu}\sigma_\nu=0$ despite $G_{uu}\ne0$.
+\end{proof}
+This is an explicit failure of a \emph{restricted variational branch},
+not an obstruction to the universal multi-sector metric construction.
+
+\subsection{Linearized rank and the two effective gravitational-wave modes}
+On a flat effective background and a regular spanning classical branch,
+choose four independent signed natural-invariant fields, assembled as an
+invertible $4\times4$ matrix $\Sigma$. The map
+$g=\bar g+\Sigma^{\mathsf T}C\Sigma$ admits the right inverse
+\begin{equation}\label{eq:qgd061-four-right-inverse}
+\boxed{\delta\Sigma=\frac12C^{-1}\Sigma^{-\mathsf T}\delta g,
+\qquad \operatorname{rank}Dg=10.}
+\end{equation}
+Six of the sixteen infinitesimal sector directions leave $g$ unchanged.
+They are representation redundancies in the \emph{metric-only} action,
+not necessarily independent physical modes. Linearizing the adopted
+Einstein--Hilbert functional about flat effective geometry yields the standard
+Einstein operator: for null wave covectors, its ten-component principal symbol
+has a six-dimensional kernel, containing four infinitesimal diffeomorphism
+directions and two transverse--traceless polarizations. Timelike nonzero wave
+covectors give only the four gauge directions in the kernel. These statements
+follow from the metric-only equivalence and the usual linearized Einstein
+analysis; they do \emph{not} constitute a complete Hamiltonian stability or
+constraint analysis of any added microscopic sector action.
+
+\subsection{Derivative correction at constant and varying sector backgrounds}
+For the trial signed tensor, perturb
+$\sigma^{(s)}=\sigma^{(s)}_0+\epsilon a^{(s)}$.
+If $\bar\nabla\sigma_0^{(s)}=0$ for every sector,
+\begin{equation}\label{eq:qgd061-Q-order}
+\boxed{\mathcal Q_{\mu\nu}=\epsilon^2\sum_s s_s
+(\bar\nabla_\mu a^{(s)\rho})(\bar\nabla_\nu a^{(s)}_\rho),
+\quad \delta\mathcal Q_{\mu\nu}^{(1)}=0.}
+\end{equation}
+On an on-shell effective flat metric this leaves the \emph{quadratic metric-only
+Einstein--Hilbert action} unchanged through this channel, although it says
+nothing about independently postulated $\sigma$ actions. A nonconstant
+background has a different linearization: choosing
+$\sigma_0=\kappa x\,\dd y$, $a=f(t,x)\,\dd y$ on Cartesian Minkowski
+reference gives
+\begin{equation}\label{eq:qgd061-Q-varying}
+\boxed{\delta\mathcal Q_{tx}=\kappa\partial_t f,
+\qquad \delta\mathcal Q_{xx}=2\kappa\partial_x f,
+\qquad \delta g_{tx}=-\lambda\kappa\partial_t f.}
+\end{equation}
+The last identity is an induced metric component of this one-sector
+perturbation, with reference index conventions specified above. It shows a
+background-dependent differential \emph{metric map}, not independently proven
+additional propagating modes. If $\lambda$ is nonzero but $\mathcal Q$ is
+removable through a coordinate change or algebraically compensated by other
+sectors, this does not establish a new measurable gravitational effect.
+
+\subsection{Matter conservation and the Bianchi identity}
+For minimally metric-coupled matter the diffeomorphism Noether identity
+relates the matter stress divergence to its own Euler derivatives. For
+$S_\phi=-\tfrac12\int\sqrt{-g}[(\nabla\phi)^2+m^2\phi^2]$, direct
+variation yields
+\begin{equation}\label{eq:qgd061-noether}
+\boxed{\nabla_\mu T^{\mu\nu}=
+(\square_g\phi-m^2\phi)\nabla^\nu\phi.}
+\end{equation}
+Thus $\nabla_\mu T^{\mu\nu}=0$ follows on matter shell, independent of
+whether a restricted set of projected gravitational sector equations is
+complete. On full Einstein branches the contracted Bianchi identity gives
+a consistent second route to the same conservation condition.
+
+\subsection{Sourced plane wave as a differential-trial reconstruction test}
+On the flat null reference consider
+\begin{equation}\label{eq:qgd061-sourced-wave}
+\begin{split}
+\dd s^2={}&-2\dd u\dd v+\dd x^2+\dd y^2+F(u,x,y)\dd u^2,\\
+F={}&A(u)(x^2-y^2)+2B(u)xy
+-4\pi G\rho(u)(x^2+y^2).
+\end{split}
+\end{equation}
+An exact calculation gives
+\begin{equation}\label{eq:qgd061-wave-source}
+\boxed{G_{uu}=-\tfrac12(F_{xx}+F_{yy})=8\pi G\rho(u),
+\qquad T_{uu}=\rho(u).}
+\end{equation}
+As a \emph{representation test}, the nine-sector construction of
+Theorem~\ref{thm:full-nine}, with $\chi=\kappa u\dd x$, gives
+$\mathcal Q=\kappa^2\dd u^2\ne0$ and reconstructs this nonflat sourced
+Einstein solution for either specifically defined derivative prescription.
+It is not a derivation of the source function $\rho(u)$ from quantum matter.
+
+
+\section{The QGD Field Balance: \texorpdfstring{$S=G+T+Q$}{S=G+T+Q}}
+\label{sec:qgd062-balance}
+The original wave/source split is not retained as a field law because its
+components did not arise from the complete effective action and some
+claimed identities fail independently. We instead retain the intuitive
+letters $S$, $G$, $T$ and $Q$, now with \emph{precise Euler--Lagrange
+definitions}. These letters name the natural-invariant field balance,
+not an independent wave operator. No new kinetic term is postulated.
+
+\begin{definition}[Gravitational, matter and derivative response]
+\label{def:qgd062-GTQ}
+Fix the reference coframe and reference connection as in
+Theorem~\ref{thm:qgd062-field-equation}. Let
+$\mathcal E_g^{\mu\nu}$ be the metric Euler derivative defined in
+Eq.~\eqref{eq:qgd061-metric-residual}, and write
+\begin{align}\label{eq:qgd062-pi-split}
+\Pi^{ab}&=\Pi_G^{ab}+\Pi_T^{ab},\\
+\Pi_G^{ab}&=-\frac{T^a{}_{\mu}T^b{}_{\nu}}{16\pi G}
+ (G^{\mu\nu}+\Lambda g^{\mu\nu}),\nonumber\\
+\Pi_T^{ab}&=\frac12T^a{}_{\mu}T^b{}_{\nu}T^{\mu\nu}.
+\nonumber
+\end{align}
+Here $G^{\mu\nu}$ and $T^{\mu\nu}$ denote the usual Einstein and
+matter stress tensors, whereas the one-index quantities defined below
+are \emph{sector Euler responses}. For each independently varied sector,
+\begin{equation}\label{eq:qgd062-channels}
+\boxed{\begin{aligned}
+G_{(s)}^{a}&:=2s_s\Pi_G^{ab}\sigma_b^{(s)},\\
+T_{(s)}^{a}&:=2s_s\Pi_T^{ab}\sigma_b^{(s)},\\
+Q_{(s)}^{a}&:=-\lambda\big[(D_s\mathcal Q)^*\Pi\big]^a,\\
+S_{(s)}^{a}&:=\frac1{\sqrt{-g}}
+\frac{\delta S_{\rm eff}}{\delta\sigma_a^{(s)}}.
+\end{aligned}}
+\end{equation}
+The weighted adjoint is fixed by
+\[
+\int\sqrt{-g}\,\Pi^{ab}(D_s\mathcal Q[\delta\sigma])_{ab}
+=\int\sqrt{-g}\,\big[(D_s\mathcal Q)^*\Pi\big]^a
+\delta\sigma_a^{(s)}
+\]
+for admissible test variations, up to the stipulated boundary terms.
+\end{definition}
+
+\begin{theorem}[The QGD Field-Balance Equation]
+\label{thm:qgd062-field-balance}
+For the complete master metric with a specified derivative tensor and
+for the metric-mediated effective action of
+Eq.~\eqref{eq:qgd061-action}, the exact sector Euler equation is
+\begin{equation}\label{eq:qgd062-beautiful-balance}
+\boxed{\displaystyle
+S_{(s)}^{a}=G_{(s)}^{a}+T_{(s)}^{a}+Q_{(s)}^{a}=0,
+\qquad s=1,\ldots,N.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+The metric Euler derivative separates linearly as
+$\Pi=\Pi_G+\Pi_T$. Its algebraic sector variation is
+$2s_s\Pi\sigma^{(s)}=G_{(s)}+T_{(s)}$.
+The remaining variation of $-\lambda\mathcal Q$ is
+$Q_{(s)}=-\lambda(D_s\mathcal Q)^*\Pi$.
+Adding the three mutually exclusive variation channels reproduces
+Eq.~\eqref{eq:qgd061-full-euler}; no term is counted twice.
+\end{proof}
+
+\noindent\textbf{Meaning.} $G_{(s)}$ is the curvature-response
+channel of the adopted Einstein--Hilbert effective action;
+$T_{(s)}$ is the matter-response channel; and $Q_{(s)}$ is the
+metric-derivative channel. The label $Q$ does \emph{not} prove a
+microscopic quantum force. For $\lambda=0$, the last channel vanishes
+and the balance reduces exactly to the projected Einstein equations
+of Eq.~\eqref{eq:qgd061-projected-EFE}. When $\lambda\ne0$, the
+complete weighted adjoint remains mandatory: merely differentiating
+$\mathcal Q$ algebraically gives an incorrect field equation.
+
+\noindent\textbf{Scope.} The identity is exact for the action and
+variables declared above, but is not a new wave-propagation law.
+A separately derived microscopic sector action would contribute
+additional Euler channels and would require an independently verified
+new decomposition. The superseded historical formulas are not
+reintroduced as competing equations in this chapter. They remain
+available only in the archived research record for provenance.
+
+% ===== End of QGD--062 consolidation; original Chapter 2 sections continue =====
+
+\section{How to obtain solutions from the master metric}\label{sec:solution-procedure}
+Two mathematically different workflows must be distinguished. \emph{Reconstruction} begins with a known Einstein metric and extracts compatible sectors. \emph{Solution generation} starts with unknown natural-invariant amplitudes and derives source-conditioned equations before solving. The first demonstrates universality; only the second tests practical solving efficiency.
+
+\subsection{Protocol A: exact representation of a supplied geometry}
+Choose a reference tetrad \(T\) independently of the target (preferably a flat orthonormal coframe for a nontrivial comparison), specify \(\lambda\) and \(\mathcal Q\) if active, and form \(h=T^{-\mathsf T}gT^{-1}-\eta+\lambda\mathcal Q\). Construct signed sectors for \(h\), using low-rank null directions when available or the polarization theorem as a guaranteed local fallback for the algebraic case. Verify \(g_{\rm reconstructed}=g\), Lorentzian signature, and the full Einstein tensor and sources. Factorizing a metric supplied in advance is not a source-to-field derivation.
+
+\subsection{Protocol B: solve for unknown natural-invariant fields}
+Specify matter action, symmetry, boundary conditions, independent fields and allowed sector signs; write the \emph{full} \(g[\sigma,T,\mathcal Q]\), and vary the chosen action \emph{before} imposing relations among unknown amplitudes. Retain all independent equations and verify the Jacobian/differential rank appropriate to the ansatz. Solve the reduced equations and compute the full Einstein residual \(G_{\mu\nu}+\Lambda g_{\mu\nu}-8\pi G T_{\mu\nu}\), source conservation, regularity and matching. For \(\lambda\ne0\), use the complete derivative-chain variation and do not substitute the classical projected equation alone.
+
+
+\subsection{Protocol C: the original four-component Dirac-profile route (QGD--065)}\label{sec:qgd065-spinor-generator}
+This protocol restores the \emph{intended} physical order of QGD's
+solution-generation proposal.  From a specified macroscopic quantum source
+and effective Dirac equation, solve for a complete local mode family and
+its source-dependent component matrix $R_f$ as given by the four-mode construction of Chapter~1.  Next derive or justify
+the map $R_f$, source observables, state and boundary data
+$\mapsto\sigma_\mu^{(s)}$; finally form the full master metric by signed
+outer products and check its appropriate field equations.  This is a
+\emph{proposed physical selection protocol}, not another metric
+factorization algorithm.
+
+\begin{equation}\label{eq:qgd065-generator}
+\boxed{\text{macroscopic Dirac state}\ \longrightarrow\ R_f\
+\overset{\text{QGD promotion}}{\longrightarrow}\
+\sigma_\mu^{(s)}\ \longrightarrow\ g_{\mu\nu}[\sigma,T,\mathcal Q].}
+\end{equation}
+The first step entails solving the \emph{differential} Dirac equation,
+not only its principal-symbol eigenvector equation.  The second needs a
+physical source-selection map; different gravitational signed sectors
+need not coincide with the four local Dirac mode labels.  Once
+$\sigma$ has been physically fixed and the reference/derivative data are
+given, metric construction is algebraic for $\lambda=0$, whereas metric
+verification and complete source dynamics are logically separate tasks.
+
+\paragraph{Schwarzschild matching diagnostic, not an independent derivation.}
+For the known static vacuum branch in the classical null-sector
+coordinates, $\sigma=\sqrt{r_s/r}\,(dx^0+dr)$ with
+$r_s=2GM/c^2$.  Chapter~1's positive-energy Dirac ratio $\zeta$
+obeys the exact local kinematic map $\beta=2\zeta/(1+\zeta^2)$.
+For the particular freely falling mode released from rest at infinity,
+its local speed relative to static observers satisfies
+\begin{equation}\label{eq:qgd065-beta-sigma}
+\boxed{\displaystyle
+\sigma_{\rm amp}=\sqrt{\frac{r_s}{r}}=
+\beta_{\rm ff}=\frac{2\zeta_{\rm ff}}{1+\zeta_{\rm ff}^2}.}
+\end{equation}
+This identity provides a \emph{concrete candidate for testing}
+Dirac-profile promotion.  It is observer-, branch- and state-dependent;
+its derivation currently uses the \emph{already established}
+Schwarzschild metric to obtain $\beta_{\rm ff}$.
+It cannot be applied unchanged to an arbitrary quantum source or
+asserted as an independently sourced gravitational equation.
+For Kerr the rotation-dependent spinor entry likewise requires its own
+scale, orientation and full tensor test: knowing source mass and spin does
+not automatically select the Kerr congruence of
+Eq.~\eqref{eq:kerr-sigma}.
+
+\noindent\textbf{Working examples.} Schwarzschild and Kerr factorizations below implement Protocol A; the independently varied \(A,B\) vacuum calculation and the Dirac-star/slow-rotation boundary-value problem implement Protocol B \emph{within the adopted Einstein--Hilbert effective benchmark}. Neither protocol implies that the source amplitudes follow from Chapter~1 without additional work.
+
+
+\subsection{Protocol D: observable and quantum-response selection (QGD--068--073C)}\label{sec:qgd075-response-protocol}
+A stronger version of Protocol~C uses the \emph{complete} quantum state,
+not a chosen four-mode parametrization: compute $\langle j^a\rangle$,
+$\langle T_{\mu\nu}\rangle$, $\mathcal K^a{}_{\mu}$ and connected
+stress/kinetic-momentum responses from the specified microscopic
+Dirac interactions. From the inverse collective response on its physical
+subspace, test for a stable long-range tensor channel, universal
+stress-energy source vertices, necessary Ward identities, and a
+well-posed source-free exterior response. \emph{Only then} infer a
+physically distinguished (possibly internally redundant) class
+$[\sigma^{(s)}]$ and apply the unchanged full master metric.
+A single spinor profile, local stress density or algebraic signed
+factorization cannot replace the needed source-dependent dynamics.
+If no qualifying collective field emerges in a tested phase, this
+protocol records the limitation rather than inserting an unrelated
+kinetic term or the desired EFE by hand.
+
+
+\section{Exact metric representations in the classical master metric}\label{sec:solutions}
+\subsection{Schwarzschild without a radial override}
+In flat spherical Kerr--Schild coordinates, let $k=dt+dr$, $\mathcal H=C/r$ and $\sigma=\sqrt{C/r}\,k$. Then
+\begin{equation}\label{eq:schw-ks}
+\begin{aligned}
+\dd s^2={}&-\dd t^2+\dd r^2+r^2\dd\Omega^2
++\frac Cr(\dd t+\dd r)^2,\\
+ g_{tt}&=-1+\frac Cr,\quad g_{tr}=\frac Cr,
+ \quad g_{rr}=1+\frac Cr.
+\end{aligned}
+\end{equation}
+No independent $g_{rr}$ is inserted; a time-coordinate transformation gives Schwarzschild's diagonal radial coefficient. Mass matching sets $C=2GM/c^2$ when units are restored. This verifies \emph{geometry given $\sigma$}; Section~\ref{sec:static-source} addresses conditional source-driven selection.
+
+\subsection{Full Kerr in the flat oblate frame}
+Let $a=J/M$, $\Sigma=r^2+a^2\cos^2\theta$, $R_0=r^2+a^2$, $\Delta=r^2-2Mr+a^2$. The flat oblate-coordinate background is
+\begin{equation}\label{eq:oblate-eta}
+\dd s_{\bar g}^2=-\dd t^2+\frac\Sigma{R_0}\dd r^2
++\Sigma\dd\theta^2+R_0\sin^2\theta\dd\phi^2.
+\end{equation}
+Choose the correlated natural invariant and amplitude
+\begin{equation}\label{eq:kerr-sigma}
+\boxed{\sigma=\sqrt{\frac{2Mr}{\Sigma}}
+\left(\dd t+\frac\Sigma{R_0}\dd r-a\sin^2\theta\dd\phi\right).}
+\end{equation}
+The parenthesized one-form $k$ is null in Eq.~\eqref{eq:oblate-eta}. Define $\mathcal H=2Mr/\Sigma$, $b=\Sigma/R_0$, and $s=\sin\theta$. All nonzero independent components of the resulting metric are
+\begin{equation}\label{eq:kerr-components}
+\begin{gathered}
+ g_{tt}=-1+\mathcal H,\qquad g_{tr}=\mathcal H b,
+ \qquad g_{t\phi}=-a\mathcal H s^2,\\
+ g_{rr}=b+\mathcal H b^2,\quad
+ g_{r\phi}=-a\mathcal H b s^2,\quad
+ g_{\theta\theta}=\Sigma,\quad
+ g_{\phi\phi}=R_0s^2+a^2\mathcal H s^4.
+\end{gathered}
+\end{equation}
+A regular coordinate transformation away from $\Delta=0$,
+\begin{equation}\label{eq:ks-to-bl}
+\dd t=\dd T+\frac{2Mr}{\Delta}\dd r,
+\qquad\dd\phi=\dd\Phi+\frac{2Mra}{R_0\Delta}\dd r,
+\end{equation}
+gives the complete standard Boyer--Lindquist Kerr metric, including $g_{rr}=\Sigma/\Delta$ and $g_{\Phi\Phi}=[(r^2+a^2)^2-a^2\Delta\sin^2\theta]\sin^2\theta/\Sigma$. The $a\to0$ limit recovers Schwarzschild. This is an exact \emph{representation theorem for the specified field}, not an independently solved QGD field equation for $\sigma$.
+
+\subsection{Kerr--Newman and other families}
+The same oblate null direction admits signed source contributions
+\begin{equation}\label{eq:kn-sources}
+ \sigma^{(M)}=\sqrt{\frac{2Mr}{\Sigma}}\,k,
+ \qquad\sigma^{(Q)}=\frac{|Q|}{\sqrt\Sigma}\,k,
+ \qquad g=\bar g+\sigma^{(M)}\!\otimes\sigma^{(M)}
+ -\sigma^{(Q)}\!\otimes\sigma^{(Q)}.
+\end{equation}
+Thus $\mathcal H_{KN}=(2Mr-Q^2)/\Sigma$ is the Kerr--Newman geometrical profile. $Q$ is geometrized charge; conversion to SI requires the appropriate \emph{single} Coulomb constant. The Kerr mass term \emph{replaces} the nonrotating $2M/r$ term for the same source, not adds to it.  Under reversal $J\mapsto-J$ (hence $a\mapsto-a$), the mixed metric term $g_{t\phi}$ reverses sign.  The historical schematic Kerr energy shift proportional to $J^2$ is even under that reversal; consequently the \emph{directional} natural-invariant/Dirac momentum and phase structure, rather than that scalar denominator alone, is essential for the rotating solution (QGD--055/059).
+
+In their stated source/coordinate regimes, Vaidya's $M(v)$ null-radiation geometry, pp-wave geometries, and regular-core/anisotropic-matter spherical metrics are likewise exactly representable by appropriate one-form amplitudes and signed sectors. Their Einstein tensors determine the stress-energy required in GR; a representation alone is not an independent source-selection proof. FLRW or Kasner geometries constructed entirely by a preassigned curved tetrad at $\sigma=0$ do not establish emergence from the natural invariant.
+
+\subsection{One exact spherical Einstein-tensor system (QGD--055)}\label{sec:qgd060-spherical}
+The classical one-null-sector branch is a useful \emph{worked specialization} of the complete master metric, not a replacement for it.  In advanced null coordinates $(v,r,\theta,\phi)$ use the flat reference $\dd\bar s^2=-\dd v^2+2\dd v\dd r+r^2\dd\Omega^2$ and $g=\bar g+\mathcal H(v,r)\dd v\otimes\dd v$.  Direct curvature calculation gives the exact mixed Einstein-tensor components
+\begin{equation}\label{eq:qgd060-spherical-Einstein}
+ \boxed{\begin{aligned}
+ G^v{}_v=G^r{}_r&=-\frac{\partial_r(r\mathcal H)}{r^2},&
+ G^r{}_v&=\frac{\partial_v\mathcal H}{r},\\
+ G^\theta{}_\theta=G^\phi{}_\phi&=-\frac{r\partial_r^2\mathcal H+2\partial_r\mathcal H}{2r}.&&
+ \end{aligned}}
+\end{equation}
+Solving the \emph{effective} Einstein equations with their specified sources and boundary conditions selects the profiles $\mathcal H=2M/r$ (vacuum Schwarzschild), $\mathcal H=2M/r-Q^2/r^2$ (electrovac Reissner--Nordstr\"om), $\mathcal H=2M(v)/r$ (ingoing Vaidya null radiation), and $\mathcal H=2M/r+\Lambda r^2/3$ (Kottler with cosmological constant).  Positive and negative contributions are represented by \emph{real signed sectors} when needed.  These are exact source-conditioned Einstein solutions expressed in natural-invariant variables; the equations above were not derived by evaluating the historical Dirac source denominators.
+
+\subsection{Vacuum plane waves and a fixed-flat-frame cosmology (QGD--055)}\label{sec:qgd060-nonks}
+In null flat coordinates $\dd\bar s^2=-2\dd u\dd w+\dd x^2+\dd y^2$, the classical rank-one deformation $g=\bar g+\mathcal F(u,x,y)\dd u^2$ satisfies $R_{uu}=-(\mathcal F_{xx}+\mathcal F_{yy})/2$ and is a vacuum plane wave whenever $\mathcal F_{xx}+\mathcal F_{yy}=0$.  If $\mathcal F$ changes sign, for any fixed real $b\ne0$ the \emph{signed} null one-forms
+\begin{equation}\label{eq:qgd060-pp-signed}
+ \sigma^{(\pm)}=\frac{\mathcal F\pm b^2}{2b}\,\dd u,\qquad
+ \sigma^{(+)}\otimes\sigma^{(+)}-\sigma^{(-)}\otimes\sigma^{(-)}
+ =\mathcal F\,\dd u^2
+\end{equation}
+remain smooth and real.  Here $b$ is a factorization parameter, not an established new physical coupling.
+
+The classical signed construction also reaches beyond the Kerr--Schild class.  With the \emph{fixed Cartesian flat reference} $\dd\bar s^2=-\dd t^2+\sum_i(\dd x^i)^2$, let $D(t)=a(t)^2-1$, $a(t)>0$, and for each spatial $i$ choose
+\begin{equation}\label{eq:qgd060-FLRW-sectors}
+ \sigma^{(i,\pm)}=\frac{D(t)\pm b^2}{2b}\,\dd x^i,\qquad
+ \sum_i[\sigma^{(i,+)}\!\otimes\sigma^{(i,+)}-
+ \sigma^{(i,-)}\!\otimes\sigma^{(i,-)}]
+ =D(t)\sum_i(\dd x^i)^2.
+\end{equation}
+Thus $g=-\dd t^2+a(t)^2\sum_i(\dd x^i)^2$ follows \emph{without inserting cosmological curvature through a preassigned curved tetrad}.  Its exact mixed Einstein tensor obeys
+\begin{equation}\label{eq:qgd060-FLRW-Einstein}
+ G^t{}_t=-3(\dot a/a)^2,\qquad
+ G^i{}_i=-\bigl[2\ddot a/a+(\dot a/a)^2\bigr]\quad(\text{no sum on }i).
+\end{equation}
+Dust, radiation, and de Sitter scale factors satisfy their respective sourced Einstein equations.  These are constructive \emph{classical} metric representations for the selected scale factors, not a microscopic prediction of $a(t)$.
+
+\subsection{Cross-family 15-solution verification catalog}\label{sec:catalog15}
+The following are \emph{classical fixed-flat-reference reconstructions} with the indicated Einstein sources; they use \(\lambda=0\), although selected families also admit separate full-master trial lifts. The displayed profiles are defined in the respective null or diagonal reference coordinates, \(G=c=1\). Entries marked ``effective'' specify the stress tensor required by Einstein's equations, not a derived microscopic matter model.
+\begin{longtable}{@{}r p{0.24\linewidth} p{0.40\linewidth} p{0.23\linewidth}@{}}\toprule
+\# & Geometry & QGD reduced metric profile / sector construction & EFE source\\\midrule\endhead
+1 & Schwarzschild & \(H=2M/r\) (spherical null) & Vacuum\\
+2 & Reissner--Nordstr\"om & \(H=2M/r-Q^2/r^2\) & Maxwell\\
+3 & Kottler & \(H=2M/r+\Lambda r^2/3\) & \(\Lambda\)\\
+4 & Vaidya & \(H=2M(v)/r\) & Null radiation\\
+5 & Charged Vaidya & \(H=2M(v)/r-Q(v)^2/r^2\) & Maxwell and charged null flux\\
+6 & Hayward-type core & \(H=2Mr^2/(r^3+\ell^3)\) & Effective anisotropic stress\\
+7 & Bardeen-type core & \(H=2Mr^2/(r^2+q_m^2)^{3/2}\) & Effective anisotropic stress\\
+8 & Kerr & \(H=2Mr/\Sigma\) in flat oblate frame & Vacuum\\
+9 & Kerr--Newman & \(H=(2Mr-Q^2)/\Sigma\) & Maxwell\\
+10 & Vacuum plane pp-wave & \(F=A(u)(x^2-y^2)+2B(u)xy\) & Vacuum\\
+11 & Null-radiation pp-wave & \(F=-4\pi\rho(u)(x^2+y^2)\) & Null radiation\\
+12 & Flat FLRW dust & \(a(t)\propto t^{2/3}\) & \(P=0\)\\
+13 & Flat FLRW radiation & \(a(t)\propto t^{1/2}\) & \(P=\rho/3\)\\
+14 & Flat FLRW de Sitter & \(a(t)=e^{Ht}\) & \(\Lambda=3H^2\)\\
+15 & Kasner & \(a_i=t^{p_i},\ (p_i)=(2/3,2/3,-1/3)\) & Vacuum\\\bottomrule
+\end{longtable}
+For cases 1--7, the flat reference is \(\dd\bar s^2=-\dd v^2+2\dd v\dd r+r^2\dd\Omega^2\), with signed sectors realizing \(H\dd v^2\); cases 8--9 use the oblate null one-form of Eq.~\eqref{eq:kerr-sigma}; cases 10--11 use the flat pp-wave reference and \(F\dd u^2\). For cases 12--15, the diagonal deformations \(D_i=a_i^2-1\) are realized by \(\sigma^{(i,\pm)}=(D_i\pm b^2)\dd x^i/(2b)\), \(b\ne0\), with a fixed Cartesian Minkowski reference. These distinct examples are illustrative; the individual fifteen entries should not be mistaken for fifteen independent physical predictions. Each profile must be tested against the \emph{full} source tensor; the regular cores are not vacuum.
+
+
+\subsection{Massless Dirac radiation and the exact signed FLRW lift (QGD--067)}
+\label{sec:qgd075-flrw-dirac}
+A useful \emph{end-to-end consistency benchmark} employs all four
+massless Dirac modes in an isotropic thermal ensemble, rather than an
+assigned vacuum metric profile. For spatially flat FLRW in conformal
+time, including its spin connection, the exact Dirac reduction is
+\begin{equation}\label{eq:qgd075-flrw-Dirac}
+ g_{\mu\nu}=a(\eta)^2\eta_{\mu\nu},\qquad
+ \boxed{\Psi(\eta,\bm x)=a(\eta)^{-3/2}\chi(\eta,\bm x),\quad
+ i\gamma^\mu\partial_\mu\chi=0.}
+\end{equation}
+Here $\chi$ admits the complete two-particle/two-antiparticle mode
+expansion. A homogeneous, isotropic, charge-neutral, massless fermion
+gas containing one full Dirac species has the classical/kinetic radiation
+contribution $\varepsilon=\varepsilon_0/a^4$, $P=\varepsilon/3$,
+$\varepsilon_0=7\pi^2T_0^4/60$ at comoving temperature $T_0$.
+\emph{Adopting} the Einstein--Friedmann equation with $\Lambda=0$
+(rather than deriving it microscopically) selects an expanding branch,
+\begin{equation}\label{eq:qgd075-flrw-friedmann}
+ \boxed{a(\eta)=\sqrt{\frac{8\pi G\varepsilon_0}{3}}
+ (\eta-\eta_0),\qquad\eta>\eta_0.}
+\end{equation}
+This solution has a direct eight-sector QGD algebraic representation:
+let $d_i=(a^2-1)\eta_{ii}$ for $i=0,\ldots,3$ and choose any
+fixed $\omega\in\mathbb R\setminus\{0\}$. Then
+\begin{equation}\label{eq:qgd075-flrw-lift}
+ \boxed{\begin{gathered}
+ \sigma^{(i,\pm)}=\frac{d_i\pm\omega^2}{2\omega}\,dx^i,\\
+ \eta_{\mu\nu}+\sum_{i=0}^3
+ \left[\sigma_\mu^{(i,+)}\sigma_\nu^{(i,+)}
+ -\sigma_\mu^{(i,-)}\sigma_\nu^{(i,-)}\right]
+ =a^2\eta_{\mu\nu}.
+ \end{gathered}}
+\end{equation}
+The elementary identity
+$(d+\omega^2)^2/(4\omega^2)-(d-\omega^2)^2/(4\omega^2)=d$
+proves the lift componentwise. Thus the complete massless Dirac
+modes, a specified physical fermion radiation source, an \emph{adopted}
+Einstein evolution and the classical signed QGD metric are mutually
+consistent. Neither the arbitrary factorization scale $\omega$
+nor the individual $\sigma$ sectors is selected by the microscopic
+Dirac dynamics. Renormalized trace-anomaly and vacuum polarization
+backreaction are not part of this ideal-radiation benchmark.
+
+
+\section{Source-selected static geometry in the classical sector}\label{sec:static-source}
+With a flat spherical tetrad and one positive mass sector, allow both components to vary:
+\begin{equation}\label{eq:spherical-sigma}
+\sigma=A(r)\dd t+B(r)\dd r,\quad
+F=1-A^2,\quad D=1+B^2-A^2,\quad
+H=1+\frac{B^2}{F}.
+\end{equation}
+The induced metric has $g_{tt}=-F$, $g_{tr}=AB$, $g_{rr}=1+B^2$ and unchanged spherical angles. In a diagonal time coordinate the metric functions are $F,H$. Their Jacobian is
+\begin{equation}\label{eq:spherical-jacobian}
+\det\frac{\partial(F,H)}{\partial(A,B)}=-\frac{4AB}{F},
+\end{equation}
+nonzero when $ABF\ne0$.
+
+\begin{proposition}[Independent vacuum variation]\label{prop:vacuum-schwarzschild}
+In the above branch of Eq.~\eqref{eq:benchmark-action}, with vacuum matter and the appropriate boundary treatment, the symmetry-reduced Einstein--Hilbert Lagrangian and its independently varied equations are
+\begin{equation}\label{eq:static-EH}
+L_{\rm EH}\propto \frac{(rF)'}{\sqrt D}+\sqrt D,\qquad
+\mathcal E_A=-\frac{A(rB^2)'}{D^{3/2}},\qquad
+\mathcal E_B=\frac{B[B^2+r(A^2)']}{D^{3/2}}.
+\end{equation}
+For $AB\ne0$, these imply $(rB^2)'=0$ and $B^2=-r(A^2)'$. With asymptotic flatness, $A^2=B^2=C/r$; source-mass calibration fixes $C=2GM/c^2$.
+\end{proposition}
+The relationship $A=B$ must \emph{not} be imposed before variation. This is a classical Einstein--Hilbert result expressed in QGD variables, not a derivation of the Einstein--Hilbert action from the microscopic Dirac Lagrangian.
+
+
+\paragraph{Static composite amplitude: a field-equation constraint, not a free wave law.}
+For the exterior nonzero branch of Proposition~\ref{prop:vacuum-schwarzschild}, let $H(r)=A(r)^2=C/r$ and $A(r)=\sqrt C\,r^{-1/2}$, with $r>0$.  Using the \emph{flat spatial radial} Laplacian solely as a mathematical diagnostic,
+\begin{equation}\label{eq:qgd064-composite-harmonic}
+\boxed{\nabla^2H=0,\qquad \nabla^2A=-\frac{A}{4r^2},\qquad
+\nabla^2A+\frac{|\bm\nabla A|^2}{A}=0\quad(A>0).}
+\end{equation}
+The last identity is the chain rule $\nabla^2(A^2)=2A\nabla^2A+2|\nabla A|^2$; it does \emph{not} postulate a new microscopic QGD equation. It proves that the selected $A\propto r^{-1/2}$ branch is not a free harmonic covector amplitude even though its quadratic metric profile is harmonic in this restricted static sense. The full tensor and derivative-trial equations remain those of the earlier sections.
+
+\subsection{Finite macroscopic Dirac Fermi-gas source}
+For a zero-temperature unpolarized two-spin-state Dirac gas with free fermion mass $m_f$ and Fermi momentum $p_F$ (natural units), one convenient sourced equation of state is
+\begin{equation}\label{eq:dirac-eos}
+ n=\frac{p_F^3}{3\pi^2},\quad
+ \varepsilon=\frac1{\pi^2}\int_0^{p_F}p^2\sqrt{p^2+m_f^2}\,\dd p,\quad
+ P=\frac1{3\pi^2}\int_0^{p_F}\frac{p^4}{\sqrt{p^2+m_f^2}}\,\dd p.
+\end{equation}
+The existing gravitational source equations, written directly in the natural invariant, include
+\begin{equation}\label{eq:qgd-mass-source}
+\boxed{\frac{\dd}{\dd r}\left(\frac{rB^2}{2D}\right)=4\pi r^2\varepsilon(r),\qquad
+ m(r)=\frac{rB^2}{2D}.}
+\end{equation}
+Because $D=F+B^2$, this identity can be solved \emph{algebraically} in the nondegenerate static branch:
+\begin{equation}\label{eq:qgd060-star-bridge}
+ \boxed{B^2(r)=\frac{2m(r)F(r)}{r-2m(r)},\qquad A^2(r)=1-F(r).}
+\end{equation}
+This gives a transparent \emph{conditional source-to-natural-invariant bridge}: the macroscopic Dirac equation of state fixes $\varepsilon$ and $P$, the adopted effective Einstein/TOV equations fix $m,F$, and the two equalities recover $A,B$ up to branch signs and boundary conditions.  No independent quantum gravitational wave equation is postulated here.
+Together with the lapse equation, pressure conservation and boundary conditions,
+\begin{equation}\label{eq:tov}
+ m'=4\pi r^2\varepsilon,\qquad
+ P'=-(\varepsilon+P)\frac{m+4\pi r^3P}{r(r-2m)},\qquad
+ \frac{F'}F=\frac{2(m+4\pi r^3P)}{r(r-2m)},
+\end{equation}
+this determines an interior and its exterior $A^2=B^2=2M/r$ in the tested nondegenerate branch. One numerical benchmark in $G=c=\hbar=m_f=1$, with $p_{F,c}=0.6$, gave $R=4.338246$, $M=0.356581$, and $2M/R=0.164389$.  A separate QGD--059 integration of the same equation of state and central Fermi momentum found $R=4.338268$ and $M=0.356581$, consistent with the original benchmark at its quoted precision; the surface satisfies $A^2=B^2=2M/R\simeq0.164388$. The identically zero field does not satisfy the \emph{specified nonzero mass matching condition}; the zero-field Jacobian degeneracy remains a limitation of unrestricted projected variation.
+
+\section{Slow rotation from an independently varied natural invariant}\label{sec:rotation}
+To first order in the angular velocity $\Omega$ of a spherical Dirac fluid, keep three amplitudes free:
+\begin{equation}\label{eq:sigma-slow}
+\sigma=A(r)\dd t+B(r)\dd r+C(r)\sin^2\theta\dd\phi,
+\qquad \omega(r)=-\frac{A(r)C(r)}{r^2}.
+\end{equation}
+The same quadratic products create $g_{tr}=AB$, $g_{t\phi}=AC\sin^2\theta$ and $g_{r\phi}=BC\sin^2\theta$. An appropriate first-order time/azimuth coordinate change gives the standard Hartle slow-rotation form; these mixed entries are not arbitrary additions.
+
+For a solved static background define $j(r)=1/\sqrt{FH}$. The quadratic rotational Einstein--Hilbert contribution and the rotating-fluid matter variation yield
+\begin{equation}\label{eq:hartle-action}
+ S_{\rm EH}^{(2)}=\frac1{12G}\int\dd t\dd r\ r^4j(\omega')^2,\qquad
+\frac{\delta S_m}{\delta\omega}=-\frac{8\pi}{3}r^4\sqrt{\frac HF}
+(\varepsilon+P)(\Omega-\omega),
+\end{equation}
+with stated angular integrations and boundary terms. Hence
+\begin{equation}\label{eq:hartle-equation}
+\boxed{(r^4j\omega')'+16\pi G\,r^4\sqrt{\frac HF}
+(\varepsilon+P)(\Omega-\omega)=0.}
+\end{equation}
+On the static on-shell background, $\delta\omega=-A\,\delta C/r^2$ when varying the azimuthal natural invariant independently. If $A\ne0$, its Euler equation is equivalent to Eq.~\eqref{eq:hartle-equation}. More generally the reduced metric map has
+\begin{equation}\label{eq:slow-jacobian}
+\boxed{\det\frac{\partial(F,H,\omega)}{\partial(A,B,C)}
+=\frac{4A^2B}{Fr^2};}
+\end{equation}
+it is nondegenerate away from the stated center/horizon/infinity and zero-amplitude limits. This explains \emph{reduced symmetry-sector} variational sufficiency, not unrestricted four-dimensional equivalence.
+
+For the same Dirac-star benchmark at $\Omega=0.005$, integration gives $J=0.00721834$, $I=J/\Omega=1.443669$ in natural units. The exterior source and boundary equations give $\omega=2J/r^3$, so
+\begin{equation}\label{eq:slow-kerr-limit}
+\boxed{\sigma_\phi=-\frac{r^2\omega}{A}\sin^2\theta
+=-\frac JM\sqrt{\frac{2M}{r}}\sin^2\theta\qquad(r\ge R).}
+\end{equation}
+This matches the azimuthal natural-invariant component of Kerr through $O(\Omega)$. It does not establish full Kerr from a generic rotating star at second order, nor does it fix generic higher multipoles from $M,J$ alone.
+
+\section{Derivative-dependent full-master representations: exact conditional results}\label{sec:derivative-existence}
+This section keeps \(\lambda\ne0\), a fixed flat reference tetrad and the historical first-derivative tensor. Since the historical manuscript specifies \(\mathcal Q\) for only one field, the following \emph{two multi-sector completions are separately labeled test hypotheses}. Neither is claimed as the unique microscopic QGD correction.
+
+\subsection{Two alternative derivative trials}
+In a flat reference affine chart define
+\begin{align}\label{eq:Q-completions}
+\mathcal Q_{\mu\nu}^{\mathrm{designated}}&=(\bar\nabla_\mu\chi^\rho)(\bar\nabla_\nu\chi_\rho),\qquad \chi=\sigma^{(0)},\quad s_0=+1,\\
+\mathcal Q_{\mu\nu}^{\mathrm{signed}}&=\sum_{s=1}^N s_s(\bar\nabla_\mu\sigma^{(s)\rho})(\bar\nabla_\nu\sigma_\rho^{(s)}).
+\end{align}
+The first assigns derivative dependence only to a selected natural-invariant sector; the second assigns signed derivative terms to all sectors. The latter is an added test assumption, \emph{not} the original single-field identity. Indices in these trials are raised with the fixed reference metric; an unsigned sector sum or a physical \(g\)-covariant derivative would define a different problem.
+
+\begin{theorem}[Constructive nine-sector local lift for two specified nonzero-\(\lambda\) trials]\label{thm:full-nine}
+For either formula in Eq.~\eqref{eq:Q-completions}, any smooth four-dimensional Lorentzian target metric on a flat-reference affine coordinate neighborhood and any fixed finite \(\lambda\ne0\) possess a smooth local nine-sector representation for which \(\mathcal Q\) is nonzero. Nine sectors are sufficient under these hypotheses; minimality is not claimed.
+\end{theorem}
+\begin{proof}
+Choose a reference-parallel coframe \(\theta^a=\dd x^a\) and one positive distinguished sector \(\chi=\kappa t\,\dd x\) for \(\kappa\ne0\). Then \(\mathcal Q[\chi]=\kappa^2\dd t^2\ne0\). Set \(R=g-\bar g-\chi^2+\lambda\mathcal Q[\chi]\), where \(\alpha^2:=\alpha\otimes\alpha\), and let \(w^a=\tfrac14 R(E_a,\cdot)\). Choose four positive and four negative compensating sectors \(\sigma^{(a,\pm)}=\theta^a\pm w^a\). Polarization gives \(\sum_a[(\sigma^{(a,+)})^2-(\sigma^{(a,-)})^2]=R\). In the designated trial the pairs are absent from \(\mathcal Q\) by definition. In the signed trial they cancel since \(\bar\nabla\theta^a=0\) and \(\bar\nabla\sigma^{(a,+)}=\bar\nabla w^a=-\bar\nabla\sigma^{(a,-)}\). Hence in either case
+\(g_{\rm QGD}=\bar g+\chi^2+R-\lambda\mathcal Q[\chi]=g\).
+\end{proof}
+
+\begin{theorem}[Differential right inverse and metric-equation completeness on the nine-sector lift]\label{thm:full-rank-nine}
+On the constructed lift of Theorem~\ref{thm:full-nine}, the full derivative-dependent metric map admits a local right inverse on arbitrary smooth symmetric metric perturbations. For an action that depends on independently varied sectors only through \(g\), its complete sector Euler equations are equivalent locally to the metric equations, with compatible compactly supported variations and boundary conditions.
+\end{theorem}
+\begin{proof}
+Keep \(\chi\) fixed. For any \(\delta g\), choose \(\delta w^a=\tfrac14\delta g(E_a,\cdot)\) and \(\delta\sigma^{(a,\pm)}=\pm\delta w^a\). Polarization reproduces \(\delta g\) exactly; the paired \(\mathcal Q\) contributions are identically zero along the full polarization family in either test prescription. Thus \(D\mathcal F\circ\mathcal R=I\) for the metric map \(\mathcal F\), establishing rank ten. For \(S=S[g[\sigma],\Psi]\), the complete chain rule is \(\delta S=\langle\mathcal E_g,D\mathcal F\,\delta\sigma\rangle+\text{matter variations}\). If every sector Euler equation vanishes, use the explicit compactly supported preimage of an arbitrary \(\delta g\) to conclude \(\mathcal E_g=0\). Conversely \(\mathcal E_g=0\) implies the sector equations. Independent matter equations are imposed separately.\end{proof}
+\noindent This result concerns a \emph{particular spanning branch}, not all arbitrary field configurations. It does not establish equivalence with independently dynamical \(T\), a direct sector action, or any unspecified \(\mathcal Q\) prescription.
+
+\begin{proposition}[One real sector is not universal for the historical derivative trial]\label{prop:one-sector-inertia}
+For fixed Minkowski \(\eta=\operatorname{diag}(-1,1,1,1)\), one real field \(\sigma\), \(J_{\mu\rho}=\partial_\mu\sigma_\rho\), and \(h=g-\eta=s\sigma\sigma^{\mathsf T}-\lambda J\eta^{-1}J^{\mathsf T}\), the inertia bounds give
+\begin{equation}\label{eq:inertia-obstruction}
+ \lambda>0:\quad n_+(h)\le2;\qquad \lambda<0:\quad n_-(h)\le2.
+\end{equation}
+Neither sign of \(\lambda\ne0\) admits every flat Lorentzian Einstein metric relative to this fixed reference.
+\end{proposition}
+\begin{proof}
+The matrix \(J\eta^{-1}J^{\mathsf T}\) has at most one negative and three positive directions. For \(\lambda>0\) its negative multiple has at most one positive direction; the rank-one term adds at most one. Yet \(g=\eta+\delta I_4\), \(0<\delta<1\), is Lorentzian and flat while \(h=\delta I_4\) has four positive directions. The \(\lambda<0\) case uses the negative-index version and \(g=\eta-\delta I_4\).\end{proof}
+
+\subsection{A nonflat Einstein-vacuum metric with an active trial tensor}
+For \(\dd\bar s^2=-2\dd u\dd v+\dd x^2+\dd y^2\), take \(F=A(u)(x^2-y^2)+2B(u)xy\), \(g=\bar g+F\dd u^2\), and \(\chi=\kappa u\dd x\), so \(\mathcal Q=\kappa^2\dd u^2\ne0\). The nine-sector lift of Theorem~\ref{thm:full-nine} reconstructs \(g\) exactly for arbitrary \(\lambda\) under either trial. Here \(R_{uu}=-\tfrac12(F_{xx}+F_{yy})=0\); nonzero \(A\) or \(B\) generically gives nonvanishing Riemann curvature. This is a nonflat \emph{representation} of a vacuum Einstein metric, not a new physical \(\lambda\) correction.
+
+\subsection{Internal rotations and interpretation}
+For a fixed signed sector matrix \(C\), point-dependent transformations \(U\mapsto UL(x)\) satisfying \(LCL^{\mathsf T}=C\) (with the index convention adjusted to the sector matrix) preserve the algebraic Gram term. Their derivatives generally enter the signed \(\mathcal Q\), so such local transformations need not preserve the full derivative-trial metric. Constant internal transformations do. In particular, \(\mathcal Q\ne0\) is not by itself evidence of an observable modification of GR: on some configurations its metric contribution is removable by a coordinate change, and in the nine-sector proof compensating algebraic sectors exactly absorb it. A microscopic operator-selection principle is still required.
+
+
+\subsection*{Source selection and the meaning of a solution}\label{sec:qgd064-source-select}
+A local Gram representation of a supplied metric is a \emph{representation test}, not a microscopic prediction of that metric. For a source-selected result, one must specify (i) the microscopic or macroscopic matter state and its normalized stress tensor, (ii) the effective action and independent field variations, (iii) a regular branch and boundary conditions, and (iv) a residual check of all effective metric equations.  At the strictly zero-sector background the classical quadratic metric map has $D_\sigma g=0$, whereas appropriate nonzero signed-sector backgrounds can have $\operatorname{rank}D_\sigma g=10$ even when the effective metric is flat. Neither a mathematical background choice nor the resulting right inverse establishes a physically realized quantum condensate.  Chapter~3 uses precisely these distinctions for normalization and for conditional quantum-vacuum stress backreaction.
+
+\section{Proven simplifications versus total solving efficiency}\label{sec:efficiency}
+A universal representation bound is \emph{not} a bound on time-to-solution. QGD solving efficiency has at least three separate meanings: (i) inversion and tensor algebra after a sector ansatz is given, (ii) reduction in the number/complexity of independent differential equations, and (iii) the total cost of finding sectors and boundary values, checking admissibility, and computing residuals.
+
+\begin{theorem}[Exact null-sector algebraic simplification]\label{thm:ks-efficiency}
+When the metric is a Kerr--Schild null update of a readily invertible flat reference, its inverse and determinant are given exactly by Eq.~\eqref{eq:ks-identity}, without expansion in \(\mathcal H\). In advanced-null spherical coordinates, the complete Einstein tensor has the explicit reduced expressions of Eq.~\eqref{eq:qgd060-spherical-Einstein}. These are exact algebraic and symmetry-reduction simplifications, irrespective of the source profile.
+\end{theorem}
+\noindent\textbf{Cost bounds.} For \(n\)-dimensional dense matrices with a known inexpensive inverse \(H^{-1}\), Woodbury evaluation via an \(N\times N\) solve costs \(O(n^2N+nN^2+N^3)\) arithmetic operations beyond the cost of computing \(H^{-1}\), with suitable dense multiplication conventions; generic inversion costs \(O(n^3)\). The structured bound is advantageous primarily when \(N\ll n\), a condition \emph{not} guaranteed by the universal eight- or nine-sector lifts in four dimensions. The full derivative tensor may also raise differential order and computational cost.
+
+\noindent\textbf{Fair baseline.} Kerr--Schild/null reductions are also available in standard GR. To demonstrate a \emph{QGD-specific} solution-speed advantage, compare equivalent problems under optimized metric, tetrad, Kerr--Schild and QGD ans\"atze with the same symmetry, sources and boundary data. Record free functions, independent equations, differential order, expression size, solve time, memory and final EFE residual; include the work required to discover the ansatz and its sectors. No general superiority theorem follows from the fifteen representations.
+
+\section{Results, limits and research status}\label{sec:status}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}p{0.41\linewidth}p{0.51\linewidth}@{}}\toprule
+Claim & Precise status\\\midrule\endhead
+Complete tetrad/signed-sector/derivative master metric & Original QGD geometric proposal; \(\mathcal Q\), \(\lambda\) and physical sector-selection rule remain unmatched.\\
+Classical Gram construction and eight-sector universality & Proved smooth local algebraic representation, with sharp \(4+4\) fixed-sign universal inventory bound.\\
+Rank/completeness & Classical four-spanning-sector branch has rank ten; explicit eight-sector right inverse exists for all smooth local target deformations.\\
+Derivative-dependent representation & Conditional nine-sector local existence and right-inverse theorems for two explicitly specified trial completions, not for all possible \(\mathcal Q\).\\
+Obstruction & One-real-sector historical derivative trial cannot realize every Lorentzian Einstein geometry relative to fixed Minkowski reference.\\
+Exact solutions & Fifteen classical source-conditioned metric representations; not fifteen independent QGD physical predictions.\\
+Sourced and rotating matter & Static Dirac Fermi-gas and leading slow-rotation benchmark solved using an adopted Einstein--Hilbert + matter action.\\
+Efficiency & Exact algebraic simplifications and selected reduced equations proved; universal solving-time superiority not proved.\\
+QGD microscopic claim & Promotion from Dirac macroscopic state to independent \(\sigma^{(s)}\) and microscopic production of the metric action remain open.\\
+General effective sector equations & Derived functional-chain equations for the full master metric; explicit differential form needs specified $\mathcal Q$, reference connection and independently varied fields.\\
+Linearized modes and conservation & On regular metric-only Einstein branches there are two physical metric TT polarizations; matter conservation follows from matter equations. Extra nonmetric modes remain unclassified.\\
+QGD field balance & The exact, action-defined $S_{(s)}=G_{(s)}+T_{(s)}+Q_{(s)}=0$ is the complete natural-invariant Euler equation for the specified metric-mediated theory; a standalone wave law needs microscopic justification.\\
+Higher-order historical terms & Kinetic terms, \(\square_g^2\sigma\), force coefficients and \(\mathcal Q\) coefficients remain unverified trial proposals.\\\midrule
+Eight-sector representation rank & At a nonzero cancelling signed background, $32$ sector components map onto all $10$ metric components with $22$ algebraic redundant directions; at $\sigma=0$ the metric derivative vanishes.\\
+Quantum geometric response & Free covariantly coupled Dirac determinant yields verified one- and two-metric vertices, contact terms and a scheme-dependent induced $R$ coefficient. The metric remains external in this calculation.\\
+Spectral and interacting control & Free massive vacuum has spin-two/scalar continua, while the tested Hartree/direct-scalar medium has a finite static shear response; neither establishes a universal massless spin-two composite.\\
+\bottomrule
+\end{longtable}
+The mathematical contribution is a precisely specified local language for geometry with constructive representation, the derived general sector equations of Section~\ref{sec:qgd061-general}, selected variational equivalence, exact source-conditioned solutions and provable simplifications in important subfamilies. The local representation is generally many-to-one and must not be confused with a microscopic proof that matter selects the fields. An arbitrary physical tetrad could encode the target metric by itself, so the nontrivial universality tests deliberately fix a flat background tetrad. Global topology, physical degree-of-freedom counting with the actual action, boundary problems for the derivative model, and empirical quantum corrections remain distinct open tasks.
+
+
+\section{Research provenance and integration scope (QGD--075)}\label{sec:qgd075-source-archive}
+The independent research sequence QGD--066--073C supplies the added
+four-mode transport results, matter-observable examples, controlled
+finite-density scalar-contact response, composite-source Legendre
+framework, covariant Dirac determinant, geometric contact vertices,
+vacuum spectral form factors, and signed-sector Hessian pullback.
+The microscopic three-momentum cutoff and external-geometric vacuum
+proper-time regulator are separate declared approximations. Neither
+the historical nonzero-$\lambda$ metric correction nor a physical
+state-to-$\sigma$ source-selection law has thereby been fixed.
+
+
+\appendix
+\section{Archived and optional standalone kinetic, fourth-order and motion trials}\label{app:historical-operators}
+\subsection{Revariation of the historical standalone kinetic term}
+The archived pre-revision field-equations chapter also assumed an independent
+wave-like term, written schematically as
+\begin{equation}\label{eq:qgd052-old-kinetic}
+ S_{\rm kin}^{\rm hist}=C_{\rm hist}\int\dd^4x\sqrt{-g}\,
+ g^{\alpha\beta}(\nabla_\alpha\chi_\rho)(\nabla_\beta\chi^\rho),
+ \qquad C_{\rm hist}=\frac{\hbar^2}{2M}\quad\text{(historical proposal)}.
+\end{equation}
+If $g$ is held fixed while $\chi$ varies, integration by parts
+establishes only the \emph{direct} channel
+\begin{equation}\label{eq:qgd052-old-kinetic-var}
+ \frac1{\sqrt{-g}}\left.\frac{\delta S_{\rm kin}^{\rm hist}}
+ {\delta\chi_\rho}\right|_g=-2C_{\rm hist}\square_g\chi^\rho.
+\end{equation}
+When $g=g[\chi]$, the \emph{total} Euler equation also includes the
+metric-induced variation of this kinetic action---including its volume element,
+index raising, and Levi--Civita connection---as well as those of EH and matter.
+These contributions are captured by the complete functional metric residual
+$\mathcal E_g$ in the chain rule, but have not been matched to the archived
+$Q_\mu,G_\mu$ formulas.  Furthermore, in four spacetime dimensions and
+natural units, a dimensionless $\chi_\mu$ requires a kinetic coefficient of
+mass dimension $+2$, whereas $1/M$ has mass dimension $-1$; thus the
+historical $\hbar^2/(2M)$ coefficient is \emph{not} a complete four-dimensional
+field-theory kinetic density normalization without additional dimensional
+factors or a different dimension assignment.  This term remains a trial, not a
+restored proven operator.
+
+\subsection{An explicitly constructible fourth-order wave \emph{trial}, not a derived QGD law}
+For a \emph{fixed} background metric and a covector $\chi_\mu$, a separately
+postulated quadratic functional is
+\begin{equation}\label{eq:qgd052-wave-trial-action}
+ S_{\rm trial}[\chi;g]=\int\!\dd^4x\sqrt{-g}\left[
+ -\frac12(\nabla_\alpha\chi_\mu)(\nabla^\alpha\chi^\mu)
+ -\frac{a}{2}(\square_g\chi_\mu)(\square_g\chi^\mu)
+ +J^\mu\chi_\mu\right],\quad [a]=L^2.
+\end{equation}
+For fixed $g$, appropriate boundary conditions, and the connection Laplacian
+$\square_g=g^{\alpha\beta}\nabla_\alpha\nabla_\beta$ on covectors, its
+independent variation gives
+\begin{equation}\label{eq:qgd052-PU-conditional}
+ \boxed{\square_g(1-a\square_g)\chi_\mu=-J_\mu.}
+\end{equation}
+The archived trial choice $a=\kappa\ell_Q^2$ and the identification
+$\chi_\mu=\sigma_\mu$ are additional hypotheses; the original metric-derivative
+term does \emph{not} alone prove Eq.~\eqref{eq:qgd052-PU-conditional}.
+With $g=g(\chi)$, further terms arise from $\delta g$ and $\delta\nabla$,
+and a naive fourth-order propagator has opposite-sign pole residues.
+No conclusion of ghost freedom, self-regularization, or a fixed coefficient
+follows before the extra modes and their boundary conditions are analysed.
+
+\subsection{Original Chapter 3/4 motion equations: what the point-particle action implies}
+Varying $S_{\rm pp}=-m\int\sqrt{-g_{\mu\nu}(x)\dot x^\mu\dot x^\nu}\,\dd\lambda$
+gives the \emph{ordinary} geodesic equation of the \emph{full effective metric},
+regardless of whether that metric is composite.  For a chosen reference metric
+$g^{(0)}$ and $h=g-g^{(0)}$, the tensor
+\begin{equation}\label{eq:qgd052-Omega-exact}
+ \Omega^\lambda{}_{\mu\nu}:=\Gamma^\lambda{}_{\mu\nu}[g]
+ -\Gamma^\lambda{}_{\mu\nu}[g^{(0)}]
+ =\frac12 g^{\lambda\rho}\bigl(
+ \nabla^{(0)}_\mu h_{\rho\nu}+\nabla^{(0)}_\nu h_{\rho\mu}
+ -\nabla^{(0)}_\rho h_{\mu\nu}\bigr)
+\end{equation}
+is an exact difference of connections.  Rewriting the geodesic equation as
+$\nabla^{(0)}_u u=-\Omega(u,u)$ is exact, but introducing $\Omega$
+\emph{in addition to} the already full $\Gamma[g]$ double counts the same
+connection.  The historical two-body algebra cannot in general add bare
+$\sigma$ amplitudes prior to squaring them, because this inserts undetermined
+cross terms.  The source sector composition and boundary conditions must be
+specified in the full master metric.
+
+\subsection{Matter sources, conservation and the historical force coefficients}
+With the conventional definition
+$\delta S_m=\frac12\int\!\sqrt{-g}\,T^{\mu\nu}\delta g_{\mu\nu}$,
+the metric-only signed-sector source contribution is
+\begin{equation}\label{eq:qgd052-matter-source}
+ \frac1{\sqrt{-g}}\frac{\delta S_m}{\delta\sigma_\rho^{(s)}}
+ =s_s T^{\rho\nu}\sigma_\nu^{(s)}.
+\end{equation}
+This is a \emph{derived projected matter source}, not an independently inferred
+$T_\mu=\frac12 T_{\mu\nu}\sigma^\nu$ and is precisely the matter channel of Eq.~\eqref{eq:qgd062-beautiful-balance} in the classical restriction.  Matter stress-energy obeys
+$\nabla_\mu T^{\mu\nu}=0$ on its own equations when its action is
+minimally coupled only to the effective metric.  Nonminimal couplings and
+independently dynamical $\sigma$ terms require their own Noether identities.
+The old PN force coefficients and fourth-order terms need an independently
+matched and varied action; the mere metric factorization cannot fix them.
+
+\section{Historical operators, original proofs and reproducibility}\label{app:archival}
+The complete pre-QGD--041 Chapter 2 source is preserved in the repository research archive, including superseded field-source decompositions, proposed fourth-order wave equation, inferred $G_t$ subtraction, propagator factorization, candidate quantum-force formulae and gravity-wave/lensing discussions. The original file remains available independently in the preserved earlier repository. These formulae remain useful \emph{research candidates}; retaining them is not verification.
+
+The living Equations Flow (in the documentation folder) records the status of the QGD results through QGD--040. Original source files and independent symbolic/numerical checks are preserved in the research milestones QGD--025 through QGD--040. This revision adds no unjustified kinetic term or numerical fit.
+
+The old source printed ``Chapter 3'' despite having a Chapter 2 repository filename. This standalone revision follows the repository numbering; the companion chapter's historical title has not been changed.
+
+\begin{thebibliography}{9}
+\bibitem{QGDoriginal} R. Matshaba, \emph{Universal Origins: Quantum Gravitational Dynamics} (2026), \href{https://doi.org/10.5281/zenodo.18827993}{DOI:10.5281/zenodo.18827993}.
+\bibitem{Sakharov} A. D. Sakharov, \emph{Vacuum quantum fluctuations in curved space and the theory of gravitation}, Sov. Phys. Dokl. 12 (1968) 1040.
+\bibitem{Vassilevich} D. V. Vassilevich, \emph{Heat kernel expansion: user's manual}, Phys. Rep. 388 (2003) 279--360, \href{https://arxiv.org/abs/hep-th/0306138}{arXiv:hep-th/0306138}.
+\bibitem{Hartle} J. B. Hartle, \emph{Slowly rotating relativistic stars. I. Equations of structure}, Astrophys. J. 150 (1967) 1005.
+\bibitem{KS} R. P. Kerr and A. Schild, \emph{Some algebraically degenerate solutions of Einstein's gravitational field equations}, Proc. Sympos. Appl. Math. 17 (1965) 199--209.
+\end{thebibliography}
+\end{document}

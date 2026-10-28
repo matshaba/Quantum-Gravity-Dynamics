@@ -1,0 +1,1258 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=25mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,array,longtable,graphicx,xcolor}
+\usepackage{microtype,enumitem,fancyhdr}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\setlist[itemize]{leftmargin=1.5em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=1.65em,itemsep=2pt,topsep=3pt}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Lagr}{\mathcal L}
+\newcommand{\Seff}{S_{\mathrm{eff}}}
+\newcommand{\psibar}{\bar\psi}
+\newcommand{\PsiBar}{\bar\Psi}
+\newcommand{\ellc}{\ell}
+\newcommand{\TT}{\mathcal T}
+\newcommand{\JJ}{\mathcal J}
+\newcommand{\Spin}{\mathcal S}
+\newcommand{\oneref}{\Sigma}
+\newcommand{\wk}{\textsc{Working hypothesis}}
+\definecolor{qgdblue}{RGB}{24,58,110}
+\definecolor{qgdgray}{RGB}{81,93,112}
+\definecolor{qgdgreen}{RGB}{16,110,85}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}[section]
+\pagestyle{fancy}\fancyhf{}
+\lhead{Quantum Gravity Dynamics | Chapter 1}
+\rhead{Foundations, QGD--075}
+\cfoot{\thepage}
+\hypersetup{pdfauthor={Romeo Matshaba},pdftitle={Quantum Gravity Dynamics: Foundations of a Macroscopic Dirac Description}}
+\title{\vspace{-9mm}\textbf{Quantum Gravity Dynamics}\\[4pt]
+\large Chapter 1: Foundations of a Macroscopic Dirac Description\\[6pt]
+\normalsize Dirac dynamics, four-component modes, and the natural invariant}
+\author{Romeo Matshaba}
+\date{Surgical physical-interpretation revision --- 19 October 2026 (QGD--075 integrated positive results)}
+\begin{document}
+\maketitle
+\begin{abstract}
+Quantum Gravity Dynamics (QGD) investigates a possible progression from microscopic Dirac matter to macroscopic geometry. This chapter separates a conditional coarse-grained Dirac-equivalent description from its derived local spinor-component identities, semiclassical Hamilton--Jacobi equation, conserved currents and source observables. It restores the historical four-component mode construction in a corrected, energy-branch-aware form. QGD's defining additional step is to \emph{promote} structures motivated by those spinor ratios to the generalized natural-invariant covector $\sigma_\mu$; this is explicitly a physical postulate, not an identity with a free-particle momentum ratio or an everywhere exact WKB gradient. Chapter~2 then develops the complete signed-sector/tetrad master metric and a stated classical Einstein--Hilbert--matter benchmark. Exact Schwarzschild, Kerr and other geometrical representations, and sourced spherical/slow-rotation variational results, are distinguished from a derivation of the gravitational action itself. The historical Newtonian-force and unverified higher-derivative claims remain documented but are not used as established premises. The new research integration proves the four-mode frame and its representation nonuniqueness, records full-rank kinetic-momentum ensembles with zero spatial current, evaluates a controlled interacting finite-density tensor response, and formulates the exact composite Legendre response. It does not equate these observables with a gravitational excitation or derive an exterior field from the flat microscopic action.
+\end{abstract}
+
+% Final editorial orientation: hypotheses distinguished from proven classical correspondence.
+\section*{Introduction: the physical question behind the geometric description}
+\addcontentsline{toc}{section}{Introduction: the physical question behind the geometric description}
+Einstein's general relativity accurately describes the response of spacetime
+geometry to energy and momentum.  Its empirical success does not, however,
+establish that geometric curvature is the final microscopic ontology of
+gravitation.  The foundational question of Quantum Gravity Dynamics (QGD)
+is therefore not whether the Einstein equations should be discarded, but
+whether their effective geometric description can have a deeper quantum
+origin: \emph{if spacetime geometry is a macroscopic manifestation of quantum
+physics, what physical quantum structure does the metric describe?}
+
+QGD investigates the hypothesis that gravitational behavior is associated
+with an appropriately defined collective, macroscopic quantum structure of
+matter.  Microscopic Dirac dynamics provide a controlled relativistic entry
+point, not a claim that all gravitating matter consists of fermions.  The
+proposed natural-invariant covectors $\sigma_\mu^{(s)}$ supply the link between
+quantum-state observables and a composite effective metric.  In this
+interpretation curvature can be an accurate macroscopic description without
+being posited as the fundamental gravitational substance.
+
+The hypothesis entails distinct mathematical obligations.  Chapters~1--3
+establish spinor identities and physical observables in specified states,
+algebraic and variational properties of the composite metric, and exact
+classical correspondence within an explicitly adopted effective action.
+They do not by themselves establish a unique microscopic origin for the
+long-range gravitational response.  The empirical constant $G_N$ may be
+used in Newtonian correspondence, just as the coupling in general
+relativity is determined from its Newtonian limit; no independent numerical
+prediction of $G_N$ is required for that calibration.
+
+The reader should distinguish three types of assertion throughout:
+(i) an \emph{exact consequence} of stated mathematical assumptions;
+(ii) a \emph{correspondence result} obtained in a specified gravitational
+effective theory; and (iii) a \emph{proposed physical interpretation} that
+requires independent empirical discrimination.  This distinction prevents
+success at representing Einstein geometry from being conflated with a
+demonstration that a collective matter wave is its microscopic cause.
+
+\section{The question QGD is intended to answer}\label{sec:mission}
+The organizing proposal of QGD is that the large-scale variables used to characterize a gravitating system may be constructed from an effective description of interacting Dirac matter. The goal is to examine the route from a microscopic quantum field theory to a macroscopic Dirac-equivalent description, and then to ask whether its physical observables admit a consistent geometric interpretation. This differs from beginning with a postulated elementary graviton or demanding that a particular composite scalar become a graviton.
+
+The proposal has distinct physical and mathematical maps:
+\begin{equation}\label{eq:three-maps}
+\begin{gathered}
+ S_{\rm micro}[\hat\psi,A]
+ \xrightarrow{\text{conditional coarse-graining}}
+ S_{\rm macro}[\Psi,A]\\[2pt]
+ \Downarrow\quad\text{four spinor modes and macroscopic observables}\quad\Downarrow\\[2pt]
+ \sigma^{(a)}_\mu\ \xrightarrow{\text{QGD metric postulate}}\
+ g_{\mu\nu}[\sigma,T]\ \xrightarrow{\text{specified action}}\
+ \text{gravitational solutions}.
+\end{gathered}
+\end{equation}
+The first arrow is a functional-integral definition, whose quantitative coefficients still require calculation. The second requires a specified quantum state and a controlled macroscopic limit; integrating out fast fluctuations \emph{does not automatically} produce a classical four-component wavefunction. The promotion and metric arrows are distinct physical proposals, not consequences of Dirac algebra alone. Gravitational dynamics from the Einstein--Hilbert sector remain an input in the verified classical benchmarks.
+
+\noindent\textbf{Research standard.} In this chapter, \textbf{derived} means that the displayed conclusion follows under stated assumptions; \textbf{conditional} means that an approximation or state restriction is required; \textbf{postulated} means that a physical identification is proposed without a derivation; and \textbf{not established} means that the current arguments do not support the claim. This separation is central to the present revision.
+
+
+\section{Physical interpretation: quantum matter waves and emergent gravity}\label{sec:qgd-physical-heart}
+\noindent\textbf{QGD's physical hypothesis (not a proven microscopic mechanism).}
+Microscopic matter has quantum phases, currents, energies and correlations.  A macroscopic body is generally a many-particle quantum state, not a single coherent de Broglie plane wave.  QGD proposes that appropriate collective dynamics of this matter can support generalized natural-invariant covectors $\sigma_\mu^{(s)}$, which generate an \emph{effective} gravitational geometry through Chapter~2's full master metric.  The metric is not thereby an independent microscopic ingredient in the proposed interpretation; Einsteinian geometry is intended as its macroscopic description.  This is a proposed mechanism, not a derivation of gravity from the free-particle de Broglie formulas.
+
+A plane-wave constituent has phase $\exp[-i(Et-\bm p\cdot\bm x)/\hbar]$, with $\lambda_{\rm dB}=h/|\bm p|$ and frequency $E/h$. The extremely large rest-energy frequency $mc^2/h$ of a massive object is the time dependence of a quantum \emph{phase}: an overall phase cancels from stationary local densities and currents.  It is not automatically a radiated, measurable gravitational oscillation. In particular a body at rest has $\bm p=0$ and still gravitates; no inverse-center-of-mass-wavelength law is a satisfactory universal gravitational source.
+
+\noindent\textbf{Many-body interpretation.}
+Individual microscopic phases need not be mutually coherent for total energy and stress to remain nonzero and macroscopically stable.  QGD therefore investigates collective, phase-insensitive observables (and their quantum correlations), rather than imposing a coherent sum of individual momenta.  A schematic \emph{research map}, not yet a sequence of derived equalities, is
+\begin{equation}\label{eq:qgd-physical-pipeline}
+\boxed{\begin{gathered}
+  \hat\rho_{\rm Dirac}\ \longrightarrow\
+  \{\langle\hat T^{\mu\nu}\rangle_\ell,
+       \langle\hat T^{\mu\nu}\hat T^{\alpha\beta}\rangle_{c,\ell},\ldots\}\\
+  \overset{\text{open dynamics/selection}}{\longrightarrow}
+  \sigma_\mu^{(s)}\ \longrightarrow\ g_{\mu\nu}[\sigma,T,\mathcal Q]
+  \overset{\text{adopted effective action}}{\longrightarrow}
+  \text{Einsteinian limit}.
+\end{gathered}}
+\end{equation}
+The first arrow requires a specified quantum state and a controlled coarse-graining prescription.  The second arrow is the central unresolved microscopic-to-gravitational field map.  The third is QGD's metric postulate; the final arrow is established only under the independently stated action and completeness assumptions of Chapter~2.
+
+A universal source must remain gravitationally active when a source's net particle current is zero: isotropic matter can obey $\langle\bm j\rangle=0$ while $\langle T^{00}\rangle>0$. The exterior field also remains nonzero in vacuum, so a strictly local identification $\sigma(x)=F(\langle j(x)\rangle,\langle T(x)\rangle)$ with $F(0,0)=0$ is insufficient. A long-range response, nonlocal constitutive rule, or dynamical field propagation must be derived. Neither coarse-graining nor a choice of signed sectors supplies it automatically.
+
+\begin{remark}[Interpretation versus proof status]\label{rem:qgd-debroglie}
+The matter-wave analogy motivates the microscopic research program, just as wave mechanics was motivated by de Broglie's relation without being identical to it.  The statements above are \emph{physical interpretation and proposed explanatory mechanism}; exact results later in this chapter concern specific Dirac states, WKB limits and conserved observables. The metric, sector signs, long-range gravitational mode and effective Einstein--Hilbert coefficient require independent derivations or specified benchmark assumptions.
+\end{remark}
+
+\section{Conventions and microscopic Dirac dynamics}\label{sec:micro}
+Throughout the quantitative development, $\hbar=c=1$ and $\eta_{\mu\nu}=\mathrm{diag}(-,+,+,+)$. We use a Clifford convention
+\begin{equation}\label{eq:clifford}
+\{\gamma^\mu,\gamma^\nu\}=-2\eta^{\mu\nu},\qquad
+\bar\psi=\psi^\dagger\gamma^0,\qquad
+D_\mu=\partial_\mu+iqA_\mu,
+\end{equation}
+where $q$ is the signed electromagnetic coupling. Thus $(\gamma^0)^2=1$, the physical free dispersion is $E_{\bm p}^2=\bm p^2+m^2$, and the Dirac equation is $(i\gamma^\mu D_\mu-m)\psi=0$. The \emph{sign} of $q$ distinguishes particles of opposite electric charge. SI factors are restored only when explicitly indicated.
+
+The original microscopic ingredient list is retained. A representative, cutoff-dependent interacting action is
+\begin{equation}\label{eq:Smicro}
+S_{\mathrm{micro}}=\int\dd^4x\left[
+\bar{\hat\psi}(i\gamma^\mu D_\mu-m_0)\hat\psi
++G(\bar{\hat\psi}\hat\psi)^2
+-\frac14 F_{\mu\nu}F^{\mu\nu}
+\right],\quad F_{\mu\nu}=\partial_\mu A_\nu-\partial_\nu A_\mu.
+\end{equation}
+This model preserves the original Dirac, electromagnetic and scalar-contact sectors. Its four-fermion term has operator mass dimension six in four spacetime dimensions, so $G$ has dimension $-2$. The contact interaction is an effective interaction requiring a cutoff or a specified ultraviolet completion; it is not a renormalizable interaction with a uniquely calculable continuum limit under the assumptions given here.
+
+Under $A_\mu\mapsto A_\mu+\partial_\mu\chi$ and $\psi\mapsto e^{-iq\chi}\psi$, the minimally coupled action is gauge invariant. Any later definition of an effective geometric field must respect this symmetry, or justify a separate neutral sector.
+
+\subsection{The exact microscopic current}
+For solutions of the interacting Dirac equation with a real scalar contact coupling, the global phase symmetry implies the conserved current
+\begin{equation}\label{eq:current}
+j^\mu=\bar\psi\gamma^\mu\psi,\qquad \partial_\mu j^\mu=0.
+\end{equation}
+The zeroth component is $j^0=\psi^\dagger\psi\geq0$. The full relativistic spatial current is $j^i=\psi^\dagger\alpha^i\psi$ with $\alpha^i=\gamma^0\gamma^i$; an identification $\bm j=\rho\bm p/m$ is at best a regime-dependent approximation. Coupled electromagnetic dynamics conserves the total stress-energy, while the matter and electromagnetic sectors can exchange momentum.
+
+\subsection{Stress-energy and angular momentum before coarse-graining}
+A symmetric free-Dirac stress-energy representative is
+\begin{equation}\label{eq:freeT}
+T_D^{\mu\nu}=-\frac{i}{4}\bar\psi\bigl(\gamma^\mu\overleftrightarrow{\partial}^{\nu}
++\gamma^\nu\overleftrightarrow{\partial}^{\mu}\bigr)\psi,
+\quad X\overleftrightarrow{\partial}Y=X(\partial Y)-(\partial X)Y.
+\end{equation}
+The overall minus sign is appropriate to the present $(-+++)$ metric/Clifford convention: on a positive-frequency free plane wave it gives positive $T_D^{00}$. This formula is not the complete stress-energy of the interacting electromagnetic theory: the gauge-covariant fermion contribution, contact interaction, Maxwell field and any counterterms must be treated together. For an isolated translation-invariant complete system, $\partial_\mu T_{\mathrm{total}}^{\mu\nu}=0$ on shell.
+
+The Dirac Lorentz current already carries orbital and intrinsic-spin angular momentum. In a canonical representative,
+\begin{equation}\label{eq:angular}
+M^{\lambda\mu\nu}=x^\mu T_{\rm can}^{\lambda\nu}-x^\nu T_{\rm can}^{\lambda\mu}
++S^{\lambda\mu\nu}.
+\end{equation}
+The split between orbital and spin contributions depends on the stress-energy convention, but the complete conserved charges do not require a specially engineered $J_{\mu\nu}J^{\mu\nu}\bar\psi\psi$ interaction simply to exist. Angular momentum conservation, by itself, does not derive Kerr geometry or frame dragging.
+
+\section{What coarse-graining does and does not establish}\label{sec:coarse}
+Introduce a physical ultraviolet matching scale $\Lambda$ and a lower scale $\mu\sim\ell^{-1}$. A scale separation $\Lambda^{-1}\ll\ell\ll L$, where $L$ is a characteristic macroscopic variation length, is a \emph{working regime to check}, not a result of the theory. We do not identify $\Lambda^{-1}$ with a Compton or gravitational length without an independent matching argument.
+
+With the field decomposition $\hat\psi=\hat\psi_<+\hat\psi_>$ and a corresponding treatment of gauge degrees of freedom, the Wilsonian action is defined by
+\begin{equation}\label{eq:Wilsonian}
+e^{i\Seff[\Psi_\ell,A_\ell]}
+=\int\!\mathcal D(\text{fast modes})\ e^{iS_{\mathrm{micro}}[\text{slow}+\text{fast}]}
+\quad\text{(regulated, gauge-fixed where required)}.
+\end{equation}
+This equation defines an effective action. It does not state that all fast-mode integrations can be completed by one Gaussian $\Tr\log$: the four-fermion and dynamical-photon interactions generally require expansions, resummations, auxiliary fields, or nonperturbative approximations.
+
+A useful, \emph{non-unique} local operator expansion is
+\begin{equation}\label{eq:EFT}
+\Lagr_{\ell} = Z_\psi(\ell)\bar\Psi_\ell i\gamma^\mu D_\mu\Psi_\ell
+-m_\ell\bar\Psi_\ell\Psi_\ell
+-\frac{Z_F(\ell)}{4}F_{\mu\nu}F^{\mu\nu}
++\sum_i C_i(\ell)\mathcal O_i[\Psi_\ell,A_\ell]
+-\rho_{\mathrm{vac}}(\ell).
+\end{equation}
+The $\mathcal O_i$ are gauge- and Lorentz-compatible operators ordered by mass dimension or by a physical expansion parameter; the original $(\bar\Psi\Psi)^2$ channel is among them. Their coefficients depend on the regulator, scheme and matching data. A vacuum constant does not generate a flat-space force on its own; its coupling to geometry requires a separately defined metric dependence.
+
+
+\subsection{A coarse-graining theorem and the limit of random phase addition}\label{sec:qgd-lln-lemma}
+\begin{proposition}[Variance of a spatially coarse-grained quantum source]\label{prop:qgd-lln}
+Let $O(\bm x)$ be a Hermitian equal-time local observable in a translation-invariant state with connected correlation $C(\bm z)=\langle O(\bm x)O(\bm x+\bm z)\rangle_c$.  Set $O_V=V^{-1}\int_V O(\bm x)\,\dd^3x$ on a regular increasing family of spatial volumes.  If $C$ is absolutely integrable and the boundary-to-volume ratio tends to zero, then
+\begin{equation}\label{eq:qgd-lln}
+\operatorname{Var}(O_V)=\frac1{V^2}\int_V\!\dd^3x\int_V\!\dd^3y\,C(\bm x-\bm y)
+=\frac1V\left[\int_{\mathbb R^3}C(\bm z)\,\dd^3z+o(1)\right].
+\end{equation}
+For $C(r)=C_0e^{-r/\xi}$ the leading coefficient is $8\pi C_0\xi^3/V$.  The proposition concerns \emph{self-averaging}, not the emergence of a gravitational field or its equation of motion.
+\end{proposition}
+\begin{proof}
+The variance follows by bilinearity of connected expectations.  Rewrite the double integral as $V^{-2}\int_{\mathbb R^3}\!C(\bm z)|V\cap(V-\bm z)|\,\dd^3z$.  The normalized overlap tends to one at fixed $\bm z$; dominated convergence applies under the integrability assumption.  The exponential coefficient follows from $4\pi C_0\int_0^\infty r^2e^{-r/\xi}\,\dd r=8\pi C_0\xi^3$.
+\end{proof}
+\noindent\textbf{Counterexample to naive phase self-averaging.}
+For independent uniform phases and $Z_N=a\sum_{i=1}^N e^{i\phi_i}$, the intensity $I_N=|Z_N|^2$ obeys exactly
+\begin{equation}\label{eq:qgd-randomphase}
+\mathbb E I_N=Na^2,\quad \operatorname{Var}(I_N)=N(N-1)a^4,\quad
+\frac{\sqrt{\operatorname{Var}(I_N)}}{\mathbb E I_N}\to1.
+\end{equation}
+Thus $\sqrt N$ typical amplitude scaling does \emph{not} imply a single stable gravitational amplitude: the intensity of one random-phase sum is not self-averaging.  Further state averaging, dynamical selection or collective correlations would be needed. In particular, these formulas do not independently derive the Schwarzschild scaling $\sigma\sim\sqrt{M/r}$.
+
+\subsection{Why two older identifications must change}
+\begin{enumerate}
+\item \textbf{Pressure is not inherently a scalar potential.} Momentum flow can produce macroscopic pressure in a free Dirac ensemble (Section~\ref{sec:free-ensemble}). A term $-P(\bar\Psi\Psi)$ is a possible \emph{model-dependent effective interaction}, but identifying that same function with the thermodynamic pressure requires a derived equation of state and stress-energy variation.
+\item \textbf{Rotational matter needs no bespoke $J^2$ term merely to rotate.} Orbital flow and spin already contribute to Eq.~\eqref{eq:angular}. A supplementary local spin-orbit or higher-dimensional operator may be allowed, but its definition, dimensional coefficient and contribution must be independently calculated. The original $J_{\mu\nu}=x_\mu p_\nu-x_\nu p_\mu$ is not automatically a local covariant operator suitable for insertion into Eq.~\eqref{eq:EFT}.
+\end{enumerate}
+The Dirac-equivalent macroscopic action is thus a \emph{matching target}, not a unique theorem from locality and symmetry alone.
+
+\section{Macroscopic state reduction: the missing second bridge}\label{sec:state}
+Integrating high-frequency field modes and forming a classical macroscopic state are different operations. An effective low-energy fermion $\Psi_\ell$ remains a quantum field. A state $\varrho_\ell$ supplies macroscopic currents and stress through expectation values, for example
+\begin{equation}\label{eq:macroobs}
+\JJ^\mu_\ell(x)=\mathrm{Tr}(\varrho_\ell:\!\bar\Psi_\ell\gamma^\mu\Psi_\ell\!:),\quad
+\TT^{\mu\nu}_\ell(x)=\mathrm{Tr}(\varrho_\ell:\!T_{\mathrm{total},\ell}^{\mu\nu}\!:),
+\end{equation}
+with a spin observable $\Spin^{\lambda\mu\nu}_\ell$ defined from a specified angular-momentum current. Normal ordering above is appropriate for the free-state benchmark; in an interacting/curved setting a properly renormalized composite-operator prescription is necessary.
+
+For a general inhomogeneous state, a matrix-valued, gauge-covariant two-point function or Dirac Wigner function can retain information that a single classical spinor cannot. For certain coherent or semiclassical pure states, a restricted spinor-envelope description may still be useful. The choice must state which observables it represents, which correlations it neglects, and the controlled error.
+
+\subsection{Why a generic mixed state is not one spinor}
+Let $u_\uparrow,u_\downarrow$ be normalized orthogonal positive-energy spin states. Their unpolarized mixture has spin density matrix
+\begin{equation}\label{eq:rank}
+R=\tfrac12u_\uparrow u_\uparrow^\dagger+\tfrac12u_\downarrow u_\downarrow^\dagger,
+\quad \operatorname{rank}(R)=2,
+\end{equation}
+whereas the outer product $\Psi\Psi^\dagger$ of a single spinor has rank at most one. Thus the identification $R=\Psi\Psi^\dagger$ is impossible for this perfectly ordinary ensemble. This elementary counterexample does not invalidate a restricted QGD macroscopic-spinor regime. It means the regime must be specified, or the state must be represented by more than one spinor (or a matrix-valued object).
+
+\section{First controlled benchmark: free Dirac matter}\label{sec:free-ensemble}
+Consider an ensemble of occupied positive-energy modes in a homogeneous Minkowski region, with spin/flavor occupations $f_a(\bm p)$, $E_p=\sqrt{\bm p^2+m^2}$ and $p^\mu=(E_p,\bm p)$. In a convention where degeneracy is included in the occupation sum, the normal-ordered one-body moments are
+\begin{equation}\label{eq:kinetic-moments}
+\JJ^\mu=\sum_a\int\frac{\dd^3p}{(2\pi)^3}\,f_a(\bm p)\frac{p^\mu}{E_p},\quad
+\TT^{\mu\nu}=\sum_a\int\frac{\dd^3p}{(2\pi)^3}\,f_a(\bm p)\frac{p^\mu p^\nu}{E_p}.
+\end{equation}
+These exact free-state moments are a calibration of the proposed micro-to-macro bridge. Extension to nonuniform, interacting states requires kinetic equations and appropriate collision and gauge forces; local conservation should not be assumed from Eq.~\eqref{eq:kinetic-moments} alone.
+
+For a zero-temperature isotropic Fermi sphere with degeneracy $g$, $f_a=\Theta(p_F-|\bm p|)$,
+\begin{equation}\label{eq:free-eos}
+\boxed{n=\frac{gp_F^3}{6\pi^2},\quad
+\varepsilon=\frac{g}{2\pi^2}\int_0^{p_F}p^2\sqrt{p^2+m^2}\,\dd p,\quad
+P=\frac{g}{6\pi^2}\int_0^{p_F}\frac{p^4}{\sqrt{p^2+m^2}}\,\dd p.}
+\end{equation}
+\begin{proposition}[Exact zero-temperature free-gas identity]\label{prop:enthalpy}
+For the state in Eq.~\eqref{eq:free-eos}, with $\mu=\sqrt{p_F^2+m^2}$,
+\begin{equation}\label{eq:enthalpy}
+\varepsilon+P=\mu n.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Writing $E_p=\sqrt{p^2+m^2}$, integration by parts gives
+$\int_0^{p_F}p^4/E_p\,\dd p=p_F^3E_F-3\int_0^{p_F}p^2E_p\,\dd p$.
+Substitute this identity into Eq.~\eqref{eq:free-eos} and use $\mu=E_F$.
+\end{proof}
+In the massless limit $P=\varepsilon/3$; in the nonrelativistic limit $P\simeq\frac23(\varepsilon-mn)$ to leading order. Both limits and Eq.~\eqref{eq:enthalpy} have been checked against direct quadrature in the QGD--005 benchmark. They are standard fermionic statistical mechanics, not claims of new gravitational physics.
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{qgd005_eos_ratio.pdf}{\includegraphics[width=.76\linewidth]{qgd005_eos_ratio.pdf}}{}
+\caption{Equation-of-state crossover for a free, isotropic, degenerate Dirac ensemble (QGD--005 calculation). The curve validates the state-reduction benchmark; it is not a gravitational prediction.}\label{fig:eos}
+\end{figure}
+
+\subsection{Scalar density is not total energy density}
+The expectation value of the scalar bilinear and the full energy density are distinct observables:
+\begin{equation}\label{eq:scalar-vs-energy}
+n_s\equiv\langle:\!\bar\psi\psi\!:\rangle
+=\frac{g}{2\pi^2}\int_0^{p_F}p^2\frac{m}{E_p}\,\dd p,
+\qquad \varepsilon=\frac{g}{2\pi^2}\int_0^{p_F}p^2E_p\,\dd p.
+\end{equation}
+For example, at $p_F=3$, $m=0.05$, $g=2$ (dimensionless model units), numerical quadrature gives $P/\varepsilon\simeq0.3331484$ but $mn_s/\varepsilon\simeq5.547\times10^{-4}$. It would therefore be incorrect to identify the Dirac mass term $m\bar\psi\psi$ with the \emph{entire} macroscopic gravitational source. Stress-energy includes the kinetic and, when present, interaction and electromagnetic contributions.
+
+\subsection{Isotropy is a state condition, not a theorem about all matter}
+An ensemble of two opposite $x$-directed beams has zero net spatial current but $T^{xx}>0$, $T^{yy}=T^{zz}=0$; it cannot have a scalar pressure alone. A perfect-fluid description arises when the stress is isotropic in an appropriate local rest frame and dissipative fluxes are negligible. A general QGD source therefore needs the full tensor before fluid closure is applied.
+
+\section{Second benchmark: a conditional interacting Dirac-equivalent action}\label{sec:meanfield}
+Restore the microscopic scalar-contact channel, temporarily setting the electromagnetic background to zero. A Hubbard--Stratonovich auxiliary field $s$ gives the exact algebraic correspondence
+\begin{equation}\label{eq:HS}
+G(\bar\psi\psi)^2\ \longleftrightarrow\ s\bar\psi\psi-\frac{s^2}{4G},
+\qquad\text{auxiliary equation }s=2G\bar\psi\psi.
+\end{equation}
+For a homogeneous saddle with $M=m_0-s$, neglecting nonuniform scalar fluctuations, the resulting effective Dirac-equivalent mean-field Lagrangian is
+\begin{equation}\label{eq:meanfield}
+\boxed{\Lagr_{\mathrm{MF}}=\bar\psi(i\gamma^\mu\partial_\mu-M)\psi-\frac{(M-m_0)^2}{4G}.}
+\end{equation}
+This is an explicit, tractable example of a macroscopically state-dependent Dirac description. It is neither the unique Wilsonian effective theory nor yet a model of gravitational geometry.
+
+For the particular sharp three-momentum cutoff $\Lambda$ and vacuum subtraction of QGD--005, the stationary mass at zero temperature satisfies
+\begin{equation}\label{eq:gap}
+\frac{M-m_0}{2G}=\frac{g}{2\pi^2}\int_{p_F}^{\Lambda}\frac{p^2M}{\sqrt{p^2+M^2}}\,\dd p,
+\qquad p_F=\sqrt{\max(\mu^2-M^2,0)}.
+\end{equation}
+Here a cutoff-dependent grand potential $\Omega(M;\mu)$ defines a locally stable stationary solution $M_*(\mu)$; after subtracting its stationary vacuum value $\Omega_v$, set
+\begin{equation}\label{eq:interacting-eos}
+P=-[\Omega(M_*;\mu)-\Omega_v],\quad
+n=-\left.\frac{\partial\Omega}{\partial\mu}\right|_{M_*},\quad
+\varepsilon=\Omega(M_*;\mu)-\Omega_v+\mu n.
+\end{equation}
+Stationarity implies $\dd P/\dd\mu=n$ and hence $\varepsilon+P=\mu n$ on the branch. Numerical checks in QGD--005 verify these relations for a specified parameter set and positive local curvature in the selected saddle. A hard spatial cutoff is not fully Lorentz covariant and can introduce scheme dependence; no continuum or universal-gravity interpretation follows.
+
+\noindent\textbf{Interpretation.} The four-fermion interaction may alter the effective mass and equation of state. Crucially, neither a special $-P(\bar\psi\psi)$ potential nor a new $J^2$ operator is required simply to recognize pressure or angular momentum as macroscopic observables. Any proposed additional interaction must earn its place through matching, dynamics, or measurement.
+
+\section{Covariant macroscopic stress-energy and spin}\label{sec:fluid}
+Let $\TT^{\mu\nu}$ be a symmetric averaged stress-energy tensor in a locally Minkowskian region and choose a future-directed unit timelike field $u^\mu u_\mu=-1$. Define $\Delta^{\mu\nu}=\eta^{\mu\nu}+u^\mu u^\nu$ and
+\begin{align}\label{eq:decomp-def}
+\varepsilon&=u_\mu u_\nu\TT^{\mu\nu},\qquad
+P=\tfrac13\Delta_{\mu\nu}\TT^{\mu\nu},\\
+q^\mu&=-\Delta^\mu{}_{\alpha}\TT^{\alpha\beta}u_\beta,\qquad
+\pi^{\mu\nu}=\left(\Delta^\mu{}_{\alpha}\Delta^\nu{}_{\beta}
+-\tfrac13\Delta^{\mu\nu}\Delta_{\alpha\beta}\right)\TT^{\alpha\beta}.
+\end{align}
+These definitions imply the \emph{algebraic} decomposition
+\begin{equation}\label{eq:decomp}
+\TT^{\mu\nu}=\varepsilon u^\mu u^\nu+P\Delta^{\mu\nu}
++u^\mu q^\nu+q^\mu u^\nu+\pi^{\mu\nu}.
+\end{equation}
+Only if $q^\mu=0$ and $\pi^{\mu\nu}=0$ does the ordinary perfect-fluid form follow:
+\begin{equation}\label{eq:perfect}
+\boxed{\TT^{\mu\nu}_{\mathrm{perfect}}=(\varepsilon+P)u^\mu u^\nu+P\eta^{\mu\nu}.}
+\end{equation}
+Electromagnetic, polarization/spin, interaction and vacuum contributions must be added or incorporated via the \emph{total} stress-energy in a consistently specified theory; the separation depends on conventions and renormalization. Equation~\eqref{eq:perfect} is a limit, not a universal identity for arbitrary Dirac matter. In a curved effective description, $\eta$ becomes the proposed $g$ only \emph{after} a geometric mapping and a consistent stress variation have been defined.
+
+
+\section{Nonuniform Dirac states: transport, closure and vorticity}\label{sec:nonuniform}
+The preceding homogeneous benchmarks establish that macroscopic thermodynamic variables can be extracted from Dirac matter. QGD also requires an inhomogeneous source description. The first controlled extension uses a positive-energy, collisionless, on-shell Dirac kinetic state, which is the leading semiclassical limit of a suitable quantum two-point function. This is \emph{not} the exact interacting Dirac-Wigner system. Spin-gradient effects, particle--antiparticle coherences, and the contact/Maxwell interactions remain separate obligations.
+
+\subsection{Local moments follow from free transport}
+Let $f_a(t,\bm x,\bm p)\geq0$ be a smooth, integrable occupation distribution in a local inertial frame, with $E_{\bm p}=\sqrt{m^2+\bm p^2}$ and $v^i=p^i/E_{\bm p}$. The already defined observables in Eq.~\eqref{eq:kinetic-moments} become position dependent. If
+\begin{equation}\label{eq:qgd006-streaming}
+(\partial_t+v^i\partial_i)f_a=0,
+\quad f_a(t,\bm x,\bm p)=f_{a,0}(\bm x-\bm vt,\bm p),
+\end{equation}
+then direct integration over momentum gives the on-shell kinetic identities
+\begin{equation}\label{eq:qgd006-cons}
+\boxed{\partial_\mu\JJ^\mu=0,\qquad \partial_\mu\TT^{\mu\nu}=0}
+\quad\text{(collisionless free-matter regime)}.
+\end{equation}
+No spatial uniformity or perfect-fluid hypothesis is necessary. These statements are valid under suitable boundary/regularity conditions, but electromagnetic forces and collisions change the matter-sector moment equations. Total stress-energy conservation must then include the exchange with all dynamical fields.
+
+\subsection{The macroscopic equations are not generically closed}
+The spatial stress evolves according to the higher moment
+\begin{equation}\label{eq:qgd006-higher}
+\partial_t\TT^{ij}+\partial_k\mathcal H^{kij}=0,\qquad
+\mathcal H^{kij}=\sum_a\int\frac{\dd^3p}{(2\pi)^3}\frac{p^kp^ip^j}{E_{\bm p}^2}f_a.
+\end{equation}
+An explicit counterexample is available without any approximation beyond the on-shell kinetic description. In $1+1$ dimensions take $m=12$, six momenta $p_i=(-16,-9,-5,5,9,16)$ with energies $(20,15,13,13,15,20)$, and the rational vector
+\begin{equation}\label{eq:qgd006-null}
+\bm c=(-1,14/3,-26/5,26/5,-14/3,1),\quad
+f_i^\pm(0,x)=1\pm\frac1{20}\sin(x)c_i.
+\end{equation}
+All occupations are positive. Their local $\JJ^0,\JJ^x,\TT^{00},\TT^{0x},\TT^{xx}$ agree \emph{pointwise} because
+\begin{equation}\label{eq:qgd006-null-check}
+\sum_i c_i(1,p_i/E_i,E_i,p_i,p_i^2/E_i)=\bm0,
+\qquad\sum_i c_i p_i^3/E_i^2=-672/325.
+\end{equation}
+Nevertheless free streaming implies
+\begin{equation}\label{eq:qgd006-diff}
+\left.\partial_t(\TT^{xx}_{+}-\TT^{xx}_{-})\right|_{t=0}=\frac{672}{3250}\cos x\neq0
+\quad\text{for generic $x$.}
+\end{equation}
+Thus \emph{for arbitrary states} no autonomous, deterministic evolution rule using only $\JJ$ and $\TT$ can reproduce all microscopic trajectories. A restricted macroscopic-spinor or hydrodynamic description needs a declared state manifold, an equation of state, and a controlled higher-moment/gradient closure. This is a precise information-loss constraint, not a failure of coarse-graining itself.
+
+\subsection{A gauge-invariant vortical candidate one-form}
+A second exactly collisionless kinetic benchmark has two counter-streams of mass $3$, momentum $p_x=\pm4$, and speed $v=4/5$, with transverse densities $n_\pm(y)=n_0[1\pm\epsilon\sin(ky)]$ ($0<\epsilon<1$). Each stream is constant along its free trajectory, and
+\begin{equation}\label{eq:qgd006-beam}
+\JJ^\mu=(2n_0,2n_0v\epsilon\sin ky,0,0),\qquad
+u^\mu\equiv\frac{\JJ^\mu}{\sqrt{-\JJ^\nu\JJ_\nu}},\quad U=u_\mu\dd x^\mu.
+\end{equation}
+The normalized, gauge-invariant current one-form is not generally a gradient:
+\begin{equation}\label{eq:qgd006-vorticity}
+\boxed{(\dd U)_{yx}=\partial_yu_x=
+\frac{v\epsilon k\cos ky}{(1-v^2\epsilon^2\sin^2 ky)^{3/2}}.}
+\end{equation}
+At $\epsilon=1/4$, $k=1$, $y=0$ this is $1/5$. Each population separately has an exact free plane-wave momentum one-form. Their inhomogeneous mixture has a vortical macroscopic current. This provides a \emph{constructive kinematic example} relevant to QGD's earlier phase-integrability problem; it does not derive a metric, Newton's law, or a gravitational source field.
+
+\subsection{What local currents cannot explain by themselves}\label{sec:qgd006-exterior}
+The normalized flow $u^\mu$ is insensitive to positive rescaling of the current and is undefined when $\JJ^\mu=0$. Thus a metric map based \emph{only} on $u$ cannot distinguish co-moving states of different density or define a material flow in a current-free exterior. More generally, if the proposed QGD one-form is only a local, algebraic and translation-invariant function of $\JJ,\TT,\Spin$ and a fixed Minkowski tensor, and all its inputs are constant throughout a connected vacuum exterior, its output is constant there. Such a restricted map cannot by itself yield a nontrivial, source-dependent exterior field. QGD must specify a scalar amplitude and an exterior response mechanism, such as independent macroscopic dynamics, nonlocal source response, boundary data, or nontrivial vacuum-state observables. This is \emph{not} a no-go theorem for those broader possibilities.
+
+The complete calculation and its exact counterexample, including numerical streaming checks, appear in \texttt{QGD-006-Nonuniform-Dirac-State.tex}. Gauge-covariant Wigner methods and spin-sensitive transport are well established (see \href{https://doi.org/10.1016/0003-4916(87)90169-2}{Vasak--Gyulassy--Elze 1987} and \href{https://doi.org/10.1103/PhysRevD.100.056018}{Weickgenannt et al. 2019}); here they define the \emph{next extension}, not a calculation claimed to be complete.
+
+\section{The macroscopic Dirac equation and its four-component structure}\label{sec:macro-origin}
+The QGD coarse-graining step is a working postulate. The resulting local macroscopic Dirac equation determines the spinor structures under their stated assumptions; neither they nor the WKB equations alone select a gravitational metric.
+
+\subsection{The minimal macroscopic Dirac equation and its domain}
+In a coherent positive-energy sector, the scalar mean-field benchmark in Section~\ref{sec:meanfield} has the local equation
+\begin{equation}\label{eq:wkb-local-dirac}
+\left[i\hbar\gamma^\mu\left(\partial_\mu+\frac{iq}{\hbar}A_\mu\right)-\mathcal M(x)\right]\Psi=0,
+\qquad \mathcal M(x)>0.
+\end{equation}
+Here we temporarily reinstate $\hbar$ (but set $c=1$): $\mathcal M$ is the \emph{effective mass} in energy units, and may depend on the macroscopic state.  A spacetime-dependent scalar mean field is a \emph{specified approximation}, not a general reduction of every allowed operator in $\Lagr_\ell$.  Terms containing higher derivatives, axial currents, tensor couplings or nonlocal interactions must be separately matched before the same principal symbol can be assumed for the full QGD effective theory.  With $\eta=(-+++)$ and $\{\gamma^\mu,\gamma^\nu\}=-2\eta^{\mu\nu}$, Eq.~\eqref{eq:wkb-local-dirac} has the usual relativistic positive-energy branch.  In this particular scalar mean-field model, the principal differential symbol remains $\gamma^\mu p_\mu$ even when $\mathcal M(x)$ changes.  This makes the positive result precise: the source-dependent mass affects the spinor ratios, while a different effective propagation geometry would require a separately justified change in the highest-derivative/kinetic structure.  Chapter~2 records the exact Clifford construction \emph{given} the full QGD master metric; it is not presumed to have been generated by this mean-field calculation.
+
+
+\subsection{Four-component macroscopic modes and the natural invariant}\label{sec:qgd-four-component}
+\subsubsection{Correct positive- and negative-energy spinor blocks}
+For a local scalar-effective-mass Dirac Hamiltonian (with $c,\hbar$ restored), use $\bm\tau=(\tau_x,\tau_y,\tau_z)$ for the \emph{Pauli matrices}, reserving $\sigma_\mu$ for QGD's natural invariant:
+\begin{equation}\label{eq:qgd-hamiltonian-block}
+\left[c\bm\alpha\cdot\bm\pi+\beta\mathcal Mc^2\right]
+\begin{pmatrix}u_A\\u_B\end{pmatrix}
+=\mathcal E\begin{pmatrix}u_A\\u_B\end{pmatrix},\quad
+\bm\pi=\bm p-q\bm A,\quad
+\mathcal E=E-q\phi.
+\end{equation}
+On a local massive positive-energy mass shell, $\mathcal E_+=\sqrt{c^2\bm\pi^2+\mathcal M^2c^4}$, the lower block is fixed algebraically:
+\begin{equation}\label{eq:qgd-spinor-ratio}
+ u_B=\mathsf R u_A,\qquad
+ \boxed{\mathsf R=\frac{c\bm\tau\cdot\bm\pi}{\mathcal E_++\mathcal Mc^2}
+ =\bm\tau\cdot\bm\zeta,\quad
+ \bm\zeta=\frac{c\bm\pi}{\mathcal E_++\mathcal Mc^2}.}
+\end{equation}
+With the same momentum convention, a negative-energy eigenvector has upper/lower blocks $(-\mathsf R\chi,\chi)$; an antiparticle interpretation requires the usual charge-conjugation and momentum conventions, not an unqualified reuse of the positive-energy denominator. This corrects the historical use of an unspecified $\Delta'$.
+
+\subsubsection{Restored complete four-mode construction}\label{sec:qgd-original-four-modes}
+The four columns of the original QGD $\sigma$-basis expression are now written with explicit spin-frame ratios:
+\begin{equation}\label{eq:qgd-four-modes}
+\begin{aligned}
+ u_\uparrow&=\begin{pmatrix}1\\0\\\zeta_z\\\zeta_x+i\zeta_y\end{pmatrix},&
+ u_\downarrow&=\begin{pmatrix}0\\1\\\zeta_x-i\zeta_y\\-\zeta_z\end{pmatrix},\\[4pt]
+ v_\uparrow&=\begin{pmatrix}-\zeta_z\\-\zeta_x-i\zeta_y\\1\\0\end{pmatrix},&
+ v_\downarrow&=\begin{pmatrix}-\zeta_x+i\zeta_y\\\zeta_z\\0\\1\end{pmatrix}.
+\end{aligned}
+\end{equation}
+The negative-energy columns differ from some historical primed-$\sigma_i'$ signs only by an explicitly fixed energy/momentum convention. In a region admitting a coherent local mode decomposition, the historical wavefunction takes the form
+\begin{equation}\label{eq:qgd-restored-wavefunction}
+\boxed{\displaystyle
+ \Psi(x)=\frac{\alpha_G}{r}\bigl[
+ (\psi_0u_\uparrow+\psi_1u_\downarrow)e^{-iS_+/\hbar}
+ +(\psi_2v_\uparrow+\psi_3v_\downarrow)e^{+iS_-/\hbar}
+ \bigr].}
+\end{equation}
+For constant $\mathcal M$ and a consistent common local momentum, the four spinors give a basis: $\det\left(\begin{smallmatrix}I&-\mathsf R\\\mathsf R&I\end{smallmatrix}\right)=(1+|\bm\zeta|^2)^2>0$. A global factor $\alpha_G/r$ is the \emph{historical radial ansatz}, not an all-state normalization theorem: varying local momenta generally require a transported amplitude, and angular/spin-connection terms contribute to the full differential residual. For arbitrary inhomogeneous fields, Eq.~\eqref{eq:qgd-restored-wavefunction} is a local/WKB construction, not an automatically exact global solution. A general macroscopic density matrix cannot be replaced by one such coherent spinor without a state-reduction assumption.
+
+
+\subsection{The original source-profile wavefunction: reconstructing the proposal}\label{sec:qgd065-original-profile}
+\noindent\textbf{Historical QGD construction, stated as a testable source-profile ansatz.}
+The original proposal did more than observe a Dirac momentum ratio.  It inserted
+source-dependent functions into the \emph{complete four-component wavefunction}
+and then proposed to promote the resulting spinor-component structure into the
+gravity-carrying natural invariants.  To make that idea explicit without confusing
+its mathematical stages, specialize the local Pauli-block matrix to
+\begin{equation}\label{eq:qgd065-profile-matrix}
+\boxed{R_f=b_f\tau_z+t_f\tau_y
+=\begin{pmatrix}b_f&-it_f\\it_f&-b_f\end{pmatrix},\quad
+b_f=\sqrt{f(r,\theta)},\quad t_f=t_f(r,\theta).}
+\end{equation}
+Both entries must be dimensionless and real if $R_f$ is to retain the
+ordinary positive-energy Dirac momentum-ratio interpretation.  Its four
+historical local columns, in a consistent positive/negative-energy convention,
+are
+\begin{equation}\label{eq:qgd065-profile-columns}
+\begin{aligned}
+ u_\uparrow^{f}&=(1,0,b_f,it_f)^{\mathsf T},&
+ u_\downarrow^{f}&=(0,1,-it_f,-b_f)^{\mathsf T},\\
+ v_\uparrow^{f}&=(-b_f,-it_f,1,0)^{\mathsf T},&
+ v_\downarrow^{f}&=(it_f,b_f,0,1)^{\mathsf T}.
+\end{aligned}
+\end{equation}
+The restored \emph{source-profile form} of the QGD four-mode wavefunction is
+\begin{equation}\label{eq:qgd065-profile-wave}
+\boxed{\displaystyle
+\Psi_f=\frac{\alpha_G}{r}\left[
+ (\psi_0u_\uparrow^f+\psi_1u_\downarrow^f)e^{-iS_+/\hbar}
+ +(\psi_2v_\uparrow^f+\psi_3v_\downarrow^f)e^{+iS_-/\hbar}
+\right].}
+\end{equation}
+This exhibits the original QGD \emph{source-to-wavefunction-to-natural-invariant}
+architecture in the corrected Chapter~1 four-mode and radial-envelope
+conventions.  The historical showcase also uses the dimensionless
+mass-to-Compton prefactor $2GMm_{\rm ref}/(c\hbar)=r_s/\bar\lambda_{\rm ref}$;
+that is \emph{not} an identity with the spinor normalization
+$\alpha_G/r$ used here, and neither normalization is dynamically
+fixed by the local Dirac algebra.  This does not assert that an
+arbitrary prescribed $f$ solves the complete
+macroscopic Dirac differential equation.  The spinor's four entries, the
+four independent local mode columns, and the generalized gravitational
+one-form components $\sigma_\mu^{(s)}$ must remain distinct notions.
+
+\begin{proposition}[Exact algebraic profile test]\label{prop:qgd065-profile-test}
+For real $b_f,t_f$, $R_f^2=q_fI_2$, $q_f=b_f^2+t_f^2$.  If a local
+positive-energy massive Dirac interpretation with $\mathcal M>0$ is intended, then
+$q_f<1$ and the leading on-shell algebraic equations require
+\begin{equation}\label{eq:qgd065-on-shell}
+\boxed{\begin{aligned}
+\mathcal E_+&=\mathcal M c^2\frac{1+q_f}{1-q_f},\\
+ c\bm\pi&=(\mathcal E_++\mathcal M c^2)(0,t_f,b_f).
+\end{aligned}}
+\end{equation}
+The two particle columns and the two opposite-energy columns are exact
+local eigenvectors of the corresponding Dirac principal symbol in the
+consistent momentum convention.
+\end{proposition}
+\begin{proof}
+The Pauli anticommutator gives $\tau_z\tau_y+\tau_y\tau_z=0$,
+so $R_f^2=(b_f^2+t_f^2)I_2$.  Substitution in the upper/lower
+Dirac block equations fixes $\mathcal E_+$ and $\bm\pi$.  The negative
+energy columns follow from the same $4\times4$ block matrix with energy
+$-\mathcal E_+$, not from changing a spinor component arbitrarily.
+\end{proof}
+
+\paragraph{The actual differential residual is the next proof obligation.}
+Even at fixed local momentum direction, differentiating variable spinor
+columns and envelopes adds terms omitted by the purely algebraic test.
+For a one-dimensional stationary spin-up test with any local effective
+scalar/electrostatic profiles needed to satisfy the pointwise algebra, put
+$\Psi=A(z)(1,b(z))^{\mathsf T}e^{i(S(z)-Et)/\hbar}$ and impose the
+local algebraic Dirac equations pointwise.  The \emph{remaining exact}
+Dirac-operator residual is
+\begin{equation}\label{eq:qgd065-transport-residual}
+\boxed{\displaystyle
+\operatorname{Res}_D\Psi=-i\hbar c\,e^{i(S-Et)/\hbar}
+\begin{pmatrix}(Ab)'\\ A'\end{pmatrix}.}
+\end{equation}
+Thus real, nonconstant $b(z)$ and a fixed real two-component leading
+spinor do not yield an exact variable-coefficient Dirac solution merely by satisfying the
+pointwise mass shell.  For example, $A=1$ and $b=\sqrt{r_s/z}$ leave a
+nonzero upper residual $i\hbar c\sqrt{r_s}/(2z^{3/2})$.  The general
+WKB transport, local spin-frame gradients, interactions or higher-order
+components must be accounted for before proclaiming an exact solution.
+The radial current constraint derived later is a complementary transport
+condition, not a universal remedy for every differential residual.
+
+\paragraph{What the historical ``universal scalar'' can legitimately mean.}
+The original $f$ proposes a \emph{family of source signatures} for mass,
+rotation, charge, cosmological backgrounds, pressure, equation of state and
+trial quantum effects.  At the level of verified geometry, the mass profiles
+$f_{\rm S}=2GM/(c^2r)$ and $f_{\rm K}=2GMr/(c^2\Sigma)$
+($\Sigma=r^2+a^2\cos^2\theta$, $a=J/(Mc)$) are \emph{alternative
+source-dependent branches}, not two terms to add for the same mass.
+The charge contribution has the opposite signed metric sector and cannot
+always be placed under one real square root.  A historical rotating entry
+$a\sin\theta\sqrt{g}$ has dimensions of length when $a$ is the Kerr
+length and $g$ is dimensionless; it needs a justified inverse-length factor
+or a different dimensionless definition before being a Dirac ratio.
+Likewise, the coefficients and dimensions of pressure/EOS and putative
+$\hbar$-dependent terms need action/source matching.  We therefore preserve
+the source-signature idea while not installing the displayed all-sources
+sum as a proven universal physical law.
+
+\paragraph{A precise promotion question for the full QGD program.}
+A calculated $R_f$ is a Pauli-block matrix in a chosen spin frame, not a
+spacetime covector.  QGD must specify a frame-covariant, state-dependent
+map from its solved macroscopic spinor data (including stress, occupation
+and boundary data) to $\sigma_\mu^{(s)}$.  Once it exists, the
+full signed/tetrad/derivative master metric of Chapter~2 constructs the
+effective geometry.  This preserves the original constructive ambition
+while keeping the unverified map as the central physical research problem.
+
+On the positive-energy massive branch,
+\begin{equation}\label{eq:qgd-zeta-momentum}
+ \bm k:=\frac{\bm\pi}{\mathcal Mc},\quad
+ \bm\zeta=\frac{\bm k}{\sqrt{1+|\bm k|^2}+1},\quad
+ \boxed{\bm k=\frac{2\bm\zeta}{1-|\bm\zeta|^2}},\qquad
+ \frac{\bm v}{c}=\frac{2\bm\zeta}{1+|\bm\zeta|^2},\quad |\bm\zeta|<1.
+\end{equation}
+These are local, frame-dependent on-shell identities, not gravitational field equations.
+
+\paragraph{Relativistic meaning of the original Dirac ratios (QGD--057).}
+For an on-shell massive positive-energy mode, let $\beta=|\bm v|/c$, $\gamma=(1-\beta^2)^{-1/2}$ and write the rapidity as $\chi=\operatorname{artanh}\beta$.  In a fixed local inertial frame the magnitude of the ratio in Eq.~\eqref{eq:qgd-spinor-ratio} obeys the exact identity
+\begin{equation}\label{eq:qgd060-half-rapidity}
+ \boxed{\zeta:=|\bm\zeta|=\frac{pc}{\mathcal E_++\mathcal M c^2}
+ =\frac{\gamma\beta}{\gamma+1}=\tanh\frac\chi2,\qquad
+ \beta=\frac{pc}{\mathcal E_+}=\frac{2\zeta}{1+\zeta^2}.}
+\end{equation}
+Thus the Dirac spinor-block ratio is a half-rapidity coordinate on relativistic momentum space.  It is \emph{not} identical to $\beta$, and neither identity identifies an arbitrary particle's $\bm\zeta$ pointwise with a gravitational $\sigma_\mu$.  This supplies an exact special-relativistic interpretation for QGD's historical ratios without postulating a new gravitational equation.
+
+\paragraph{Macroscopic source information in the same framework (QGD--059).}
+Quantum matter observables such as the full $\TT^{\mu\nu}$ and, for a stated equilibrium state, $\varepsilon$ and $P$, supply source-energy information not contained in the normalized spinor-component ratio alone.  The classical Dirac-star construction of Chapter~2 combines these observables with the declared effective Einstein equations and boundary conditions to select nontrivial gravitational natural-invariant profiles.  This is a \emph{conditional quantum-source-to-gravitational-field bridge}, not an independent microscopic derivation of the Einstein--Hilbert action or of the promotion itself.
+
+
+\paragraph{Four-mode bilinears: a phase-insensitive density and a phase-sensitive scalar.}
+For the real, common-momentum local basis of Eq.~\eqref{eq:qgd-four-modes}, write $U=\binom{I_2}{\mathsf R}$ and $V=\binom{-\mathsf R}{I_2}$ and set $a=(\psi_0,\psi_1)^{\mathsf T}$, $b=(\psi_2,\psi_3)^{\mathsf T}$.  Besides $U^\dagger V=0$ and $U^\dagger U=V^\dagger V=(1+\zeta^2)I_2$, the classical coherent spinor gives the exact local identities
+\begin{equation}\label{eq:qgd-fourmode-density}
+\Psi^\dagger\Psi=\frac{|\alpha_G|^2}{r^2}(1+\zeta^2)(a^\dagger a+b^\dagger b),
+\end{equation}
+\begin{equation}\label{eq:qgd-fourmode-scalar}
+\bar\Psi\Psi=\frac{|\alpha_G|^2}{r^2}
+\left[(1-\zeta^2)(a^\dagger a-b^\dagger b)
+-4\operatorname{Re}\left(a^\dagger\mathsf R b\,e^{i(S_++S_-)/\hbar}\right)\right].
+\end{equation}
+Here $\bar\Psi=\Psi^\dagger\gamma^0$ for the local Dirac convention in Section~\ref{sec:micro}.  The scalar bilinear can interfere at relative particle--negative-frequency phase even when the number density does not.  These identities hold only for the specified shared local momentum and coherent classical-mode convention.  A physical fermion many-body state needs occupations, antiparticle interpretation, and a density operator; its gravitating source is the complete stress tensor (including interactions), not either bilinear alone.  These identities do not identify four spinor columns with four independent gravitational sectors.
+
+\subsubsection{QGD defining postulate: the promoted natural invariant}\label{sec:qgd-promotion}
+\noindent\textbf{Definition and status (QGD postulate).}
+The \emph{natural invariant}, $\sigma_\mu$, is QGD's generalized macroscopic covector field, motivated by the momentum-ratio and mode structure above and promoted beyond the special kinematics of a free Dirac eigenstate. Its values, physical sectors and exterior continuation are to be constrained by source observables, the proposed master metric, a specified action and boundary conditions. This promotion is deliberately \emph{not} the asserted equality $\sigma_i=\zeta_i$ at every spacetime point, nor $\sigma_\mu=\partial_\mu S/(\mathcal Mc)$ in general. The latter is an exact phase-gradient one-form only in the appropriate uncharged WKB setting; it need not equal a generalized gravitating field whose exterior profile may have nonzero curl.
+
+Despite the historical name, a covector is not a Lorentz scalar invariant: $\sigma_\mu$ transforms as a one-form, while $\sigma_\mu\sigma^\mu$ (with a specified metric) is a scalar. The four $\psi_a$ mode labels, four $\sigma_\mu$ coordinate components and signed source-sector labels $a$ entering the master metric are \emph{different indices}. Four linearly independent spinor modes do not automatically provide four freely variable gravitational one-forms. In particular, an unpolarized macroscopic source can have nonzero energy and pressure although its mean momentum/spin orientation vanishes.
+
+The historical choice $|\alpha_G|^2=\hbar c/(2GMm)$ is a dimensionless length-scale ratio $\lambda_C/r_s$ and may be recorded as a calibration convention. Schwarzschild matching instead fixes the \emph{geometrical} amplitude $\sigma_t^2\sim r_s/r$ in a specified metric branch; it cannot fix the common spinor multiplier or its global complex phase, since the ratios in Eq.~\eqref{eq:qgd-spinor-ratio} are unchanged by $\Psi\mapsto\alpha\Psi$.
+
+
+% ===================== QGD-075, FIRST RESEARCH INTEGRATION =====================
+\section{Four-mode transport and frame freedom (QGD--066/067)}\label{sec:qgd075-mode-frame}
+The historic source-profile construction in Eq.~\eqref{eq:qgd065-profile-wave}
+contains two separate mathematical statements: an exact local spinor \emph{basis}
+and a hypothesis that the underlying macroscopic dynamics will select its
+source-profile $f$.  The first can now be stated precisely. Put
+$R_f=b_f\tau_z+t_f\tau_y$, $q_f=b_f^2+t_f^2$, with real $b_f,t_f$, and
+combine its four mode columns in
+\begin{equation}\label{eq:qgd075-Uf}
+ \boxed{U_f=\begin{pmatrix}I_2&-R_f\\R_f&I_2\end{pmatrix},\quad
+ U_f^\dagger U_f=(1+q_f)I_4,\quad
+ \det U_f=(1+q_f)^2.}
+\end{equation}
+Thus $U_f$ is invertible wherever the real profile is defined, with
+\begin{equation}\label{eq:qgd075-Uf-inv}
+ U_f^{-1}=\frac{1}{1+q_f}
+ \begin{pmatrix}I_2&R_f\\-R_f&I_2\end{pmatrix},\qquad
+ \Psi_f=U_f c,
+\end{equation}
+where $c$ includes the \emph{four independent complex amplitudes and their
+particle/antiparticle phases}.  This is exact linear algebra, not the assertion
+that each varying column solves the full Dirac equation.
+
+\begin{proposition}[Four-mode frame reparametrization]
+\label{prop:qgd075-nonunique-profile}
+For any fixed physical four-spinor $\Psi$, every admissible invertible
+$U_f$ gives coefficients $c_f=U_f^{-1}\Psi$.  If $\tilde f$ defines a
+second admissible frame, $U_fc_f=U_{\tilde f}c_{\tilde f}=\Psi$.
+Consequently the unrestrained four-mode expansion does not uniquely select
+$f$, and any observable defined solely from the unchanged $\Psi$ agrees
+in both representations.
+\end{proposition}
+\begin{proof}
+Multiply $\Psi$ by each inverse in Eq.~\eqref{eq:qgd075-Uf-inv}.
+This is a basis reparametrization; it does not change the physical state.
+\end{proof}
+
+For a \emph{specified} effective mass, gauge potential and spin connection,
+write $\mathcal D_g=i\hbar\gamma^\mu(\partial_\mu+\Omega_\mu)-\mathcal M$
+with additional prescribed interaction terms understood. Its exact
+four-mode transport equation is
+\begin{equation}\label{eq:qgd075-fourmode-transport}
+ \boxed{\begin{aligned}
+ 0=U_f^{-1}\mathcal D_g(U_fc)
+ ={}&i\hbar(U_f^{-1}\gamma^\mu U_f)\partial_\mu c\\
+ &+\left[i\hbar U_f^{-1}\gamma^\mu
+ (\partial_\mu U_f+\Omega_\mu U_f)-\mathcal M\right]c.
+ \end{aligned}}
+\end{equation}
+The expression is a chain-rule identity in the stated local spin frame;
+its solutions depend on amplitudes, phases, the frame connection,
+interactions and boundary conditions. The arbitrary-$f$ freedom disappears
+only after \emph{independently specified physical restrictions} on the
+coefficient modes and/or source-dependent interactions are imposed.
+Tests across Schwarzschild, Reissner--Nordstr\"om, Kottler and de Sitter
+show that setting the separated test-Dirac radial ratio to $\sqrt f$
+does not generally solve the exact radial ratio equation. Kerr and
+Kerr--Newman further require angular transport; FLRW and Vaidya require
+time-dependent amplitudes. These results delimit the particular
+identification; they do not disprove the original promoted $\sigma_\mu$.
+
+
+\paragraph{A constructive two-component derivative cancellation (QGD--066).}
+There are nonconstant two-component profiles that cancel a specified
+part of the differential Dirac residual. In a fixed Cartesian spin frame
+with $R=b(y,z)\tau_z+t(y,z)\tau_y$,
+\begin{equation}\label{eq:qgd075-CR}
+ (\tau_y\partial_y+\tau_z\partial_z)R
+ =(b_z+t_y)I_2+i(b_y-t_z)\tau_x.
+\end{equation}
+Hence $b_z=-t_y$ and $b_y=t_z$ make this contribution vanish;
+$b=y$, $t=z$ is an exact nonconstant example. These are
+Cauchy--Riemann-type conditions for this \emph{fixed-frame partial
+residual only}. Eikonal-momentum integrability is an independent test,
+and the full curved-space Dirac equation adds tetrad and spin-connection
+terms. No general gravitational wave law has been inferred from this
+cancellation.
+
+
+\section{Microscopically defined macroscopic observables and rank (QGD--068)}\label{sec:qgd075-observables}
+A realistic source is a specified density operator $\hat\rho$, not in
+general one classical coherent spinor. The Dirac theory already provides
+basis-independent \emph{physical} local observables, including
+\begin{equation}\label{eq:qgd075-bilinears}
+ j^a=\langle\bar\psi\gamma^a\psi\rangle_{\hat\rho},\qquad
+ k^a=\langle\bar\psi\gamma^a\gamma^5\psi\rangle_{\hat\rho},\qquad
+ \boxed{\mathcal K^a{}_{\mu}=\frac{i\hbar}{2}\left\langle
+ \bar\psi\gamma^a\overleftrightarrow D_{\!\mu}\psi
+ \right\rangle_{\!\hat\rho,\mathrm{ren/coarse}}.}
+\end{equation}
+Here $\mathcal K$ is a \emph{candidate matter observable}, not a
+renamed natural invariant. In $d=4$ natural units it has mass dimension
+four; using it as a dimensionless gravitational $\sigma$ would require an
+independently justified matching scale and transformation law. The
+physical symmetric stress tensor must be constructed consistently with
+its metric/tetrad coupling, including any Belinfante improvement.
+
+For a free on-shell plane wave, $\mathcal K^a{}_{\mu}=j^a p_\mu$ is
+rank at most one. A mixed, isotropic, spin-balanced state need not share
+that rank limitation, even with $\langle\bm j\rangle=0$. A controlled
+six-momentum example has equal weights at
+$\bm p=\pm4\bm e_x,\pm4\bm e_y,\pm4\bm e_z$, with $m=3$, $E=5$,
+normalized so that $\langle j^a\rangle=(1,0,0,0)$.  In the
+$(+---)$ local-frame convention used for this example,
+\begin{equation}\label{eq:qgd075-six-modes}
+ \boxed{\mathcal K^a{}_{\mu}=\operatorname{diag}
+ \left(5,-\frac{16}{15},-\frac{16}{15},-\frac{16}{15}\right),\qquad
+ \det\mathcal K=-\frac{4096}{675}\ne0.}
+\end{equation}
+This is an explicit \emph{matter-direction rank result}, not a
+demonstration of physical natural-invariant sectors. The example's
+Lorentz-sign convention differs from the fixed $(-+++)$ metric convention
+of this chapter; corresponding index signs must be converted when used.
+
+For an individual regular \emph{pure} Dirac spinor, the Fierz identities
+in $(+---)$ convention read
+$j^2=s^2+p^2$, $k^2=-(s^2+p^2)$, $j\cdot k=0$
+with $s=\bar\psi\psi$, $p=i\bar\psi\gamma^5\psi$.
+These nonlinear identities cannot be imposed on separately averaged
+bilinears of an incoherent ensemble; the required correlations remain
+in the state. Isotropy can select a rest direction and spatial projector
+without selecting a preferred spatial triad. A sum of squared sectors
+may then be invariant under internal triad rotations even though no
+one sector is uniquely labelled.
+
+A second simple obstruction is worth recording: a differentiable,
+strictly pointwise algebraic metric map from one four-complex-component
+spinor to ten symmetric metric components has Jacobian rank at most
+$8<10$.  Multiple independent states, nonlocality, derivatives, or
+collective variables can alter that count.  The four columns of a basis
+do not by themselves create four additional physical spinors.
+
+\section{Interacting Dirac collective response: explicit positive calculations (QGD--069--071)}\label{sec:qgd075-micro-response}
+The original scalar-contact interaction supplies a calculable,
+state-dependent quantum response. For one Dirac species, take
+$\mathcal L=\bar\psi(i\gamma^\mu\partial_\mu-m_0)\psi
++G_4(\bar\psi\psi)^2$ and a \emph{specified} sharp three-momentum cutoff.
+The homogeneous, zero-temperature Hartree benchmark with
+$\Lambda=4$, $m_0=0.12$, $\mu=1.2$ and calibrated illustrative
+$G_4=0.5654255716$ has a self-consistent solution
+\begin{equation}\label{eq:qgd075-medium}
+ \boxed{\mathcal M=0.6934355357,\qquad
+ p_F=0.9793605862,\qquad v_F=p_F/\mu=0.8161338219.}
+\end{equation}
+Its homogeneous scalar curvature is positive ($\Omega''\simeq0.16874$),
+which establishes only local stability against this tested uniform
+scalar fluctuation.
+
+For external momentum $\bm q=q\bm e_z$, the leading collisionless
+\emph{intraband retarded} shear-stress response is
+\begin{equation}\label{eq:qgd075-shear}
+ \boxed{\begin{aligned}
+ \chi^R_{xy,xy}(\omega,q)&=\frac{p_F^5}{16\pi^2\mu}J(z)+O(q/p_F),\\
+ z&=\frac{\omega+i0}{v_Fq},\\
+ J(z)&=-2z^4+\frac{10z^2}{3}-\frac{16}{15}
+ +z(1-z^2)^2\log\frac{z+1}{z-1}.
+ \end{aligned}}
+\end{equation}
+The same leading shear vertex appears in the appropriate off-diagonal
+component of $\mathcal K^a{}_{\mu}$.  Its static value is
+$\chi^R_{xy,xy}(0,q\to0)=-p_F^5/(15\pi^2\mu)
+\simeq-0.0050715517$ in the declared response convention.
+The response has a genuine low-energy particle--hole \emph{continuum},
+not an identified isolated massless spin-two excitation.
+
+The entire ten-component leading symmetric-stress response has
+\emph{rank nine} in this static Fermi-surface approximation; the
+corresponding sixteen-component kinetic-momentum response also has rank
+nine. Under isotropy, the response separates into helicity-zero,
+helicity-one and helicity-two blocks. The two tensor polarizations agree.
+The direct scalar Hubbard--Stratonovich channel has vanishing tensor
+mixing by rotational symmetry,
+\begin{equation}\label{eq:qgd075-scalar-TT}
+ \boxed{e_{ij}^{\rm TT}\,\chi_{T_{ij},\bar\psi\psi}=0}
+\end{equation}
+for transverse-traceless $e^{\rm TT}$ in the isotropic state.  A first-order
+spin-averaged, on-shell scalar-contact exchange projection has vanishing
+Landau harmonics $\ell\ge2$. Neither statement excludes higher-order
+exchange, other phases, or additional tensor composites.  The finite
+medium correlator is not a vacuum graviton propagator.
+
+\paragraph{Composite response as a derived effective-field test.}
+Couple bookkeeping sources $J_A$ to \emph{existing} microscopic
+operators $O_A$.  In Euclidean notation
+\begin{equation}\label{eq:qgd075-legendre}
+ \boxed{\begin{gathered}
+ Z[J]=\int\mathcal D\psi\,\mathcal D\bar\psi\,
+ e^{-S_{\rm micro}+\int J_AO_A},\quad W[J]=\log Z[J],\\
+ \varphi_A=\frac{\delta W}{\delta J_A},\quad
+ \Gamma[\varphi]=\int J_A\varphi_A-W[J],\\
+ \Gamma^{(2)}=(W^{(2)})^{-1}
+ \quad\text{on a nondegenerate constrained response subspace}.
+ \end{gathered}}
+\end{equation}
+This derives the effective response kernel of \emph{specified
+composite observables}; it does not introduce an independently
+propagating $\sigma_\mu$ or produce a physical graviton merely by
+inversion. In particular a smooth nonsingular change of collective
+coordinates cannot manufacture an absent massless pole.
+% ===================== END QGD-075 CHAPTER 1 MICROSCOPICS =====================
+
+
+\section{The Dirac--WKB bridge: from phases to momenta and forces}\label{sec:wkb}
+\subsection{Leading WKB order: a precise Hamilton--Jacobi equation}
+Choose one coherent WKB branch, rather than identifying an arbitrary mixed ensemble with a single wavefunction:
+\begin{equation}\label{eq:wkb-series}
+\Psi(x)=e^{-iS(x)/\hbar}\left[a_0(x)+\hbar a_1(x)+O(\hbar^2)\right],\qquad
+\pi_\mu:=\partial_\mu S-qA_\mu.
+\end{equation}
+Our phase convention is $S=Et-\bm p\cdot\bm x$ for a positive-energy plane wave.  The transformation $A_\mu\mapsto A_\mu+\partial_\mu\chi$, $\Psi\mapsto e^{-iq\chi/\hbar}\Psi$, $S\mapsto S+q\chi$ leaves $\pi_\mu$ unchanged.  Inserting Eq.~\eqref{eq:wkb-series} into Eq.~\eqref{eq:wkb-local-dirac} gives
+\begin{align}
+(\gamma^\mu\pi_\mu-\mathcal M)a_0&=0,\label{eq:wkb-leading-spinor}\\
+(\gamma^\mu\pi_\mu-\mathcal M)a_1&=-i\gamma^\mu\partial_\mu a_0.\label{eq:wkb-next-spinor}
+\end{align}
+Multiply the first equation by $(\gamma^\nu\pi_\nu+\mathcal M)$ and use the Clifford anticommutator.  A nonzero $a_0$ requires
+\begin{equation}\label{eq:wkbHJ}
+\boxed{\eta^{\mu\nu}\pi_\mu\pi_\nu+\mathcal M^2=0.}
+\end{equation}
+This is a derived relativistic Hamilton--Jacobi equation.  \emph{Its interpretation as a gravitational equation is not derived.}  The phase encodes classical canonical momenta in the WKB regime, while gauge-invariant $\pi_\mu$ encodes kinetic momenta.  Spin resides in $a_0$ and is transported at subsequent order.
+
+\subsection{Hamilton's equations and the actual force}\label{sec:wkb-force}
+For a time-independent scalar mass and electrostatic potential, with $\bm A=0$, the positive branch of Eq.~\eqref{eq:wkbHJ} is
+\begin{equation}\label{eq:wkb-energy}
+H(\bm x,\bm p)=q\phi(\bm x)+\sqrt{\bm p^2+\mathcal M(\bm x)^2},
+\qquad \frac{\dd\bm x}{\dd t}=\frac{\bm p}{\sqrt{\bm p^2+\mathcal M^2}}.
+\end{equation}
+Hamilton's equations imply the \emph{derived} force law
+\begin{equation}\label{eq:wkb-force}
+\boxed{\frac{\dd\bm p}{\dd t}=-q\bm\nabla\phi
+-\frac{\mathcal M}{\sqrt{\bm p^2+\mathcal M^2}}\bm\nabla\mathcal M.}
+\end{equation}
+If $\bm A$ is retained, the electromagnetic part becomes the usual Lorentz force for kinetic momentum.  Equation~\eqref{eq:wkb-force} identifies \emph{exactly where a new interaction must enter}: if the neutral effective mass $\mathcal M$ is constant in a flat, source-free exterior and no other background is present, then $\dd\bm p/\dd t=0$ at leading WKB order.  Current conservation and an outgoing $1/r$ amplitude cannot change this conclusion.
+
+Restore $c$ and write the physical effective mass $m_\mathrm{eff}(\bm x)$.  The neutral-particle Hamiltonian and force become
+\begin{equation}\label{eq:wkb-SI}
+H=\sqrt{c^2\bm p^2+m_\mathrm{eff}^2c^4},\qquad
+\frac{\dd\bm p}{\dd t}=-\frac{m_\mathrm{eff}c^4}{\sqrt{c^2\bm p^2+m_\mathrm{eff}^2c^4}}\bm\nabla m_\mathrm{eff}.
+\end{equation}
+In the nonrelativistic weak-gradient limit, $H\simeq m_\mathrm{eff}c^2+\bm p^2/(2m_\mathrm{eff})$ and $\bm F\simeq-c^2\bm\nabla m_\mathrm{eff}$ at small momentum.  A Newtonian target would therefore \emph{require}, for a probe of asymptotic mass $m$,
+\begin{equation}\label{eq:wkb-required-mass}
+\delta m_\mathrm{eff}(r)=\frac{m\Phi(r)}{c^2},\qquad
+\Phi(r)=-\frac{G_NM_s}{r},
+\end{equation}
+up to higher-order terms.  Equation~\eqref{eq:wkb-required-mass} is a \textbf{diagnostic condition, not a prediction}; neither the spatial form $1/r$, its source dependence $M_s$, nor universality in $m$ follows from the scalar Dirac equation by itself.  In particular, adopting Eq.~\eqref{eq:wkb-required-mass} to obtain Newton's law would be inserting the result to be explained, not calibrating a previously derived coefficient.
+
+\subsection{Stationary spherical reduction: distinguish phase from flux}
+For $q=0$, a stationary spherical eikonal $S=Et-W(r)$ satisfies
+\begin{equation}\label{eq:wkb-radial}
+\boxed{p_r(r)^2=[W'(r)]^2=E^2-\mathcal M(r)^2}\qquad (L=0,\ c=1).
+\end{equation}
+For nonzero orbital angular momentum $L$, the leading separation is $p_r^2=E^2-\mathcal M^2-L^2/r^2$.  On the outgoing $p_r>0$ branch, differentiating the $L=0$ equation and using $\dot r=p_r/E$ yields
+\begin{equation}\label{eq:wkb-radial-force}
+\frac{\dd p_r}{\dd t}=\frac{p_r}{E}\frac{\dd p_r}{\dd r}
+=-\frac{\mathcal M\mathcal M'}{E},
+\end{equation}
+which agrees exactly with Eq.~\eqref{eq:wkb-force}.  No force appears for constant $\mathcal M$.
+
+\subsection{Current conservation: restoring the central QGD bridge}\label{sec:qgd-corrected-flux}
+The original Foundations argument used $\nabla\cdot(|\Psi|^2\nabla S)=0$ as an \emph{exact} consequence of the Dirac equation.  The exact Dirac statement, for any source-free stationary solution, is instead $\nabla\cdot\bm j=0$, with $\bm j=c\Psi^\dagger\bm\alpha\Psi$.  The familiar density--phase form arises at leading order in a single coherent, positive-energy WKB sector; its density must be specified.  We preserve this central step and repair its relativistic normalization rather than replacing the QGD construction.
+
+For a neutral, approximately radial positive-energy state, restore $c$ in this subsection and write
+\begin{equation}\label{eq:qgd-radial-spinor}
+\Psi(r,t)\simeq\frac{A(r)}{r}\,e^{-i[Et-W(r)]/\hbar}
+\begin{pmatrix}\chi\\[2pt]
+\displaystyle\frac{c\,p(r)}{\Delta(r)}
+(\bm\tau\cdot\hat{\bm r})\chi\end{pmatrix},\quad
+\chi^\dagger\chi=1,\quad p(r)=W'(r),
+\end{equation}
+where $\Delta=E_{\mathrm{loc}}+m_{\mathrm{eff}}c^2$ for the local standard Dirac scalar-mass branch.  This local spinor closure is a WKB assumption, \emph{not} an exact global spherical Dirac solution: angular derivatives, spin transport and turning points require further analysis.  Let $\zeta=cp/\Delta$.  Direct spinor algebra gives
+\begin{align}
+\rho_D:=\Psi^\dagger\Psi
+&=\frac{|A|^2}{r^2}(1+\zeta^2),
+& s_D:=\bar\Psi\Psi
+&=\frac{|A|^2}{r^2}(1-\zeta^2),\label{eq:qgd-two-densities}\\
+ j^r:=c\Psi^\dagger(\bm\alpha\cdot\hat{\bm r})\Psi
+&=\frac{2c|A|^2}{r^2}\zeta
+=\frac{2c^2|A|^2}{r^2}\frac{p}{\Delta}.
+&&\label{eq:qgd-exact-radial-current}
+\end{align}
+The plus sign belongs to the \emph{probability density}; the minus sign belongs to the \emph{Dirac scalar density}.  They cannot be exchanged.  When the local spinor satisfies $E_{\mathrm{loc}}^2=c^2p^2+m_{\mathrm{eff}}^2c^4$ with $m_{\mathrm{eff}}>0$, this reduces to the familiar relativistic identities
+\begin{equation}\label{eq:qgd-relativistic-flux-closure}
+\boxed{\quad j^r=\rho_D\frac{pc^2}{E_{\mathrm{loc}}}
+=\frac{p}{m_{\mathrm{eff}}}\,s_D.\quad}
+\end{equation}
+These equalities are algebraically exact for the \emph{local on-shell spinor} in Eq.~\eqref{eq:qgd-radial-spinor}; their application to a varying macroscopic state is only as accurate as the positive-energy WKB closure.  In particular, $j^r\neq \rho_Dp/m_{\mathrm{eff}}$ at relativistic momenta.
+
+For stationary spherical flux, continuity now yields the \emph{exact} integrated current law and its local WKB representations:
+\begin{equation}\label{eq:flux}
+\boxed{r^2j^r=C_J,}\qquad
+\boxed{r^2\rho_D\frac{pc^2}{E_{\mathrm{loc}}}\simeq C_J,}\qquad
+\boxed{r^2s_D\frac{p}{m_{\mathrm{eff}}}\simeq C_J.}
+\end{equation}
+For \emph{constant} mass, the last relation is $r^2s_Dp=mC_J$: the original $r^2\cdot\text{density}\cdot p=\text{constant}$ bridge survives in form, but with the \emph{scalar} density $s_D=\bar\Psi\Psi$, not the lab probability density $\rho_D=\Psi^\dagger\Psi$.  In the strict nonrelativistic limit $s_D\simeq\rho_D$, explaining the original approximation.  For spatially varying $m_{\mathrm{eff}}$, the factor $1/m_{\mathrm{eff}}$ must be retained.  With a gauge field, the phase gradient is replaced by gauge-invariant kinetic momentum.
+
+Most directly, Eq.~\eqref{eq:qgd-exact-radial-current} gives the corrected QGD radial reduction
+\begin{equation}\label{eq:qgd-corrected-bridge}
+\boxed{\quad
+\frac{\dd}{\dd r}\left(|A(r)|^2\frac{p(r)}{\Delta(r)}\right)\simeq0,
+\qquad |A(r)|^2\frac{p(r)}{\Delta(r)}=C_{\mathrm{spinor}}.
+\quad}
+\end{equation}
+The $r^2$ cancels geometrically, just as in the original manuscript.  If $A(r)=\alpha_G$ is fixed, the transport constraint is $p(r)/\Delta(r)=\text{constant}$, \emph{not} the historical cubic $p[1+c^2p^2/\Delta^2]=\text{constant}$.  For constant mass and a locally on-shell positive-energy branch, $p/(E+mc^2)$ is strictly monotone for $p>0$, so a fixed $A$ then implies constant $p$.  A varying momentum requires a varying envelope, an independently derived interaction or other state dynamics.
+
+\noindent\textbf{What remains of the original cubic.}
+Substituting $\rho_D\propto1+\zeta^2$ into $r^2\rho_Dp=\mathrm{const}$ produces the historical positive-sign cubic, but that step uses a nonrelativistic current as an exact relativistic law.  Substituting $s_D\propto1-\zeta^2$ into its correct constant-mass bridge instead produces $p(1-c^2p^2/\Delta^2)=\mathrm{const}$.  On the Dirac mass shell $\Delta=E+mc^2$ depends on $p$, so neither expression is an independent cubic dispersion relation or a derived quantum-gravity force.  The precise, surviving QGD result is \eqref{eq:flux}--\eqref{eq:qgd-corrected-bridge}; it retains the wavefunction--momentum link without introducing a fitted radial force.
+
+\paragraph{Source-response and higher-order research status.}
+The exact current and WKB equations above do not establish a universal inverse-square force from the historical scalar-contact or integrated-source-energy ansatz. The original QGD--011 through QGD--015 attempted derivations, controlled counterexamples, and higher-order diagnostics remain in Appendix~\ref{app:qgd-historical-source} with their equations and provenance unchanged. These tests constrain particular matter-sector mechanisms; they do not invalidate the separate natural-invariant promotion or master-metric postulates.
+
+\section{From the four-component state to the full QGD master metric}\label{sec:geometry}
+Chapter~2 promotes the Dirac-motivated natural-invariant structure to gravitational one-forms $\sigma_\mu^{(s)}$ with a reference/physical tetrad $T^a{}_{\mu}$. The \emph{complete historical master-metric proposal}, rather than a special Schwarzschild representation, is
+\begin{equation}\label{eq:qgd052-full-master-ch1}
+ \boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+ \left[\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+ -\lambda\mathcal Q_{ab}\right].}
+\end{equation}
+The historical derivative correction $\mathcal Q_{ab}$ and its coefficient $\lambda$ are \emph{unmatched trial ingredients}; no solution of the classical restriction is automatically a solution with nonzero $\lambda$.  The checked \emph{fixed-flat-frame, $\lambda=0$ classical restriction} is
+\begin{equation}\label{eq:qgd-full-handoff}
+ \boxed{g^{\rm cl}_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+ \left[\eta_{ab}+\sum_s s_s\sigma_a^{(s)}\sigma_b^{(s)}\right],\qquad s_s=-\varepsilon_s=\pm1.}
+\end{equation}
+One positive null sector is an even narrower Kerr--Schild specialization, not the general theory.  The physically permissible sector fields and tetrad dynamics remain separate QGD questions.
+
+The outer products automatically correlate diagonal and mixed components, e.g. $(g-g^{\rm flat})_{tr}=\sum_as_a\sigma_t^{(a)}\sigma_r^{(a)}$ and $(g-g^{\rm flat})_{t\phi}=\sum_as_a\sigma_t^{(a)}\sigma_\phi^{(a)}$ in an adapted frame. A flat oblate-spheroidal frame and a three-component null natural invariant reproduce the \emph{entire} Kerr metric algebraically; signed mass/charge sectors also represent Kerr--Newman. These are exact \emph{metric representation} statements for specified profiles, not proofs that the underlying Dirac state already selects those profiles.
+
+
+%====================== QGD-052 INTEGRATED CLARIFICATION ======================
+\section{QGD--052: Axiomatic matter-wave foundations and the meaning of the full master equation}\label{sec:qgd052-ch1}
+The intended ontology of QGD is a macroscopic quantum matter-wave phenomenon, with the
+Dirac equation a preferred microscopic-to-macroscopic starting point.  The natural-invariant
+one-form $\sigma_\mu$ and its independently established signed sectors are proposed
+physical gravitational degrees of freedom; the observable metric is constructed from them.
+Einstein's field equations are accepted as the successful \emph{effective macroscopic
+correspondence target}, rather than rejected.  The microscopic-to-macroscopic Dirac
+reduction and promotion to an exterior gravitational field remain declared physical
+postulates pending further dynamical derivation.  This is not a claim that the historical
+$1/r$ spinor amplitude or phase alone generates Newtonian gravity.
+
+The full historical QGD master-metric proposal is displayed in Eq.~\eqref{eq:qgd052-full-master-ch1}, before its classical restriction in Eq.~\eqref{eq:qgd-full-handoff}.  It includes a tetrad, signed source sectors, and the derivative-metric term $\mathcal Q_{ab}$ whose precise form and coefficient remain \emph{trial operators}.
+The frequently used $g_{\mu\nu}=\bar g_{\mu\nu}+\sum_s
+s_s\sigma^{(s)}_\mu\sigma^{(s)}_\nu$, with $s_s=-\varepsilon_s$, is only its
+$\lambda=0$, fixed-flat-frame \emph{classical specialization}.  The
+single-sector formula $g=\bar g+\sigma\otimes\sigma$ is an even more restricted
+branch.  Neither truncation replaces the full proposal.
+
+\paragraph{Four-sector completeness (conditional QGD--051 theorem).}
+For a metric-only effective action with independently varied signed sectors,
+write $\mathcal E_g^{\mu\nu}=(\sqrt{-g})^{-1}\delta S/\delta g_{\mu\nu}$.
+Then
+\begin{equation}\label{eq:qgd052-ch1-projection}
+ \frac1{\sqrt{-g}}\frac{\delta S}{\delta\sigma^{(s)}_\rho}
+ =2s_s\mathcal E_g^{\rho\nu}\sigma^{(s)}_\nu.
+\end{equation}
+If at least four independent sector one-forms span the cotangent space, these
+equations imply all ten metric equations $\mathcal E_g^{\mu\nu}=0$.
+A nonzero flat signed coframe background exists:
+$\sigma^{(a)}=v e^a$, $s_a=(-1,+1,+1,+1)$, $v\ne0$, yielding
+$g=(1+v^2)\bar g$ and a metric Jacobian of rank ten.  This is a
+\emph{conditional variational-completeness theorem}, not a statement that the four
+Dirac spinor coefficients are independent gravitational one-forms.
+
+\paragraph{Wave-dynamics status.}
+About the above nonzero vacuum, metric-visible fluctuations admit ordinary
+quadratic transverse-traceless wave dynamics when the \emph{effective}
+Einstein--Hilbert action is assumed.  This removes the quadratic degeneracy of
+the single-sector zero-$\sigma$ representation, but does not derive a
+fundamental microscopic $\sigma$-wave action.  The earlier proposed
+$\square_g(1-\kappa\ell_Q^2\square_g)\sigma_\mu=S_\mu$ is therefore a
+trial dynamical equation requiring independent variation, dimensional matching,
+and an analysis of extra modes, not a demonstrated outcome of Chapter~1.
+
+\paragraph{Cross-chapter provenance.}
+The archival \texttt{Ch2-FieldEquations.tex} was historically typeset as
+``Chapter 3: Field Equations'', while the repository file
+\texttt{Ch3-Equations-of-Motion.tex} was typeset as ``Chapter 4''.
+QGD--052 audits both.  The exact composite-metric worldline geodesic and the
+conditional signed-sector chain rule survive; historical $Q_\mu,G_\mu$ closure
+claims, fourth-order stiffness, independent advection forces, and numerical
+post-Newtonian coefficients remain unverified until separately derived.
+%====================== END QGD-052 CLARIFICATION ============================
+
+
+\paragraph{Additional independent wave-amplitude test (Chapter~3).}
+The current-derived $1/r$ geometric flux factor must not be identified with the $r^{-1/2}$ gravitational natural-invariant amplitude.  A separate exact \emph{test-field} calculation in Chapter~3 derives the nonlinear envelope equation from the fully separated Schwarzschild Dirac system, including the spin connection. Its conserved radial current supplies a stringent check on a proposed macroscopic wave envelope, but does not make the test wave the source of its own prescribed background metric.  In particular a regular stationary self-gravitating source may have zero outward number flux.
+
+\section{Established results, conditional dynamics, and open obligations}\label{sec:status}
+\renewcommand{\arraystretch}{1.16}
+\begin{longtable}{@{}p{0.34\linewidth}p{0.60\linewidth}@{}}
+\toprule
+Research ingredient & Defensible status\\\midrule\endhead
+Microscopic to macroscopic Dirac & Effective/state reduction is conditional; no unique coherent spinor follows for arbitrary matter.\\
+Four-component mode structure & Positive/negative block algebra derived in its specified local model; global differential solutions require residual/transport checks.\\
+WKB and current bridge & Derived within stated regimes; exact stationary spherical law $r^2j^r=C_J$ and positive-energy semiclassical closure are preserved.\\
+$\mathsf R\mapsto\sigma_\mu$ & Explicit QGD physical promotion postulate; not a local identity or automatic spin-two excitation.\\
+Master metric and source sectors & QGD geometric postulate. Exact Schwarzschild, Kerr, Kerr--Newman, Vaidya and selected wave \emph{representations} have been verified under specified frames/profiles.\\
+Spherical sourced matter & The Einstein--Hilbert plus Dirac-EOS benchmark fixes $\sigma_t,\sigma_r$ in a nondegenerate static sector using source and boundary data. EH remains an input.\\
+Slow rotating source & Dirac Fermi-gas + EH equations select frame dragging at $O(\Omega)$; independent azimuthal natural-invariant variation is equivalent to the Hartle equation on the tested branch. Full Kerr dynamical selection remains open.\\
+Equation completeness & Projected single-sector equations are generally weaker than all ten Einstein equations. Spanning \emph{independently varied} sectors can provide completeness; the four spinor modes alone do not establish it.\\
+$\alpha_G$ and quantum terms & The global wavefunction factor is not fixed by Schwarzschild. Historical $\lambda\mathcal Q$, standalone kinetic term and $\square_g^2\sigma$ are not yet microscopically matched. A Dirac determinant supports conditional curvature-effective operators.\\
+Complete four-mode frame and transport & Exact local invertible $U_f$, with an exact differentiated Dirac equation. Unrestricted coefficients make the displayed $f$ nonunique; physics must select it.\\
+Microscopic observables and collective response & $\mathcal K^a{}_{\mu}$ supplies full-rank matter directions in a six-mode zero-current example. A controlled Hartree medium and shear continuum are computed; no isolated gravitational pole is identified.\\
+Derived quantum response formalism & Composite Legendre $\Gamma^{(2)}=(W^{(2)})^{-1}$ on the physical response image is exact. A background-covariant geometric determinant and contact variations are independent assumptions and tests, not a derived fundamental graviton.\\
+\bottomrule
+\end{longtable}
+
+\section{Research agenda and conclusion}\label{sec:conclusion}
+The QGD proposal is to investigate the relationship between quantum matter and geometry without presupposing that the completed theory must differ observationally from general relativity. The foundational Dirac relationships and conservative transport calculations are rigorous only under the regimes stated above; the promotion of their structural content into a gravitating natural invariant and the signed master metric remain clear physical postulates. Our latest sourced spherical and slow-rotation calculations show that the classical geometric variables can be determined in restricted Einstein--Hilbert sectors, rather than just assigned from known metrics. They do not yet derive the Einstein--Hilbert action from microscopic Dirac physics or establish unrestricted QGD field equivalence. The next task is to test the complete state-to-sector map and its variational rank, with quantum operators used only after their microscopic matching.
+
+
+\section{Research provenance of the integrated microscopic results}\label{sec:qgd075-micro-provenance}
+The new companion results are QGD--066 (multi-background Dirac
+residuals), QGD--067 (exact four-mode frame and sourced FLRW
+consistency), QGD--068 (bilinears and a full-rank kinetic tensor),
+QGD--069--071 (finite-density Hartree, shear, complete leading intraband
+and free-vacuum spectral response), QGD--072 (geometric determinant and
+contact variation), QGD--073 (vacuum momentum form factors),
+QGD--073B (all-component metric vertices), and QGD--073C (integrated
+conditional verdict). The new statements are used with the exact
+approximations and conventions established in those research reports;
+no independent universal microscopic promotion law is claimed.
+
+
+\appendix
+\section{Historical source-response and higher-order diagnostics}\label{app:qgd-historical-source}
+The following mathematical tests are retained intact from the prior Foundations chapter, but are not premises for the current geometric results. Their ordering and equation labels are preserved for reproducibility.
+
+\subsection{QGD--011: testing the original source energy against the radial bridge}\label{sec:qgd011-original-H}
+The purpose of this test is strictly local to the original Chapter~1 argument: take the historical effective energy $H$, use the corrected Dirac current, and ask whether the resulting stationary spherical equations \,\emph{determine}\, the radial momentum profile needed for Newtonian attraction.  Coarse-graining is retained as QGD's working postulate; no new interaction, metric equation or prescribed $1/r$ potential is introduced.
+
+\paragraph{The original source expression, with its interpretation exposed.}
+The archival Foundations chapter defines
+\begin{equation}\label{eq:qgd011-H-historical}
+ H_{\mathrm{orig}}=\int_V\rho c^2\,\dd V-\int_V P\,\dd V
+ -\frac{J^2}{2mr^2}+V_{\mathrm{EM}}+\rho_\Lambda.
+\end{equation}
+Here $\rho$ is understood as a mass density, $P$ as pressure, and the integrated terms as energies. As written, $\rho_\Lambda$ is an \emph{energy density}, not an energy; it requires a volume prescription or a separately justified coupling before it can be added to $H$.  The Maxwell potential enters a minimally coupled Dirac equation as a \emph{vector} interaction, not generally as the same scalar shift as mass or pressure.  The original variation of $P(\bar\Psi\Psi)$ gives the \emph{local derivative} $P'(\bar\Psi\Psi)$, not $\int P\,\dd V$. Hence Eq.~\eqref{eq:qgd011-H-historical} is a proposed energy accounting, \emph{not a derived local Dirac operator}. These are distinct issues from its radial behavior.
+
+\paragraph{Granting the original denominator its most favorable reading.}
+For the purpose of a direct consistency test, grant the archival two-block spinor equation with $\Delta=E+mc^2+H_{\mathrm{orig}}(r)$ and set
+\begin{equation}\label{eq:qgd011-h-definition}
+ h(r):=mc^2+H_{\mathrm{orig}}(r),\qquad \Delta(r)=E+h(r).
+\end{equation}
+The determinant of that \emph{particular} Dirac block matrix yields the local scalar-shift mass shell
+\begin{equation}\label{eq:qgd011-mass-shell}
+ \boxed{E^2=c^2p(r)^2+h(r)^2.}
+\end{equation}
+It does not show that the original macroscopic Lagrangian generates the assumed scalar shift. We are examining what follows \emph{if it does}.
+
+The corrected QGD radial-flux constraint, Eq.~\eqref{eq:qgd-corrected-bridge}, is
+\begin{equation}\label{eq:qgd011-flux}
+ \boxed{|A(r)|^2\frac{p(r)}{E+h(r)}=C_s,\qquad p(r)>0,\ E>h(r)>0,}
+\end{equation}
+where a constant factor $2c^2$ has been absorbed into $C_s$.  Equations~\eqref{eq:qgd011-mass-shell} and~\eqref{eq:qgd011-flux} must hold \emph{simultaneously} for the assumed local positive-energy WKB branch.
+
+\paragraph{A precise obstruction for the historical fixed envelope.}
+If the original $A(r)=\alpha_G$ is independent of $r$ and $C_s\ne0$, write $\kappa=C_s/|\alpha_G|^2$.  Then $p=\kappa(E+h)$ and Eq.~\eqref{eq:qgd011-mass-shell} gives
+\begin{equation}\label{eq:qgd011-fixed-solution}
+ E-h=c^2\kappa^2(E+h),\qquad
+ \boxed{h=E\frac{1-c^2\kappa^2}{1+c^2\kappa^2},\qquad
+ p=\frac{2E\kappa}{1+c^2\kappa^2}.}
+\end{equation}
+Thus, in a stationary single-branch region with fixed $E$ and nonzero flux, \emph{both $h$ and $p$ are spatially constant}.  The fixed spinor-envelope ansatz is therefore incompatible, at this approximation order, with a nontrivial variable $H_{\mathrm{orig}}(r)$.  This does not refute the Dirac--current bridge: it shows that the original $A=\alpha_G$ restriction is too strong wherever a momentum gradient is intended.
+
+\paragraph{Minimal internal repair: retain WKB amplitude transport.}
+Allow $A(r)$ to be determined by the \emph{same} conservation law, without introducing a new force.  From Eq.~\eqref{eq:qgd011-mass-shell} on the outgoing branch,
+\begin{equation}\label{eq:qgd011-envelope}
+ p(r)=\frac{\sqrt{E^2-h(r)^2}}{c},\qquad
+ \boxed{|A(r)|^2=C_s c\sqrt{\frac{E+h(r)}{E-h(r)}}.}
+\end{equation}
+This is the correct local leading-WKB envelope for the specified unnormalized positive-energy spinor. It makes the flux and mass-shell equations compatible when $H$ varies.  Crucially, it \emph{does not determine $H(r)$}; amplitude transport is not a source equation.
+
+\paragraph{Does the historical $H$ generate an exterior force?}
+For a neutral, nonrotating, compact source of radius $R$, set $J=0$ and $V_{\mathrm{EM}}=0$, and assume any vacuum contribution is spatially constant.  Whether the volume in Eq.~\eqref{eq:qgd011-H-historical} is the entire source or the ball enclosed by $r$, the matter integrals become constant for $r>R$:
+\begin{equation}\label{eq:qgd011-outside}
+ \boxed{H_{\mathrm{orig}}'(r)=0\quad(r>R)}
+ \quad\Longrightarrow\quad
+ h'(r)=p'(r)=0.
+\end{equation}
+For the scalar-shift interpretation of the original Dirac block, the local Hamiltonian is $\mathcal E(r,p)=\sqrt{c^2p^2+h(r)^2}$. Hamilton's equation gives
+\begin{equation}\label{eq:qgd011-force}
+ \boxed{\frac{\dd p}{\dd t}=-\frac{h(r)}{\mathcal E(r,p)}\,H_{\mathrm{orig}}'(r).}
+\end{equation}
+Therefore this specified mechanism has \emph{zero exterior radial force} in the neutral, nonrotating compact-source case.  The scalar matter integrals carry source information but not an exterior radial law. For illustration, with uniform $\rho,P$ and an enclosed-ball prescription, $H(r)=\tfrac{4\pi}{3}(\rho c^2-P)\min(r,R)^3$ up to a constant: it varies inside and is constant outside. A hypothetical isolated term $-J^2/(2mr^2)$ has a derivative proportional to $r^{-3}$, not the Newtonian $r^{-2}$, and its meaning as rotation/frame dragging must be justified separately.
+
+\paragraph{Interpretation and immediate obligation.}
+The conservation equation remains the central \emph{wavefunction-to-momentum} bridge: it fixes the transport amplitude once a permitted $p(r)$ is determined, and it is entirely compatible with Born's statistical interpretation.  The original $H$ is not yet the missing independent dynamical relationship that gives a source-dependent exterior momentum gradient.  This is \emph{not} a problem with calibrating $\alpha_G$ to Newtonian gravity---such calibration is legitimate after obtaining the radial law. It is a problem of obtaining that law from the original macroscopic Dirac operator without inserting it by hand.  The following QGD--012 subsection carries out step (i) directly by varying the archived action and compares the resulting operator with $H$. Steps (ii)--(iii) remain open; no exterior neutral source law has been established by the tested equations alone.
+
+
+\subsection{QGD--012: varying the original macroscopic action before using \texorpdfstring{$H$}{H}}\label{sec:qgd012-variation}
+The previous test granted the historical $H$ a scalar-mass interpretation. We now remove that concession and ask what the \emph{original Chapter~1 action actually yields on variation}. This is a surgical check of the QGD chain, not a replacement theory: coarse-graining remains a working premise, and the WKB/current bridge~\eqref{eq:qgd-corrected-bridge} is unchanged.
+
+\paragraph{Exact Euler--Lagrange variation of the displayed local terms.}
+Temporarily use $\hbar=c=1$, define $s:=\bar\Psi\Psi$, and write the archived effective-action terms as
+\begin{equation}\label{eq:qgd012-archive-action}
+ \mathcal L_{\mathrm{arch}}=
+ \tfrac{i}{2}\bar\Psi\gamma^\mu\overleftrightarrow{\partial}_\mu\Psi
+ -ms-P(s)-B(x)s-\tfrac14F_{\mu\nu}F^{\mu\nu}-\rho_\Lambda,
+ \qquad B(x):=\frac{J_{\mu\nu}J^{\mu\nu}}{2M_*^2}.
+\end{equation}
+Here $P(s)$ is a proposed \emph{local interaction function}, not automatically thermodynamic pressure; $M_*$ is the archived angular-sector parameter, not the source mass. First treat $B$ as a prescribed scalar coefficient independent of $\Psi,\bar\Psi$ and their derivatives. Since $\delta s=(\delta\bar\Psi)\Psi$ under independent variation of $\bar\Psi$, integration by parts gives
+\begin{equation}\label{eq:qgd012-dirac-euler}
+\boxed{\left[i\gamma^\mu\partial_\mu-m-P'(s)-B(x)\right]\Psi=0,\qquad P'(s)=\frac{\dd P}{\dd s}.}
+\end{equation}
+This is the local Dirac operator \emph{for the specified prescribed-$B$ interpretation}. If $J_{\mu\nu}$ is the differential operator $x_\mu\hat p_\nu-x_\nu\hat p_\mu$, or a functional of $\Psi$, it cannot be replaced by a $c$-number in Eq.~\eqref{eq:qgd012-dirac-euler}: varying it produces additional differential/functional terms. The archived $J^2$ term is therefore not yet a well-defined local scalar mass shift in general.
+
+\paragraph{Electromagnetism and vacuum energy are different couplings.}
+The standalone Maxwell term $-F^2/4$ has \emph{zero} functional derivative with respect to $\bar\Psi$. The original complete-action display has ordinary $\partial_\mu$, so a Maxwell field is not coupled to the Dirac field by that display alone. Using the minimally coupled $D_\mu=\partial_\mu+iqA_\mu$ already allowed in the revised macroscopic EFT instead replaces $i\gamma^\mu\partial_\mu$ with $i\gamma^\mu D_\mu$ and gives a \emph{vector} coupling $-q\gamma^\mu A_\mu\Psi$. Only the coupled theory supplies Maxwell's sourced equation $\partial_\mu F^{\mu\nu}=q\bar\Psi\gamma^\nu\Psi$ (with the present conventions). A constant $-\rho_\Lambda$ has no $\bar\Psi$ variation in flat space. Neither sector contributes the historical scalar addition $V_{\rm EM}+\int\rho_\Lambda\,\dd V$ to the spinor mass denominator.
+
+\paragraph{Term-by-term comparison with the historical energy $H$.}
+\begin{center}\small
+\begin{tabular}{@{}p{0.24\linewidth}p{0.32\linewidth}p{0.36\linewidth}@{}}\toprule
+Archived term & Actual local Dirac contribution & Historical $H$ identification \\\midrule
+$-m\bar\Psi\Psi$ & Constant mass $m$ & Not the source's integrated energy $\int\rho c^2\,\dd V$ \\
+$-P(\bar\Psi\Psi)$ & Local derivative $P'(s)$ & Not $-\int P\,\dd V$; thermodynamic pressure needs state matching \\
+$-B\bar\Psi\Psi$ & $B$ only if prescribed $c$-number & Not automatically $-J^2/(2mr^2)$ or frame dragging \\
+$-F^2/4$ & None without minimal coupling; $qA_\mu$ is vector-like with it & Not a scalar $V_{\rm EM}$ shift in $E+mc^2+H$ \\
+$-\rho_\Lambda$ & None in flat Dirac variation & Not a local mass term or an energy without a volume rule \\\bottomrule
+\end{tabular}
+\end{center}
+The volume integral of a source's energy is a \emph{global charge or energy functional}; it becomes a probe-particle interaction only after specifying the field or response connecting source and probe. The identification
+\begin{equation}\label{eq:qgd012-H-not-derived}
+\boxed{m+P'(s)+B\;\not\equiv\;m+H_{\rm orig}[\rho,P,J,A,\rho_\Lambda]}
+\end{equation}
+is therefore \emph{not} an equation of motion derived from the archived Lagrangian. This is a missing operator identification, not an objection to normalizing a subsequently derived gravitational coupling with Newton's law.
+
+\paragraph{Insert the genuinely derived local shift into QGD's original bridge.}
+In a controlled prescribed-background or scalar mean-field reduction, define $\mathcal M(x):=m+P'(s_{\rm bg}(x))+B_{\rm bg}(x)$. The subscript emphasizes that the background and its equations must be supplied separately; without it, Eq.~\eqref{eq:qgd012-dirac-euler} is a nonlinear self-consistent Dirac equation. With a static electrostatic potential $\phi$, the leading WKB relations become
+\begin{align}
+ E-q\phi(r)&=\sqrt{p(r)^2+\mathcal M(r)^2},\label{eq:qgd012-HJ}\\
+ \frac{\dd p}{\dd t}&=-q\phi'(r)-\frac{\mathcal M(r)}{E-q\phi(r)}\mathcal M'(r),\label{eq:qgd012-force}\\
+ \frac{\dd}{\dd r}\!\left[|A(r)|^2\frac{p(r)}{E-q\phi(r)+\mathcal M(r)}\right]&\simeq0,\label{eq:qgd012-flux}
+\end{align}
+for the outgoing radial positive-energy local spinor away from turning points. Equations~\eqref{eq:qgd012-HJ}--\eqref{eq:qgd012-flux} preserve the Dirac $\to$ phase $\to$ momentum $\to$ radial-current $\to$ force structure of Chapter~1. They do not introduce a new potential. The functions $s_{\rm bg}$ and $B_{\rm bg}$ are not determined by these equations alone.
+
+\paragraph{A controlled exterior-source test and one positive control.}
+For a neutral, nonrotating compact source and a specified local scalar interaction, suppose its exterior background approaches a homogeneous vacuum value $s_{\rm bg}=s_{\rm vac}$, with $B_{\rm bg}=0$, $q=0$. Then $\mathcal M'=0$ and Eq.~\eqref{eq:qgd012-force} gives $\dd p/\dd t=0$ for $r>R$. A local pressure or four-fermion interaction alone has \emph{not} supplied a long-range neutral field. A nontrivial condensate profile extending outside the source would change this conclusion, but is itself an additional solution to derive, not something ensured by the displayed algebraic interaction.
+
+There is a useful positive control: \emph{with} the minimally coupled electromagnetic term and a charged source, Maxwell's field equation allows $\phi(r)\propto Q/r$ outside the source; Eq.~\eqref{eq:qgd012-force} then gives the Coulomb inverse-square force $-q\phi'(r)$. Thus the Dirac--WKB--current apparatus correctly converts an independently sourced, exterior field into classical force. The same comparison pinpoints what has \emph{not} been obtained for neutral gravity in Chapter~1: a source-dependent exterior interaction operator.
+
+\paragraph{Retaining rather than inventing higher-order contributions.}
+A separate, explicitly conditional asymptotic test keeps the original spherical wave picture. Suppose $s(r)=s_{\rm vac}+D/r^2+O(r^{-4})$ is a self-consistent far-field scalar density, and $P$ is analytic at $s_{\rm vac}$. Then
+\begin{equation}\label{eq:qgd012-asymptotic}
+ \mathcal M(r)=\mathcal M_\infty+\frac{P''(s_{\rm vac})D}{r^2}+O(r^{-4}),
+ \qquad F_r^{\rm scalar}=\frac{2\mathcal M_\infty P''(s_{\rm vac})D}{E\,r^3}+O(r^{-5}),
+\end{equation}
+with a stationary asymptotic energy $E>\mathcal M_\infty$, $q=B=0$ and the local-mean-field/WKB assumptions stated above. The sign depends on the interaction. This is a \emph{conditional interaction-induced inverse-cube correction}; it is neither Newton's $1/r^2$ force nor a verified quantum-gravity prediction. A pure $1/r^2$ density tail, by itself, must not be confused with a $1/r$ \emph{energy} potential. Quantum-gradient and higher-derivative terms already discussed below remain open diagnostics; no historical higher-order QGD force coefficient is promoted to an established result by this test.
+
+\noindent\textbf{QGD--012 conclusion.} The foundational WKB/current bridge survives unchanged. A local Dirac equation is obtained by variation, but the historical global source energy $H_{\rm orig}$ is \emph{not} that local operator. A source-responsive exterior scalar/vector interaction must be identified \emph{within QGD's existing macroscopic premises} before the Newtonian normalization or higher-order gravitational forces can be inferred. The next task is to check the original local operator and its admissible macroscopic background equations against source dependence, without fixing the desired $1/r$ behavior in advance.
+
+
+\subsection{QGD--013: can the original local Dirac interaction carry source information into the exterior?}\label{sec:qgd013-exterior}
+This is a direct test of the original Chapter~1 premises, \emph{not} an additional theory. We retain the original scalar contact interaction, the corrected stationary Dirac current, and the WKB force law. No Newtonian potential, new mediator, nonlocal kernel, or fitted radial source profile is introduced. Set $\hbar=c=1$ within this subsection and distinguish a localized \emph{source state} $\Psi_{\mathrm s}$ from a weak \emph{probe state} $\Psi_{\mathrm p}$. The split into a prescribed source mean field and a probe is itself a controlled-background assumption, not the exact factorization of one nonlinear spinor.
+
+\paragraph{A key consequence of current conservation: source and probe are different branches.}
+The exact Dirac continuity law integrated over a sphere gives
+\begin{equation}\label{eq:qgd013-integrated-flux}
+ \mathcal F(r):=\int_{S_r}\bm j\cdot\hat{\bm r}\,\dd A=\mathrm{constant}
+\end{equation}
+for a stationary configuration with no sources or sinks in the intervening shell. If the state is regular at the origin and stationary on all of space without injection or loss, $\mathcal F(r)=0$. In particular, a stationary localized source has zero \emph{net} outward probability flux, although it may have nonzero circulating currents. In contrast, the outgoing probe/scattering branch of QGD uses $r^2j^r=C_J\neq0$: this describes transport through spheres and need not be a normalizable stationary isolated source. Indeed, a persistent outgoing free wave with $|\Psi|\sim |A|/r$ has
+\begin{equation}\label{eq:qgd013-nonnormal}
+\int_R^L 4\pi r^2\Psi^\dagger\Psi\,\dd r\sim 4\pi|A|^2(L-R)\xrightarrow{L\to\infty}\infty,
+\end{equation}
+up to an asymptotically constant positive spinor norm. This is not a rejection of Born's interpretation: it separates the stationary source from the flux-carrying WKB probe. We therefore do \emph{not} substitute the probe's $1/r$ envelope into the source density.
+
+\paragraph{Exterior behavior permitted by the existing Dirac equation.}
+The original local action yields, in a prescribed scalar mean-field approximation, $\mathcal M(x)=m+P'(s_{\rm bg}(x))+B_{\rm bg}(x)$, where $s_{\rm bg}=\langle\bar\Psi_{\rm s}\Psi_{\rm s}\rangle$. In a neutral, nonrotating exterior let $B_{\rm bg}=0$ and assume a homogeneous asymptotic vacuum $s_{\rm bg}\to s_{\rm vac}$ with finite constant mass $m_\infty=m+P'(s_{\rm vac})\ne0$. Linearizing the \emph{source's} stationary Dirac equation at small exterior amplitude produces
+\begin{equation}\label{eq:qgd013-helmholtz}
+ (\nabla^2+E_{\rm s}^2-m_\infty^2)\Psi_{\rm s}\simeq0.
+\end{equation}
+If a spatially localized source state exists with $|E_{\rm s}|<|m_\infty|$, its exterior bound-state solutions have, up to spin/angular factors and subleading inverse powers,
+\begin{equation}\label{eq:qgd013-source-tail}
+ \Psi_{\rm s}=O(e^{-\kappa r}/r),\qquad
+ \kappa=\sqrt{m_\infty^2-E_{\rm s}^2}>0,\qquad
+ \delta s_{\rm bg}=O(e^{-2\kappa r}/r^2).
+\end{equation}
+This is an \emph{asymptotic conditional result}: the linear exterior equation does not prove that the original nonlinear source admits a localized bound state. At $|E_{\rm s}|>|m_\infty|$, oscillatory $1/r$ solutions are appropriate to scattering/radiating states, not a finite-norm stationary isolated source. Thresholds and critical/vacuum phases are not covered by this massive-asymptotic test.
+
+\paragraph{The original contact interaction gives a short-range source response in that regime.}
+For the original NJL-type term $+G(\bar\Psi\Psi)^2$, its mean-field scalar mass shift is $\mathcal M_{\rm p}=m_{\rm p}-2G\,\delta s_{\rm bg}$ after absorbing constant vacuum terms into $m_{\rm p}$ (and assuming an appropriate probe/background channel). The WKB radial force on the neutral probe follows from the \emph{same} Chapter~1 Hamilton--Jacobi equation,
+\begin{equation}\label{eq:qgd013-force}
+ \mathcal E_{\rm p}=\sqrt{p^2+\mathcal M_{\rm p}^2},\qquad
+ F_r=-\frac{\mathcal M_{\rm p}}{\mathcal E_{\rm p}}\mathcal M_{\rm p}'
+ =\frac{2G\mathcal M_{\rm p}}{\mathcal E_{\rm p}}\delta s_{\rm bg}'(r).
+\end{equation}
+For a representative exterior bound tail $\delta s_{\rm bg}(r)\sim D e^{-2\kappa r}/r^2$, direct differentiation gives
+\begin{equation}\label{eq:qgd013-tail-force}
+ F_r\sim-\frac{4Gm_{\rm p}D}{E_{\rm p}}\left(\kappa+\frac1r\right)
+ \frac{e^{-2\kappa r}}{r^2},\qquad r\to\infty.
+\end{equation}
+The sign and coefficient depend on the channel and source state. More generally any analytic local scalar interaction about a finite-mass homogeneous vacuum transmits such exponentially suppressed density tails into local mass shifts: it does \emph{not} provide a universal unsuppressed $1/r$ energy outside a neutral compact object in this regime. Equation~\eqref{eq:qgd012-asymptotic}'s previously discussed $r^{-3}$ force instead concerns an \emph{assumed outgoing $r^{-2}$ density} and is not the localized-bound-source asymptotic case.
+
+\paragraph{Original integrated $H$, electromagnetic control, and universality.}
+For a compactly supported effective energy density, an enclosed-energy functional $H_{\rm src}(r)=\int_{|\bm x|<r}\varepsilon_{\rm src}\dd^3x$ obeys $H'_{\rm src}(r)=4\pi r^2\varepsilon_{\rm src}(r)$ and is constant outside the support. A local derivative $P'(s)$ does not replace a missing source-to-probe response equation. The explicit Maxwell sector \emph{does} possess its own independently sourced exterior field, but electromagnetic force couples to electric charge, not universally to inertial mass. For a scalar shift $\delta\mathcal M_a(r)$ to reproduce Newtonian free fall for probe species $a$ in the nonrelativistic limit, one must obtain
+\begin{equation}\label{eq:qgd013-universality}
+ \delta\mathcal M_a(r)=m_a\,\Phi(r)+\mathrm{constant}+O(\Phi^2),\qquad
+ \bm a_a=-\frac{1}{m_a}\bm\nabla\delta\mathcal M_a\simeq-\bm\nabla\Phi.
+\end{equation}
+That mass-proportional and source-universal response \emph{does not follow} from a common additive contact mass shift, which generically yields probe-dependent acceleration. This is a physical requirement, not a proposed form for QGD's yet-unknown exterior field.
+
+\noindent\textbf{QGD--013 result and scope.} The Dirac current/WKB bridge is retained exactly as a relation for the appropriate transport branch. For a homogeneous massive vacuum and an isolated localized source, the original analytic local scalar contact sector gives zero exterior force when the source density vanishes, or an exponentially suppressed tail when a localized bound-state background extends outside. A radiating $1/r$ probe wave is not itself a finite stationary source. These are \emph{conditional obstructions}, not a theorem excluding all future macroscopic QGD source responses. Newtonian gravity and its higher-order corrections are \emph{not derived} from Chapter~1's currently specified local interaction. The unfilled arrow is a source-dependent, universal exterior response; its geometric realization may be a Chapter~2 postulate, but should not be smuggled into the Chapter~1 Dirac equation.
+
+\subsection{Next orders: what is a quantum correction and what is not?}\label{sec:wkb-higher}
+Equation~\eqref{eq:wkb-next-spinor} is the first nontrivial WKB transport condition.  Because $\gamma\cdot\pi-\mathcal M$ is singular on the leading mass shell, its solvability constrains the slowly varying amplitude and spin polarization.  The exact $U(1)$ continuity equation supplies the amplitude-flux law.  Spin transport and magnetic effects can occur, but no universal additional radial gravitational force follows from Eq.~\eqref{eq:wkb-next-spinor} without specified interactions and polarization.  Classical relativistic terms such as $-\bm p^4/(8m^3c^2)$ are \emph{not} quantum-gravitational merely because they occur beyond the first nonrelativistic order.
+
+One completely controlled higher-order diagnostic is available in a \emph{different and explicitly restricted regime}: the nonrelativistic, constant-mass, fixed-spin scalar Schr\"odinger limit with a real external potential $U$.  Write $\varphi=R e^{iW/\hbar}$ with $R>0$, $\bm p=\bm\nabla W$.  Its exact real/imaginary decomposition is
+\begin{equation}\label{eq:wkb-quantumHJ}
+\frac{\bm p^2}{2m}+U+Q=E,\qquad
+\bm\nabla\cdot\left(R^2\frac{\bm p}{m}\right)=0,\qquad
+\boxed{Q=-\frac{\hbar^2}{2m}\frac{\nabla^2R}{R}.}
+\end{equation}
+Thus $\dot{\bm p}=-\bm\nabla(U+Q)$ for an irrotational, time-independent coherent branch.  This $Q$ is an ordinary wave-gradient correction, \emph{not yet a novel QGD interaction}.  For $R(r)=C/r$ outside $r=0$, one has
+\begin{equation}\label{eq:wkb-no1overr}
+\nabla^2(C/r)=0\ (r>0),\qquad \boxed{Q(r)=0\quad(r>0).}
+\end{equation}
+Consequently, the geometric $1/r$ \emph{wave amplitude alone} produces no exterior force even at this $O(\hbar^2)$ level.  This is a useful negative check on the original phase-amplitude argument.
+
+More generally, the stationary radial continuity equation at fixed mass yields $R=C/[r\sqrt{p(r)}]$ (outgoing $p>0$).  Using $\nabla^2[f(r)/r]=f''(r)/r$ for $r>0$ gives the exact identity
+\begin{equation}\label{eq:wkb-Q-radial}
+\boxed{Q(r)=\frac{\hbar^2}{4m}\frac{p''(r)}{p(r)}
+-\frac{3\hbar^2}{8m}\left(\frac{p'(r)}{p(r)}\right)^2},
+\qquad p(r)>0.
+\end{equation}
+Combining Eqs.~\eqref{eq:wkb-quantumHJ} and \eqref{eq:wkb-Q-radial} creates a higher-order differential condition on $p(r)$, \emph{not a free-standing source law}.  Singular turning points $p=0$, multi-phase interference, nonuniform spin, relativistic corrections, state mixing and self-consistent interactions lie outside this special benchmark.  A nonzero $Q$ does not identify its source as gravitation without a separate physical coupling.
+
+\subsection{Scope of the WKB force bridge}\label{sec:wkb-newton}
+The WKB Hamilton--Jacobi equation identifies the momentum and force associated with an \emph{already specified} effective Dirac interaction; the conserved spherical current constrains the accompanying amplitude. Neither the $1/r$ envelope of an outgoing wave nor the phase factor $e^{iS/\hbar}$ supplies a source-dependent gravitational energy by itself. In particular, the historical step that discarded the constant term of an exponential Taylor series cannot yield an exterior $1/r$ potential. That calculation is preserved as a historical hypothesis and falsification example, not an active proof.
+
+This observation does \emph{not} make Newtonian matching of a coupling illegitimate. Just as in general relativity, a physically derived geometric equation may carry an unknown coupling subsequently calibrated to the weak-field Newtonian limit. What cannot be calibrated into existence is the missing \emph{form} of a radial source response. We therefore leave the Newtonian benchmark and the proposed higher-order gravitational forces for Chapter~2, after its metric map and action have been varied consistently.
+
+\subsection{QGD--015: infrared test of the existing scalar-contact response}\label{sec:qgd015-ir}
+The revised macroscopic Dirac equation and its WKB/current bridge fix how an interaction influences a probe; they do not create the neutral source response. To test the \emph{same} local scalar-contact operator already in this chapter, consider its regulated homogeneous fermion-loop response, without adding an interaction or assuming Newton's radial law. In a linear isotropic static channel, a Newtonian exterior requires a response with a finite nonzero infrared residue $\lim_{k\to0}k^2/K_E(k)\ne0$, together with universal source and probe couplings. The test is limited to the following specified scalar mean-field channel.
+
+At a stationary massive saddle $M>0$ with bare mass $m_0\ge0$, four-fermion coupling $G>0$, $N$ Dirac species and a fixed Euclidean cutoff $\Lambda$, the same effective potential and gap equation as in the QGD--003 regulated analysis give
+\begin{align}
+\Omega(M)&=\frac{(M-m_0)^2}{4G}-2N\int_{|p_E|<\Lambda}\frac{\dd^4p_E}{(2\pi)^4}\log(p_E^2+M^2),\\
+\frac{M-m_0}{2G}&=4NM I_1(M,\Lambda),\qquad I_2(M,\Lambda)=\int_{|p_E|<\Lambda}\frac{\dd^4p_E}{(2\pi)^4}\frac{1}{(p_E^2+M^2)^2}>0.
+\end{align}
+The zero-momentum curvature follows from the \emph{second} variation, not an assumed long-range propagator:
+\begin{equation}\label{eq:qgd015-k0}
+\boxed{K_0=\Omega''(M)=\frac{m_0}{2GM}+8NM^2I_2(M,\Lambda)>0.}
+\end{equation}
+Thus an analytic low-momentum response $K_E(k)=K_0+Z_s k^2+O(k^4)$ has $\lim_{k\to0}k^2/K_E(k)=0$. The massive scalar branch has no generic Newtonian infrared pole. This extends the $m_0=0$ QGD--003 curvature result to nonzero bare mass under the same approximation.
+
+At the fine-tuned massless saddle $M=m_0=0$, the hard-cutoff one-loop kernel computed in QGD--003 instead becomes
+\begin{equation}\label{eq:qgd015-critical}
+K_E(k)=\frac{Nk^2}{8\pi^2}\left[\log\!\left(\frac{\Lambda^2}{k^2}\right)+\frac32\right]
+\quad(0<k\le\Lambda),\qquad
+\boxed{\lim_{k\to0}\frac{k^2}{K_E(k)}=0.}
+\end{equation}
+This is a long-range but logarithmically running \emph{scalar} response, not a finite-residue Newtonian $1/k^2$ pole. At ordinary finite density the free Dirac gas also has finite static number-density susceptibility $\chi_{nn}=g\mu k_F/(2\pi^2)$ for $\mu>M$, which does not establish a long-range neutral source response. These statements do not exclude uncalculated collective channels or phases.
+
+There is also an independent universality test: for a monoenergetic Dirac ensemble the ratio of scalar charge density to total energy density is $n_s/\varepsilon=M/E_p^2$, which depends on the state. Hence a vertex coupled only to $\bar\Psi\Psi$ is not automatically a vertex to total mass-energy. The original single-species interaction also does not enforce probe coupling proportional to inertial mass across different matter species.
+
+\noindent\textbf{QGD--015 verdict.} The corrected Dirac-current/WKB equations remain untouched. The existing scalar-contact response does not satisfy the Newton-pole and universality tests in the regulated massive, tuned-critical, or ordinary free-gas benchmarks specified above. A genuine alternative macroscopic response would require its own dynamical derivation from QGD's stated variables; Chapter~2's geometric postulates should remain logically separate. Higher-gradient terms are retained as conditional corrections, but cannot by themselves remove a positive $K_0$. See \texttt{docs/QGD-015-Infrared-Response.tex} and \texttt{research/qgd015/} for details.
+
+
+\section*{Research provenance and background}
+This integrated rewrite consolidates the original \texttt{Ch1-Foundations.tex}, the October 2026 foundational audit/reset, and the independent QGD--001 through QGD--040 research checkpoints retained in the repository, together with the read-only original Chapter~2 Python audit. The free-ensemble and regulated mean-field benchmarks are preserved in the QGD--005 research files; those calculations do not verify gravitational emergence. Related established techniques include relativistic Dirac kinetic theory and Wigner-function approaches to spin (for example \href{https://arxiv.org/abs/1902.06510}{arXiv:1902.06510}) and standard treatments of quantum Fermi gases (for example \href{https://www.damtp.cam.ac.uk/user/tong/statphys/statmechhtml/S3.html}{D.~Tong's lecture notes}). The original 2026 QGD manuscript remains preserved under \texttt{docs/original\_foundations\_2026-10-09/}.
+\end{document}
