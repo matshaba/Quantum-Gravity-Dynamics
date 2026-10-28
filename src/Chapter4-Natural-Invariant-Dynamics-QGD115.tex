@@ -1,0 +1,1366 @@
+% Quantum Gravity Dynamics — new Chapter 4, independent research manuscript
+% This is NOT an edit to the historical Chapter 4.
+% Original 19 October 2026; QGD-097 updated 26 October 2026.
+% QGD-098 surgical referee-verification insertion 26 October 2026.
+% QGD-101 surgical integration of research notes QGD-099/100, 26 October 2026.
+% QGD-115 update, 26 October 2026: Einstein-Hilbert form derived by uniqueness (Lovelock) under principle L.
+% QGD-113 final update, 26 October 2026: curved spin-1/2 flow law and slow-motion limits.
+% QGD-112 update, 26 October 2026: exact spin-1/2 flow law; naming of derived objects corrected.
+% QGD-111 update, 26 October 2026: covariant spin-1/2 version of the quantum terms.
+% QGD-110 insertion, 26 October 2026: quantum structure of the master metric and
+% covariance tests (from research notes QGD-107--109 and the QGD-110 tests).
+% QGD-105 audit correction, 26 October 2026: QGD-101 insertions restricted to what
+% follows from this chapter's stated assumptions; reframing of QGD's identity removed.
+% All QGD-101 insertions are marked; no prior equation or label is removed.
+% Units c=hbar=1 in variational arguments.
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=25mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm,booktabs,microtype,xcolor,mathrsfs}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}\lhead{Quantum Gravity Dynamics}\rhead{Chapter 4 — Natural-Invariant Dynamics}\cfoot{\thepage}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cG}{\mathscr G}
+\newcommand{\cT}{\mathscr T}
+\newcommand{\cQ}{\mathscr Q}
+\newcommand{\cS}{\mathscr S}
+\title{\textbf{Quantum Gravity Dynamics}\\[6pt]
+\large Chapter 4: Natural-Invariant Dynamics\\ and the Physical Meaning of Gravity\\[5pt]
+\normalsize QGD--098 research edition --- referee-verified radial Dirac audit and semiclassical benchmark}
+\author{QGD research manuscript --- independent of the archived historical Chapter 4}
+\date{26 October 2026 --- QGD--101 integration, QGD--105 audit correction, QGD--110 quantum structure, QGD--111/112/113 spin-$\frac12$ updates, QGD--115 Lovelock}
+\begin{document}
+\maketitle
+\begin{abstract}
+What does the natural-invariant description of gravitation add to the
+Einsteinian metric equations? We formulate a precise first answer, without
+postulating a new wave law. Given the composite QGD metric of Chapters 1--2
+and the effective gravitational and matter action used in Chapters 2--3,
+variation with respect to the independent natural-invariant one-forms
+produces an exact projected Euler equation. The historical three-channel
+idea thereby admits an unambiguous \emph{action-defined successor},
+$\cS=\cG+\cT+\cQ=0$. In the derivative-free, metric-only sector,
+$\cQ=0$ and the remaining terms are projections of the Einstein--matter
+residual. On a regular full-rank signed-field representation, those
+projected equations are equivalent to the effective Einstein equations.
+The result clarifies the physical role of $\sigma_\mu$, the origin of its
+representation freedom, and the exact location where genuinely distinct
+QGD dynamics would have to arise. We incorporate the Chapter~3 breakthroughs:
+Newtonian calibration of the exterior natural-invariant amplitude; the
+exact static Killing-energy expansion; a corrected conserved-current
+bridge; the leading Dirac-derived quantum density-gradient stress; and a
+no-go theorem for universal power-law exterior corrections produced solely
+by restructuring a compact spherical source at fixed mass. It does not assert a microscopic
+wave equation, a derived $\sigma$ kinetic term, or a new gravitational
+observable. This short chapter is intended to grow as these questions
+are solved; it does not alter the historical Chapter 4. The chapter proves a metric-only quantum-equivalence theorem, imports a
+verified semiclassical massless-Dirac far-field correction, and audits the
+historical $9/2$ force. A QGD--110 section derives the quantum structure of the
+master metric from the founding principles: a universal quantum sector fixed by the
+source's quantum stress, a per-wave quantum conformal factor, and the test of the
+historical derivative term, and the exact flow law of spin-$\frac12$ matter in a curved
+universal metric; it also records Lorentz-covariance and gauge tests of the main
+equations. A QGD--115 subsection shows that the Einstein--Hilbert form of the
+gravitational dynamics is not an independent axiom: it follows uniquely, by
+Lovelock's theorem, from QGD's metric-only structure and a second-order locality
+principle, with the coupling fixed by the Newtonian calibration. The revision history is in
+Section~\ref{sec:revision-history}.
+\end{abstract}
+
+\noindent\textbf{Reading key.} \textbf{D}: derived from stated assumptions;
+\textbf{A}: adopted effective dynamics; \textbf{C}: fixed definition or
+normalization; \textbf{P}: proposed physical interpretation not yet an
+independent empirical result. These labels distinguish logical status,
+not scientific importance.
+
+\section{From the quantum description to effective geometry}
+\label{sec:motivation}
+General relativity establishes how geometry behaves when coupled to
+energy and momentum. It does not, by itself, establish whether geometry
+is fundamental or an effective macroscopic description. QGD investigates
+a concrete alternative interpretation: the gravitational field is
+associated with macroscopic quantum structure of matter, represented by
+gravitational natural-invariant covectors $\sigma_\mu^{(s)}$; their
+composites define an effective metric (P). The word \emph{natural
+invariant} is QGD's historical name for these covectors; a covector is
+not itself a coordinate-invariant scalar.
+
+The essential distinction is between an \emph{ontological} proposal and a
+\emph{dynamical} result. The first three chapters supply (i) the
+four-component macroscopic Dirac structure and controlled local spinor
+ratios, (ii) the master metric and its signed-sector representations,
+and (iii) Einsteinian effective dynamics and Newtonian calibration in
+specified limits. None of these statements alone proves that the
+individual natural-invariant components constitute independent
+observable particles or waves.
+
+The general QGD metric is retained unchanged:
+\begin{equation}\label{eq:master}
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\left[\eta_{ab}-\sum_{s=1}^{N}\varepsilon_s
+\sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}\right],
+\quad \varepsilon_s=\pm1.}
+\end{equation}
+Here $T^a{}_{\mu}$ is the reference coframe, and the derivative
+operator $\mathcal Q_{ab}$ and coefficient $\lambda$ remain
+unmatched proposals in the unrestricted theory. We will derive definite
+equations in the explicitly stated fixed-coframe, $\lambda=0$,
+metric-only effective sector and then explain what changes when the
+full metric map is used.
+
+\section{The new Chapter 4 field equation}
+\label{sec:balance}
+In this section set $c=1$. Restore the physical Einstein coupling
+$8\pi G_N/c^4$ when using SI units. Consider the composite effective
+action (A)
+\begin{equation}\label{eq:action}
+\Gamma[\sigma,\Psi]=S_{\rm EH}[g(\sigma)]
++S_{\rm matter}[g(\sigma),\Psi],\qquad
+S_{\rm EH}=\frac{1}{16\pi G_N}
+\int\dd^4x\sqrt{-g}\,(R-2\Lambda).
+\end{equation}
+Boundary variations are compactly supported or supplied with the
+appropriate gravitational boundary term. The matter equations are
+varied independently. Define $T^{\mu\nu}$ by
+$\delta S_{\rm matter}=\frac12\int\sqrt{-g}\,
+T^{\mu\nu}\delta g_{\mu\nu}$ for on-shell matter variations, and let
+\begin{equation}\label{eq:Eg}
+\boxed{\cE_g^{\mu\nu}:=\frac1{\sqrt{-g}}
+\frac{\delta\Gamma}{\delta g_{\mu\nu}}
+=-\frac{1}{16\pi G_N}
+\left(G^{\mu\nu}+\Lambda g^{\mu\nu}
+-8\pi G_N T^{\mu\nu}\right).}
+\end{equation}
+This is a definition of the effective metric Euler derivative,
+not an independent QGD field equation.
+
+% ===================== QGD-115 INSERTION =====================
+\subsection{Why the Einstein--Hilbert form: a uniqueness theorem (QGD--115)}
+\label{sec:lovelock}
+The action~\eqref{eq:action} was introduced as an adopted effective action (A).
+Its \emph{form} need not be adopted. It follows from facts established within QGD
+together with one structural principle.
+
+\paragraph{Established within QGD.}
+\begin{enumerate}
+\item[(i)] \emph{Matter couples only through $g$.} The microscopic action uses a
+vierbein of $g$ and is locally Lorentz invariant, so matter depends on the natural
+invariants only through $g$ (Proposition~\ref{prop:nobeyond}).
+\item[(ii)] \emph{Covariance.} The master metric is tensorial under coordinate
+changes and invariant under frame Lorentz transformations
+(Section~\ref{sec:quantumstructure}).
+\item[(iii)] \emph{Conservation.} Diffeomorphism invariance of the matter action
+gives $\nabla_\mu T^{\mu\nu}=0$ on shell.
+\item[(iv)] \emph{No consistent dynamics beyond $g$ has been found.} The routes
+tested, physical frame redundancies, an antisymmetric pairing field and two
+dynamical frames, were either inconsistent at two-derivative order or required an
+independent postulate (Section~\ref{sec:physics}).
+\end{enumerate}
+
+\paragraph{Principle L (locality and order).} The gravitational equation for the
+natural invariants is local, generally covariant, depends on $\sigma$ only through
+$g$, and contains at most second derivatives of $g$.
+
+\begin{theorem}[Einstein form by uniqueness (D$\mid$L; Lovelock)]\label{thm:lovelock}
+Under (i)--(iii) and Principle~L, in four spacetime dimensions the gravitational
+equation has the form $\mathcal E_{\mu\nu}[g]=\kappa\,T_{\mu\nu}$ with
+$\mathcal E_{\mu\nu}$ symmetric, built from $g$ and its first two derivatives, and
+identically divergence free. By Lovelock's theorem \cite{Lovelock1971,Lovelock1972}
+the only such tensors are $aG_{\mu\nu}+bg_{\mu\nu}$, so
+\begin{equation}\label{eq:lovelock}
+\boxed{G_{\mu\nu}+\Lambda g_{\mu\nu}=\kappa\,T_{\mu\nu}.}
+\end{equation}
+The Newtonian calibration of Chapter~3 then fixes $\kappa=8\pi G_N/c^4$, and the
+action~\eqref{eq:action} is the corresponding variational form, up to boundary
+terms.
+\end{theorem}
+\begin{proof}
+The equation must be divergence free because its source is, by~(iii), for every
+matter configuration. Lovelock's theorem classifies the symmetric, divergence-free
+concomitants of $g$ with at most second derivatives in four dimensions. The
+coupling is the single constant left, and F5 fixes it.
+\end{proof}
+\noindent\textbf{Verification.} On a generic metric with all ten components
+varying, a 50-digit computation gives $\nabla^\mu G_{\mu\nu}=O(10^{-14})$, while
+$\nabla^\mu R_{\mu\nu}$ and $\nabla^\mu(Rg_{\mu\nu})$ are of order $0.1$--$0.7$; the
+unique divergence-free combination $aR_{\mu\nu}+bRg_{\mu\nu}$ has $b/a=-0.5000$.
+
+\paragraph{Status.} The \emph{form} of the gravitational dynamics is derived
+(D$\mid$L), and the \emph{coupling} is fixed by the calibration F5. Three things are
+not derived:
+\begin{itemize}
+\item \textbf{$\Lambda$.} The theorem allows a cosmological term but does not fix its
+value.
+\item \textbf{The second-order requirement.} It is a principle, chosen for a
+well-posed, ghost-free classical limit. Higher-derivative terms, such as the
+logarithmic curvature-squared terms induced by quantum matter, are treated as
+subleading corrections.
+\item \textbf{The value of $G_N$ from the microscopic theory.} Two routes remain
+open. In the induced-gravity route (QGD--114), the one-loop effective action of
+Chapter~1's fields yields the Einstein form, but with one spin-$\frac12$ field and
+one Maxwell field the induced Newton constant is negative and the induced
+cosmological constant is of cutoff order \cite{Sakharov,Visser}. In the
+thermodynamic route \cite{Jacobson}, horizon entropy counts physical degrees of
+freedom positively and $\Lambda$ appears as an integration constant, but an
+equilibrium hypothesis and a physical cutoff are required.
+\end{itemize}
+% =================== END QGD-115 INSERTION ===================
+
+Write the metric-only signed specialization locally as
+\begin{equation}\label{eq:signed}
+g_{\mu\nu}=\bar g_{\mu\nu}
++\sum_s s_s\sigma^{(s)}_\mu\sigma^{(s)}_\nu,
+\qquad s_s:=-\varepsilon_s\in\{+1,-1\}.
+\end{equation}
+All variations below treat the covectors as independent components
+in a fixed frame and hold the background coframe fixed.
+
+\begin{theorem}[Action-defined natural-invariant equation (D$\mid$A)]
+\label{thm:projection}
+For the action \eqref{eq:action} and metric map \eqref{eq:signed},
+the complete Euler derivative of each independent natural-invariant
+covector satisfies
+\begin{equation}\label{eq:Euler}
+\boxed{\cS_{(s)}^\rho
+:=\frac1{\sqrt{-g}}\frac{\delta\Gamma}
+{\delta\sigma^{(s)}_\rho}
+=2s_s\cE_g^{\rho\nu}\sigma^{(s)}_\nu=0.}
+\end{equation}
+Equivalently, with \emph{action-defined} channels,
+\begin{equation}\label{eq:split}
+\boxed{\cS_{(s)}^\rho
+=\underbrace{-\frac{s_s}{8\pi G_N}
+\left(G^{\rho\nu}+\Lambda g^{\rho\nu}\right)
+\sigma^{(s)}_\nu}_{\displaystyle\cG_{(s)}^\rho}
++\underbrace{s_s T^{\rho\nu}\sigma^{(s)}_\nu}
+_{\displaystyle\cT_{(s)}^\rho}
++\underbrace{0}_{\displaystyle\cQ_{(s)}^\rho}=0.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Vary the signed metric while holding other sectors fixed:
+$\delta g_{\mu\nu}=s_s(\delta\sigma^{(s)}_\mu
+\sigma^{(s)}_\nu+\sigma^{(s)}_\mu\delta\sigma^{(s)}_\nu)$.
+Symmetry of $\cE_g^{\mu\nu}$ gives
+$\delta\Gamma=\int\sqrt{-g}\,2s_s\cE_g^{\rho\nu}
+\sigma^{(s)}_\nu\delta\sigma^{(s)}_\rho$.
+Equation \eqref{eq:Euler} follows from independent arbitrary
+compactly supported variations. Substituting \eqref{eq:Eg}
+proves \eqref{eq:split}.
+\end{proof}
+
+\begin{remark}[What the three symbols mean]
+$\cG$ is the effective \emph{geometric-action contribution}, $\cT$
+is the \emph{matter-stress contribution}, and $\cQ$ denotes additional
+terms arising from a \emph{specified} derivative-dependent metric map
+when such a map has actually been defined and varied. Thus $\cQ=0$
+in the metric-only algebraic sector. The letter $Q$ does \emph{not}
+by itself mean ``quantum''. In particular, a genuine quantum
+matter-loop correction to a metric-only effective action modifies
+$\cE_g$, hence the geometric/matter balance, without necessarily
+producing any separate $\cQ$ channel.
+\end{remark}
+
+
+\section{What changes in the unrestricted derivative-dependent metric map}
+\label{sec:derivativemap}
+The master proposal~\eqref{eq:master} permits a nonzero term
+$-\lambda\mathcal Q_{ab}$. Its functional form and coefficient are
+currently unmatched; the existence of a symbol $\mathcal Q_{ab}$
+does not establish the independent field equation $\square_g\sigma_\mu$
+or any particular force correction. A conditional chain rule can,
+however, be proved \emph{before} choosing that operator.
+
+\begin{proposition}[Functional chain rule for a first-derivative metric map]
+\label{prop:jet}
+Hold the reference coframe fixed and suppose the composite metric is a
+smooth local function $g_{\mu\nu}(\sigma,\partial\sigma)$ of the
+independent natural-invariant fields and their first coordinate
+derivatives. Assume the matter and gravitational action depend on
+$\sigma$ only through the resulting metric, and its metric Euler
+variation is
+$\delta\Gamma=\int\dd^4x\,\sqrt{-g}\,\mathcal E_g^{\mu\nu}\,
+\delta g_{\mu\nu}$ after the appropriate boundary treatment.
+Then, for arbitrary compactly supported $\delta\sigma$, the
+natural-invariant Euler derivative obeys
+\begin{equation}\label{eq:jet}
+\boxed{\displaystyle
+\frac{\delta\Gamma}{\delta\sigma^{(s)}_\rho}
+=\sqrt{-g}\,\mathcal E_g^{\mu\nu}
+\frac{\partial g_{\mu\nu}}{\partial\sigma^{(s)}_\rho}
+-\partial_\alpha\!\left(
+\sqrt{-g}\,\mathcal E_g^{\mu\nu}
+\frac{\partial g_{\mu\nu}}
+{\partial(\partial_\alpha\sigma^{(s)}_\rho)}\right).}
+\end{equation}
+If $g$ depends on second or higher derivatives of $\sigma$, the
+corresponding alternating higher total derivatives are required.
+Direct nonmetric $\sigma$ couplings add their \emph{own} Euler
+functional derivatives.
+\end{proposition}
+\begin{proof}
+Use the ordinary chain rule on the specified local metric map,
+substitute into the metric Euler variation, and integrate by parts
+the term proportional to
+$\partial_\alpha\delta\sigma^{(s)}_\rho$. Compact support removes
+the boundary contribution. A second integration-by-parts argument
+handles second derivatives, and so on.
+\end{proof}
+This equation expresses \emph{how} a well-defined derivative metric
+operator would enter; it does not determine an independent kinetic
+coefficient from the already accepted action. Without the actual
+$\mathcal Q_{ab}$ and its admissible boundary terms, no numerical
+quantum-force coefficient can be assigned to this contribution.
+
+% === QGD-101 insertion, corrected QGD-105 ===
+\begin{remark}[The derivative channel on Chapter~2's constructed branch (QGD--101/105)]
+\label{rem:Q-absorbed}
+For both trial completions of $\mathcal Q$ in Chapter~2 and any $\lambda\neq0$,
+Chapter~2 constructs a particular nine-sector branch on which the metric map has
+a differential right inverse (Theorems on the nine-sector lift). On that branch,
+a metric-mediated action gives exactly the effective metric equations, whatever
+$\lambda$ is. As Chapter~2 states, this concerns a particular spanning branch,
+not all field configurations; on other branches, or with $\sigma$ dependence not
+passing through $g$, the question remains open.
+\end{remark}
+% === end QGD-101/105 insertion ===
+
+\section{Does this equation say anything beyond GR?}
+\label{sec:equivalence}
+One projected field equation per covector need not contain all ten
+independent symmetric metric equations. What matters is the rank of
+the map from independently variable signed covectors to the ten
+metric components.
+
+\begin{proposition}[Exact regular signed section (D)]
+\label{prop:section}
+In a fixed local reference frame let $h_{\mu\nu}
+=g_{\mu\nu}-\bar g_{\mu\nu}$ be any real symmetric $4\times4$
+matrix. For any constant $a>0$ set
+\begin{equation}\label{eq:PN}
+\boxed{P=aI_4+\frac{h}{4a},\qquad
+N=aI_4-\frac{h}{4a}.}
+\end{equation}
+The four rows of $P$ and four rows of $N$ define eight signed
+covectors, and
+\begin{equation}\label{eq:identity}
+\boxed{P^{\mathsf T}P-N^{\mathsf T}N=h.}
+\end{equation}
+For every symmetric variation $\delta h$, the choice
+$\delta P=\delta h/(4a)$ and $\delta N=-\delta h/(4a)$
+yields $\delta g=\delta h$. Thus the metric differential has rank ten
+on this section.
+\end{proposition}
+\begin{proof}
+Expand both products in \eqref{eq:identity}; the $a^2I$
+and $h^2/(16a^2)$ terms cancel, leaving $h$.
+Differentiation gives the displayed right inverse.
+\end{proof}
+
+\begin{theorem}[Conditional equivalence with Einsteinian dynamics (D$\mid$A)]
+\label{thm:equiv}
+Suppose the full effective action depends on the signed covectors
+\emph{only through} $g(\sigma)$, and the admissible covector
+variations possess a local right inverse to arbitrary symmetric
+metric variations, as on the section \eqref{eq:PN}. Then
+\begin{equation}\label{eq:equivalence}
+\boxed{\cS_{(s)}^\rho=0\ \text{for every sector }s
+\quad\Longleftrightarrow\quad
+\cE_g^{\mu\nu}=0.}
+\end{equation}
+Thus, on this regular full-rank branch, the action-derived
+natural-invariant equations are equivalent to the \emph{specified}
+effective Einstein--matter equations.
+\end{theorem}
+\begin{proof}
+If $\cE_g=0$, every projected Euler derivative is zero.
+Conversely, let every covector Euler derivative vanish.
+Use the differential right inverse of Proposition~\ref{prop:section}
+to express any compactly supported symmetric metric test variation
+as an admissible signed-covector variation. Then
+$\delta\Gamma=0$ for all metric tests and the fundamental lemma
+of the calculus of variations gives $\cE_g=0$.
+\end{proof}
+
+\noindent\textbf{Interpretation.}
+Writing the Einsteinian equations using natural invariants is a
+nontrivial local representation and an alternative choice of variables.
+It does \emph{not}, by itself, generate additional observables beyond
+GR. In the metric-only sector the transformation
+$S\mapsto O(x)S$ with $S=\binom{P}{N}$ and
+$O^{\mathsf T}\mathrm{diag}(I_4,-I_4)O=\mathrm{diag}(I_4,-I_4)$
+leaves $g$ unchanged. The resulting local $O(4,4)$ freedom is a
+parametrization redundancy wherever it is a symmetry of the complete
+action and matter couplings. A physical $\sigma$ representative need
+not be unique; adding direct interactions could change this symmetry.
+
+\section{The calibrated gravitational field and the normalization distinction}
+\label{sec:connection}
+Chapter~3 independently varies both components $A(r)$ and $B(r)$ of
+the declared classical spherical one-form $\sigma=A\,\dd x^0+B\,\dd r$,
+without setting $A=B$ in the action. On its nondegenerate, asymptotically
+flat vacuum branch, the adopted Einstein--Hilbert sector gives
+\begin{equation}\label{eq:classical}
+\boxed{\displaystyle A(r)^2=B(r)^2=\frac{C_g}{r},\qquad
+ C_g=\frac{2G_NM}{c^2}=:r_s.}
+\end{equation}
+The value of $C_g$ is fixed \emph{once} by the Newtonian exterior
+acceleration. It is not derived from the microscopic Dirac equation;
+its calibration is legitimate correspondence with the observed
+Newtonian mass parameter, as in the historical Einstein normalization.
+No other coefficient is adjusted to recover higher orders.
+
+When an independently selected reference fermion mass $m_{\rm ref}>0$
+supplies a reduced Compton length $\bar\lambda_{\rm ref}=\hbar/(m_{\rm ref}c)$,
+Chapter~3 defines the dimensionless \emph{geometric inverse-strength
+convention}
+\begin{equation}\label{eq:alphageom}
+\boxed{\displaystyle |\alpha_G^{\rm geom}|^2:=\frac{\bar\lambda_{\rm ref}}{C_g}
+=\frac{\hbar c}{2G_NMm_{\rm ref}}.}
+\end{equation}
+The original common spinor multiplier $\alpha_G^{\rm spin}$ in
+$\Psi=(\alpha_G^{\rm spin}/r)\sum_a\psi_a u_a e^{\pm iS_a/\hbar}$
+is \emph{not} thereby normalized from the geometric equations.
+Indeed, the simultaneous change
+$\alpha_G^{\rm spin}\mapsto z\alpha_G^{\rm spin}$,
+$\psi_a\mapsto\psi_a/z$ with $z\ne0$ leaves the physical state
+unchanged. Its absolute normalization comes from an independently
+specified current or occupied-state convention. In particular,
+$\alpha_G^{\rm spin}=\alpha_G^{\rm geom}$ is not a theorem of
+Chapters~1--3.
+
+The observable static Killing-energy potential per unit held test
+mass is
+\begin{equation}\label{eq:pot}
+\boxed{\displaystyle\Phi_{\rm stat}(r)=c^2\left(\sqrt{1-\frac{C_g}{r}}-1\right),
+\qquad r>C_g.}
+\end{equation}
+Its convergent, wholly \emph{classical} expansion is
+\begin{equation}\label{eq:classseries}
+\boxed{\displaystyle\Phi_{\rm stat}(r)=-\frac{G_NM}{r}
+-\frac{G_N^2M^2}{2c^2r^2}
+-\frac{G_N^3M^3}{2c^4r^3}
+-\frac{5G_N^4M^4}{8c^6r^4}+\cdots .}
+\end{equation}
+All powers of $\hbar$ cancel when \eqref{eq:alphageom} is used
+merely as a parametrization of $C_g$. Thus these higher orders are
+not evidence of quantum-corrected vacuum gravity.
+
+\section{The microscopic Dirac bridge: what it fixes}\label{sec:bridge}
+For one locally on-shell, positive-energy, outward-propagating Dirac
+WKB branch with conserved particle flux $\dot N>0$, Chapter~1 and
+Chapter~3 give the magnitude-only current identity
+\begin{equation}\label{eq:fluxbridge}
+\boxed{\displaystyle |\alpha_G^{\rm spin}\psi_0(r)|^2
+=\frac{\dot N\,\Delta(r)}{8\pi c^2p(r)},\qquad
+\Delta=E_{\rm loc}+m_{\rm eff}c^2,\quad p>0.}
+\end{equation}
+This is a transport constraint. It determines the envelope only
+relative to an independently fixed momentum profile and flux; it does
+\emph{not} determine a $1/r$ gravitational potential, the geometric
+normalization, or an absolute phase. A static bound source with
+zero net radial current is \emph{not} normalized using this outgoing
+flux formula. Its spinor profiles must be obtained from its own
+coupled boundary-value equations with conserved occupation.
+
+\section{A controlled quantum matter contribution to the source}\label{sec:quantumsource}
+To make the $\hbar$ dependence precise without silently inserting a
+new gravitational operator, use a stated positive-energy,
+fixed-spin, nonrelativistic Dirac-to-Pauli limit and write
+$\varphi=\sqrt n\,e^{iS/\hbar}\chi$ with constant unit Pauli
+spinor $\chi$, $n>0$, and fermion mass $m_f>0$.
+The polar identity for the Schr\"odinger kinetic energy is
+\begin{equation}\label{eq:quantumenergy}
+\boxed{\displaystyle E_{\rm kin}[n,S]
+=\int\dd^3x\left[
+\frac{n|\bm\nabla S|^2}{2m_f}
++\frac{\hbar^2}{8m_f}\frac{|\bm\nabla n|^2}{n}\right].}
+\end{equation}
+The quantum density-gradient functional and associated momentum-flux
+tensor (one admissible improvement convention) satisfy
+\begin{equation}\label{eq:qstress}
+\boxed{\displaystyle Q[n]=-\frac{\hbar^2}{2m_f}
+\frac{\nabla^2\sqrt n}{\sqrt n},\qquad
+\Pi^Q_{ij}=\frac{\hbar^2}{4m_f}
+\left(\frac{\partial_i n\partial_j n}{n}-\partial_i\partial_j n\right),\qquad
+\partial_j\Pi_{ij}^Q=n\partial_i Q.}
+\end{equation}
+This is a derived coefficient of \emph{quantum matter stress},
+not a derived coefficient of a standalone
+$\hbar^2(\nabla\sigma)^2$ gravitational kinetic term.
+To leading nonrelativistic order, the \emph{adopted} sourced
+Einstein--Hilbert equations reduce to Poisson's law:
+\begin{equation}\label{eq:Uquantum}
+\boxed{\displaystyle
+\nabla^2\Phi=4\pi G_Nm_fn,\qquad
+\mathcal U:=-\frac{2\Phi}{c^2},\qquad
+\nabla^2\mathcal U=-\frac{8\pi G_Nm_f}{c^2}n.}
+\end{equation}
+If the physical source profile $n(x;\hbar)$ is independently determined
+from its quantum dynamics, its $\hbar$ dependence influences the
+sourced metric and consequently the corresponding temporal
+natural-invariant \emph{combination}. This is a source effect, not a
+new vacuum propagation law. Relativistic stress, pressure, spin,
+multi-orbital occupations and binding require the complete
+Dirac--Einstein source instead of simply substituting one $n$.
+
+\begin{proposition}[Compact spherical exterior at fixed mass (D$\mid$A)]
+\label{prop:exterior}
+Let $\rho_\hbar(r)$ be an integrable, nonnegative spherically symmetric
+mass density with fixed total mass
+$M=4\pi\int_0^\infty\rho_\hbar(r)r^2\,\dd r$, compactly supported
+in $r\leq R$. Assume Poisson's equation and $\Phi(\infty)=0$.
+Then $\Phi(r)=-G_NM/r$ and
+$F_r=-G_NMm_t/r^2$ for every $r>R$, independently of the interior
+$\hbar$ dependence.
+\end{proposition}
+\begin{proof}
+Spherical Poisson integration gives
+$r^2\Phi'(r)=4\pi G_N\int_0^r\rho_\hbar(s)s^2\,\dd s$.
+The integral equals $M/(4\pi)$ outside the support. Integrate once
+more with the stated asymptotic boundary condition.
+\end{proof}
+Thus a universal exterior term proportional to
+$G_NM\hbar^2/(m_f^2c^2r^4)$ does \emph{not} follow from changing only
+the profile of a compact spherical quantum source while keeping its
+mass and the Poisson law fixed. Noncompact sources, altered total mass,
+non-spherical multipoles or independently derived quantum field
+equations are distinct questions.
+% === QGD-113 insertion ===
+\begin{remark}[Varying spin (QGD--113)]
+The fixed-spin assumption above is a special case. When the spin direction
+$\hat s$ varies, the exact spin-$\frac12$ flow law of Section~\ref{sec:spinhalf} adds the
+spin quantum potential $(\hbar^2/8m_f)|\nabla\hat s|^2$ and a spin-vorticity force; both
+vanish for constant $\hat s$, recovering Eq.~\eqref{eq:qstress}.
+\end{remark}
+% === end QGD-113 insertion ===
+
+\section{Status of the historical quantum-force candidate}\label{sec:historicalforce}
+The proposed universal attractive force
+\begin{equation}\label{eq:historic9}
+\boxed{\displaystyle F_{r,\rm hist}=-\frac{G_NMm_t}{r^2}
+\left[1+\frac92\left(\frac{\hbar}{m_fc r}\right)^2+\cdots\right]}
+\end{equation}
+remains a historical \emph{candidate}, not a conclusion of the
+accepted action. The reciprocal of $e^{2im_fcr/\hbar}$ is
+$e^{-2im_fcr/\hbar}$: inverting nonconstant Taylor terms separately
+does not invert the complete exponential. The historical cubic energy
+also gives a sign opposite to an enhancement of attraction.
+
+A first-order weak-field expansion of a specified Liouville-normal,
+separated Schwarzschild radial Dirac equation produces coefficients
+depending on its angular channel $\kappa$. Their derivatives are
+not coordinate-, tetrad-, or field-redefinition-invariant force
+observables. In particular the lowest $\kappa=-1$ channel does not
+produce the historical term at order $G_N\hbar^2/r^4$ in that normal
+form. Nothing here establishes a universal quantum change to the
+exterior gravitational acceleration. To claim one, first derive a
+covariant $\hbar$-dependent action, vary it including all connection
+and metric dependence, and calculate a gauge-/representation-invariant
+physical observable.
+
+
+
+\subsection{Independent referee test of the radial Dirac coefficient (QGD--098)}
+\label{sec:radial-referee}
+The following is a \emph{conditional theorem about a quantum test field}.
+It does not modify the natural-invariant field equations. Adopt the
+classical, Newton-calibrated Schwarzschild exterior of
+Eq.~\eqref{eq:classical}, minimally couple a massive four-component
+Dirac field through the induced orthonormal-frame spin connection,
+and use the standard separated, fixed-tetrad radial basis. This
+additional coupling and the reduction to a single radial mode are
+assumptions of the \emph{test-field model}, not consequences of the
+flat-space spinor-component ratios alone. Keep $r>r_s>0$ and define
+\begin{equation}\label{eq:radial-parameters}
+\ell_C:=\frac{\hbar}{m_fc},\quad x:=\frac r{\ell_C},\quad
+ a:=\frac{r_s}{\ell_C},\quad e:=\frac{E}{m_fc^2},\quad
+ F:=1-\frac ax,\quad \frac{\dd}{\dd x_*}:=F\frac{\dd}{\dd x},
+\end{equation}
+where $\kappa\in\mathbb Z\setminus\{0\}$ is the spinor angular
+index. For the stated radial spinor gauge the first-order field
+equations read
+\begin{equation}\label{eq:radial-first-order}
+\boxed{\begin{aligned}
+\frac{\dd f}{\dd x_*}&=(e+\sqrt F)g-\frac{\kappa\sqrt F}{x}f,\\
+\frac{\dd g}{\dd x_*}&=\frac{\kappa\sqrt F}{x}g+(\sqrt F-e)f.
+\end{aligned}}
+\end{equation}
+\begin{proposition}[Liouville-normal radial coefficient (D$\mid$A)]
+\label{prop:radial-test}
+Assume Eqs.~\eqref{eq:radial-parameters}--\eqref{eq:radial-first-order},
+$e=1$, and $a/x<1$. Put $B:=1+\sqrt F$, $K:=\kappa\sqrt F/x$, and
+\begin{equation}\label{eq:radial-pq}
+P:=\frac{F_x}{F}-\frac{B_x}{B},\qquad
+Q:=F K_x-F\frac{B_x}{B}K-K^2+1-F.
+\end{equation}
+Then elimination of $g$ gives
+\begin{equation}\label{eq:radial-second-order}
+f_{xx}+P f_x+\frac Q{F^2}f=0.
+\end{equation}
+After the invertible local Liouville rescaling
+$f=\exp(-\tfrac12\int P\,\dd x)u$, the transformed equation is
+\begin{equation}\label{eq:radial-liouville}
+\boxed{u_{xx}+\mathcal V_\kappa(x,a)u=0,\qquad
+\mathcal V_\kappa=\frac Q{F^2}-\frac12P_x-\frac14P^2.}
+\end{equation}
+Its expansion at fixed $x>0$ about $a=0$ is
+\begin{equation}\label{eq:radial-series-general}
+\boxed{\begin{aligned}
+\mathcal V_\kappa={}&-\frac{\kappa(\kappa+1)}{x^2}
++\frac ax+\frac{3-4\kappa^2-\kappa}{4}\frac a{x^3}\\
+&+\frac{2a^2}{x^2}
++\frac{-64\kappa^2+4\kappa+69}{64}\frac{a^2}{x^4}
++O(a^3).
+\end{aligned}}
+\end{equation}
+In particular,
+\begin{equation}\label{eq:radial-kminus1}
+\boxed{\mathcal V_{-1}(x,a)=\frac ax+\frac{2a^2}{x^2}
++\frac{a^2}{64x^4}+O(a^3),}
+\end{equation}
+so the $O(a/x^3)$ correction vanishes in the $\kappa=-1$
+channel. The displayed expansions are local analytic expansions
+under the stated hypotheses; they are not uniform near $r=r_s$.
+\end{proposition}
+\begin{proof}
+Solve the first equation in \eqref{eq:radial-first-order} for
+$g=(Ff_x+Kf)/B$. Differentiate with respect to $x_*$, substitute the
+second equation, and collect the $f_x$ and $f$ coefficients to
+obtain Eq.~\eqref{eq:radial-second-order}. Direct differentiation
+of the Liouville rescaling gives Eq.~\eqref{eq:radial-liouville}.
+Using $\sqrt{1-a/x}=1-a/(2x)-a^2/(8x^2)+O(a^3)$ in the resulting
+\emph{exact} coefficient gives Eq.~\eqref{eq:radial-series-general}.
+Setting $\kappa=-1$ proves Eq.~\eqref{eq:radial-kminus1}.
+\end{proof}
+\begin{remark}[What is and is not a quantum force]
+\label{rem:radial-not-force}
+At $e=1$ one may \emph{formally} rewrite
+Eq.~\eqref{eq:radial-liouville} as a zero-energy one-dimensional
+Schr\"odinger equation, with
+$U_{\rm radial}:=-m_fc^2\mathcal V_\kappa/2$.
+Its $O(a/x^3)$ contribution is
+\begin{equation}\label{eq:radial-gamma}
+\delta U_\kappa=-\gamma_\kappa
+\frac{G_NM\hbar^2}{m_fc^2r^3},\qquad
+\gamma_\kappa:=\frac{3-4\kappa^2-\kappa}{4}.
+\end{equation}
+Differentiating this \emph{representation-dependent radial term} yields
+$-3\gamma_\kappa G_NM\hbar^2/(m_fc^2r^4)$, but this is
+\textbf{not} by itself a local force observable or an invariant
+correction to the gravitational metric. In particular,
+$\gamma_{-1}=0$ and $\gamma_{+1}=-1/2$. The historical 
+\emph{attractive} coefficient $9/2$ would require
+$\gamma_\kappa=3/2$, i.e.
+$4\kappa^2+\kappa+3=0$, which has no real root.
+The $a^2/(64x^4)$ term at $\kappa=-1$ is likewise an
+\emph{effective radial-equation coefficient}, not a new vacuum
+Einstein tensor. It must not be reported as a distinct QGD
+quantum-gravitational force.
+\end{remark}
+\paragraph{Referee/proof boundary.}
+The result above rests on a stated classical Schwarzschild exterior,
+the minimally coupled test Dirac equation, a fixed tetrad and spinor
+angular basis, and a specified threshold energy $e=1$. It therefore
+follows from Chapters~1--2 only \emph{after} their declared effective
+metric/Dirac coupling is adopted. It is not derived solely from the
+flat-space macroscopic Dirac ratios. Exact symbolic differentiation
+verifies Eqs.~\eqref{eq:radial-second-order}--\eqref{eq:radial-kminus1};
+this is not a Lean-kernel proof. A physical quantum-gravity claim
+would additionally require the modified, conserved metric/source
+field equations and an invariant observable, with no further fit
+to the historical $9/2$ coefficient.
+
+
+\section{A published semiclassical Dirac benchmark in natural-invariant variables}
+\label{sec:diracbenchmark}
+The historical $9/2$ Compton-scale force is not established by the
+original phase manipulation.  There is, however, a distinct and
+quantitatively fixed $\hbar$-dependent \emph{gravitational} correction
+that can be imported into the effective metric sector.  Carlson,
+Anderson, Fabbri, Fagnocchi, Hirsch and Klyap computed the leading
+far-field renormalized stress tensor of one free \emph{massless
+four-component} Dirac field in an asymptotically empty (Boulware)
+state, and checked its gravitational backreaction against previous
+one-loop calculations~\cite{Carlson2010}.  This is a benchmark of
+semiclassical Einstein--Dirac physics, not an independent derivation
+of gravitational dynamics from the original flat-space QGD Dirac action.
+
+\begin{proposition}[Massless Dirac far-field gravitational correction
+(D$\mid$A)]\label{prop:diracfarfield}
+Adopt the metric-only effective Einstein--Hilbert action with a
+minimally coupled quantized free massless four-component Dirac field,
+the renormalized Boulware state, asymptotic flatness, fixed ADM mass
+$M>0$, areal radius $r$, and leading-order semiclassical backreaction.
+In units $G_N=c=\hbar=1$, the published leading stress tensor is
+\begin{equation}\label{eq:diracRSET}
+\boxed{\left\langle T^\mu{}_{\nu}\right\rangle_{\rm ren}
+=\frac{M}{40\pi^2r^5}\,
+\operatorname{diag}(4,2,-3,-3)+O(r^{-6}).}
+\end{equation}
+For the far-field static metric
+\begin{equation}\label{eq:scmetric}
+\dd s^2=-f(r)\dd t^2+
+\left(1-\frac{2\mathfrak m(r)}r\right)^{-1}\dd r^2
++r^2\dd\Omega^2,\qquad
+f(r)=\left(1-\frac{2\mathfrak m(r)}r\right)e^{2\nu(r)},
+\end{equation}
+the asymptotically normalized functions satisfy
+\begin{align}
+\mathfrak m(r)&=M\left(1+\frac1{5\pi r^2}\right)
++O(r^{-3}),\label{eq:massfn}\\
+\nu(r)&=\frac{M}{15\pi r^3}+O(r^{-4}),\label{eq:nufn}\\
+f(r)&=1-\frac{2M}{r}-\frac{4M}{15\pi r^3}
++O(r^{-4}),\label{eq:scf}
+\end{align}
+where in the last expression $O(r^{-4})$ also includes mixed
+classical--semiclassical orders.  Restoring $G_N,c,\hbar$, the
+\emph{leading far-field} supported-static-body Killing-energy
+potential per unit test mass is
+\begin{equation}\label{eq:QGD97Phi}
+\boxed{\begin{aligned}
+\Phi_{\rm QGD}^{\rm sc}(r)={}&c^2\left(
+\sqrt{1-\frac{2G_NM}{c^2r}}-1\right)\\
+&-\frac{2G_N^2M\hbar}{15\pi c^3r^3}
++O\!\left(\frac{G_N^3M^2\hbar}{c^5r^4}\right)
++O(\hbar^2),
+\end{aligned}}
+\end{equation}
+where the final $O(\hbar^2)$ denotes omitted higher quantum orders,
+not a uniform SI-dimensional bound.  The displayed quantum coefficient
+is meaningful in the far field $r\gg r_s=2G_NM/c^2$, where the
+quantum backreaction is perturbatively small.  It must not be
+extrapolated unchanged to $r\simeq r_s$.
+\end{proposition}
+\begin{proof}
+For the ansatz \eqref{eq:scmetric}, the radial Einstein equations
+at leading quantum order read
+\begin{equation}\label{eq:scEFE}
+\mathfrak m'=-4\pi r^2\langle T^t{}_t\rangle_{\rm ren},
+\qquad
+\nu'=\frac{4\pi r
+(\langle T^r{}_r\rangle_{\rm ren}
+-\langle T^t{}_t\rangle_{\rm ren})}
+{1-2\mathfrak m/r}.
+\end{equation}
+Substituting \eqref{eq:diracRSET} gives
+$\mathfrak m'=-2M/(5\pi r^3)$ and
+$\nu'=-M/(5\pi r^4)+O(r^{-5})$.
+Integrating with $\mathfrak m(\infty)=M$ and $\nu(\infty)=0$
+proves \eqref{eq:massfn}--\eqref{eq:nufn}.  Consequently
+$f=1-2M/r-4M/(15\pi r^3)+O(r^{-4})$.
+For an observer held static in this exterior,
+$\Phi=c^2(\sqrt{f}-1)$; expanding to first order in the
+renormalized Dirac stress and restoring dimensions proves
+\eqref{eq:QGD97Phi}.  This is a sourced asymptotic expansion,
+not the solution of a freely chosen scalar force law.
+\end{proof}
+
+\begin{remark}[Quantum gravitational force and Planck-scale residue]
+The \emph{quantum part} of the signed radial force on a held static
+test mass $m_t$ has leading far-field behavior
+\begin{equation}\label{eq:scforce}
+\boxed{\delta F_r^{\rm sc}
+=-\frac{2G_N^2Mm_t\hbar}{5\pi c^3r^4}
++\text{higher orders}.}
+\end{equation}
+Relative to the Newtonian attraction, its leading magnitude is
+$\frac{2}{5\pi}\frac{G_N\hbar}{c^3r^2}$,
+which is governed by the Planck length squared, not the inverse
+square of an arbitrarily selected probe mass.  It is therefore
+\emph{not} the historical $(9/2)(\hbar/(m_fc r))^2$ correction.
+The classical piece $-m_t\Phi_{\rm stat}'$ remains defined by the
+exact background square root.  The quantum term is a controlled
+far-field correction, not an exact all-radius force.
+\end{remark}
+
+\begin{remark}[Natural-invariant reconstruction and status]
+The full signed/tetrad QGD master metric \eqref{eq:master} is
+unchanged.  For the nondegenerate one-sector static spherical
+\emph{metric representation} discussed in Chapter~2, write
+$\sigma=A(r)\dd t+B(r)\dd r$ and put
+$F=1-A^2$, $D=1+B^2-A^2$ so that the diagonal radial metric
+coefficient is $D/F$.  Reconstruct the semiclassical metric by
+$A^2=1-f$ and $D/F=(1-2\mathfrak m/r)^{-1}$.
+Then, in the far field and to the first displayed quantum order,
+\begin{equation}\label{eq:scsigmaAB}
+\boxed{\begin{aligned}
+A^2(r)&=\frac{2M}{r}+\frac{4M}{15\pi r^3}
++O(r^{-4}),\\
+B^2(r)&=\frac{2M}{r}+\frac{2M}{5\pi r^3}
++O(r^{-4})
+\end{aligned}}
+\qquad(G_N=c=\hbar=1).
+\end{equation}
+Thus the familiar equality $A^2=B^2$ is a property of the
+classical Schwarzschild branch, \emph{not} of the quantum-corrected
+source.  This construction shows that QGD variables can
+represent the published semiclassical metric; it does not
+establish a new dynamical law for $\sigma_\mu$.
+\end{remark}
+
+\paragraph{Assumptions and formal-verification boundary.}
+The algebraic implications from \eqref{eq:diracRSET} and
+\eqref{eq:scEFE} to \eqref{eq:QGD97Phi} are suitable for a
+Lean-style theorem once analytic asymptotic bounds and positivity
+conditions on the metric are specified.  The renormalized-stress
+coefficient in \eqref{eq:diracRSET} is a \emph{published quantum
+field-theoretic input}, not a theorem derived from Chapter~1.
+The complete original four-mode wavefunction has not been proved
+to generate this Boulware vacuum as its unique quantum state.
+At the current metric-only effective level, the equivalence theorem
+in the next section applies: this correction is already predicted
+by semiclassical GR with the same Dirac matter.
+
+
+\section{Can QGD predict a quantum force independently of semiclassical GR?}
+\label{sec:independent}
+This is the central discriminating question of QGD--096. Here
+\emph{semiclassical Einstein gravity} means a classical metric sourced by
+a renormalized expectation value or effective action of quantum matter;
+\emph{quantized gravitational effective field theory} includes
+fluctuations of the gravitational field itself. The two comparisons are
+different. A Dirac wave in a prescribed metric, the quantum-potential
+term of a Pauli reduction, and an $\hbar$-dependent source profile are
+not, by themselves, quantum corrections to the gravitational vacuum
+response. The relevant test is an invariant observable calculated from
+an effective dynamics which QGD derives but which the selected GR-plus-
+quantum-matter comparator does not already possess.
+
+\begin{theorem}[Metric-only quantum-equivalence obstruction (D$\mid$A)]
+\label{thm:quantumno-go}
+Let $\mathcal F$ be the algebraic signed-sector map $\sigma\mapsto
+g[\sigma]$ on a regular branch whose differential is surjective onto
+symmetric metric variations, with identical boundary conditions and
+matter states on both sides. Let $\Gamma_{\rm sc}[g,\Psi]$ be a
+specified semiclassical Einstein--matter effective functional,
+possibly including renormalized quantum matter loops, and assume
+\begin{equation}\label{eq:qgd-sc-pullback}
+\boxed{\Gamma_{\rm QGD}[\sigma,\Psi]
+=\Gamma_{\rm sc}[\mathcal F(\sigma),\Psi]}
+\end{equation}
+with no independent $\sigma$ interaction or separately quantized
+$\sigma$ measure. Then stationary QGD fields on this branch and
+stationary fields of $\Gamma_{\rm sc}$ determine the same set of
+physical metrics and metric/matter observables. In particular, no
+additional universal $\hbar$-dependent gravitational-force coefficient
+is implied solely by expressing $g$ through $\sigma$.
+\end{theorem}
+\begin{proof}
+For any admissible variation, the functional chain rule gives
+\begin{equation}\label{eq:quantum-pullback-chain}
+\delta\Gamma_{\rm QGD}
+=\int\dd^4x\,\sqrt{-g}\,\mathcal E_{\rm sc}^{\mu\nu}
+\frac{\partial g_{\mu\nu}}{\partial\sigma^{(s)}_\rho}
+\delta\sigma^{(s)}_\rho
++\delta_\Psi\Gamma_{\rm sc},
+\end{equation}
+where repeated sector indices are summed. A stationary metric of
+$\Gamma_{\rm sc}$ therefore makes the QGD pullback stationary.
+Conversely, by surjectivity every compactly supported symmetric
+$\delta g$ is induced by an admissible $\delta\sigma$; stationarity
+of the pullback and the independently imposed matter equations imply
+$\mathcal E_{\rm sc}^{\mu\nu}=0$. Because all specified observables
+are functionals of the same physical metric and matter state, they
+agree. The result is an on-shell, mean-effective-action theorem: it
+makes no claim about quantizing the redundant variables with a new
+functional measure, about rank-deficient branches, or about a
+new action not covered by \eqref{eq:qgd-sc-pullback}.
+\end{proof}
+
+\begin{remark}[What the theorem does, and does not, rule out]
+It rules out \emph{new observable coefficients arising from a metric
+reparametrization alone}. It does not forbid a distinct QGD quantum
+mechanism. For example, an independently matched covariant correction
+$\Delta\Gamma_{\rm QGD}[\sigma,\Psi;\hbar]$ could alter the field
+equations, whether through additional natural-invariant physics, a
+quantum-derived metric operator, or a consistently specified quantum
+measure. But a coefficient copied from a known GR effective action,
+or chosen to reproduce the historical force, would not constitute an
+independent QGD prediction. A meaningful comparison must specify
+the same physical source, asymptotic conditions, renormalization
+prescription, and gauge-invariant observables.
+\end{remark}
+
+\subsection{An exact exterior test of the historical $9/2$ law}
+\label{sec:poisson-residual}
+The attractive force candidate in Eq.~\eqref{eq:historic9} can be
+integrated unambiguously at the displayed order. Put
+$\ell_C=\hbar/(m_fc)$, where the reference species $m_f$ must be
+specified independently. In the weak-field nonrelativistic
+interpretation, $F_r=-m_t\partial_r\Phi$ and $\Phi(\infty)=0$ imply
+\begin{equation}\label{eq:quantum-candidate-potential}
+\boxed{\displaystyle
+\Phi_{9/2}(r)=-\frac{G_NM}{r}
+-\frac{3G_NM\ell_C^2}{2r^3}
++\text{higher-order terms}.}
+\end{equation}
+For the isolated displayed $r^{-3}$ term and $r>0$,
+$\nabla^2(r^{-3})=6r^{-5}$, so
+\begin{equation}\label{eq:quantum-laplacian-test}
+\boxed{\displaystyle
+\nabla^2\Phi_{9/2}(r)=-\frac{9G_NM\ell_C^2}{r^5}\ne0
+\quad (r>R),}
+\end{equation}
+where $R$ is the support radius of an assumed compact source and
+higher-order terms have been omitted consistently. If one tried to
+retain the \emph{unmodified} Poisson equation, the same radial tail
+would demand an exterior effective density
+\begin{equation}\label{eq:quantum-rho-eff}
+\boxed{\displaystyle
+\rho_{\rm eff}(r)=-\frac{9M\ell_C^2}{4\pi r^5},
+\qquad r>R,}
+\end{equation}
+which is not the original empty exterior. This is a diagnostic
+\emph{effective} density, not a claim about negative physical matter.
+Therefore the historical universal correction cannot be generated
+solely by changing a compact spherical source profile under the same
+vacuum Poisson equation; it requires a justified exterior quantum
+source/response, a modified field equation, or other physics.
+
+At the fully relativistic level, this weak-field calculation is not
+by itself a complete covariant metric solution. The independently
+varied Einstein--Hilbert vacuum branch of Chapter~2 already fixes
+the exact spherical exterior to Schwarzschild. A new universal
+$1/r^3$ metric perturbation must consequently be checked against the
+\emph{complete} modified field equations and their conservation and
+boundary conditions; a scalar force ansatz cannot perform that check.
+If $m_f$ denotes the test particle mass, its Compton scale also makes
+the force state/species-dependent, so the claim is not automatically a
+universal exterior metric correction.
+
+\subsection{A falsifiable QGD-specific matching test}
+\label{sec:delta-action}
+A future new term should be expressed as the difference between a
+microscopically justified QGD effective functional and the specified
+semiclassical comparator:
+\begin{equation}\label{eq:delta-gamma}
+\boxed{\displaystyle
+\Delta\Gamma[\sigma,\Psi;\hbar]
+:=\Gamma_{\rm QGD}[\sigma,\Psi;\hbar]
+-\Gamma_{\rm sc}[g[\sigma],\Psi;\hbar].}
+\end{equation}
+At fixed physical matter state and boundary data, a nonzero
+$\Delta\Gamma$ is \emph{necessary but not sufficient} for a new
+observable: it may contain a boundary term, a redundancy, or an
+operator removable by permissible redefinitions. The minimum
+verification gates are:
+\begin{enumerate}
+\item Derive $\Delta\Gamma$ from the stated microscopic/macroscopic
+ Dirac construction or declare any additional physical axiom.
+\item Specify its covariant dependence on the full signed master
+ metric, $\sigma^{(s)}$, and any derivative operators; include its
+ independent normalization, units and boundary terms.
+\item Vary the \emph{complete} functional, including connection,
+ coframe, stress-energy and possible nonlocal contributions, and
+ check Bianchi/conservation identities and regular branches.
+\item Fix at most the permitted Newtonian calibration coefficient,
+ then predict a second observable without re-fitting it.
+\item Compare with \emph{both} semiclassical GR plus quantum matter
+ and, where applicable, low-energy quantized-GR effective-field-theory
+ corrections, at matched sources and renormalization convention.
+\end{enumerate}
+A quantum Dirac radial equation in the unmodified Schwarzschild metric
+meets none of the first three gates for a new \emph{gravitational
+field} operator. The previously derived quantum density-gradient
+stress meets the microscopic matter-side test, but its gravitational
+consequences within Eq.~\eqref{eq:action} are also consequences of
+the chosen semiclassical Einstein--matter system. Hence the present
+QGD action does \emph{not yet} close the deeper foundational gap of
+demonstrating that QGD itself predicts a quantum correction
+independently of semiclassical general relativity.
+
+
+% ===================== QGD-110 INSERTION =====================
+\section{The quantum structure of the master metric (QGD--110)}\label{sec:quantumstructure}
+This section uses only the founding principles: F1, the microscopic Dirac field;
+F2, coarse-graining and the macroscopic spinor equation; F3, the master metric
+with its reference term; F4, the adopted Einstein--Hilbert-plus-matter action;
+F5, the Newtonian calibration. Imported results are marked L.
+
+\subsection{A metric-level quantum term and the field equations}
+\begin{proposition}[Exact split identity (D)]\label{prop:split}
+Write the physical metric as $g=g_{\rm cl}+q$. If $G[g]=8\pi G\,T$, then
+identically
+\begin{equation}\label{eq:split}
+G[g_{\rm cl}]=8\pi G\,(T+T_Q),\qquad T_Q:=-\frac{G[g]-G[g_{\rm cl}]}{8\pi G}.
+\end{equation}
+\end{proposition}
+\noindent A quantum term in the master metric therefore always produces a
+quantum-corrected Einstein equation for the classical part. By itself this is a
+rewriting. It acquires content only when F1--F5 fix $q$, which they do through the
+quantum stress of the matter.
+
+\subsection{The quantum term in the static natural-invariant variables}
+\begin{proposition}[Exact identity (D)]\label{prop:ABFH}
+In the static branch ($F=1-A^2$, $D=1+B^2-A^2$, areal radius),
+\begin{equation}\label{eq:ABFH}
+A^2-B^2=1-FH,\qquad \frac{\mathrm d}{\mathrm dr}\ln(FH)=\frac{8\pi r(\rho+p_r)}{1-2\mathfrak m/r},
+\end{equation}
+with $H=D/F$. Hence $A=B$ exactly whenever $\rho+p_r=0$: in vacuum, for Maxwell
+fields and for a cosmological constant.
+\end{proposition}
+\noindent For the vacuum of the microscopic Dirac field (Proposition~\ref{prop:diracfarfield}),
+Eq.~\eqref{eq:scsigmaAB} gives
+\begin{equation}\label{eq:ABquantum}
+A^2-B^2=-\frac{2}{15\pi}\,\frac{G_N^2M\hbar}{c^5r^3},
+\end{equation}
+because vacuum polarization of the microscopic Dirac field has $\rho+p_r<0$. Inserting this $q$ into
+Eq.~\eqref{eq:split} returns $T_Q=-T^{\rm Dirac}$ in all three independent
+components (verified symbolically). This is the quantum term F1 and F4 place in the
+master metric. Its scale is $\ell_P^2$, not the historical $\ell_Q$, and by
+Theorem~\ref{thm:quantumno-go} it coincides with semiclassical GR.
+
+\begin{proposition}[Test of the historical derivative trial (D)]\label{prop:trialtest}
+For the classical exterior sector $A=B=\sqrt{2M/r}$ on the flat spherical
+reference, the trial $\mathcal Q_{ab}=(\bar\nabla_a\sigma^c)(\bar\nabla_b\sigma_c)$ has
+only angular components, $\mathcal Q_{\theta\theta}=2M/r$, and in areal gauge gives,
+to first order in $M$, $\Delta f=0$ and $\Delta h=-4\lambda M/R^3$. The derived term
+requires $\Delta f=-4M\ell_P^2/(15\pi R^3)$ and $\Delta h=+2M\ell_P^2/(5\pi R^3)$.
+No $\lambda$ matches both, so the trial is not the quantum term of the foundations.
+\end{proposition}
+
+\subsection{A quantum conformal factor derived from the wave equation}
+\begin{proposition}[Quantum conformal factor (D)]\label{prop:qcf}
+For a scalar wave $\psi=Re^{iS/\hbar}$ of mass $M$ obeying
+$(\square_g-M^2c^2/\hbar^2)\psi=0$, the real part of the wave equation is exactly the
+Hamilton--Jacobi equation of a conformally rescaled metric,
+\begin{equation}\label{eq:qcf}
+\tilde g^{\mu\nu}\partial_\mu S\partial_\nu S+M^2c^2=0,\qquad
+\tilde g_{\mu\nu}=\Omega_\psi^2g_{\mu\nu},\qquad
+\Omega_\psi^2=1-\lambda_C^2\frac{\square_gR}{R},\quad\lambda_C=\frac\hbar{Mc}.
+\end{equation}
+Wherever $\Omega_\psi^2>0$, the integral curves of $\tilde g^{\mu\nu}\partial_\nu S$
+are timelike geodesics of $\tilde g$.
+\end{proposition}
+\begin{proof}
+The real part is $g^{\mu\nu}\partial S\partial S+M^2c^2=\hbar^2\square_gR/R$ (verified
+symbolically). For the second statement, $u_\mu=\partial_\mu S/(Mc)$ is a gradient
+with $\tilde g(u,u)=-1$, so $u^\nu\tilde\nabla_\nu u_\mu=\frac12\partial_\mu\tilde g(u,u)=0$.
+\end{proof}
+\noindent This is the quantum potential of Chapter~1 (Eq.~wkb-quantumHJ) and of
+Section~\ref{sec:quantumsource}, in geometric form. Calling the integral curves
+\emph{trajectories} is an interpretation. The theorem itself is a statement about
+the wave's phase and amplitude.
+
+\subsection{How the quantum term enters the master metric}
+\begin{theorem}[Two consistent routes, one inconsistent (D$\mid$A)]\label{thm:routes}
+Under F1--F5:
+\begin{enumerate}
+\item \textbf{Per wave (consistent).} $\Omega_\psi^2$ multiplies the universal
+master metric for that wave (spin-0 matter; spin-$\frac12$ matter in
+Section~\ref{sec:spinhalf}),
+$\tilde g^{(\psi)}_{\mu\nu}=\Omega_\psi^2T^a{}_\mu T^b{}_\nu[\eta_{ab}+\sum_ss_s\sigma^{(s)}_a\sigma^{(s)}_b]$,
+and governs that wave's phase dynamics. Universal free fall is recovered as
+$\lambda_C\to0$; at finite $\lambda_C$ the mass dependence is that of ordinary
+quantum mechanics in a gravitational field.
+\item \textbf{Through the source's stress tensor (consistent, universal).} On
+shell the wave's stress tensor splits exactly as
+\begin{equation}\label{eq:TQ}
+T_{\mu\nu}=\rho\,u_\mu u_\nu+T^Q_{\mu\nu},\qquad
+T^Q_{\mu\nu}=\hbar^2\bigl[\partial_\mu R\partial_\nu R-\tfrac12g_{\mu\nu}\bigl((\partial R)^2+R\,\square_gR\bigr)\bigr],
+\end{equation}
+with $\rho=M^2c^2R^2$ and the on-shell $u_\mu=\partial_\mu S/(Mc)$. Under F4, $T^Q$
+curves spacetime with coupling $8\pi G$, and through Eq.~\eqref{eq:split} it
+appears as a universal quantum sector $q$ of the master metric. For a coherent
+static source of size $L$, $T^Q_{00}/\rho c^2=O(\lambda_C^2/L^2)$.
+\item \textbf{Source's conformal factor in the universal metric (inconsistent).}
+For $g=(1+\varepsilon)g_{\rm cl}$, the linearized Einstein tensor
+$G_{00}=-\nabla^2\varepsilon$ carries no factor of $G$; for a Gaussian amplitude it
+equals $6\lambda_C^2/L^4$. This contradicts F4 at order $\hbar^2G^0$, and would
+require replacing F4.
+\end{enumerate}
+\end{theorem}
+
+\noindent The result is a two-level master metric derived from the founding
+principles:
+\begin{equation}\label{eq:twolevel}
+\boxed{g_{\mu\nu}=T^a{}_\mu T^b{}_\nu\Bigl[\eta_{ab}+\sum_ss_s\sigma^{(s)}_a\sigma^{(s)}_b+q_{ab}\Bigr],
+\qquad \tilde g^{(\psi)}_{\mu\nu}=\Omega_\psi^2\,g_{\mu\nu},}
+\end{equation}
+with sector signs $s_s=-\varepsilon_s$ in the notation of Eq.~\eqref{eq:master}, and
+where $q$ is fixed by F4 from the quantum stress of the source (vacuum
+polarization, Eq.~\eqref{eq:ABquantum}, and the coherent-wave stress $T^Q$), and
+$\Omega_\psi$ by Eq.~\eqref{eq:qcf}. This gives the founding master metric's quantum
+slot, historically $-\lambda\mathcal Q$, a derived occupant. As $\hbar\to0$, $q$'s
+quantum part and $\Omega_\psi-1$ vanish, recovering the classical restriction and
+every classical result of Chapters~2--4. The structure reproduces quantum
+mechanics in curved spacetime and semiclassical gravity, and it does not quantize
+the metric: the limitations of semiclassical gravity, for example for macroscopic
+superpositions of a source, apply unchanged.
+
+\begin{proposition}[No natural-invariant dynamics beyond $g$ under F1--F5 (D)]\label{prop:nobeyond}
+The microscopic Dirac action uses a vierbein of $g$ and is locally Lorentz invariant (Chapter~2,
+Clifford compatibility), so it depends only on $g$. The Maxwell, scalar-contact and
+Einstein--Hilbert terms and the quantum matter effective action $\Gamma[g]$ are
+functionals of $g$. Theorem~\ref{thm:quantumno-go} therefore applies: dynamics
+acting on more than $g$ requires an additional founding principle.
+\end{proposition}
+
+\subsection{The per-wave law for spin-$\frac12$ matter (QGD--112, QGD--113)}\label{sec:spinhalf}
+For spin-$\frac12$ matter no metric conformal to $g$ makes the flow lines geodesic
+(QGD--111). The exact replacement follows from the macroscopic spinor equation
+alone. Define $\sigma=\bar\psi\psi\neq0$, the convective momentum
+$P_\mu=-\operatorname{Im}(\bar\psi\nabla_\mu\psi)/\sigma$, the spin remainder
+$\Lambda=\nabla\bar\psi\cdot\nabla\psi-|\bar\psi\nabla\psi|^2/\sigma$, the spin tensor
+$S^{ab}=\bar\psi\Sigma^{ab}\psi$ with $\Sigma^{ab}=\frac i2[\gamma^a,\gamma^b]$, and the spin
+vorticity $F=\mathrm dP$.
+\begin{theorem}[Spin-$\tfrac12$ flow law in a curved universal metric (D)]\label{thm:spinhalf}
+In Chapter~1's conventions, $(\gamma^\mu\nabla_\mu)^2=-\square+\frac14R$ and
+$[\nabla_\mu,\nabla_\nu]=-\frac14R_{ab\mu\nu}\gamma^a\gamma^b$ on spinors. Consequently, exactly,
+\begin{equation}\label{eq:spinhalfflow}
+P\cdot P+M^2+\tfrac14R=\frac{\square\sqrt\sigma}{\sqrt\sigma}-\frac\Lambda\sigma,\qquad
+F_{\mu\nu}=-\frac{\operatorname{Im}(\nabla_{[\mu}\bar\psi\nabla_{\nu]}\psi)}{\sigma}
+-\frac{\partial_{[\mu}\sigma\,P_{\nu]}}{\sigma}-\frac{R_{ab\mu\nu}S^{ab}}{4\sigma},
+\end{equation}
+where $X_{[\mu\nu]}:=X_{\mu\nu}-X_{\nu\mu}$; and with $\tilde g=\Omega_{1/2}^2g$,
+$\Omega_{1/2}^2=1+\frac{R}{4M^2}-\frac1{M^2}\bigl(\frac{\square\sqrt\sigma}{\sqrt\sigma}-\frac\Lambda\sigma\bigr)$
+and $\tilde u_\mu=P_\mu/M$,
+\begin{equation}\label{eq:spinhalflorentz}
+\boxed{M\,\tilde u^\nu\tilde\nabla_\nu\tilde u_\mu=\tilde u^\nu F_{\nu\mu}.}
+\end{equation}
+\end{theorem}
+\noindent The convective flow moves in the conformally rescaled metric like a
+charge in the spin vorticity. $F$ contains a curvature--spin term with the
+structure of the Mathisson--Papapetrou coupling, derived here rather than
+imported. For spin-0 matter $\Lambda=0$ and $F=0$, and the law reduces to
+Proposition~\ref{prop:qcf}.
+
+\noindent\textbf{Verification.} Flat-region identities verified to $10^{-14}$ on exact
+superpositions of plane-wave solutions (QGD--112). The curvature coefficients $+\frac14$
+and $-\frac14$, the curved off-shell identity and the curved spin vorticity were verified
+on an FLRW metric with an arbitrary spinor field, residuals $\le6\times10^{-16}$, with
+the spinor connection constructed from $\nabla\gamma=0$ (QGD--113). In generic states the
+spin-vorticity force is $40$--$70\%$ of the gradient force.
+
+\noindent\textbf{Slow-motion limit (QGD--113).} With $\hat s$ the spin direction,
+$\Lambda/\sigma\to\frac14\partial\hat s\cdot\partial\hat s$ (from the exact Fubini--Study identity
+for unit two-spinors) and $F_{ij}\to-\frac12\hat s\cdot(\partial_i\hat s\times\partial_j\hat s)$, a
+Mermin--Ho-type relation, both with $O(v^2)$ convergence verified. The kinetic
+energy per particle is
+$p^2/2M-(\hbar^2/2M)\nabla^2\sqrt n/\sqrt n+(\hbar^2/8M)|\nabla\hat s|^2$. For constant spin
+the law reduces exactly to Chapter~1's irrotational result
+$\dot{\bm p}=-\nabla(U+Q)$ and to the fixed-spin quantum stress of
+Section~\ref{sec:quantumsource}. When spin varies, a spin quantum potential and a
+spin-vorticity force appear that those fixed-spin treatments omit.
+
+\noindent\textbf{Conditions.} $\sigma\neq0$ and $P$ timelike. As for spin-0 matter, the
+law describes the convective momentum field; reading its integral curves as
+trajectories is an interpretation.
+
+\subsection{Where the natural invariant comes from}
+\begin{proposition}[Closure identity (D)]\label{prop:closure}
+On the static one-null-sector branch $g=\bar g+H\,\mathrm dv^2$ with $H\to0$ at
+infinity, wherever $0<H<1$,
+\begin{equation}\label{eq:closure}
+\sigma_{\rm amp}=\sqrt H=\beta_{\rm ff}=\frac{2\zeta_{\rm ff}}{1+\zeta_{\rm ff}^2},\qquad
+\zeta_{\rm ff}=\frac{\sqrt H}{1+\sqrt{1-H}},
+\end{equation}
+where $\beta_{\rm ff}$ is the speed, relative to static observers, of a test
+particle released from rest at infinity, and $\zeta_{\rm ff}$ is its Chapter~1
+on-shell spinor ratio. Covariantly, $\sigma_{\rm amp}^2=1-(u_{\rm ff}\cdot u_{\rm stat})^{-2}$.
+The sector direction $k=\mathrm d(t+r)$ is a phase gradient solving the massless
+limit of Chapter~1's Hamilton--Jacobi equation.
+\end{proposition}
+\noindent This extends Chapter~2's Schwarzschild diagnostic to the whole static
+one-null-sector class. It fails for Kerr: the free-fall speed differs from the
+Kerr--Schild amplitude, and the oblate $k$ is not closed. It also fails where
+$FH\neq1$, for example in Eq.~\eqref{eq:ABquantum}. It establishes
+self-consistency, not origin. The natural invariant's algebraic \emph{form} is
+derived from the macroscopic spinor equation, while its exterior \emph{values}
+for a given source are selected by F4.
+
+\subsection{Lorentz covariance and gauge dependence}
+The main equations were tested directly (QGD--110):
+\begin{center}\small
+\begin{tabular}{@{}p{0.45\linewidth}p{0.47\linewidth}@{}}\toprule
+Equation or object & Result\\\midrule
+Master metric, Eq.~\eqref{eq:master} & Invariant under frame Lorentz transformations ($T\mapsto\Lambda T$, $\sigma_a\mapsto\sigma_c(\Lambda^{-1})^c{}_a$); tensorial under coordinate changes\\
+Historical $\mathcal Q$ with $\bar\nabla$ & Tensorial: Cartesian and spherical computations agree exactly\\
+Macroscopic spinor equation (Ch.~1 conventions) & Covariant: a spinor representation $S(\Lambda)$ exists and $S u(p)$ solves the equation at $\Lambda p$\\
+Spinor ratio $\mathsf R(p)$ & Transforms exactly as $\mathsf R(p)\mapsto\mathsf R(\Lambda p)$\\
+$\zeta=p/(E+Mc^2)$ & Poincar\'e-ball coordinate of the mass shell; boosts act by M\"obius addition (exact). $\beta=2\zeta/(1+\zeta^2)$ is the Beltrami--Klein coordinate\\
+Spinor component moduli, $\psi^\dagger\psi$ & \textbf{Not} invariant; $\bar\psi\psi$ and $j^\mu j_\mu$ are\\
+$\Omega_\psi$, $T^Q$ (scalar wave) & Covariant\\
+Sector representation $\sigma$ & \textbf{Gauge dependent}: the same Schwarzschild geometry (Kretschmann $12r_s^2/r^6$ in both) has $h=g-\bar g$ of rank 1 in the advanced identification and rank 2 in the static one\\\bottomrule
+\end{tabular}
+\end{center}
+\noindent Three consequences follow:
+\begin{enumerate}
+\item \textbf{Spin-$\frac12$ version of the quantum terms (QGD--111--113).} The scalar-wave
+Eqs.~\eqref{eq:qcf} and~\eqref{eq:TQ} use component amplitudes, which are not
+invariant for spinors. The covariant spin-$\frac12$ amplitude is $(-j\cdot j)^{1/4}$
+(Fierz identity, verified). The per-wave level for spin-$\frac12$ matter is
+Theorem~\ref{thm:spinhalf}. The universal level holds unchanged: in the energy frame,
+the stress tensor of a coherent spin-$\frac12$ field is $\rho\,u_Lu_L+\Pi$ with
+$\Pi=O((\lambda_C/L)^2)\rho$ (numerical scaling, slope 1.98), and the probability
+current tilts relative to the energy flow at $O(\lambda_C/L)$ (slope 1.01) through the
+spin current, which is not an extra stress.
+\item \textbf{Geometric meaning of the spinor ratio.} The Chapter~1 ratio $\zeta$
+is not a Lorentz vector. It is a hyperbolic-geometry coordinate (Poincar\'e
+ball), and the closure identity~\eqref{eq:closure} is the ball-to-Klein map.
+\item \textbf{The natural invariant is not a diffeomorphism invariant.}
+Because the master metric contains a fixed reference $\bar g$, the sector
+representation, including the number of sectors, their rank and their signs,
+depends on how spacetime is identified with the reference. Only $g$, and
+quantities built from it, are gauge invariant. Every QGD prediction under F4 is
+computed from $g$, so no prediction is affected, but statements about $\sigma$
+must state the identification used.
+\end{enumerate}
+% =================== END QGD-110 INSERTION ===================
+
+\section{What the equation makes possible---and what it does not}
+\label{sec:physics}
+Equation~\eqref{eq:split} has an important explanatory role.
+It expresses effective gravitational equilibrium as a balance of the
+metric-mediated gravitational action against physical matter stress,
+projected into the natural-invariant variables. The source is the
+\emph{complete, conserved} stress of the physical system; a local
+Dirac-component ratio or a single wave amplitude is not generally an
+adequate universal source. The Dirac state may contribute through
+basis-independent currents, energies and stress correlations.
+
+But the action-derived equation also establishes a \emph{limit}:
+with no direct natural-invariant interactions and no new dynamical
+operator, the effective field equations contain no distinct
+propagating $\sigma$ mode beyond the effective metric degrees of
+freedom. A new observable could follow from (i) a well-defined direct
+coupling between quantum matter and natural-invariant data, (ii) a
+physically derived independent natural-invariant kinetic/constraint
+sector, or (iii) a genuinely distinct quantum effective action.
+None follows inevitably from the signed metric identity; each would
+require a separately specified covariant action, conservation laws,
+correct field content and measurable consequences.
+
+% === QGD-101 insertion, corrected QGD-105 ===
+\paragraph{Note on route (i) (QGD--100, corrected QGD--105).}
+Research note QGD--100 examined one \emph{hypothetical} realization of route~(i):
+removing the reference term, reading four $\eta$-signed sectors as a tetrad, and
+assuming a microscopic theory with only global frame symmetry. Neither assumption
+belongs to the formulation of Chapters~1--4. Under them the two-derivative
+dynamics is New General Relativity \cite{HS}, whose parameter directions other than the
+axial one give $\gamma=-2c/(a+b-4c)\ne1$ at linear order, and whose axial
+direction is obstructed at nonlinear order according to \cite{BJD}.
+This rules out that particular hypothetical route; it says nothing about
+routes (i)--(iii) in general.
+% === end QGD-101/105 insertion ===
+
+A particularly sharp discriminator is the comparison of different
+physical quantum source states with matched mean stress and classical
+boundary data. A measured mean-field difference beyond standard
+GR plus quantum-field corrections would indicate a new physical
+coupling. Merely assigning different signed representatives to the
+same metric cannot change a metric-only observable.
+
+\section{Relationship to the archived historical Chapter 4}
+\label{sec:historical}
+The historical research program wrote schematically
+\begin{equation}\label{eq:historical}
+\square_g\sigma_\mu=Q_\mu+G_\mu+T_\mu
++\kappa\ell_Q^2\square_g^2\sigma_\mu+\cdots.
+\end{equation}
+This is \emph{not} equivalent by definition to
+Eq.~\eqref{eq:split}. The historical $Q_\mu,G_\mu,T_\mu$
+expressions have unresolved algebraic/provenance and normalization
+issues documented in the QGD--052 audit. In particular, no term
+$\square_g\sigma_\mu$ or $\square_g^2\sigma_\mu$
+can be deduced simply from varying the derivative-free composite
+Einstein--Hilbert action. Adding a standalone $\sigma$ kinetic term
+would be a change of the effective theory and requires physical
+justification, not a cosmetic rewriting of the balance equation.
+The archived manuscript therefore remains an independent historical
+source, while the present chapter begins with the precise equation
+supported by the accepted action and metric map.
+
+\section{Conclusion and the next legitimate question}
+The action-based content of this updated Chapter~4 has one central field-equation result:
+\begin{equation}\label{eq:conclusion}
+\boxed{\cS_{(s)}^\rho
+=2s_s\cE_g^{\rho\nu}\sigma_\nu^{(s)}=0,\qquad
+\cS_{(s)}^\rho=\cG_{(s)}^\rho+\cT_{(s)}^\rho+\cQ_{(s)}^\rho.}
+\end{equation}
+For the metric-only effective action, $\cQ=0$ and, on the
+full-rank signed branch, this balance reproduces the established
+Einsteinian field equations. This is a rigorous mathematical bridge
+from QGD's natural-invariant variables to effective gravity, not a
+claim that the underlying physical origin of gravity has been solved.
+The question that can make QGD more than a geometric reformulation
+is therefore precise: \emph{Does the quantum matter-wave structure
+lead to independent, covariantly defined natural-invariant dynamics
+or source dependence, and does any such effect produce an observable
+not already predicted by GR and quantum field theory?}
+\par\medskip
+The Newton-calibrated Chapter~3 potential and the controlled $\hbar^2$
+quantum-source stress are compatible with this balance, but neither
+supplies an independent natural-invariant propagation operator.
+The metric-only quantum-equivalence theorem in
+Section~\ref{sec:independent} makes this limitation exact under
+its stated rank and action assumptions; the historical attractive
+$9/2$ force would additionally require a nonzero exterior source
+residual or a changed gravitational response. The
+historical $9/2$ correction remains unverified. Future extensions must
+derive their covariant operators, coefficient matching and physical
+observables before assigning a genuinely new wave equation or degree
+of freedom to $\sigma_\mu$.
+
+
+% === QGD-101 insertion (moved from the abstract) ===
+\section*{Revision history}\label{sec:revision-history}
+\addcontentsline{toc}{section}{Revision history}
+\textbf{QGD--096} established the equivalence/no-independent-correction
+theorem for the regular metric-only theory and calculated the nonzero
+vacuum-Poisson residual that the historical attractive $9/2$ force would
+require. \textbf{QGD--097} added a separately sourced semiclassical
+benchmark for a massless four-component Dirac vacuum field: a verified
+far-field $-2G_N^2M\hbar/(15\pi c^3r^3)$ correction to the static
+Killing-energy potential, taken from published quantum-matter backreaction,
+not from the historical complex-phase Taylor expansion or a new QGD
+operator. \textbf{QGD--098} independently derived and checked the
+angular-channel coefficients of the Schwarzschild radial Dirac reduction and
+recorded why its Liouville-normal effective potential cannot be promoted to
+a physical force by differentiation. \textbf{QGD--101} integrated research
+notes QGD--099 and QGD--100. \textbf{QGD--105} audited those insertions:
+Remark~\ref{rem:Q-absorbed} was restricted to Chapter~2's constructed branch;
+the route-(i) paragraph was restated as a test of one hypothetical realization;
+and a closing paragraph that reframed QGD's identity was removed, because it
+did not follow from the chapter's stated assumptions. No earlier equation or
+label was removed. \textbf{QGD--110} added Section~\ref{sec:quantumstructure}: the
+split identity, the quantum term in static variables, the test of the historical
+derivative trial, the derived quantum conformal factor, the two-level master metric,
+the closure identity, and Lorentz-covariance and gauge tests. \textbf{QGD--111} replaced
+the open spin-$\frac12$ item with covariant results; \textbf{QGD--112} added the exact
+spin-$\frac12$ flow law and restricted the name ``Dirac'' to the microscopic field.
+\textbf{QGD--113} added the curved-metric form of that law (Theorem~\ref{thm:spinhalf}),
+its slow-motion limits, and the cross-reference in Section~\ref{sec:quantumsource}.
+\textbf{QGD--115} added Section~\ref{sec:lovelock}: the Einstein--Hilbert form derived by
+uniqueness under Principle~L, with the coupling from the Newtonian calibration.
+% === end QGD-101 insertion ===
+
+\section*{Source and research provenance}
+\begin{thebibliography}{9}
+\bibitem{ch1} QGD, \emph{Chapter 1: Foundations}, accepted Dirac/matter-wave construction (existing research manuscript).
+\bibitem{ch2} QGD, \emph{Chapter 2: Field Equations}, complete signed master metric, variational right-inverse and effective action (QGD--075).
+\bibitem{ch3} QGD, \emph{Chapter 3: Gravitational Normalization and Quantum-Force Verification} (QGD--087 surgical revision; QGD--101 notation update).
+\bibitem{audit} QGD--052, \emph{Focused Historical QGT/QGD Field-Equation Provenance Audit}; and QGD--094, \emph{General Natural-Invariant Field Equations and Historical Source Split}, working research checks.
+\bibitem{referee} QGD--091--092, \emph{Independent Schwarzschild Dirac radial reduction and referee verification}, conditional test-field coefficient audit (cross-checked in QGD--098).
+\bibitem{quantum} QGD--090--094, \emph{Quantum Force, Dirac Radial Dynamics, and Quantum-Source Verification}, conditional source and effective-metric studies. Historical $\hbar^2$ operators remain unmatched.
+\bibitem{Carlson2010} E. D. Carlson, P. R. Anderson, A. Fabbri, S. Fagnocchi, W. H. Hirsch, and S. A. Klyap, ``Semiclassical gravity in the far field limit of stars, black holes, and wormholes,'' \emph{Phys. Rev. D} \textbf{82}, 124070 (2010), DOI: 10.1103/PhysRevD.82.124070; see Eqs. (7.2), (8.3), (8.6), and (8.7).
+\bibitem{donoghue} J. F. Donoghue, ``General Relativity as an Effective Field Theory: The Leading Quantum Corrections, \emph{Phys. Rev. D} \textbf{50}, 3874 (1994), DOI: 10.1103/PhysRevD.50.3874.
+\bibitem{equivalence} S. Kamefuchi, L. O\textquoteright Raifeartaigh, and A. Salam, ``Change of variables and equivalence theorems in quantum field theories, \emph{Nuclear Physics} \textbf{28}, 529--549 (1961), DOI: 10.1016/0029-5582(61)91075-6.
+\bibitem{qgd100} QGD--100, \emph{Testing the Global-Lorentz Branch}, research note (2026).
+\bibitem{HS} K.~Hayashi and T.~Shirafuji, ``New general relativity,'' \emph{Phys. Rev. D} \textbf{19}, 3524 (1979).
+\bibitem{Lovelock1971} D.~Lovelock, ``The Einstein tensor and its generalizations,'' \emph{J. Math. Phys.} \textbf{12}, 498 (1971).
+\bibitem{Lovelock1972} D.~Lovelock, ``The four-dimensionality of space and the Einstein tensor,'' \emph{J. Math. Phys.} \textbf{13}, 874 (1972).
+\bibitem{Jacobson} T.~Jacobson, ``Thermodynamics of spacetime: the Einstein equation of state,'' \emph{Phys. Rev. Lett.} \textbf{75}, 1260 (1995).
+\bibitem{Sakharov} A.~D.~Sakharov, \emph{Sov. Phys. Dokl.} \textbf{12}, 1040 (1968).
+\bibitem{Visser} M.~Visser, ``Sakharov's induced gravity: a modern perspective,'' \emph{Mod. Phys. Lett. A} \textbf{17}, 977 (2002).
+\bibitem{BJD} J.~Beltr\'an Jim\'enez and K.~F.~Dialektopoulos, ``Non-linear obstructions for consistent new general relativity,'' \emph{JCAP} \textbf{2020}(01), 018, arXiv:1907.10038.
+\end{thebibliography}
+\end{document}
