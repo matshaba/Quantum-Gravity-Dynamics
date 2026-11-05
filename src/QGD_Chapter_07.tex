@@ -1,0 +1,1286 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=22mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm,graphicx,mathrsfs}
+\usepackage{booktabs,tabularx,longtable,array,enumitem,microtype}
+\usepackage{xcolor,hyperref,fancyhdr}
+\definecolor{navy}{HTML}{163451}
+\definecolor{shade}{HTML}{F0F4F8}
+\definecolor{rulegray}{HTML}{B5C4D0}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=navy, pdftitle={QGD Chapter 7: Quantum Vacuum and Natural-Invariant Excitations}, pdfauthor={QGD Research Programme}}
+\pagestyle{fancy}\fancyhf{}\lhead{\small QGD | Chapter 7}\rhead{\small Quantum black-hole tests v1.9-F}\cfoot{\thepage}
+\renewcommand\headrulewidth{0.4pt}
+\setlength\parskip{3pt}\setlength\parindent{0pt}
+\setlist[itemize]{nosep,topsep=3pt,leftmargin=*}
+\setlist[enumerate]{itemsep=3pt,topsep=3pt,leftmargin=*}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Dtag}{\textsf{[D]}}
+\newcommand{\Atag}{\textsf{[A]}}
+\newcommand{\Ctag}{\textsf{[C]}}
+\newcommand{\Otag}{\textsf{[O]}}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\kerop}{\operatorname{ker}}
+\newcommand{\Lie}{\operatorname{Lie}}
+\begin{document}
+\begin{center}
+{\color{navy}\Large\bfseries Quantum Gravity Dynamics}\\[5pt]
+{\LARGE\bfseries Chapter 7}\\[4pt]
+{\Large The Quantum Vacuum, Noether Energy and Natural-Invariant Excitations}\\[7pt]
+{\small Signed-sector geometry, physical redundancies, gravitational waves, and the microscopic selection test}\\[5pt]
+{\small Foundational research edition v1.8-F \quad | \quad 31 October 2026}
+\end{center}
+\vspace{5pt}\hrule\vspace{9pt}
+\textbf{Abstract.} QGD's founding ontology proposes a collective quantum matter-wave origin of effective spacetime geometry. The present chapter asks whether the Minkowski vacuum can carry nonzero cancelling signed natural-invariant sectors, whether its perturbations describe real gravitational waves, and what microscopic information would distinguish that vacuum from a coordinate redundancy. We prove an exact flat-vacuum lift, a full-rank metric Jacobian with 22 null directions, and the stronger result that the null directions coincide with the local $O(4,4)$ orbit tangent. An explicit signed-sector boost changes the apparent vacuum amplitude $v$, so $v$ is not a metric-only order parameter. On stationary metric backgrounds, the sector Hessian is the pullback of the metric Hessian; its 22 null directions are redundancies, not physical Goldstone excitations. The two linearized Einsteinian gravitational-wave polarizations admit exact signed-sector lifts, but their dynamics still come from the adopted effective metric action, not a microscopic matter-wave derivation. We audit the historical QGD energy proposal against sector redundancy, reconstruct the full energy-first Noether programme in the presently established flat-space and weak-field actions, and calculate the regulated quantum-matter grand potential, homogeneous scalar Hessian, critical-coupling condition, and independent radiation-coupling test from Chapter 1's existing four-fermion model. An exact local $O(4,4)$ orbit counterexample shows that a positive naive sector-gradient density can arise while the physical metric stays exactly flat. The earlier Hartree scalar diagnostic is retained as an independent benchmark, not as a prerequisite for the already completed Chapter 5 conditional static correspondence. No fundamental spin-two field is postulated.
+
+\textbf{Status key.} \Dtag\ exact algebra or explicit check; \Ctag\ result depending on adopted effective dynamics or stated mathematical conditions; \Atag\ physical model assumption; \Otag\ unproved microscopic selection. The chapter reports no unconditional quantum-to-gravity emergence theorem.
+\tableofcontents
+\section{The question inherited from Chapters 1--5}
+Chapter 1 supplies quantum matter-wave dynamics, density, phase and stress moments. Chapter 2 establishes the complete signed natural-invariant metric representation and generates effective Einstein geometries. Chapter 3 calibrates the Newtonian limit; Chapter 4 adopts a renormalized Einstein--matter effective action and varies the full metric map; Chapter 5 gives a conditional static collective-response bridge $G_{\rm eff}=g_c^2/(4\pi Z)$.
+
+\textbf{New question:} Does the flat metric's natural-invariant representation correspond to a physical collective quantum vacuum, and, if it does, what are its excitations? This question must not be answered by reading physical condensates into mathematically redundant variables.
+
+\section{Keep the complete founding metric in view}
+The QGD master metric is
+\begin{equation}\label{eq:fullmetric}
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\left[\eta_{ab}-\sum_{s=1}^N\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}\right],\qquad\varepsilon_s=\pm1.}
+\end{equation}
+The reference coframe $T^a{}_{\mu}$ is retained. The historical derivative/quantum term $-\lambda\mathcal Q_{ab}$ is \emph{not} fixed as a unique off-shell operator by Chapters 1--5. The quantum backreaction tensor $q_{ab}$ calculated in Chapters 4--5 is a separate solution-level construct and must not be included a second time via an independently varied $\mathcal Q$.
+
+\textbf{Scope of the exact vacuum theorems.} Fix the coframe and consider the mathematically controlled specialization $\lambda\mathcal Q_{ab}=0$; take the reference spacetime to be Minkowski. Write the eight signed sectors as two real $4\times4$ matrices $P,N$ in reference-frame component coordinates, with
+\begin{equation}\label{eq:signed}
+ g=\bar g+h,\qquad h=P^{\mathsf T}P-N^{\mathsf T}N,
+\qquad Y=\begin{pmatrix}P\\N\end{pmatrix},\quad
+ C=\begin{pmatrix}I_4&0\\0&-I_4\end{pmatrix},\quad h=Y^{\mathsf T}CY.
+\end{equation}
+Here $P,N$ are arrays of real covector components: their Euclidean Gram factors do \emph{not} assert Euclidean spacetime signature, nor do the signed factors independently imply positive/negative physical energy. This choice is a local algebraic chart on the space of metric deformations.
+
+\section{A nonzero exact flat-space representation}
+\begin{theorem}[Cancelling flat sectors and exact metric lift \Dtag]\label{thm:flat}
+For any $v\in\mathbb R\setminus\{0\}$, the configuration
+\begin{equation}\label{eq:vacuum}
+\boxed{P_0=N_0=vI_4}
+\end{equation}
+represents the flat metric $g_0=\bar g$. For any real symmetric $4\times4$ perturbation $h$, the exact construction
+\begin{equation}\label{eq:lift}
+\boxed{P=vI_4+\frac{h}{4v},\qquad N=vI_4-\frac{h}{4v}}
+\end{equation}
+satisfies $P^{\mathsf T}P-N^{\mathsf T}N=h$ with no expansion in $h$.
+\end{theorem}
+\begin{proof} Since $P_0^{\mathsf T}P_0=N_0^{\mathsf T}N_0=v^2I_4$, their difference vanishes. For symmetric $h$, expand both squares: their $v^2I$ and $h^2/(16v^2)$ terms cancel; the remaining two cross terms sum to $h$.\end{proof}
+
+\begin{remark}[The zero-sector chart is singular]
+Choosing $P=N=0$ also represents flat geometry, but $D_Y(Y^{\mathsf T}CY)=0$ there, so ordinary $\delta Y$ produces no \emph{linear} metric perturbation. Nonzero cancelling sectors provide a regular chart for linearized metric variations; they are not thereby established as physical vacuum expectation values.
+\end{remark}
+
+\section{How many fluctuations are actually physical?}
+\begin{theorem}[Full-rank Jacobian and 22-dimensional kernel \Dtag]\label{thm:rank}
+At $P_0=N_0=vI_4$, for independent variations $\delta P,\delta N$,
+\begin{equation}\label{eq:jac}
+\boxed{\delta h=2v\,\Sym(\delta P-\delta N),\qquad
+\rank(D_Y h)=10,\quad \dim\kerop(D_Yh)=22.}
+\end{equation}
+\end{theorem}
+\begin{proof} The codomain $\operatorname{Sym}_4$ has dimension ten. For any symmetric $h$, $\delta P=h/(4v)$ and $\delta N=-h/(4v)$ give $\delta h=h$, proving surjectivity. The domain contains $2\times16=32$ real components; rank--nullity gives $32-10=22$.\end{proof}
+
+The $22$-dimensional kernel has a stronger interpretation than a numerical rank count.
+\begin{theorem}[Every local metric-null perturbation is an $O(4,4)$ orbit tangent \Dtag]\label{thm:orbit}
+For the full-rank flat representative $Y_0=(vI_4,vI_4)^{\mathsf T}$, let
+\begin{equation}
+\mathcal G=\{O\in O(4,4):O^{\mathsf T}CO=C\}.
+\end{equation}
+The orbit tangent $\{XY_0:X\in\mathfrak o(4,4)\}$ has dimension $22$ and equals $\kerop(D_Yh)|_{Y_0}$.
+\end{theorem}
+\begin{proof}
+Every $O\in\mathcal G$ preserves $h=Y^{\mathsf T}CY$, so its orbit tangent lies in the metric-map kernel. The general Lie-algebra generator is
+\begin{equation}
+ X=\begin{pmatrix}A&B\\B^{\mathsf T}&D\end{pmatrix},\qquad A^{\mathsf T}=-A,\quad D^{\mathsf T}=-D,
+\end{equation}
+with $\dim\mathfrak o(4,4)=6+16+6=28$. The stabilizer $XY_0=0$ requires $A+B=0$ and $B^{\mathsf T}+D=0$. This leaves a freely chosen $4\times4$ skew matrix $A$, hence stabilizer dimension $6$. The orbit dimension is $28-6=22$, equal to the kernel dimension from Theorem~\ref{thm:rank}; inclusion thus gives equality.
+\end{proof}
+
+\begin{corollary}[The apparent condensate scale is a representation parameter \Dtag]\label{cor:v}
+The exact $O(4,4)$ transformation
+\begin{equation}\label{eq:boost}
+\begin{pmatrix}P'\\N'\end{pmatrix}=\begin{pmatrix}
+\cosh\theta\,I_4&\sinh\theta\,I_4\\
+\sinh\theta\,I_4&\cosh\theta\,I_4
+\end{pmatrix}\begin{pmatrix}P\\N\end{pmatrix}
+\end{equation}
+sends $P_0=N_0=vI_4$ to $P_0'=N_0'=e^{\theta}vI_4$ while leaving $g$ unchanged. Consequently, the value of $v$ is not a metric-only physical order parameter.
+\end{corollary}
+
+\textbf{Interpretation.} The metric-only sector identifies all such representatives. Unless some justified observable or interaction distinguishes sectors, neither $v$ nor the individual eight covectors should be described as an experimentally established vacuum condensate. An $O(4,4)$ transformation is a mathematical redundancy only where the entire effective theory factors through $g$; the unspecified $\mathcal Q$ term could change this conclusion.
+
+\section{Quadratic action: what the vacuum really propagates}
+\begin{proposition}[Stationary Hessian pullback \Ctag]\label{prop:hess}
+Let $\Gamma_{\rm eff}[Y]=\Gamma_{\rm metric}[g(Y)]$ be twice differentiable and let $g_0$ be a stationary metric solution after the required vacuum-energy tuning and matter equations. Then, in the space of admissible perturbations,
+\begin{equation}\label{eq:hess}
+\boxed{\Gamma_{YY}^{(2)}\big|_{Y_0}=J_0^{*}\,\Gamma_{gg}^{(2)}\big|_{g_0}\,J_0,\qquad J_0=D_Yg\big|_{Y_0}.}
+\end{equation}
+All $22$ kernel directions of $J_0$ are null directions of the quadratic form. They are \emph{not} $22$ physical massless Goldstone bosons.
+\end{proposition}
+\begin{proof} Differentiate the functional chain rule twice. The second derivative has a pullback term and a term $\Gamma_g^{(1)}D_Y^2g$; the latter vanishes at a stationary metric background. Each $\delta Y\in\kerop J_0$ is annihilated by the pullback quadratic form.\end{proof}
+
+\textbf{Important qualification.} Without gauge fixing, even the metric Hessian has diffeomorphism gauge zero directions. The statement $\dim\kerop J_0=22$ does not assert that the full sector Hessian has \emph{exactly} 22 zero directions or that its rank is ten after imposing gravitational gauge identities. If a generic nondegenerate \emph{test metric quadratic form} is used, the pullback has rank ten and nullity 22; for Einstein gravity, additional metric gauge directions occur. A full Hamiltonian degree-of-freedom count is required before discussing physical particles.
+
+\subsection{The Einsteinian gravitational-wave branch is conditional}
+In the adopted Chapter 4 Einstein--Hilbert effective action, writing $g=\eta+h$ and $\bar h_{\mu\nu}=h_{\mu\nu}-\tfrac12\eta_{\mu\nu}h$, harmonic gauge gives
+\begin{equation}\label{eq:wave}
+\partial^\mu\bar h_{\mu\nu}=0,\qquad \Box_\eta\bar h_{\mu\nu}=0
+\end{equation}
+in vacuum. An on-shell wave with phase $u=t-z$ has the two transverse-traceless modes
+\begin{equation}\label{eq:tt}
+ h_{xx}=-h_{yy}=h_+(u),\qquad h_{xy}=h_{yx}=h_\times(u),
+\end{equation}
+with $\Box_\eta h_{+,\times}=0$. The exact lifting formula~\eqref{eq:lift} generates these perturbations from $P,N$. Their propagation and two physical tensor polarizations follow from \emph{the adopted effective Einstein dynamics}, not from an independently derived microscopic quantum-vacuum wave equation. No fundamental spin-two matter field is posited.
+
+\textbf{Consequence for QGD's field equations.} In the classical $\lambda=0$ specialization, Chapter 4's preferred Option C reduces to $2s_s\Pi^{ab}\sigma_b^{(s)}=0$. Regularity of $J_0$ ensures equivalence to the metric Euler equations. When $\mathcal Q$ is specified, the full preferred form remains
+\begin{equation}\label{eq:optionC}
+\boxed{2s_s\Pi^{ab}\sigma_b^{(s)}=\lambda\left[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi\right]^a,\qquad s_s=-\varepsilon_s.}
+\end{equation}
+This full-master-map formula is formal until the off-shell operator $\mathcal Q[\sigma;T]$ is determined.
+
+\section{Lorentz symmetry and the status of a quantum vacuum}
+A Lorentz-invariant quantum vacuum cannot have a nonzero vacuum expectation of an ordinary covariant vector operator $V_\mu$ without additional order, because no nonzero four-vector is invariant under all Lorentz transformations. This does not prohibit a nonzero Lorentz-scalar expectation or Lorentz-covariant two-point tensors.
+
+The displayed $P_0=N_0=vI$ uses covector representatives that \emph{look} like preferred directions. If all observable quantities depend only on their metric combination, a Lorentz transformation of a representative can be compensated within the signed-sector redundancy, so no preferred observable frame follows. If the individual covectors become observable through a sector-sensitive term, this protection is no longer automatic; their order parameters and symmetry-breaking pattern must be analyzed.
+
+A useful null-pair basis is $U=(P+N)/\sqrt2$, $W=(P-N)/\sqrt2$, so
+\begin{equation}
+ h=U^{\mathsf T}W+W^{\mathsf T}U,\qquad U_0=\sqrt2vI_4,\quad W_0=0.
+\end{equation}
+The signed symmetry contains $U\mapsto L U$, $W\mapsto L^{-\mathsf T}W$ for arbitrary invertible $L\in GL(4,\mathbb R)$, which explicitly compensates changes of basis on the null subspace. This establishes representational compatibility, not a microscopic Lorentz-invariant condensate.
+
+\section{Earlier microscopic selection benchmark (retained, not a prerequisite)}
+\subsection{Why the existing metric-only quantum effective action cannot select $v$}
+\begin{theorem}[No physical selection of the cancelling amplitude by metric-only quantum loops \Ctag]\label{thm:noselect}
+For any (renormalized) functional $\Gamma_{\rm matter}[g,\Psi;\varrho]$ whose dependence on $P,N$ occurs only through $g=\eta+P^{\mathsf T}P-N^{\mathsf T}N$, its restriction to $P=N=vI$ is independent of $v$:
+\begin{equation}\label{eq:noselect}
+\boxed{\Gamma_{\rm matter}[g(v),\Psi;\varrho]=\Gamma_{\rm matter}[\eta,\Psi;\varrho],\qquad \frac{\dd}{\dd v}\Gamma_{\rm matter}=0.}
+\end{equation}
+Thus an induced $R$ term, a Boulware-state quantum stress correction or another metric-only quantum matter term cannot pick a specific $v$ on this branch.
+\end{theorem}
+\begin{proof} The metric is identically $\eta$ for all $v\ne0$. Composition with a functional of that metric is therefore constant along $v$.\end{proof}
+
+This test must be interpreted correctly: it proves a \emph{metric-only degeneracy}, not a theorem excluding every microscopic QGD vacuum. A separate measure on sector configurations, sector-sensitive effective interactions, or a derived nontrivial $\mathcal Q$ could alter the dynamics, and would require independent quantum calculations and consistency checks.
+
+\subsection{What to compute from Chapter 1 quantum matter}
+Let $S_{\rm QT}[\Phi;\eta]$ describe a specified microscopic many-body quantum system. We require a well-defined set of operators $\widehat{\mathcal O}_I[\Phi]$, sources $J_I$, and a generating functional
+\begin{equation}
+ e^{\frac{i}{\hbar}W[J]}=\int\!\mathcal D\Phi\,\exp\!\left[\frac{i}{\hbar}\left(S_{\rm QT}[\Phi;\eta]+\int J_I\widehat{\mathcal O}^I\right)\right].
+\end{equation}
+Choose an explicit collective observable $\varphi^I=\delta W/\delta J_I$, and form the quantum effective action $\Gamma_{\rm coll}[\varphi]$ by Legendre transformation. The physical test is whether \emph{the quantum action itself} supports a stationary, stable phase with a meaningful map
+\begin{equation}
+ \varphi\longmapsto[g(\varphi)]\longmapsto[\sigma^{(s)}_\mu]
+\end{equation}
+that is not defined by solving Einstein's equations first. Then calculate $K_{IJ}(k)=\delta^2\Gamma_{\rm coll}/\delta\varphi^I\delta\varphi^J$ and the source vertices $V_A{}^I(k)$.
+
+For a measurable long-range interaction the static source response must have a \emph{source-visible} zero-momentum pole, e.g.
+\begin{equation}\label{eq:response}
+\chi_{AB}(0,\bm k)\supset V_A{}^I[K^{-1}(0,\bm k)]_{IJ}V_B{}^J
+\sim \frac{c_{AB}}{|\bm k|^2},\qquad c_{AB}\ne0.
+\end{equation}
+This condition does not assume a microscopic graviton. Chapter 5 already explains how such a pole, an appropriate source sign, and three spatial dimensions yield a static $1/r$ response with empirically calibratable $G_{\rm eff}=g_c^2/(4\pi Z)$. Universality, stable tensor dynamics and the physical natural-invariant identification remain additional tests.
+
+\subsection{Prior scalar-response diagnostic (archival)}
+An unbroken, massive free-field vacuum has ordinary composite response functions analytic around zero external momentum when their spectral support is separated by a positive threshold and appropriate local subtractions are made. Such a response does not exhibit an isolated massless $1/k^2$ pole. This is consistent with Chapter 5's explicit massive-Dirac vacuum spin-two response and its self-consistent finite-density Hartree scalar calculation. It does not rule out a new interacting or constrained phase, collective criticality, or a nonlocal mechanism. A kernel singularity must come from quantum dynamics, not from applying the exact signed Gram factorization after the fact.
+
+\subsection{Earlier proposed microscopic tests (optional)}
+\begin{enumerate}
+\item \textbf{State selection:} identify a source-independent quantum observable whose expectation or correlation distinguishes the alleged vacuum from an ordinary metric representative. Compute a renormalized gauge-invariant effective potential or other invariant state diagnostic.
+\item \textbf{Spectrum:} compute the microscopic $K_{IJ}(\omega,\bm k)$, subtract gauge/constraint directions, and check for stable, source-visible gapless excitations. Do not interpret the 22 Gram-redundancy directions as Goldstone particles.
+\item \textbf{Response and universality:} calculate the coupling to independent Dirac, bosonic and electromagnetic sources, and the weak-field collective geometry. Check the Chapter 2 exterior field and Chapter 5 coupling calibration without inserting a Fierz--Pauli propagator.
+\end{enumerate}
+
+% =================== QGD Chapter 6 v1.1: energy and microscopic Hessian ===================
+\section{Energy audit: what survives the historical QGD manuscript}
+\label{sec:historical-energy}
+The archival document \emph{Gravitational Energy} (supplied as \texttt{Ch4-Energy.tex}) is treated as a historical prompt, \emph{not} as a current action or an established local gravitational energy theorem. Its proposal is to assign a kinetic Noether tensor directly to the natural invariants. That intuition motivates an energy calculation, but the formula itself fails decisive tests against Chapters~4--6.
+
+\begin{proposition}[Exact pure-orbit gradient-energy counterexample \Dtag]
+\label{prop:energy-redundancy}
+Fix the reference coframe and restrict the complete founding metric,
+Eq.~\eqref{eq:fullmetric}, to the eight-sector classical specialization
+$\lambda\mathcal Q_{ab}=0$ on a Minkowski reference background. Let
+$v\in\mathbb R\setminus\{0\}$ be constant and let
+$\theta\in C_c^\infty(\mathbb R^3,\mathbb R)$ be nonconstant and
+smoothly time-independent. Define
+\begin{equation}\label{eq:orbit-energy-pn}
+\boxed{P(x)=N(x)=v e^{\theta(x)}I_4.}
+\end{equation}
+This is a \emph{pointwise} $O(4,4)$ transform of the constant cancelling
+representative $P_0=N_0=vI_4$. It leaves $g_{\mu\nu}=\bar g_{\mu\nu}$
+exactly everywhere. Nevertheless the nonnegative, coordinate-chart
+Euclidean Frobenius-gradient candidate obeys
+\begin{equation}\label{eq:orbit-energy-density}
+\boxed{u_{\rm naive}(x)
+:=\|\nabla P\|_F^2+\|\nabla N\|_F^2
+=8v^2e^{2\theta(x)}|\nabla\theta(x)|^2.}
+\end{equation}
+It is strictly positive wherever $\nabla\theta\ne0$, although the
+metric is unchanged. Thus $C\int u_{\rm naive}\,\dd^3x$ for $C>0$ cannot
+be a physical metric-only gravitational energy or an observable on the
+signed-sector equivalence classes.
+\end{proposition}
+\begin{proof}
+Use the position-dependent boost $O(\theta)$ from
+Eq.~\eqref{eq:boost}, with $\theta$ replaced pointwise by
+$\theta(x)$. At every point,
+$O(\theta)^{\mathsf T}C\,O(\theta)=C$ and
+$O(\theta)(vI_4,vI_4)^{\mathsf T}
+=(ve^{\theta}I_4,ve^{\theta}I_4)^{\mathsf T}$.
+Consequently $h=P^{\mathsf T}P-N^{\mathsf T}N=0$ identically,
+including where $\nabla\theta\ne0$. On a constant-time reference
+slice, $\partial_iP=ve^\theta(\partial_i\theta)I_4$, and similarly
+for $N$. Since $\operatorname{tr}(I_4^{\mathsf T}I_4)=4$, each
+Frobenius sum contributes $4v^2e^{2\theta}|\nabla\theta|^2$,
+proving Eq.~\eqref{eq:orbit-energy-density}. Compact support of
+$\theta$ makes its gradient integral finite. It vanishes for the
+constant representative but is positive for every nonconstant
+$\theta\in C_c^\infty$, even though both describe the same flat metric.
+\end{proof}
+\textbf{Scope and physical interpretation.} This is an exact
+\emph{representation} no-go result, not a prohibition on additional
+microscopic sector physics. The spatial Frobenius norm is deliberately
+a diagnostic of a \emph{naive} proposed energy, not a generally
+covariant energy density. The pointwise boosts preserve the entire
+metric-only effective action, including any quantum matter terms
+coupled exclusively through $g$. They need not be a symmetry of an
+independently derived, sector-sensitive microscopic action or of an
+unmatched derivative operator $\mathcal Q_{ab}$. Such a theory would
+have to identify its physical sector observables, constraints, and
+positive-energy conditions before assigning energy to these gradients.
+
+Several further archival claims are unsupported. Internal Lorentz contractions of vector kinetic terms are not positive definite simply because their coefficients are squares. For the Schwarzschild representative $A=\sqrt{r_s/r}$, $\tfrac12(A')^2=r_s/(8r^3)\propto M/r^3$, whereas the Newtonian potential-gradient energy scales as $(\nabla\Phi)^2\propto M^2/r^4$; they are not identical energies. Superposing $\sqrt{M_i/r_i}$ sector amplitudes also gives cross terms proportional to $\sqrt{M_1M_2}$, not a derivation of the $M_1M_2$ binding-energy law. The archival $Q_\mu$ self-energy current is distinct from the founding symmetric metric operator $\mathcal Q_{ab}$; neither it nor a higher-derivative $\ell_Q^2\Box^2\sigma$ action has been derived from Chapter~1. Finally, a null plane wave can have $(\partial_\alpha\sigma_\beta)(\partial^\alpha\sigma^\beta)=0$ while carrying wave energy, so this Lorentz scalar cannot by itself be a positive pointwise wave-energy density.
+
+\textbf{Retained physical lesson.} Use a microscopic stress operator and a correctly normalized effective energy to test the existence and stability of collective phases. Do not claim that the QGD metric-only change of variables solves the general local-gravitational-energy problem; standard gravitational-wave energy remains well defined in its appropriate averaged or asymptotic domain \cite{Isaacson1968}.
+
+\section{The energy quantity already derived in Chapter 5}
+\label{sec:staticenergy}
+Chapter~5 proves a \emph{conditional static} collective energy identity. For a source-visible collective scalar $q$ with $Z>0$ and coupling $g_c$ to nonrelativistic mass density $\rho_m$,
+\begin{equation}\label{eq:ch6-collective-E}
+E[q;\rho_m]=\int\!\dd^3x\left[\frac Z2|\nabla q|^2-g_c q\rho_m\right],\quad
+G_{\rm eff}=\frac{g_c^2}{4\pi Z},\quad H=\frac{2g_cq}{c^2}.
+\end{equation}
+The identical functional in its matched Newtonian metric coordinate is
+\begin{equation}\label{eq:ch6-EH}
+\boxed{E[H;\rho_m]=\int\!\dd^3x\left[\frac{c^4}{32\pi G_{\rm eff}}|\nabla H|^2-\frac{c^2}{2}\rho_mH\right],\qquad
+\nabla^2H=-\frac{8\pi G_{\rm eff}}{c^2}\rho_m.}
+\end{equation}
+This is a static effective energy, \emph{not} a fully generally covariant local gravitational stress tensor. Integrating by parts on an admissible decaying solution gives
+\begin{equation}\label{eq:on-shell-energy}
+\boxed{E_{\rm on-shell}= -\frac{c^2}{4}\int\!\rho_mH\,\dd^3x
+=\frac12\int\!\rho_m\Phi\,\dd^3x
+=-\frac{G_{\rm eff}}2\!\iint\!\frac{\rho_m(x)\rho_m(y)}{|x-y|}\,\dd^3x\dd^3y,\qquad\Phi=-\frac{c^2H}{2}.}
+\end{equation}
+Consequently the cross energy between separated compact masses $M_1,M_2$ is $-G_{\rm eff}M_1M_2/d$ at leading large-separation order. This is an actual derivation of the Newtonian binding energy within the stipulated collective functional; it does \emph{not} require the archival gradient action for $\sigma$. The bare point-source self-energy needs a finite-source prescription or subtraction.
+
+For the exterior field of a spherical mass, $H=2G_{\rm eff}M/(c^2r)$, the \emph{positive field-gradient part} is
+\begin{equation}\label{eq:outer-energy}
+\boxed{u_{\rm grad}(r)=\frac{c^4}{32\pi G_{\rm eff}}|\nabla H|^2=\frac{G_{\rm eff}M^2}{8\pi r^4},\qquad
+E_{\rm grad}(r>R)=\frac{G_{\rm eff}M^2}{2R}.}
+\end{equation}
+The \emph{total} on-shell binding energy includes the negative source coupling; it is not a sum of positive densities. The radial falloff $r^{-4}$ and mass dependence $M^2$ differ decisively from the old $\sigma$-gradient claim. This controlled result is also a useful consistency bridge from Chapter~5 energy to Chapter~2's exterior natural-invariant metric representation, but does not independently prove microscopic QGD gravity.
+
+% =================== CHAPTER 6 v1.3: USER-REQUESTED ENERGY-FIRST PATH ===================
+\section{Energy-first reconstruction from the historical procedure (v1.3)}
+\label{sec:v13-energyfirst}
+\textbf{Research scope.} The  historical \texttt{Ch4-Energy.tex} proposes the sequence
+\emph{flat-space translations $\to$ Noether energy $\to$ static field profile $\to$
+binding energy $\to$ gravitational-wave energy and flux $\to$ quantum corrections}.
+Here we follow that sequence with the actions already accepted in Chapters~1--5.
+No extra $\sigma$ kinetic term or new microscopic pole condition is imposed.
+The Chapter~5 theorem that $G_{\rm eff}=g_c^2/(4\pi Z)$ is used as a
+\emph{completed effective-model milestone}, not reopened as an unfulfilled task.
+
+\subsection{Step 1: Noether energy on QGD's flat microscopic background}
+\label{sec:v13-microscopic-noether}
+Use Chapter~1's interacting matter action on a fixed Minkowski reference,
+with $\Phi_A$ denoting all fermion and gauge fields and their adjoints,
+\begin{equation}\label{eq:v13-flat-L}
+S_{\rm micro}[\Phi_A;\eta]=\int\!\dd^4x\,
+\mathcal L_{\rm F1}(\Phi_A,\partial\Phi_A;\eta),\qquad
+\mathcal L_{\rm Dirac+contact}=\frac{i\hbar c}{2}
+\bar\psi\gamma^\mu\overleftrightarrow{\partial}_\mu\psi
+-m_0c^2\bar\psi\psi+G_4(\bar\psi\psi)^2,
+\end{equation}
+with the Maxwell/gauge pieces included when electromagnetic sources are
+studied.  The physical dimensions and factors in $G_4$ follow Chapter~1's
+conventions; the schematic interaction in Eq.~\eqref{eq:v13-flat-L}
+fixes the point that no independent gravitational energy term is invented.
+Translation invariance, $\delta x^\nu=a^\nu$, gives the canonical current
+\begin{equation}\label{eq:v13-Tcan}
+\boxed{\Theta^\mu{}_{\nu}=\sum_A
+\frac{\partial\mathcal L_{\rm F1}}{\partial(\partial_\mu\Phi_A)}
+\partial_\nu\Phi_A-\delta^\mu{}_{\nu}\mathcal L_{\rm F1},
+\qquad \partial_\mu\Theta^\mu{}_{\nu}=0\quad\text{on shell}.}
+\end{equation}
+For spinor fields and gauge fields this current should be improved to a
+symmetric, gauge-invariant Belinfante/Hilbert stress where appropriate;
+the improvement changes local currents by superpotentials, not the
+asymptotic conserved total charges with standard boundary conditions.
+In microscopic Minkowski space the conserved total four-momentum is
+\begin{equation}\label{eq:v13-P}
+\boxed{P_\nu=\int_{\Sigma_t}\!\dd^3x\,T^0{}_{\nu},
+\qquad \frac{\dd P_\nu}{\dd t}=-\oint_{\partial\Sigma_t}
+T^i{}_{\nu}n_i\,\dd S,}
+\end{equation}
+with consistent time-coordinate units.  These equations supply exactly the
+Noether bookkeeping required to define energy, momentum and flux in the
+flat microscopic QGD starting theory.  Unlike a hypothetical
+$\frac12(\partial\sigma)^2$ energy, $T_{\mu\nu}$ is derived from a
+specified microscopic action and can include energy, pressure, spin,
+and electromagnetic radiation.
+
+\subsection{Step 2: Derive the static QGD field energy without a new action}
+\label{sec:v13-fieldenergy}
+Chapter~5 has already proved the conditional change of variables from
+the positive-stiffness collective response to the Newtonian composite
+metric mode.  For the physical effective Newtonian gravitational
+constant $G:=G_{\rm eff}=g_c^2/(4\pi Z)$, write
+\begin{equation}\label{eq:v13-E}
+E[H,\rho_m]=\int\!\dd^3x\left[\frac a2|\bm\nabla H|^2
+-b\rho_m H\right],\qquad
+ a:=\frac{c^4}{16\pi G},\quad b:=\frac{c^2}{2},\quad
+\Phi=-bH.
+\end{equation}
+\begin{theorem}[The complete static energy and force law from Chapter~5 \Ctag]
+\label{thm:v13-energy}
+Suppose $H$ is smooth away from localized sources, decays at infinity,
+$G>0$, and boundary integrations are valid.  Then variation and its
+on-shell energy give
+\begin{equation}\label{eq:v13-Eeq}
+\boxed{a\nabla^2H=-b\rho_m,
+\qquad \nabla^2\Phi=4\pi G\rho_m,
+\qquad E_{\rm on-shell}=\frac12\int\!\rho_m\Phi\,\dd^3x.}
+\end{equation}
+For two well-separated bodies, the cross term is
+$U_{12}=-GM_1M_2/d+O(d^{-2})$ for nonspherical finite sources,
+and $\bm F_2=-M_2\bm\nabla\Phi_1$ at leading monopole order.
+\end{theorem}
+\begin{proof}
+Vary Eq.~\eqref{eq:v13-E}, integrate the gradient term by parts,
+and use $b/a=8\pi G/c^2$; then $\Phi=-bH$ yields Poisson's equation.
+Multiply the field equation by $H$, integrate, and discard the boundary
+term: $a\int|\nabla H|^2=b\int\rho_mH$. Hence the field and source
+terms combine to $E_{\rm on-shell}=-(b/2)\int\rho_mH$.
+Inserting the Green-function solution $\Phi(x)=-G\int\rho_m(y)/|x-y|\,\dd^3y$
+and splitting $\rho_m=\rho_1+\rho_2$ gives the stated interaction.
+\end{proof}
+
+\subsection{Step 3: A local Noether stress and its exact force-balance identity}
+\label{sec:v13-stress}
+For the \emph{static matched Newtonian scalar energy} alone, flat-space
+spatial translations yield the symmetric field stress
+\begin{equation}\label{eq:v13-stress}
+\boxed{\mathcal S_{ij}:=a\left(\partial_iH\,\partial_jH
+-\frac12\delta_{ij}|\bm\nabla H|^2\right).}
+\end{equation}
+It has an exact divergence identity on solutions:
+\begin{equation}\label{eq:v13-force}
+\boxed{\partial_j\mathcal S_{ij}
+=a\partial_iH\nabla^2H
+=\rho_m\partial_i\Phi,
+\qquad f_i^{\rm matter}:=-\rho_m\partial_i\Phi
+=-\partial_j\mathcal S_{ij}.}
+\end{equation}
+For a body enclosed by a smooth surface in vacuum, the net Newtonian
+force transmitted across that surface is therefore
+\begin{equation}\label{eq:v13-surface}
+\boxed{F_i^{\rm body}=-\oint\mathcal S_{ij}n_j\,\dd S.}
+\end{equation}
+This provides the correct \emph{local energy/momentum-flow calculation}
+that the old chapter sought, in the specified flat-reference static
+approximation.  It is not a new generally covariant, pointwise
+energy-momentum tensor for the unrestricted relativistic gravitational
+field; the field stress depends on the chosen Newtonian description.
+
+\subsection{Step 4: Correct the Schwarzschild scaling in terms of natural invariants}
+\label{sec:v13-schwarzschild}
+For Chapter~2's classical spherical exterior, $H=A^2=B^2=r_s/r$,
+$r_s=2GM/c^2$.  Directly from the derived static functional,
+\begin{equation}\label{eq:v13-uA}
+\boxed{u_{\rm grad}
+=\frac{c^4}{32\pi G}|\bm\nabla(A^2)|^2
+=\frac{c^4}{8\pi G}A^2|\bm\nabla A|^2
+=\frac{GM^2}{8\pi r^4}.}
+\end{equation}
+The exterior field-gradient energy is finite for any radius $R>0$:
+\begin{equation}\label{eq:v13-Eext}
+\boxed{E_{\rm grad}(r>R)=\int_R^\infty4\pi r^2u_{\rm grad}\,\dd r
+=\frac{GM^2}{2R}.}
+\end{equation}
+Thus, the historical $\tfrac12(A')^2\propto M/r^3$ lacks the
+correct normalization and mass scaling.  The \emph{correct procedure}
+retains the quadratic natural-invariant geometry but performs the
+Noether/energy calculation using the physical composite mode
+$H=A^2$ and Chapter~5's already normalized effective action.
+The field-gradient contribution is positive, while the \emph{full}
+on-shell gravitational binding energy is negative, because the
+source coupling is indispensable.  The calculation does not assert
+an exact Schwarzschild quasi-local energy at every radius.
+
+\subsection{Step 5: Gravitational-wave energy and Poynting flux}
+\label{sec:v13-wave}
+At Chapter~6's regular cancelling-sector representative, any
+transverse--traceless metric wave $h_{ij}^{\rm TT}$ admits the
+exact signed-sector lift $P=vI+h/(4v)$,
+$N=vI-h/(4v)$ (where $h_{0\mu}=0$).  Its gravitational dynamics
+and quadratic energy follow from Chapter~4's accepted
+Einstein--Hilbert action.  In a fixed flat reference frame and TT gauge,
+the second-order weak-wave Lagrangian density is
+\begin{equation}\label{eq:v13-LTT}
+\mathcal L_{\rm TT}^{(2)}
+=\frac{c^2}{64\pi G_N}
+\left[\dot h_{ij}^{\rm TT}\dot h_{ij}^{\rm TT}
+-c^2\partial_kh_{ij}^{\rm TT}\partial_kh_{ij}^{\rm TT}\right],
+\end{equation}
+with implied sum over spatial indices.  Applying the ordinary
+canonical Noether construction gives
+\begin{equation}\label{eq:v13-TTenergy}
+\boxed{u_{\rm TT}^{(2)}=\frac{c^2}{64\pi G_N}
+\left[\dot h_{ij}^{\rm TT}\dot h_{ij}^{\rm TT}
++c^2\partial_k h_{ij}^{\rm TT}\partial_k h_{ij}^{\rm TT}\right].}
+\end{equation}
+For an outgoing plane wave (and, for physical gauge-independent
+interpretation, in the appropriate short-wavelength averaged regime)
+\begin{equation}\label{eq:v13-waveflux}
+\boxed{\left\langle u_{\rm GW}\right\rangle
+=\frac{c^2}{32\pi G_N}\left\langle\dot h_{ij}^{\rm TT}
+\dot h_{ij}^{\rm TT}\right\rangle,
+\qquad \left\langle S_i^{\rm GW}\right\rangle
+=c\,n_i\left\langle u_{\rm GW}\right\rangle.}
+\end{equation}
+The dependence on the signed sectors is only through the physical
+metric perturbation $h$.  Consequently, these observables are unchanged
+by the 22 locally metric-null representation directions.  The
+historical $\frac12(\partial\sigma)^2$ is not an exact covariant
+substitute for Eq.~\eqref{eq:v13-TTenergy}.  In full nonlinear gravity,
+pointwise localization and gauge independence remain separate issues.
+
+\subsection{Step 6: Quantum correction to interaction energy, without double counting}
+\label{sec:v13-quantum}
+Chapter~4's supported far-field, Boulware-state, one-massless-Dirac
+quantum correction to the static Killing-energy potential is
+\begin{equation}\label{eq:v13-quantum}
+\boxed{\delta\Phi_Q(r)=-\frac{2G_N^2M\hbar}{15\pi c^3r^3},
+\qquad \delta U_Q(r)=m_t\delta\Phi_Q(r),
+\qquad \delta F_r=-\frac{2G_N^2Mm_t\hbar}{5\pi c^3r^4}.}
+\end{equation}
+This is a concrete correction to the gravitational energy/force
+observables from renormalized matter backreaction.  It is already
+accounted for in $\hbar\Gamma_{\rm matter}^{(1),\rm ren}$ of the
+Chapter~4 action.  We do \emph{not} insert it again as either
+$\ell_Q^2(\partial^2\sigma)^2$ or the historical
+$-\lambda\mathcal Q_{ab}$.
+
+\section{The connected Noether-stress correlator as an energy observable}
+\label{sec:v13-correlator}
+The older energy chapter's strongest forward-looking idea is to use
+conserved flat-space energy as an actual microscopic observable.
+For the complete, improved microscopic total stress
+$\widehat T^{\mu\nu}$, define
+\begin{equation}\label{eq:v13-C}
+\boxed{C^{\mu\nu,\rho\sigma}(x,y)
+=\langle\widehat T^{\mu\nu}(x)\widehat T^{\rho\sigma}(y)\rangle
+-\langle\widehat T^{\mu\nu}(x)\rangle\langle\widehat T^{\rho\sigma}(y)\rangle.}
+\end{equation}
+At noncoincident points in a stationary translationally invariant
+state, the stress-conservation Ward identity yields
+\begin{equation}\label{eq:v13-Ward}
+\boxed{\partial_{x^\mu}C^{\mu\nu,\rho\sigma}(x,y)=0
+\quad(x\ne y),}
+\end{equation}
+with regulated local contact terms needed in the coincident or
+Fourier-space identity.  Rather than reopening Chapter~5's infrared
+criterion, we use $C$ here to quantify \emph{energy fluctuations}.
+For a smooth, compactly supported real smearing $f(\bm x)$, set
+\begin{equation}\label{eq:v13-variance}
+\widehat E_f(t)=\int\!\dd^3x\, f(\bm x)
+\widehat T^{00}(t,\bm x),\qquad
+\boxed{\operatorname{Var}_\varrho(E_f)
+=\iint\!\dd^3x\,\dd^3y\,f(\bm x)f(\bm y)
+C^{00,00}(t,\bm x;t,\bm y)\ge0,}
+\end{equation}
+assuming a suitably renormalized/smeared Hermitian operator and
+finite variance.  This is a direct, model-independent positivity
+statement about an observable \emph{fluctuation}, not a local
+positive gravitational energy tensor.  A vacuum energy eigenstate
+can have zero variance for the \emph{total} Hamiltonian while
+having nontrivial local energy fluctuations.
+
+For a set of physical conserved-stress probes $J_I$ with a properly
+renormalized generating functional $W[J]$, the Legendre effective
+action satisfies on an invertible constrained subspace
+\begin{equation}\label{eq:v13-Hessian}
+\boxed{K_{IJ}=\frac{\delta^2\Gamma_{\rm coll}}
+{\delta\varphi^I\delta\varphi^J},\qquad
+K=(W^{(2)})^{-1}.}
+\end{equation}
+This is the correctly constrained collective Hessian framework
+already formulated earlier in Chapter~5.  It can quantify actual
+stress-channel fluctuations and stability while leaving the
+calibrated static gravity theorem intact.  The total matter stress
+includes electromagnetic radiation; whether its microscopic
+fluctuations dynamically select a common QGD metric remains a
+separate test, not a deficiency of the completed Chapter~5
+conditional correspondence.
+
+\section{Research decision: what changes and what remains established}
+\label{sec:v13-decision}
+\begin{enumerate}
+\item \Dtag\ Chapter~1's flat-space translation symmetry supplies
+physical conserved matter energy-momentum by Noether's theorem.
+\item \Ctag\ Chapters~3 and 5 already fix $G_{\rm eff}=G_N$ as a
+valid empirically normalized effective interaction.  We derive its
+static energy, local stress/force-balance identity, binding energy and
+spherical profile \emph{without} a new $\sigma$ kinetic action.
+\item \Ctag\ Chapter~4's weak-wave effective action supplies the
+physical TT radiation energy and averaged flux; Chapter~6's exact
+signed-sector lift reexpresses the wave without adding particles.
+\item \Ctag\ The supported massless-Dirac quantum-energy correction
+is obtained from the already included renormalized matter action;
+no duplicated historical $\mathcal Q_{ab}$ term is introduced.
+\item \Dtag\ The regulated Noether-stress correlator defines
+energy-fluctuation observables with a nonnegative smeared variance;
+the metric-only signed vacuum parameter $v$ remains redundant.
+\item \Otag\ Whether the microscopic stress fluctuations select a
+physical vacuum beyond metric redundancy is still a live Chapter~6
+question, but it is not a reason to re-prove Chapter~5's
+conditional quantum-to-geometry correspondence.
+\end{enumerate}
+\textbf{Conclusion.} The old manuscript provided a valuable
+\emph{procedure}.  The present chapter now performs that procedure
+using the accepted theory.  It recovers a conserved flat-space
+matter energy, normalized gravitational binding and force-stress,
+observationally defined radiation energy and flux, and a supported
+quantum-energy correction.  It does not confuse those results with a
+new exact local covariant gravitational energy tensor.
+% =================== END CHAPTER 6 v1.3 ===================
+
+\section{A new microscopic vacuum energy from Chapter 1's actual matter action}
+\label{sec:microscopicenergy}
+We now perform the more fundamental calculation requested at the end of v1.0. Take Chapter~1's existing scalar-contact interaction in the vanishing electromagnetic background:
+\begin{equation}\label{eq:micro-lag}
+\mathcal L_{\rm F1}=\bar\psi(i\gamma^\mu\partial_\mu-m_0)\psi+G_4(\bar\psi\psi)^2,\qquad G_4>0.
+\end{equation}
+No standalone $\sigma$ kinetic action, metric propagator, or massless graviton is inserted. In the homogeneous Hartree approximation, introduce the effective Dirac mass $M=m_0-s$, chemical potential $\mu$, momentum cutoff $\Lambda$ and $p_F=\sqrt{\max(\mu^2-M^2,0)}$. For spin degeneracy two, the regulated $T=0$ grand-potential density, up to an $M$-independent counterterm, is
+\begin{equation}\label{eq:micro-omega}
+\boxed{\begin{aligned}
+\Omega(M,\mu)={}&\frac{(M-m_0)^2}{4G_4}
+-\frac1{\pi^2}\int_0^\Lambda p^2\sqrt{p^2+M^2}\,\dd p\\
+&-\frac1{\pi^2}\int_0^{p_F}p^2\bigl(\mu-\sqrt{p^2+M^2}\bigr)\,\dd p.
+\end{aligned}}
+\end{equation}
+This is a calculated \emph{microscopic matter} energy potential, rather than the gravitational energy proposed in the old manuscript. At zero temperature $\mathcal U/V=\Omega+\mu n$ after the chosen vacuum-energy subtraction; $\Omega$ itself is a grand potential, not a Hamiltonian density at nonzero $\mu$. Its vacuum constant is regulator- and renormalization-sensitive and cannot be identified with the physical cosmological constant without a separate matching prescription.
+
+The stationary collective configuration obeys
+\begin{equation}\label{eq:micro-gap}
+\boxed{\Omega_M=\frac{M-m_0}{2G_4}-\frac M{\pi^2}\int_{p_F}^{\Lambda}\frac{p^2}{\sqrt{p^2+M^2}}\,\dd p=0.}
+\end{equation}
+The \emph{physical scalar-amplitude Hessian at zero momentum} and the mixed chemical-potential source vertex are
+\begin{align}
+\boxed{K_0:=\Omega_{MM}}&=\frac1{2G_4}-\frac1{\pi^2}\left[\int_{p_F}^{\Lambda}\frac{p^4\,\dd p}{(p^2+M^2)^{3/2}}+\frac{M^2p_F}{\mu}\right],\label{eq:micro-K}\\
+\boxed{V_0:=\Omega_{M\mu}}&=\frac{Mp_F}{\pi^2},\qquad\boxed{-\Omega_{\mu\mu}=\frac{\mu p_F}{\pi^2}}.\label{eq:micro-V}
+\end{align}
+The displayed $M^2p_F/\mu$ term is present only when $\mu>M$; it is zero when the Fermi sea is absent. Notice that $K_0$ is not the complete frequency--momentum Hessian. A full excitation spectrum requires $K(\omega,\bm k)$; a positive $K_0$ proves local homogeneous scalar stability but neither relativistic spectral positivity nor gradient stiffness by itself.
+
+\begin{proposition}[A stable scalar vacuum, but no Newtonian scalar pole \Dtag\ within Hartree]
+\label{prop:vacuum-hartree}
+For the precise illustrative Chapter~5 benchmark $\Lambda=4$, $m_0=0.12$, $G_4=0.5654255716$, the $\mu=0$ saddle is $M_*=0.800000000$ to numerical accuracy, and
+\begin{equation}\label{eq:vacuum-results}
+\boxed{K_0(M_*,0)=0.2190085055>0,\qquad
+\Omega(M_*,0)-\Omega(0,0)=-0.0506020191.}
+\end{equation}
+The cutoff is spatial rather than manifestly Lorentz covariant, so a separate covariant continuum test would be required before assigning relativistic vacuum significance to this illustrative saddle. The scalar-amplitude static inverse response therefore has a \emph{nonzero} zero-momentum mass term in this regulated Hartree approximation. In any regular continuation $K(0,\bm k)=K_0+o(1)$, it cannot exhibit the required isolated $1/|\bm k|^2$ pole in this channel. This is a local saddle and channel-specific conclusion, not a no-go theorem for microscopic quantum matter or for other QGD collective observables.
+\end{proposition}
+The finite-density example $\mu=1.2$ supplies an independent phase test. Its stationary mass is $M_*=0.6934355355$ with $K_0=0.1687417341>0$ and $V_0=0.0688095900$. Allowing the mass to relax under a density probe produces the Schur-complement susceptibility
+\begin{equation}\label{eq:micro-chi}
+\boxed{\chi_{nn}(0,0)=-\Omega_{\mu\mu}+\frac{\Omega_{M\mu}^2}{\Omega_{MM}}
+=0.1190759686+\frac{0.0688095900^2}{0.1687417341}
+=0.1471351782.}
+\end{equation}
+The corresponding number density is $n=0.0317253825$ and the vacuum-subtracted matter energy density is $[\Omega(M_*,1.2)+1.2n]-\Omega(M_*(0),0)=0.0335505053$ in the same cutoff units. This is energy in the specified fermionic medium, not gravitational field energy. The $23.56\%$ enhancement relative to the direct response is real but \emph{finite}. The first equality follows from differentiating $\Omega_M(M(\mu),\mu)=0$, which gives $M'=-V_0/K_0$. It does not describe a universal long-range gravitational mode; this finite-density state also selects a rest frame.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\linewidth]{hartree_potential.pdf}
+\caption{The actual Chapter~1 regulated Hartree grand potential at zero and finite density, plotted relative to each local saddle. Points mark stable homogeneous solutions. The figure does not plot a gravitational potential or claim a massless excitation.}
+\label{fig:hartree}
+\end{figure}
+
+\section{Can the scalar mode become long range? A critical-coupling calculation}
+\label{sec:critical}
+For a separate diagnostic, set $m_0=\mu=M=0$ (\emph{the chiral-symmetric limit, not the benchmark above}). The zero-momentum Hessian simplifies exactly to
+\begin{equation}\label{eq:critical}
+\boxed{K_0(0,0)=\frac1{2G_4}-\frac{\Lambda^2}{2\pi^2},\qquad
+G_{4,c}=\frac{\pi^2}{\Lambda^2}.}
+\end{equation}
+At $\Lambda=4$ this would require $G_{4,c}=0.6168502751$, rather than the benchmark $0.5654255716$. For $G_4<G_{4,c}$ the symmetric saddle has positive static curvature; at $G_4=G_{4,c}$ its homogeneous curvature is marginal; beyond the critical value the symmetric saddle has negative curvature and must be reconsidered.
+
+This is a \emph{genuine possible route to a soft composite channel}, because the microscopic coupling can be tuned until $K_0=0$. But it is \emph{not} yet the QGD Newtonian force: at the massless-fermion critical point the momentum-dependent polarization need not have a finite constant $Z$ (four-dimensional loops can produce nonanalytic logarithms), and a source-visible pole also requires nonzero, universal vertices. Neither a healthy full propagator nor shared electromagnetic coupling follows from Eq.~\eqref{eq:critical}.
+
+If a separately calculated stable phase did have $K(0,\bm k)=K_0+Z|\bm k|^2+\cdots$ with $Z>0$, its scalar correlation length would be $\xi=\sqrt{Z/K_0}$ when $K_0>0$, giving a Yukawa rather than Coulomb static response. The $K_0=0$ limit would produce $1/r$ only if the assumed regular gradient expansion and a nonvanishing source vertex actually hold. We have \emph{not} inserted a phenomenological $Z$ into the microscopic calculation or treated an uncomputed $Z$ as a result.
+
+\section{The independent radiation test}
+\label{sec:radiation}
+A collective phase counts as the origin of universal gravity only if its source response includes \emph{all} stress-energy, particularly electromagnetic radiation. The Hartree auxiliary variable $\delta M$ couples at its microscopic tree vertex to $\bar\psi\psi$; in the vanishing-gauge-background approximation used to obtain $\Omega$, there is no elementary $\delta M A_\mu A_\nu$ vertex. Fermion loops can generate gauge-invariant photon operators, such as $\delta M F_{\mu\nu}F^{\mu\nu}$, but those vertices are \emph{not} computed by the scalar grand potential or by its Hessian $K_0$.
+
+A single freely propagating Maxwell plane wave has $F_{\mu\nu}F^{\mu\nu}=0$ while its stress-energy $T_{\mu\nu}^{\rm EM}$ is nonzero. Thus even a postulated $\delta M F^2$ operator does not by itself establish the universal coupling required for radiation to gravitate. Moreover, a mass-changing scalar fluctuation modifies the Dirac quasiparticle dispersion while leaving the bare Maxwell principal symbol unchanged. An operationally shared physical metric, identical stress coupling, and the appropriate two effective tensor polarizations remain open conditions.
+
+This comparison is decisive for the tested channel: \textbf{local scalar stability is achieved, but a universal matter-and-radiation gravitational collective mode has not been derived.} Other response channels or phases must be investigated with the same independent-probe test, rather than assumed to inherit the coupling of the adopted Chapter~4 metric action.
+
+\section{Correct energy accounting for vacuum excitations}
+\label{sec:waveenergy}
+The microscopic conserved stress tensor, where defined, comes from variation with respect to a \emph{probe} background geometry or the equivalent translational Noether construction, including contact interactions, counterterms and state subtraction. It is a physical observable of the specified matter model. The expectation $\langle T_{\mu\nu}\rangle_{\varrho,\mathrm{ren}}$ can source Chapter~4's already adopted semiclassical metric action; this does not establish a separate pointwise, covariant energy tensor for gravitational geometry.
+
+In the metric-only QGD regime, gravitational-wave energy is described by the usual physical observables (e.g. asymptotic flux or short-wavelength averaged effective stress). For a weak transverse--traceless wave the conventional averaged energy density is
+\begin{equation}\label{eq:isaacson}
+\boxed{u_{\rm GW}=\frac{c^2}{32\pi G_N}\left\langle\dot h^{\rm TT}_{ij}\dot h^{\rm TT}_{ij}\right\rangle,}
+\end{equation}
+under the standard weak-wave averaging hypotheses. The signed-sector lift maps the wave into natural-invariant variables, but does not upgrade this to an exact gauge-invariant pointwise density. A genuine independent \emph{natural-invariant} energy current would require an additional action, verified symmetry transformation laws and a Hamiltonian constraint analysis.
+
+\section{Chapter 6 decision: what was accomplished}
+\label{sec:energydecision}
+\begin{enumerate}
+\item \Dtag\ The supplied historical energy tensor and proposed $\ell_Q^2$ operators do not follow from the accepted QGD action. A simple sector-gradient energy fails signed-representation invariance explicitly.
+\item \Ctag\ Chapter~5's static collective energy gives Newtonian binding, $-G_{\rm eff}M_1M_2/d$, and an exterior gradient density $G_{\rm eff}M^2/(8\pi r^4)$ in the matched Newtonian formulation; it is not a local covariant energy tensor of full gravitation.
+\item \Dtag\ The Chapter~1 Hartree quantum matter action provides an explicit regulated vacuum potential and a positive homogeneous scalar Hessian; the tested scalar channel does not carry the required long-range static pole.
+\item \Dtag\ The chiral-symmetric diagnostic has a tunable marginal Hessian at $G_{4,c}=\pi^2/\Lambda^2$, but this is not yet a stable universal gravitational response.
+\item \Otag\ A physical collective vacuum that sources a common geometry for Dirac matter and radiation remains to be derived. The cancellation parameter $v$ is still unobservable in the metric-only theory.
+\end{enumerate}
+The appropriate future calculation is the \emph{complete momentum-dependent and source-resolved Hessian} in a new candidate microscopic quantum phase, including electromagnetic stress vertices and all physically independent tensor channels. This follows from, rather than replaces, the progress in Chapters~1--5.
+
+% =================== end v1.1 insert ===================
+
+
+
+
+
+% ===== QGD Chapter 6 v1.4: energy-to-GR surface charge =====
+\section{Mapping flat-reference energy to Einsteinian conserved charges (v1.4)}
+\label{sec:v14-mapping}
+\textbf{New question.} Does the Chapter~5/6 energy-first prescription
+return the mass of the same effective solution as evaluated by standard
+GR boundary charges? We answer this on the calibrated Schwarzschild
+Kerr--Schild branch without adding microscopic premises.
+
+\begin{proposition}[Exterior Noether/Gauss-to-ADM matching \Ctag]
+\label{prop:v14-adm}
+For $H=A^2=B^2=C/r$ in the standard Minkowski-reference
+Kerr--Schild chart, $C=2G_NM/c^2$, the static collective field
+flux and the ADM mass of its reconstructed effective geometry agree:
+\begin{equation}\label{eq:v14-adm}
+\boxed{M_H=-\frac{c^2}{8\pi G_N}\oint_{S_r}\partial_rH\,dS
+=\frac{c^2 C}{2G_N}=M_{\rm ADM}.}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The normal flux integral is $-4\pi C$.
+On a fixed Kerr--Schild time slice, the spatial metric is
+$\gamma_{ij}=\delta_{ij}+Hn_in_j$ with $n_i=x_i/r$.
+Since $\partial_j n_j=2/r$ and $n_j\partial_jn_i=0$,
+\begin{equation}\label{eq:v14-admint}
+[\partial_j\gamma_{ij}-\partial_i\gamma_{jj}]n_i
+=\frac{2H}{r}=\frac{2C}{r^2}.
+\end{equation}
+Substitution in
+$M_{\rm ADM}=c^2(16\pi G_N)^{-1}\oint
+(\partial_j\gamma_{ij}-\partial_i\gamma_{jj})n^i\,dS$
+gives the same mass. This is a match of exterior charges, not
+an exact identification of microscopic rest-mass density with ADM
+mass for an arbitrary relativistic interior.
+\end{proof}
+
+\begin{proposition}[Leading Brown--York coefficient \Ctag]
+\label{prop:v14-by}
+In the exterior of the same Schwarzschild geometry, with the
+usual flat-referenced Brown--York energy on a conventional static
+spatial slice,
+\begin{equation}\label{eq:v14-by}
+\boxed{E_{\rm BY}(R)
+=\frac{c^4R}{G_N}\left(1-\sqrt{1-\frac{2G_NM}{c^2R}}\right)
+=Mc^2+\frac{G_NM^2}{2R}+O(R^{-2}).}
+\end{equation}
+The Chapter~6 static-gradient energy exterior to $R$ obeys
+$E_{\rm grad}(r>R)=G_NM^2/(2R)$ and therefore matches
+$E_{\rm BY}(R)-Mc^2$ at the first nontrivial asymptotic order.
+This does not identify a unique local gravitational energy density:
+these quantities refer to different prescriptions and their agreement
+is restricted to the stated order and reference choices.
+\end{proposition}
+
+\paragraph{Re-reading the Chapter 4 natural-invariant field equations.}
+The full founding metric with $T^a{}_{\mu}$ and the historical
+$-\lambda\mathcal Q_{ab}$ remains definitive. The preferred Option C
+full-map Euler equation is
+\begin{equation}\label{eq:v14-optionC}
+\boxed{2s_s\Pi^{ab}\sigma_b^{(s)}
+=\lambda[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi]^a.}
+\end{equation}
+For a specified $\mathcal Q[\sigma;T]$, these are projections of
+one metric Euler residual $\Pi$; when the full map is surjective,
+$\Pi=0$ and both sides vanish. Thus it would be incorrect to interpret
+the two sides as two independent energy reservoirs whose exchange has
+been calculated. Microscopic flat-space Noether energy
+$\partial_\mu\Theta^\mu{}_{\nu}=0$ and emergent covariant stress
+$\nabla_\mu T_{\rm eff}^{\mu\nu}=0$ are different conservation
+statements. For a Killing vector $\xi$,
+$J^\mu=T_{\rm eff}^{\mu\nu}\xi_\nu$ obeys
+$\partial_\mu(\sqrt{-g}J^\mu)=0$.
+The gravitational contribution to the full energy appears through
+the gravitational Hamiltonian boundary term. Under a regular,
+metric-only pullback, ADM/Bondi/Noether boundary charges are unchanged
+relative to GR for the same effective metric and boundary data.
+
+\paragraph{Exact Misner--Sharp mass in QGD variables.}
+The inverse metric on the $t,r$ orbit space has
+$g^{rr}=F/D$, where $F=1-A^2$ and $D=1+B^2-A^2$.
+The established spherically symmetric GR mass becomes
+\begin{equation}\label{eq:v14-ms}
+\boxed{m_{\rm MS}(r)=\frac{c^2r}{2G_N}
+\left(1-g^{ab}\partial_a r\partial_b r\right)
+=\frac{c^2r}{2G_N}\frac{B^2}{1+B^2-A^2}.}
+\end{equation}
+For the classical vacuum exterior, $A^2=B^2=H$ and
+$m_{\rm MS}=M$ at every areal radius. For the named Chapter~4
+massless-Dirac correction, with $A^2=H+\delta A^2$,
+$B^2=H+\delta B^2$,
+\begin{equation}\label{eq:v14-msquantum}
+\boxed{\delta m_{\rm MS}
+=\frac{c^2r}{2G_N}\left[(1-H)\delta B^2+H\delta A^2\right]
+=\frac{G_NM\hbar}{5\pi c^3r^2}+O(r^{-3}).}
+\end{equation}
+The first quantum term matches Chapter~4's independently
+calculated semiclassical mass function. In the conventional
+static spherical Einstein--matter equations,
+$m_{\rm MS}'=4\pi r^2\epsilon/c^2$, with $\epsilon$ the total
+energy density in that frame. This is a strong cross-chapter
+energy/source consistency check, not a new gravitational mass
+observable beyond GR.
+
+\paragraph{Exact quasilocal energy in natural-invariant variables.}
+The Chapter~2 static one-sector metric is diagonalized with
+$F=1-A^2$, $D=1+B^2-A^2$, so its static spatial slice has
+$\gamma_{rr}=D/F$. Brown--York energy relative to flat space is
+\begin{equation}\label{eq:v14-byAB}
+\boxed{E_{\rm BY}(R)=\frac{c^4R}{G_N}\left[
+1-\sqrt{\frac{1-A(R)^2}{1+B(R)^2-A(R)^2}}
+\right],\qquad F,D>0.}
+\end{equation}
+This is exact in the stated round-sphere, areal-radius,
+static-orthogonal-foliation and flat-reference prescription;
+$A^2=B^2=H$ recovers the Schwarzschild formula above.
+For Chapter~4's named Dirac quantum correction, linearizing this
+expression gives
+\begin{equation}\label{eq:v14-byquantum}
+\boxed{\delta E_{\rm BY}=\frac{c^4R}{2G_N}\sqrt{1-H}
+\left[\delta B^2+\frac{H}{1-H}\delta A^2\right]
+=\frac{G_NM\hbar}{5\pi cR^2}+O(R^{-3}),}
+\end{equation}
+where $\delta A^2=4G_N^2M\hbar/(15\pi c^5R^3)$ and
+$\delta B^2=2G_N^2M\hbar/(5\pi c^5R^3)$,
+and the $O(R^{-3})$ qualifier refers to subsequent
+one-loop weak-field orders. This state-specific finite-radius energy
+correction vanishes at infinity and is not an independent QGD prediction.
+
+\paragraph{Quantum corrections and total mass.}
+The Chapter~4 Boulware-state far-field terms obey
+$\delta A^2,\delta B^2=O(\hbar/r^3)$ for fixed ADM mass.
+They modify finite-radius gravitational behavior but not the
+$1/r$ asymptotic coefficient in the ADM surface charge:
+$r^2\partial_r(\hbar/r^3)=O(\hbar/r^2)\to0$.
+A genuinely changed mass integration constant would of course be
+visible in the asymptotic charge. This is a fixed-state,
+fixed-mass perturbative result, not a universal statement that
+quantum processes never change a body's total energy.
+
+\paragraph{Research conclusion.}
+QGD's present contribution is a controlled energy dictionary:
+flat microscopic Noether energy; the Chapter~5 Newtonian energy
+functional and stress balance; exact exterior flux-to-ADM matching;
+the leading Brown--York coefficient; and a signed-sector expression
+for the metric gravitational-wave energy. It does not yet solve the
+general generally covariant localization problem or derive a new
+physically observer-independent gravitational energy tensor.
+Further specification of the historical quantum tensor
+$\mathcal Q$ must avoid double counting metric quantum backreaction.
+References: Brown and York \url{https://doi.org/10.1103/PhysRevD.47.1407};
+Iyer and Wald \url{https://doi.org/10.1103/PhysRevD.50.846};
+Szabados \url{https://doi.org/10.12942/lrr-2004-4}.
+% ===== END v1.4 =====
+
+
+% ===== Chapter 6 v1.5: Quantum energy hierarchy and interpretation =====
+\section{Quantum energy beyond the leading force: an areal-radius hierarchy (v1.5)}
+\label{sec:v15-energyhierarchy}
+\textbf{Status.} This is a new analysis of \emph{already calculated}
+Chapter~4 one-loop matter backreaction, carried through the \emph{already
+accepted} QGD--139 energy dictionary. It does not add a new field,
+reopen Chapter~5's conditional collective response, or equate a local
+quantum matter energy density with a fundamental gravitational stress
+of the natural invariants.
+
+\subsection{Classical versus quantum expansion parameters}
+Define $u=G_NM/(c^2r)$ and $w=G_N\hbar/(c^3r^2)$.
+A series in $u$ is classical, while a controlled loop contribution
+proportional to $w$ can be quantum. The same inverse power of $r$ may
+occur through different physics, so radial scaling alone is not a loop
+order test.
+The \emph{classical} Schwarzschild Brown--York energy, on the
+specified static-orthogonal slicing, is
+\begin{equation}\label{eq:v15-BYclassical}
+ E_{\rm BY}^{(0)}(R)
+ =\frac{c^4R}{G_N}(1-\sqrt{1-2u_R})
+ =Mc^2+\frac{G_NM^2}{2R}
+ +\frac{G_N^2M^3}{2c^2R^2}
+ +\frac{5G_N^3M^4}{8c^4R^3}+O(R^{-4}).
+\end{equation}
+The $R^{-2}$ and $R^{-3}$ terms here are \emph{not} quantum.
+
+\subsection{The calculated renormalized Dirac vacuum energy density}
+For one massless four-component Dirac field in the far-field,
+asymptotically empty Boulware state, use Chapter~4's computed
+\begin{equation}\label{eq:v15-deltam}
+ m_{\rm MS}(r)=M+\delta m_1(r)+\cdots,
+ \quad\delta m_1(r)=\frac{G_NM\hbar}{5\pi c^3r^2}.
+\end{equation}
+By the spherical Einstein constraint, the quantum matter energy density
+in the static frame and its exterior integral are
+\begin{equation}\label{eq:v15-rhoE}
+ \boxed{\rho_E^{(Q)}(r)
+ =\frac{c^2}{4\pi r^2}\,\delta m_1'(r)
+ =-\frac{G_NM\hbar}{10\pi^2 c r^5}+\cdots,}
+\end{equation}
+\begin{equation}\label{eq:v15-Eoutside}
+ \boxed{E_Q^{\mathrm{outside}}(R)
+ =\int_R^\infty4\pi r^2\rho_E^{(Q)}(r)\,\dd r
+ =-\frac{G_NM\hbar}{5\pi cR^2}+\cdots.}
+\end{equation}
+At fixed ADM mass, $[m_{\rm MS}(R)-M]c^2=-E_Q^{\rm outside}(R)$
+to the displayed order. The sign is a property of this quantum
+\emph{matter} state, not a universal statement about quantum gravity.
+
+\subsection{An explicit comparison of three distinct energies}
+For the same source and radius in their stated regimes,
+\begin{equation}\label{eq:v15-energytriangle}
+\boxed{\begin{aligned}
+ E_{\rm grad}^{\rm exterior}(R)&=+\frac{G_NM^2}{2R}
+ &&\text{(static collective gradient)},\\
+ E_Q^{\rm exterior}(R)&=-\frac{G_NM\hbar}{5\pi cR^2}+\cdots
+ &&\text{(renormalized Dirac matter)},\\
+ \delta E_{\rm BY}^{(1)}(R)&=+\frac{G_NM\hbar}{5\pi cR^2}+\cdots
+ &&\text{(Brown--York response)}.
+\end{aligned}}
+\end{equation}
+They do not represent three interchangeable local densities. The
+collective gradient energy is from the Newtonian effective functional,
+while the remaining two use a specified semiclassical relativistic
+state and a specified quasilocal energy definition.
+
+\subsection{Second-order bookkeeping: what is predictable now?}
+Write $m(R)=M+\delta m_1(R)+\delta m_2(R)+\cdots$,
+$\delta m_n=O(\hbar^n)$, and
+$f_0=1-2G_NM/(c^2R)>0$. The Brown--York functional gives
+\begin{equation}\label{eq:v15-bytaylor}
+ \boxed{\begin{aligned}
+ \delta E_{\rm BY}^{(1)}&=\frac{c^2\delta m_1}{\sqrt{f_0}},\\
+ \delta E_{\rm BY}^{(2)}&=\frac{c^2\delta m_2}{\sqrt{f_0}}
+ +\frac{G_N(\delta m_1)^2}{2R f_0^{3/2}}.
+ \end{aligned}}
+\end{equation}
+The second displayed term is an \emph{exact Taylor coefficient} from
+nonlinearity of the quasilocal-energy definition. It does not give the
+full physical $O(\hbar^2)$ energy until $\delta m_2$ is determined.
+Similarly, multiplying the leading far-field $\delta m_1\sim R^{-2}$
+by an exact $1/\sqrt{f_0}$ cannot predict subleading order-$\hbar$
+coefficients because the subleading quantum stress has not been computed.
+
+\subsection{Natural invariants, energy observables, and the full metric}
+In the static spherical representation $F=1-A^2$,
+$D=1+B^2-A^2$, Chapter~2's exact
+quasilocal mass is
+\begin{equation}\label{eq:v15-MSAB}
+ m_{\rm MS}(r)=\frac{c^2r}{2G_N}\frac{B^2}{D}.
+\end{equation}
+A first variation around Schwarzschild $A_0^2=B_0^2=H_0$ gives
+\begin{equation}\label{eq:v15-MSvariation}
+ \boxed{\delta m_{\rm MS}
+ =\frac{c^2r}{2G_N}\left[(1-H_0)\delta B^2
+ +H_0\delta A^2\right] .}
+\end{equation}
+This identity shows why the quantum change in gravitational energy
+cannot generally be inferred from $\delta A^2$ alone:
+both time and radial natural-invariant components matter.
+The historical $-\lambda\mathcal Q_{ab}$ slot remains an unproven
+independent off-shell operator, while the quantified Dirac backreaction
+is already present through the renormalized quantum matter functional.
+The complete founding metric is still
+\begin{equation}\label{eq:v15-fullmaster}
+ \boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+ [\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+ -\lambda\mathcal Q_{ab}].}
+\end{equation}
+Thus the calculations here are an established restricted branch of
+QGD's \emph{full} master-metric formulation, not a redefinition of it.
+
+\subsection{Physical perspective and the boundary of the result}
+The order-$\hbar$ correction shown here is a renormalized
+\emph{matter-loop} backreaction in the adopted Einsteinian metric
+EFT. It does not include independently quantized gravity loops.
+The frequently quoted $41/(10\pi)$ quantum scattering-potential
+coefficient belongs to a different calculation and observable; it
+must not be inserted into the Brown--York energy or our Dirac
+static-state potential without a new matching computation.
+QGD's metric-only field redefinition preserves the corresponding
+GR geometric observables on regular sectors; genuine new QGD
+quantum energy requires an additional justified physical degree of
+freedom, coupling, or sector-sensitive observable. This is consistent
+with using the completed Chapter~5 correspondence as a valid
+axiomatic low-energy milestone.
+\paragraph{A physical energy-matching target.}
+The microscopic flat-space starting theory has a Noether Hamiltonian;
+the asymptotically flat effective metric theory has ADM energy.
+Once a particular collective phase and its boundary prescription have
+been chosen, one may test
+\begin{equation}\label{eq:v15-Hmatching}
+ \boxed{\langle H_{\rm micro}\rangle_{\rm ren}
+ \overset{?}{=} M_{\rm ADM}c^2.}
+\end{equation}
+The question mark is essential. Matching demands a common
+vacuum subtraction and treatment of the collective binding energy;
+the classical $H\sim1/r$ flux agreement alone does not prove
+microscopic Hamiltonian equivalence. It is a useful future physical
+test, not a reason to reopen the closed conditional Chapter~5 result.
+
+\noindent\textbf{References:} E. D. Carlson et al.,
+\emph{Phys. Rev. D} \textbf{82}, 124070 (2010),
+\url{https://doi.org/10.1103/PhysRevD.82.124070};
+J. D. Brown and J. W. York, \emph{Phys. Rev. D} \textbf{47}, 1407 (1993),
+\url{https://doi.org/10.1103/PhysRevD.47.1407};
+J. F. Donoghue, \emph{Phys. Rev. D} \textbf{50}, 3874 (1994),
+\url{https://doi.org/10.1103/PhysRevD.50.3874}.
+% ===== END Chapter 6 v1.5 =====
+
+
+% ===== Chapter 6 v1.6: interpret the central quantum-energy formula =====
+\section{Interpreting the central quantum-energy equation (v1.6)}
+\label{sec:v16-meaning}
+\textbf{Physical quantity.} The Brown--York energy is the energy associated
+with a round two-sphere of areal radius $R$, using the static-orthogonal
+slicing and the conventional flat-space subtraction. It is a Hamiltonian
+\emph{boundary charge}, not a pointwise local energy density. The source's
+asymptotic mass $M$ is the renormalized ADM mass, which already includes
+matter, internal and binding contributions; $Mc^2$ is not generally the sum
+of constituent rest energies. The distinction between ``inside the sphere''
+and ``energy of an exterior volume'' is important, as is the choice of
+observer and reference subtraction.
+
+\begin{proposition}[A joint classical--quantum far-field energy expansion
+\Ctag]\label{prop:v16-central}
+Use the static, asymptotically flat spherical configuration, fixed ADM
+mass $M$, $R\gg2G_NM/c^2$, the massless four-component Dirac field in
+the Boulware state, and the semiclassical assumptions of
+Section~\ref{sec:v15-energyhierarchy}. Then
+\begin{equation}\label{eq:v16-central}
+\boxed{\begin{aligned}
+E_{\rm BY}(R)={}&Mc^2+\frac{G_NM^2}{2R}
++\frac{G_N^2M^3}{2c^2R^2}
++\underbrace{\frac{G_NM\hbar}{5\pi cR^2}}_{\substack{\mathrm{leading\ Dirac}\\\mathrm{quantum\ correction}}}
++\mathcal R(R,\hbar),
+\end{aligned}}
+\end{equation}
+where $\mathcal R$ includes higher powers in $1/R$ in the classical
+Schwarzschild expansion, subleading $O(\hbar)$ far-field responses,
+and $O(\hbar^2)$ effects. Thus the quantum coefficient is\emph{ not}
+a universal new QGD coefficient: it is a calculated semiclassical
+quantum-matter contribution in the stated state and regime.
+\end{proposition}
+\begin{proof}
+Apply Eq.~\eqref{eq:v15-bytaylor} at order $\hbar$, using
+$\delta m_1=G_NM\hbar/(5\pi c^3R^2)$ and
+$1/\sqrt{1-2G_NM/(c^2R)}=1+O(R^{-1})$. This yields the displayed
+leading quantum energy term. Expand
+$E_{\rm BY}^{(0)}=c^4R[1-\sqrt{1-2G_NM/(c^2R)}]/G_N$
+through inverse-radius order $R^{-2}$ for the classical terms.
+\end{proof}
+
+\paragraph{The meaning of each displayed term.}
+The constant $Mc^2$ is the conserved asymptotic energy of the
+isolated system. The positive $GM^2/(2R)$ term is the leading
+\emph{finite-boundary} adjustment; it equals the separate positive
+Chapter~5 exterior collective-gradient integral numerically at
+this order, but does not equate the corresponding local energies.
+The next $G_N^2M^3/(2c^2R^2)$ term is an entirely classical nonlinear
+Einsteinian contribution. The positive $G_NM\hbar/(5\pi cR^2)$ term
+reflects how the chosen quasilocal energy responds to the negative
+renormalized Dirac energy outside $R$. It is not positive local
+vacuum energy.
+
+\paragraph{A precise sign explanation.}
+The semiclassical mass constraint supplies
+\begin{equation}\label{eq:v16-sign}
+\boxed{\begin{aligned}
+\rho_E^{(Q)}(r)&=-\frac{G_NM\hbar}{10\pi^2cr^5}+\cdots,\\
+E_Q^{\rm outside}(R)&=-\frac{G_NM\hbar}{5\pi cR^2}+\cdots,\\
+\delta E_{\rm BY}^{(1)}(R)&=+\frac{G_NM\hbar}{5\pi cR^2}+\cdots.
+\end{aligned}}
+\end{equation}
+The opposite signs do not represent an inconsistency: the exterior
+renormalized quantum matter density is negative, whereas the
+Brown--York charge measures the total boundary Hamiltonian relative
+to the chosen flat reference. In the leading far-field expansion,
+$m_{\rm MS}(R)-M=-E_Q^{\rm outside}(R)/c^2$.
+
+\paragraph{Quantitative scale and comparison.}
+Put $\ell_P^2=G_N\hbar/c^3$ and
+$\bar\lambda_M=\hbar/(Mc)$. The leading correction obeys
+\begin{equation}\label{eq:v16-ratios}
+\boxed{\begin{aligned}
+\frac{\delta E_{\rm BY}^{(1)}}{Mc^2}
+&=\frac{\ell_P^2}{5\pi R^2}+\cdots,\\
+\frac{\delta E_{\rm BY}^{(1)}}{G_NM^2/(2R)}
+&=\frac{2}{5\pi}\frac{\bar\lambda_M}{R}+\cdots,\\
+\frac{\delta E_{\rm BY}^{(1)}}{G_N^2M^3/(2c^2R^2)}
+&=\frac{2}{5\pi}\frac{\hbar c}{G_NM^2}+\cdots.
+\end{aligned}}
+\end{equation}
+The quantum-to-total-energy ratio is Planck-area suppressed at
+macroscopic $R$. The last ratio compares two $R^{-2}$ terms of
+\emph{different physical origin}; its formal mass dependence does
+not extend the specified semiclassical source model to arbitrarily
+small $M$.
+
+\paragraph{The location of this equation in QGD.}
+Equation~\eqref{eq:v16-central} is a \emph{central derived energy
+observable of Chapter 6}, not the fundamental QGD field equation.
+The defining metric remains Eq.~\eqref{eq:fullmetric}; the full
+projected field equation remains Chapter~4's
+$2s_s\Pi^{ab}\sigma_b^{(s)}=\lambda[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi]^a$
+under its stated operator conditions. In this calculation the
+historical independent $\mathcal Q$ is not inserted:
+quantum matter backreaction is already included in $\Pi$ through
+the renormalized effective action. The Brown--York formula
+is calculated from a chosen, regular static spherical metric
+representation and uses no extra \emph{a priori} sector energy law.
+% ===== END Chapter 6 v1.6 =====
+
+
+% ===== Chapter 6 v1.7: historic three-channel / physical energy =====
+\section{The historical $S=Q+G+T$ balance and what energy means (v1.7)}
+\label{sec:v17-historical-balance}
+\textbf{Source and interpretation.} The original QGD field chapter
+proposed $\Box_g\sigma_\mu=Q_\mu+G_\mu+T_\mu+\cdots$.
+The QGD--052 source audit found its original self-interaction and
+matter coefficients unsupported. Chapter~4 QGD--141 now supplies an
+\emph{exact action-defined successor} using the accepted renormalized
+action and full founding master metric, rather than a new kinetic law.
+
+For any fixed renormalization convention, split
+$\Gamma_{\rm QGD}^{\rm ren}=\Gamma_{\mathsf G}+
+\Gamma_{\mathsf T}+\Gamma_{\mathsf Q}$ into Einstein--Hilbert and
+boundary, classical matter, and quantum matter effective pieces.
+Write the spacetime metric Euler tensors as
+$\Pi_{\mathsf X}^{\mu\nu}:=(\sqrt{-g})^{-1}
+\delta\Gamma_{\mathsf X}/\delta g_{\mu\nu}$,
+where $\mathsf X\in\{\mathsf G,\mathsf T,\mathsf Q\}$.
+The corresponding reference-frame components are
+$\Pi_{\mathsf X}^{ab}:=T^a{}_{\mu}T^b{}_{\nu}
+\Pi_{\mathsf X}^{\mu\nu}$.
+Let $D_{\sigma^{(s)}}g$ be the Fr\'echet derivative of
+\emph{the complete master metric} with respect to the natural-invariant
+sector at fixed coframe; its subscripted star denotes the functional
+adjoint in the $\sqrt{-g}$ variational pairing. The preferred
+\emph{geometric-pullback} form of the natural-invariant field equation is
+\begin{equation}\label{eq:v17-triad}
+\boxed{\bigl(D_{\sigma^{(s)}}g\bigr)^*_{\sqrt{-g}}
+\left(\Pi_{\mathsf G}+\Pi_{\mathsf T}+\Pi_{\mathsf Q}\right)=0.}
+\end{equation}
+This retains the historical three-channel meaning without conflating
+the distinct action variations. Explicitly,
+$\mathscr X_{(s)}^{\,a}:=(\sqrt{-g})^{-1}
+\delta\Gamma_{\mathsf X}[g(\sigma)]/\delta\sigma_a^{(s)}
+=\bigl[(D_{\sigma^{(s)}}g)^*_{\sqrt{-g}}\Pi_{\mathsf X}\bigr]^a$;
+thus $\mathscr S_{(s)}^{\,a}:=\sum_{\mathsf X}
+\mathscr X_{(s)}^{\,a}=0$ is the original balance expressed with
+unambiguous definitions. As in Chapter~4 QGD--141, the named
+individual channels depend on the declared renormalization split;
+only the combined Euler residual is invariant under reshuffling of
+finite local counterterms.\par
+The variation uses \emph{all} terms in
+$g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}[
+\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+-\lambda\mathcal Q_{ab}]$ whenever the historical operator is
+specified. In the currently accepted $\lambda\mathcal Q=0$ branch,
+\begin{equation}\label{eq:v17-explicit}
+\mathscr G_{(s)}^{\,a}=-\frac{s_s}{8\pi G_N}
+\mathcal R^{ab}\sigma_b^{(s)},\quad
+\mathscr T_{(s)}^{\,a}=s_sT_{\mathrm{cl}}^{ab}\sigma_b^{(s)},\quad
+\mathscr Q_{(s)}^{\,a}=s_sT_{\mathrm q}^{ab}\sigma_b^{(s)},
+\qquad (c=1).
+\end{equation}
+Here $\mathcal R^{ab}$ is the frame pullback of
+$G^{\mu\nu}+\Lambda g^{\mu\nu}$. The physical quantum loop
+contribution $\mathscr Q$ is \emph{not} the separately hypothesized
+$\mathcal Q_{ab}$ metric operator; individual channels are
+renormalization-scheme dependent while their sum is not.
+This v1.7 convention reserves $\mathscr Q$ for quantum matter-loop
+backreaction. The earlier Chapter~4 source bookkeeping used the same
+letter for an additional derivative-map slot that vanished at
+$\lambda=0$; we distinguish that as $\mathscr D_{\mathcal Q}$.
+These are \emph{alternative labels}, not terms to be added twice.
+
+\subsection{Where the physical energy is actually calculated}
+This Euler-residual equation is \emph{not} by itself a Noether
+energy-current equation. Three distinct operations must be kept
+separate: (i) microscopic flat-reference translations yield
+$\partial_\mu T_{\rm micro}^{\mu\nu}=0$;
+(ii) the metric effective equations imply
+$\nabla_\mu(T_{\rm cl}^{\mu\nu}+T_q^{\mu\nu})=0$;
+(iii) physical finite-system energies are computed using
+Chapter~5's static functional or the corresponding ADM,
+Misner--Sharp and Brown--York charges of the effective solution.
+No local, coordinate-independent gravitational energy density is
+defined merely by splitting $\mathscr S$ into named terms.
+
+\subsection{A direct quantum-energy and pressure diagnostic}
+At $G_N=c=\hbar=1$ the published massless-Dirac Boulware
+far-field stress has
+$\epsilon_q=-M/(10\pi^2r^5)$ and
+$p_{r,q}=M/(20\pi^2r^5)$.
+The source equations for Chapter~2's spherical natural-invariant
+metric give
+\begin{equation}\label{eq:v17-radialbalance}
+\boxed{\delta m'(r)=4\pi r^2\epsilon_q,
+\qquad (\ln D)'=\frac{8\pi r(\epsilon_q+p_{r,q})}{1-2m/r},
+\qquad D=1+B^2-A^2.}
+\end{equation}
+Thus the quantum source changes both the enclosed mass and the
+relation between the temporal and radial natural invariants:
+$\delta m=M/(5\pi r^2)$ and
+$D-1=2M/(15\pi r^3)+\cdots$ in the far field.
+The same source has the negative exterior vacuum energy integrated
+earlier in the chapter; it does
+not represent a new, separately conserved ``quantum energy fluid''.
+The lesson of the historical triad is retained: gravity, matter and
+quantum response \emph{meet in one field equation}, while physical
+energy requires a separate Noether or boundary-charge definition.
+% ===== END Chapter 6 v1.7 =====
+
+\section{Q052--Q053: Direct spherical and rotating quantum tests (5 November 2026)}
+\label{sec:q053-ch7}
+\textbf{Status:} calculated cross-chapter first-order reconstruction and conditional trace tests, not a universal state-independent quantum black-hole solution. These tests use the fixed-reference $\lambda\mathcal Q=0$ specialization; the full founding metric remains unchanged.
+
+\subsection{Spherical natural-invariant response and a conformal check}
+Write $\mu=G_NM/c^2$ and $\ell_P^2=G_N\hbar/c^3$. For the source and boundary convention used in the massless Dirac Boulware far-field example, Chapters~2 and 7 give $D=1+B^2-A^2$, $\mu_{\rm MS}=rB^2/(2D)$ and
+\begin{equation}\label{eq:q053-A-B}
+\boxed{\begin{aligned}
+ A^2(r)&=\frac{2\mu}{r}+\frac{4\mu\ell_P^2}{15\pi r^3}+\cdots,\\
+ B^2(r)&=\frac{2\mu}{r}+\frac{6\mu\ell_P^2}{15\pi r^3}+\cdots,\\
+ D(r)-1&=\frac{2\mu\ell_P^2}{15\pi r^3}+\cdots.
+\end{aligned}}
+\end{equation}
+The field is reference-null at classical order but not at this order in the selected chart. Using the linear Ricci scalar $\delta R=X''+2X'/r+2Y'/r+2Y/r^2$ with $X=A^2,Y=B^2$ gives exactly $\delta R^{(1)}=0$ at $O(\hbar\mu/r^5)$. The conformal trace anomaly begins at $O(\hbar\mu^2/r^6)$; determining that order requires subleading metric terms that this source does not supply. The leading redshift potential is $\Phi=-G_NM/r-2G_NM\ell_P^2/(15\pi r^3)+\cdots$. This is a state-dependent far-field result and must not be used at the horizon.
+
+\subsection{Rotation: the Kerr trace anomaly is not a full quantum Kerr metric}
+In four dimensions the bulk Euler variations of constant-coefficient local $R^2$, $C^2$ and $E_4$ terms vanish on an unperturbed Ricci-flat Einstein metric (subject to standard boundary conditions). One conformal four-component Dirac field has $a_D=11/360$ and $c_D=1/20$, so on Kerr the state-independent part of the anomalous trace produces
+\begin{equation}\label{eq:q053-kerr}
+\boxed{\delta R_{\rm Kerr}=-\frac{7\ell_P^2}{720\pi}\,\mathcal K_{\rm Kerr},\qquad \mathcal K_{\rm Kerr}=R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}_{\rm Kerr}.}
+\end{equation}
+For $a=J/(Mc)$ and $r\gg\mu,|a|$ its angular expansion is
+\begin{equation}
+\boxed{\delta R_{\rm Kerr}=-\frac{7\mu^2\ell_P^2}{15\pi r^6}\left[1-21\frac{a^2\cos^2\theta}{r^2}+O(a^4/r^4)\right]+\cdots.}
+\end{equation}
+At $a=0$ it reduces to the Schwarzschild curvature-squared source. The zero local $R^2/C^2$ variation and nonzero anomaly are compatible: the anomaly arises from the full quantum effective action and cannot be inferred from the local curvature-square coefficients alone. The trace does not fix the full stress tensor, rotating quantum vacuum, frame dragging, conserved angular-momentum flux or the QGD natural-invariant reconstruction. Hence this is a \emph{rotating quantum source calculation}, not a solved quantum Kerr black hole.
+
+\subsection{Cosmological interface}
+The same conformal Dirac anomaly generates a known $H^4$ contribution in the Chapter~8 flat FLRW state. The different backgrounds test the consistency of the renormalized quantum stress but do not imply that the $H^4$ term explains observed late-time dark energy. Q054 establishes the smallness of that term and the conditional no-self-acceleration result in the metric-only action. The uppercase $\mathcal Q_{ab}$ remains independent only as an unproved historical metric-slot proposal; calculated corrections should not be counted twice.
+
+\section{What Chapter 6 establishes and what it does not}
+\small
+\begin{longtable}{@{}p{0.54\linewidth}p{0.39\linewidth}@{}}\toprule
+Claim & Proof status\\\midrule\endhead
+Flat $g=\bar g$ admits nonzero cancelling sectors & \Dtag\ exact algebra\\
+Any local symmetric $h$ admits exact lift about the cancelling chart & \Dtag\ exact algebra\\
+Metric Jacobian has rank ten and nullity 22 & \Dtag\ full-rank calculation\\
+All 22 null directions equal the local $O(4,4)$ orbit tangent & \Dtag\ stabilizer and orbit count\\
+The amplitude $v$ can be changed by a metric-preserving sector transformation & \Dtag\ exact signed-sector boost\\
+A nonconstant local $O(4,4)$ orbit can have positive naive sector-gradient ``energy'' while $g=\bar g$ & \Dtag\ exact counterexample, Proposition~\ref{prop:energy-redundancy}\\
+The metric-only Hessian inherits sector-null directions at a stationary background & \Ctag\ chain rule; metric stationarity\\
+Two transverse-traceless gravitational waves lift to $P,N$ & \Ctag\ Einsteinian effective action\\
+Ordinary quantum metric loops determine a physical value of $v$ & \textbf{No}, not in metric-only theory\\
+Chapter 1 Hartree vacuum has a computed local $K_0>0$ & \Dtag\ regulated mean-field calculation\\
+Tested scalar phase gives a source-visible $1/|\bm k|^2$ gravity pole & \textbf{No}; finite $K_0$ in tested channel\\
+Chapter 1 scalar auxiliary produces universal radiation coupling & \Otag\ not established\\
+Chapter 1 quantum matter selects the cancelling state as a physical condensate & \Otag\ not established\\
+A microscopic, autonomous long-range universal gravitational response follows & \Otag\ not established\\
+\bottomrule\end{longtable}\normalsize
+
+\section{Conclusion: why this is a distinct chapter}
+Chapter 5 established a controlled static bridge: a stipulated stable massless collective matter-wave interaction can give Newtonian attraction, $G_{\rm eff}=g_c^2/(4\pi Z)$, and a natural-invariant exterior reconstruction. Chapter 6 tests the \emph{vacuum and excitations} of the natural-invariant description. It proves that flat geometry can be written with nonzero cancelling signed sectors and that this is a regular representation of gravitational-wave perturbations. Crucially, the apparent vacuum scale is redundant in the metric-only theory. Proposition~\ref{prop:energy-redundancy} makes this concrete: an entire smooth local $O(4,4)$ orbit represents exactly the flat metric, even though a naive positive sector-gradient ``energy'' is nonzero. This edition also computes a quantum-matter vacuum potential and scalar Hessian from Chapter 1, obtaining a locally stable but non-gravitational scalar channel, and derives Newtonian binding energy from the separate conditional Chapter 5 static functional. The distinction closing this chapter is therefore sharp: \emph{a geometric vacuum representative is not a microscopically selected physical vacuum}. A physical sector excitation requires an independently specified observable or interaction that distinguishes states without mistaking metric-preserving reparametrizations for particles or energy. The next advance is a source-resolved collective Hessian and vertex calculation, including radiative and universal matter couplings, that selects a healthy gravitational phase. The energy-first Noether formulation can be used without reopening the conditional Chapter 5 matching theorem. The mathematical vacuum representation is established; its collective matter-wave origin is still open.
+
+
+
+\section{Q061: the complete energy ledger and dynamical quantum-energy direction}
+\noindent\textbf{Three physically different objects.} (i) ADM/Bondi, Misner--Sharp, and Brown--York energies are gravitational charges or quasilocal functionals of a specified physical metric; (ii) a renormalized quantum state contributes $\langle T_{\mu\nu}\rangle_{\rm ren}$ to the \emph{same} effective equations; (iii) a selected natural-invariant dark-energy scalar, if admitted by an extended action, contributes an \emph{additional} stress tensor and scalar Euler equation. The same quantum backreaction is never added again through an on-shell $\mathcal Q_{ab}$ representative. Metric-preserving signed-sector gradients have no independent physical energy in the baseline action, regardless of their coordinate variation (Q055--Q060).
+
+\subsection{The massless Dirac Boulware stress is not dark energy}
+For the specified far-field state, in $G_N=c=\hbar=1$ and to leading order,
+\begin{equation}\label{eq:q061-ch7-stress}
+\boxed{\langle T^\mu{}_{\nu}\rangle_{\rm ren}
+=\frac{M}{40\pi^2r^5}\operatorname{diag}(4,2,-3,-3)+\cdots.}
+\end{equation}
+Its effective energy density and radial/tangential pressures are
+\begin{equation}
+\rho_q=-\frac{M}{10\pi^2r^5},\quad
+p_{r,q}=\frac{M}{20\pi^2r^5},\quad
+p_{t,q}=-\frac{3M}{40\pi^2r^5},\quad
+T^\mu{}_{\mu}=0+\cdots .
+\end{equation}
+The tangential pressure follows independently from leading-order stress conservation and agrees with the previously quoted full tensor in Chapter~4: it is \emph{not a new loop coefficient}. The radial/tangential NEC sums are $\rho_q+p_{r,q}=-M/(20\pi^2r^5)$ and $\rho_q+p_{t,q}=-7M/(40\pi^2r^5)$, respectively. This is a state-dependent anisotropic quantum vacuum and not a homogeneous cosmological-constant component with $p=-\rho$. Its leading stress modifies both the Misner--Sharp mass and the relation $D=1+B^2-A^2$, as derived earlier in this chapter. Its near-horizon behavior cannot be inferred from the Boulware far-field expansion.
+
+\subsection{Radiative energy transport: an exact classical benchmark}
+For outgoing Vaidya in retarded time $u$, natural units, and a null-fluid source,
+\begin{equation}\label{eq:q061-ch7-vaidya}
+ ds^2=-\left(1-\frac{2m(u)}r\right)du^2-2\,du\,dr+r^2d\Omega^2,
+ \qquad \sigma=\sqrt{\frac{2m(u)}r}\,du,
+\end{equation}
+with the corresponding reference-null chart. Einstein's equation gives
+\begin{equation}
+R_{uu}=-\frac{2m'(u)}{r^2},\qquad
+T_{uu}=-\frac{m'(u)}{4\pi r^2},\qquad
+\frac{dE_{\rm Bondi}}{du}=m'(u)=-L_\infty,
+\qquad
+\frac{\partial_u\sigma_{\rm amp}}{\sigma_{\rm amp}}=\frac{m'(u)}{2m(u)}.
+\end{equation}
+The $m(u)$ convention here uses geometric mass units, so $E_{\rm Bondi}=m$ in $G_N=c=1$. This exact \emph{classical} null-flux relation establishes how source energy transport changes the natural-invariant amplitude. It is \emph{not} a Hawking-radiation calculation: quantum evaporation would require a state-dependent, causally renormalized full stress tensor and appropriate near-horizon boundary conditions. The Q059 checks and Q060 action audit justify this distinction.
+
+
+\section*{Sources and research provenance}
+\begin{itemize}
+\item QGD Chapters 1--3 (source, natural-invariant metric, normalization), Chapter 4 QGD--141 (full master metric, geometric pullback, renormalized action), and Chapter 5 v3.3 (conditional static closure and quantum-term audit); those files remain unchanged by the present standalone chapter.
+\item S. Weinberg and E. Witten, ``Limits on massless particles,'' \emph{Physics Letters B} \textbf{96} (1980), 59--62. \url{https://doi.org/10.1016/0370-2693(80)90212-9}. This is a constraint on certain microscopic composite higher-spin realizations, not a no-go result for the signed metric identity itself.
+\item S. Elitzur, ``Impossibility of spontaneously breaking local symmetries,'' \emph{Phys. Rev. D} \textbf{12} (1975), 3978--3982. \url{https://doi.org/10.1103/PhysRevD.12.3978}. Its precise lattice-gauge hypotheses are not assumed for the noncompact signed-sector redundancy; the conceptual lesson concerns non-gauge-invariant local order parameters.
+\item M. Levin and X.-G. Wen, ``Colloquium: Photons and electrons as emergent phenomena,'' \emph{Rev. Mod. Phys.} \textbf{77} (2005), 871. \url{https://doi.org/10.1103/RevModPhys.77.871}. An example that genuine emergent excitations require microscopic constraints and dynamics.
+\end{itemize}
+\begin{thebibliography}{9}
+\bibitem{Isaacson1968} R. A. Isaacson, ``Gravitational Radiation in the Limit of High Frequency. II. Nonlinear Terms and the Effective Stress Tensor,'' \emph{Phys. Rev.} \textbf{166} (1968) 1272, \url{https://doi.org/10.1103/PhysRev.166.1272}.
+\bibitem{NJLresponse2019} ``Response functions of hot and dense matter in the Nambu--Jona-Lasinio model,'' \emph{Chinese Physics C} \textbf{43} (2019) 094103, \url{https://doi.org/10.1088/1674-1137/43/9/094103}. Used as an external comparison for auxiliary-field Hessian methods; all displayed benchmark numbers are independently recalculated from QGD Chapter 1.
+\end{thebibliography}
+\appendix
+\section{Verification definitions and normalization}
+The v1.3 \texttt{verify\_noether\_energy.py} checks the static Noether stress identity, radial energy normalization, exact on-shell energy, and TT wave energy coefficients. The companion \texttt{verify\_chapter6.py} implements the exact lift (symmetric symbolic $h$), a finite signed-sector boost, the $10\times32$ Jacobian rank, the $28$-generator $O(4,4)$ orbit rank, Hessian pullback for a nondegenerate test metric bilinear, gauge-null linearized Einstein perturbations, two TT plane waves, and a regular massive-response control. All results are computed without using a supplied graviton propagator. The v1.8 check \texttt{verify\_local\_orbit\_energy.py} confirms the pointwise $O(4,4)$ identity, exact flat metric and factor of eight in Proposition~\ref{prop:energy-redundancy}. The v1.1 independent \texttt{verify\_ch6\_energy.py} also recomputes the vacuum and finite-density Hartree gap, scalar Hessians, susceptibility Schur complement, critical coupling and static field-energy integral. A passing symbolic test supports the displayed algebra; it does not establish any microscopic vacuum dynamics.
+
+
+\clearpage
+\end{document}

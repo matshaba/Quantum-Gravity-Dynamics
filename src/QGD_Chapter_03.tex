@@ -1,0 +1,803 @@
+\documentclass[11pt,a4paper,oneside]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=26mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm,booktabs,array,longtable,microtype,xcolor}
+\usepackage{enumitem}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!55!black]{hyperref}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}\lhead{Quantum Gravity Dynamics}\rhead{Chapter 3: Normalization}\cfoot{\thepage}
+\numberwithin{equation}{chapter}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\hbarc}{\hbar c}
+\newcommand{\Phist}{\Phi_{\mathrm{stat}}}
+\newcommand{\Phin}{\Phi_{\mathrm N}}
+\newcommand{\GNewton}{G_{\mathrm N}}
+\newcommand{\epsQ}{\epsilon_{\mathrm Q}}
+\setcounter{chapter}{2}
+\title{\textbf{Quantum Gravity Dynamics}\\[5pt]\large Chapter 3 --- Gravitational Normalization, the Macroscopic Potential, and Quantum-Force Verification\\[8pt]\normalsize Proof-oriented research manuscript, QGD--095 coordinated edition}
+\author{Research working draft}
+\date{5 November 2026 --- Action-first normalization review (QGD--095 retained)}
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+\chapter{Gravitational Normalization and Quantum-Force Verification}
+\label{ch:normalization}
+\begin{abstract}
+This chapter starts with QGD's complete local macroscopic four-mode Dirac construction and its proposed signed natural-invariant master metric. In the explicitly restricted, classical, fixed-frame, spherical sector with an \emph{adopted} Einstein--Hilbert action, we derive the vacuum natural-invariant profile and fix its one physical exterior integration constant by Newtonian correspondence. We then derive the exact static Killing-energy potential per unit test mass, its all-order Taylor expansion, and an explicit remainder bound. The dimensionless geometric inverse-coupling convention involving a Compton length is distinguished from the original Dirac wavefunction multiplier. We give the corrected flux bridge, a solvable nonrelativistic radial wave, and a conditional curved-space radial Dirac expansion, retaining every explicit occurrence of Planck's constant. A separate referee-style audit shows that the historic universal attractive $9/2$ quantum-force coefficient has \emph{not} been derived: quantum corrections to a separated radial-wave equation are not automatically corrections to gravity. A new Dirac-to-Pauli quantum-source result fixes the density-gradient coefficient $\hbar^2/(8m_f)$ and derives a conditional quantum-matter-sourced gravitational response; Gauss's law forbids a universal exterior $r^{-4}$ correction from compact spherical source structure alone. Claims are classified by assumptions and proof obligations; exact symbolic verification does not constitute Lean-kernel certification.
+\end{abstract}
+
+\section*{Action-defined normalization: interpretation for the revised QGD paradigm}
+\addcontentsline{toc}{section}{Action-defined normalization}
+\noindent The independent gravitational variables of QGD are the admissible natural-invariant one-forms, with physical geometry fixed by Axiom~I. Their classical dynamics follows from the chosen Einstein--Hilbert--matter action and an ordinary stationary-action principle. Consequently $G_N$ and $\Lambda$ are calibrated physical couplings and boundary data, not quantities QGD must derive from microscopic quantum matter. This chapter's static solutions, Newtonian limit and Killing-energy potential are exact \emph{effective-gravity correspondence tests}. Historical speculative force coefficients are not additional axioms or universal QGD predictions. The independent Axiom~II of microscopic realizability is not used in the derivations in this chapter.
+
+
+\section{Scope, conventions, and axioms}\label{sec:scope}
+We use metric signature $(-+++)$, $x^0=ct$, $\hbar=h/(2\pi)>0$, $c>0$, $\GNewton>0$, an exterior source mass $M>0$, and, where needed, an independently specified positive test- or reference-fermion mass $m_t,m_{\rm ref}>0$. The Newtonian gravitational constant is an experimental correspondence input, not a number claimed to follow from microscopic Dirac dynamics. The dimensionless local Dirac ratios are denoted $\zeta_i$; the \emph{promoted gravitational natural invariants} retain QGD's original notation $\sigma_{\mu}^{(s)}$. These are distinct objects.
+
+\begin{assumption}[Microscopic and macroscopic Dirac hand-off]\label{ass:dirac}
+Chapter 1 supplies a specified microscopic Dirac effective action and, under stated coarse-graining and local/WKB hypotheses, a macroscopic Dirac-equivalent state. A local positive-energy momentum eigenmode satisfies
+\begin{equation}
+\bm\zeta=\frac{c\bm\pi}{E_{\rm loc}+m_{\rm eff}c^2},\qquad
+\mathsf R=\bm\tau\cdot\bm\zeta,
+\label{eq:ratio}
+\end{equation}
+where $\bm\tau$ are Pauli matrices. No assertion is made that one global outgoing mode exactly solves the full interacting, curved-space, macroscopic Dirac equation.
+\end{assumption}
+
+For a consistent common local momentum convention the complete four-mode state is
+\begin{equation}
+\boxed{\displaystyle
+\Psi(x)=\frac{\alpha_G}{r}\left[
+(\psi_0u_{\uparrow}+\psi_1u_{\downarrow})e^{-\ii S_+/\hbar}
++(\psi_2v_{\uparrow}+\psi_3v_{\downarrow})e^{+\ii S_-/\hbar}
+\right],}
+\label{eq:fourmode}
+\end{equation}
+with local columns
+\begin{equation}
+\begin{aligned}
+ u_{\uparrow}&=\begin{pmatrix}1\\0\\\zeta_z\\\zeta_x+\ii\zeta_y\end{pmatrix},&
+ u_{\downarrow}&=\begin{pmatrix}0\\1\\\zeta_x-\ii\zeta_y\\-\zeta_z\end{pmatrix},\\
+ v_{\uparrow}&=\begin{pmatrix}-\zeta_z\\-\zeta_x-\ii\zeta_y\\1\\0\end{pmatrix},&
+ v_{\downarrow}&=\begin{pmatrix}-\zeta_x+\ii\zeta_y\\\zeta_z\\0\\1\end{pmatrix}.
+\end{aligned}
+\label{eq:columns}
+\end{equation}
+The overall prefactor $\alpha_G$ is not observable independently of a compensating common rescaling of the four reference mode amplitudes. The radial factor $r^{-1}$ belongs to the stated ansatz, not to a universal normalization theorem.
+
+\begin{assumption}[The complete QGD master-metric proposal]\label{ass:metric}
+The proposed metric is
+\begin{equation}
+\boxed{\displaystyle
+ g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+ \left[\eta_{ab}-\sum_{s}\varepsilon_s\,
+ \sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}\right],
+ \qquad \varepsilon_s\in\{-1,+1\}.}
+\label{eq:master}
+\end{equation}
+The microscopic promotion from Dirac-derived observables to independent $\sigma_{\mu}^{(s)}$ fields is QGD's defining postulate. The precise derivative operator $\mathcal Q_{ab}$ and its coefficient $\lambda$ have not been microscopically matched or independently varied in the general model. They are not assumed to vanish as a theorem.
+\end{assumption}
+
+\begin{assumption}[Classical benchmark only]\label{ass:benchmark}
+For the calculations in Sections \ref{sec:static}--\ref{sec:series} choose the explicit $\lambda=0$, fixed-asymptotically-flat-frame, one-positive-signed-sector, static spherical restriction of \eqref{eq:master}; use the \emph{adopted} Einstein--Hilbert action
+\begin{equation}
+ S_0=\frac{c^3}{16\pi\GNewton}\int\dd^4x\sqrt{-g}\,R
+ +S_D[\Psi,g],
+ \label{eq:action}
+\end{equation}
+where $\dd^4x=\dd x^0\,\dd^3x$ and $x^0=ct$. In the vacuum exterior $T_{\mu\nu}=0$. Variations are performed independently in the declared sector, with well-posed boundary conditions and the requisite gravitational boundary term. No microscopic derivation of the Einstein--Hilbert coefficient is claimed.
+\end{assumption}
+
+\begin{remark}[Action units]
+To avoid a hidden convention change in variations below, only the nonzero overall multiplier of the Einstein--Hilbert functional matters. The radial reduced Lagrangian is therefore written with $\propto$. With $x^0=ct$, the customary dimensionful coefficient is $c^3/(16\pi G)$ for $\dd x^0\,\dd^3x$; equivalently it is $c^4/(16\pi G)$ for $\dd t\,\dd^3x$, since $\dd x^0=c\,\dd t$. Both give the same action and Euler--Lagrange equations. Physical $c$ factors are restored explicitly in the calibration and observables.
+\end{remark}
+
+\section{Exact classical spherical reduction}\label{sec:static}
+Let $r$ be areal radius, and let $A,B$ be real $C^2$ functions on an unbounded connected exterior interval. With the designated positive signed sector, set
+\begin{equation}
+ \sigma=A(r)\dd x^0+B(r)\dd r,\quad
+ F:=1-A^2,\quad D:=1+B^2-A^2.
+ \label{eq:AB}
+\end{equation}
+Assume $F>0$, $D>0$, and $AB\ne0$ on this interval. Before coordinate diagonalization, the induced metric reads
+\begin{equation}
+ \dd s^2=-F(\dd x^0)^2+2AB\dd x^0\dd r
+ +(1+B^2)\dd r^2+r^2\dd\Omega^2.
+ \label{eq:crossmetric}
+\end{equation}
+A stationary coordinate change removes the cross term locally, yielding
+\begin{equation}
+ \dd s^2=-F\dd\widetilde x^{0\,2}+\frac DF\dd r^2+r^2\dd\Omega^2.
+ \label{eq:diagmetric}
+\end{equation}
+The curvature calculation uses this equivalent metric; the independent $A,B$ variations refer to the declared spherical sector \emph{prior to imposing the solution}.
+
+\begin{lemma}[Four-dimensional curvature and boundary identity]\label{lem:EH}
+For \eqref{eq:diagmetric}, with primes denoting $\dd/\dd r$, the scalar curvature is
+\begin{equation}
+ R=-\frac{F''}{D}+\frac{F'D'}{2D^2}
+ -\frac{4F'}{rD}+\frac{2FD'}{rD^2}
+ +\frac2{r^2}-\frac{2F}{r^2D}.
+ \label{eq:R}
+\end{equation}
+Furthermore, defining $L_{\rm red}:=(rF)'/\sqrt D+\sqrt D$, the exact identity is
+\begin{equation}
+ r^2\sqrt D\,R=2L_{\rm red}
+ +\frac\dd{\dd r}\left(-\frac{r^2F'}{\sqrt D}-\frac{4rF}{\sqrt D}\right).
+ \label{eq:EHidentity}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Compute the Levi--Civita connection of the four-dimensional diagonal metric, contract to $R$, and differentiate the displayed boundary expression using the product rule. This proves an equality of functions for $r>0,F>0,D>0$ before any equations of motion. A complete tensor-level Lean proof remains outstanding.
+\end{proof}
+
+\begin{proposition}[Independent natural-invariant vacuum equations]\label{prop:EL}
+Under Assumption \ref{ass:benchmark}, variation of $L_{\rm red}$ with respect to $A$ and $B$ independently gives
+\begin{equation}
+ \mathcal E_A=-\frac{A(rB^2)'}{D^{3/2}}=0,
+ \qquad
+ \mathcal E_B=\frac{B[B^2+r(A^2)']}{D^{3/2}}=0.
+ \label{eq:EL}
+\end{equation}
+Consequently, on the nondegenerate exterior branch,
+\begin{equation}
+ \boxed{A^2(r)=B^2(r)=\frac{C_g}{r}},\qquad C_g>0.
+ \label{eq:profile}
+\end{equation}
+\end{proposition}
+\begin{proof}
+The first Euler--Lagrange equation, with $A\ne0$, implies $(rB^2)'=0$. Thus $B^2=C_g/r$. The second, with $B\ne0$, gives $(A^2)'=-C_g/r^2$, hence $A^2=C_g/r+C_0$. Asymptotic flatness with $A^2\to0$ at infinity fixes $C_0=0$. Direct substitution gives the vacuum Schwarzschild metric $D=1$, $F=1-C_g/r$. \emph{Neither $A=B$ nor the numerical value of $C_g$ was assumed in taking the variations.}
+\end{proof}
+
+\begin{remark}[Exact scope of Proposition \ref{prop:EL}]
+This is a restricted theorem of an adopted classical action. It does not prove that the single positive sector solves an arbitrary full signed-sector/tetrad variation with unmatched $\lambda\mathcal Q_{ab}$. The sector, smoothness, asymptotic normalization and boundary treatment are substantive hypotheses.
+\end{remark}
+
+\section{One Newtonian calibration and three distinct potentials}\label{sec:calibration}
+Since $g_{00}=-1+C_g/r$, define the weak-field metric potential by
+\begin{equation}
+ \Phi_{\rm metric}(r):=\frac{c^2}{2}(g_{00}+1)
+ =-\frac{c^2C_g}{2r}.
+ \label{eq:metricpotential}
+\end{equation}
+The slow-particle weak-field radial acceleration is $-\Phi_{\rm metric}'$. Matching once to Newton's exterior acceleration $-\GNewton M/r^2$ fixes
+\begin{equation}
+ \boxed{C_g=\frac{2\GNewton M}{c^2}=:r_s.}
+ \label{eq:calibration}
+\end{equation}
+The source mass $M$ is an independently defined gravitational mass, not an arbitrary test mass. The adopted Einstein--Hilbert coefficient already involves $G$; this correspondence identifies the physical normalization of that coefficient and the exterior source integration constant, not a prediction of $G$ from Dirac theory.
+
+\begin{definition}[Static Killing-energy potential]\label{def:phi}
+For a test mass $m_t>0$ held static at radius $r>r_s$, with timelike Killing vector normalized at infinity, let
+\begin{equation}
+ E_\infty(r)=m_tc^2\sqrt{-g_{00}(r)}
+ =m_tc^2\sqrt{1-\frac{r_s}{r}},\qquad
+ \boxed{\Phist(r):=\frac{E_\infty(r)-m_tc^2}{m_t}.}
+ \label{eq:PhiDef}
+\end{equation}
+\end{definition}
+Note that $\Phi_{\rm metric}=-GM/r$ for this coordinate representation, and $\Phin=-GM/r$ in the Newtonian exterior, but $\Phist$ differs beyond leading order. It is a supported-body energy per unit test mass; it is not a general position-only Hamiltonian for orbiting probes and it is not a quantum-corrected gravitational field.
+
+\begin{theorem}[Exact calibrated static potential]\label{thm:phi}
+For $r>r_s$, the static Killing-energy potential is
+\begin{equation}
+ \boxed{\displaystyle
+ \Phist(r)=c^2\left[\sqrt{1-\frac{2\GNewton M}{c^2r}}-1\right]
+ =-\frac{c^2(r_s/r)}{1+\sqrt{1-r_s/r}}.}
+ \label{eq:PhiExact}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Substitute the calibrated $g_{00}$ into Definition \ref{def:phi}. The second expression follows by multiplying numerator and denominator by $1+\sqrt{1-r_s/r}$. The leading term is $-GM/r$ by continuity as $r_s/r\to0$.
+\end{proof}
+
+\section{An all-order expansion, and a rigorously bounded remainder}\label{sec:series}
+Define $x=r_s/r$ and $a_n=\binom{2n}{n}/[4^n(2n-1)]$ for $n\ge1$.
+\begin{theorem}[Convergent exterior expansion]\label{thm:series}
+For $0<x<1$ one has
+\begin{equation}
+ \boxed{\displaystyle\Phist(r)=-c^2\sum_{n=1}^\infty a_nx^n},
+ \qquad \frac{a_{n+1}}{a_n}=\frac{2n-1}{2n+2}<1.
+ \label{eq:allorder}
+\end{equation}
+In physical units,
+\begin{equation}
+ \boxed{\begin{aligned}
+ \Phist(r)={}&-\frac{\GNewton M}{r}
+ -\frac{\GNewton^2M^2}{2c^2r^2}
+ -\frac{\GNewton^3M^3}{2c^4r^3}\\
+ &-\frac{5\GNewton^4M^4}{8c^6r^4}+\mathcal R_4(r),
+ \end{aligned}}
+ \label{eq:fourterms}
+\end{equation}
+where
+\begin{equation}
+ \boxed{\displaystyle |\mathcal R_4(r)|\leq
+ \frac{7c^2}{256}\frac{x^5}{1-x}.}
+ \label{eq:remainder}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Use the generalized binomial series for $\sqrt{1-x}$. Its nonconstant coefficients are $-a_n$ for $|x|<1$. Because $a_{n+1}/a_n<1$ and $a_5=7/256$, the magnitude of the tail after $n=4$ is bounded by $c^2(7/256)\sum_{n=5}^\infty x^n$, yielding \eqref{eq:remainder}. Insert $r_s=2GM/c^2$ in the first four coefficients for \eqref{eq:fourterms}.
+\end{proof}
+
+\begin{corollary}[Static radial force derived from the energy]\label{cor:force}
+At fixed test mass $m_t$, the outward-positive force defined by the radial derivative of the static Killing energy is
+\begin{equation}
+ \boxed{\displaystyle
+ F_{r,\mathrm{stat}}=-m_t\Phist'(r)
+ =-\frac{\GNewton M m_t}{r^2\sqrt{1-r_s/r}}.}
+ \label{eq:staticforce}
+\end{equation}
+This definition is the derivative of the conserved energy at infinity
+with respect to the areal coordinate $r$.  In the Schwarzschild static
+orthonormal frame, the proper holding-force magnitude is also
+$m_tG_{\rm N}M/(r^2\sqrt F)$; their equality in this chart follows from
+the compensating proper-distance and Killing-redshift factors.  One must
+still specify the operational observer before calling a radial derivative
+a measured force.  No new gravitational interaction is introduced by this
+energy-gradient definition.
+Its first terms are
+\begin{equation}
+ F_{r,\mathrm{stat}}=-\frac{\GNewton M m_t}{r^2}
+ \left[1+\frac{\GNewton M}{c^2r}
+ +\frac{3\GNewton^2M^2}{2c^4r^2}+\cdots\right].
+\end{equation}
+These are classical, not $\hbar$-dependent.
+\end{corollary}
+
+\section{The geometric normalization and the original $\alpha_G$}\label{sec:alpha}
+The Dirac theory supplies a Compton length once a \emph{reference mass} $m_{\rm ref}>0$ has been independently selected:
+\begin{equation}
+ \bar\lambda_{\rm ref}=\frac{\hbar}{m_{\rm ref}c}.
+\end{equation}
+\begin{definition}[Dimensionless geometric inverse-strength convention]
+\begin{equation}
+ \boxed{\displaystyle
+ |\alpha_G^{\rm geom}|^2
+ :=\frac{\bar\lambda_{\rm ref}}{C_g}
+ =\frac{\hbar c}{2\GNewton M m_{\rm ref}}.}
+ \label{eq:geomalpha}
+\end{equation}
+\end{definition}
+This is a precise \emph{definition after Newtonian calibration}, not a theorem relating the gravitational natural invariant to the common multiplier of the four-mode wavefunction. In particular,
+\begin{equation}
+ \boxed{\displaystyle
+ \frac{\hbar}{m_{\rm ref}c|\alpha_G^{\rm geom}|^2}=C_g
+ =\frac{2\GNewton M}{c^2}.}
+ \label{eq:hcancellation}
+\end{equation}
+The $\hbar$ in this parametrization cancels identically from the classical potential \eqref{eq:PhiExact} and all terms of \eqref{eq:fourterms}. Its appearance in a chosen coordinate on parameter space cannot be counted as a quantum correction.
+
+To see the normalization obstruction directly, let $\alpha_G$ multiply all the original Dirac amplitudes in \eqref{eq:fourmode}. For any nonzero complex $z$,
+\begin{equation}
+ \alpha_G\longmapsto z\alpha_G,\qquad
+ \psi_j\longmapsto z^{-1}\psi_j\quad(j=0,1,2,3)
+ \label{eq:rescaling}
+\end{equation}
+leaves the physical $\Psi$ unchanged. Its local component ratios remain unchanged as well. Hence the spinor prefactor is unidentifiable without an independently imposed reference-state norm or new physical coupling.
+
+For a specified conserved occupation $N$ and chosen norm $N_{\rm ref}$, a linear homogeneous Dirac source gives the state-amplitude convention
+\begin{equation}
+ |\alpha_G^{\rm state}|^2=\frac{N}{N_{\rm ref}}.
+ \label{eq:statealpha}
+\end{equation}
+The equality $\alpha_G^{\rm state}=\alpha_G^{\rm geom}$ is \emph{not} a conclusion of Chapters 1--2. For a model in which both magnitudes are equated by extra matching, the necessary compatibility condition is
+\begin{equation}
+ N_{\rm ref}=\frac{2\GNewton M m_{\rm ref}N}{\hbar c}.
+ \label{eq:compatibility}
+\end{equation}
+It is a constraint that a future microscopic matching theory would need to justify; it is not a prediction of the present chapter.
+
+\section{The corrected Chapter 1 radial current bridge}\label{sec:bridge}
+For a coherent, outgoing, locally on-shell, positive-energy radial WKB branch, do not drop the lower Dirac components before evaluating its flux. Write
+\begin{equation}
+ \Psi\simeq\frac{\alpha_G\psi_0(r)}{r}e^{-\ii S/\hbar}
+ \begin{pmatrix}\chi\\[2pt]\zeta(\bm\tau\cdot\widehat{\bm r})\chi\end{pmatrix},
+ \quad \zeta=\frac{cp}{\Delta},\quad
+ \Delta=E_{\rm loc}+m_{\rm eff}c^2,\quad\chi^\dagger\chi=1.
+ \label{eq:WKB}
+\end{equation}
+Direct Dirac matrix algebra gives
+\begin{equation}
+ j^r=\frac{2c^2}{r^2}|\alpha_G\psi_0|^2\frac{p}{\Delta}.
+ \label{eq:current}
+\end{equation}
+For stationary spherical outward flux $\dot N=4\pi r^2j^r>0$ in the declared local-flat/reference flux convention, this yields
+\begin{equation}
+ \boxed{\displaystyle
+ |\alpha_G\psi_0(r)|^2=\frac{\dot N\,\Delta(r)}{8\pi c^2p(r)}
+ =\mathcal C_J^2\Delta(r)\lambda_{\rm dB}(r)},
+ \quad\mathcal C_J^2:=\frac{\dot N}{8\pi c^2h},\ \lambda_{\rm dB}:=\frac hp.
+ \label{eq:bridge}
+\end{equation}
+The bridge is a positive \emph{magnitude/current law}, not a complex identity. In a general curved metric $\nabla_\mu j^\mu=0$ and the appropriate tetrad and radial measure must be used; \eqref{eq:bridge} is not transplanted there without the geometric factors. If the source is stationary and bound with zero net radial flux, the outgoing division by $p\dot N^{-1}$ does not apply. Current conservation fixes amplitude \emph{relative to a chosen momentum profile}; it supplies neither the source gravity nor a unique value of the original $\alpha_G$.
+
+\section{An exactly solvable Newtonian radial wave}\label{sec:newtonwave}
+For comparison with the quantum-wave sector, \emph{assume} an external Newtonian potential $\Phin=-\GNewton M/r$, a positive test fermion mass $m_f$, angular momentum $\ell=0$, and zero nonrelativistic energy. The reduced radial Schr\"odinger equation is
+\begin{equation}
+ -\frac{\hbar^2}{2m_f}u''+m_f\Phin u=0
+ \quad\Longleftrightarrow\quad
+ u''+\frac{2\GNewton Mm_f^2}{\hbar^2r}u=0.
+ \label{eq:radialSch}
+\end{equation}
+Define $k=2\GNewton Mm_f^2/\hbar^2>0$ and $z=2\sqrt{kr}$. An exact basis is
+\begin{equation}
+ \boxed{\displaystyle u(r)=\sqrt r\,[A J_1(z)+B Y_1(z)].}
+ \label{eq:Bessel}
+\end{equation}
+The formally outward-flux Hankel branch is
+\begin{equation}
+ u_{\rm out}(r)=\mathcal A\sqrt r\,H_1^{(1)}(z),
+ \quad R(r)=|\mathcal A|\sqrt r\sqrt{J_1(z)^2+Y_1(z)^2},
+ \quad W=\hbar\arg H_1^{(1)}(z).
+ \label{eq:Hankel}
+\end{equation}
+The Bessel Wronskian gives the exact transport identity
+\begin{equation}
+ \boxed{R(r)^2W'(r)=\frac{\hbar|\mathcal A|^2}{\pi}.}
+ \label{eq:exactflux}
+\end{equation}
+As $z\to\infty$, $R(r)\propto r^{1/4}$ and $W(r)\sim 2m_f\sqrt{2\GNewton Mr}$, reproducing the leading QGD current transport. This is a consistency check \emph{in an assumed Newtonian potential}, not an independent derivation of Newton's law. The Hankel solution is not a globally regular isolated source; the regular $J_1$ standing solution has zero net radial current.
+
+\section{Curved-space Dirac dynamics: the controlled quantum sector}\label{sec:curvedDirac}
+To use the classical QGD geometry as a background for a quantum \emph{test} field, make the additional minimal-coupling assumption
+\begin{equation}
+ (\ii\hbar c\,\Gamma^\mu\nabla_\mu-m_fc^2)\Psi=0,
+ \qquad\nabla_\mu=\partial_\mu+\Omega_\mu[g].
+ \label{eq:curvedDirac}
+\end{equation}
+Here the spin connection $\Omega_\mu$ is required. This step is compatible with Chapter 2's constructed Clifford algebra but does not prove the Dirac microscopics generated the metric.
+
+In the Schwarzschild diagonal chart and a specified spherical tetrad/angular spinor basis, define $r_*$ by $\dd r_*/\dd r=1/F$ and use nonzero integer $\kappa$. The separated radial Hamiltonian can be expressed as
+\begin{equation}
+ \boxed{\begin{pmatrix}
+ m_fc^2\sqrt F&-\hbar c\,\dd/\dd r_*+\hbar c\kappa\sqrt F/r\\
+ \hbar c\,\dd/\dd r_*+\hbar c\kappa\sqrt F/r&-m_fc^2\sqrt F
+ \end{pmatrix}\begin{pmatrix}f\\g\end{pmatrix}
+ =E\begin{pmatrix}f\\g\end{pmatrix}.}
+ \label{eq:radialDirac}
+\end{equation}
+The angular spinors and the appropriate spin-connection-dependent prefactor reconstruct the four-component field. Equation \eqref{eq:radialDirac} is a standard \emph{conditional} separated-Dirac result; a fully formalized derivation must independently specify the tetrad, harmonics and gamma-matrix conventions.
+
+\subsection{Exact radial reduction and weak-field coefficients}
+Let $\ell_C=\hbar/(m_fc)$, $x=r/\ell_C$, $a=r_s/\ell_C$, $e=E/(m_fc^2)$, $F=1-a/x$, and $\dd/\dd x_*=F\dd/\dd x$. Set $s=\sqrt F$, $B_e=e+s$, $K=\kappa s/x$. The first-order radial system is
+\begin{equation}
+ f'_* =B_e g-Kf,\qquad g'_* =Kg+(s-e)f.
+ \label{eq:radialFirst}
+\end{equation}
+Eliminate $g$ on a region with $B_e>0$:
+\begin{equation}
+ f''_{**}-\frac{B'_*}{B_e}f'_*
+ +\left[K'_* -\frac{B'_*}{B_e}K-K^2+e^2-F\right]f=0.
+ \label{eq:felim}
+\end{equation}
+The Liouville-normal variable $u_\kappa=\sqrt{F/B_e}\,f$ satisfies
+\begin{equation}
+ u_\kappa''+\mathcal V_\kappa(x,a,e)u_\kappa=0.
+ \label{eq:liouville}
+\end{equation}
+For $e=1$, $a/x\ll1$ at fixed $x>0$, algebraic expansion gives
+\begin{equation}
+ \boxed{\displaystyle
+ \mathcal V_\kappa=-\frac{\kappa(\kappa+1)}{x^2}
+ +\frac ax+\gamma_\kappa\frac a{x^3}+O(a^2),
+ \quad\gamma_\kappa=\frac{3-4\kappa^2-\kappa}{4}.}
+ \label{eq:Vone}
+\end{equation}
+For $\kappa=-1$, the first $a/x^3$ term vanishes; the next order is
+\begin{equation}
+ \boxed{\displaystyle
+ \mathcal V_{-1}=\frac ax+\frac{2a^2}{x^2}
+ +\frac{a^2}{64x^4}+O(a^3).}
+ \label{eq:Vtwo}
+\end{equation}
+These coefficients are statements about a \emph{particular normalized radial differential equation} and the threshold $e=1$; they are not yet invariant observables or additional field equations for $\sigma_\mu^{(s)}$.
+
+\section{The historical $\hbar^2/r^4$ force: what does and does not follow}\label{sec:quantumforce}
+The original QGD program proposed an attractive correction of the form
+\begin{equation}
+ F_{r,\mathrm{hist}}=-\frac{\GNewton Mm_f}{r^2}
+ \left[1+\frac92\left(\frac{\hbar}{m_fc r}\right)^2+\cdots\right].
+ \label{eq:histforce}
+\end{equation}
+This is preserved as a \emph{historical research candidate}, not an established prediction. In the original reciprocal-exponential argument, Taylor-expanding $e^{2\ii m_fcr/\hbar}$ and inverting each nonconstant Taylor term separately is not the reciprocal of the series. Indeed,
+\begin{equation}
+ \frac{1}{e^{2\ii m_fcr/\hbar}}=e^{-2\ii m_fcr/\hbar},
+\end{equation}
+and its actual small-$r$ expansion has nonnegative powers of $r$. In addition, the displayed historical cubic energy term yields an outward force, not the more attractive sign in \eqref{eq:histforce}. The regimes $r\ll\ell_C$ (for the exponential Taylor series) and $r\gg\ell_C$ (for a small Compton correction) do not overlap.
+
+One may \emph{formally} rewrite \eqref{eq:liouville} as a one-dimensional Schr\"odinger equation with the radial coefficient $U_\kappa:=-m_fc^2\mathcal V_\kappa/2$. Equations \eqref{eq:Vone}--\eqref{eq:Vtwo} then contain terms
+\begin{equation}
+ U_\kappa=-\frac{\GNewton Mm_f}{r}
+ +\frac{\hbar^2\kappa(\kappa+1)}{2m_fr^2}
+ -\gamma_\kappa\frac{\GNewton M\hbar^2}{m_fc^2r^3}
+ +O(\GNewton^2).
+ \label{eq:radialU}
+\end{equation}
+The \emph{formal radial-coefficient derivative} is
+\begin{equation}
+ \delta F_{r,\kappa}^{\rm formal}:=-\frac\dd{\dd r}\left[-\gamma_\kappa
+ \frac{\GNewton M\hbar^2}{m_fc^2r^3}\right]
+ =-3\gamma_\kappa\frac{\GNewton M\hbar^2}{m_fc^2r^4}.
+ \label{eq:formalforce}
+\end{equation}
+For $\kappa=-1$ it vanishes at first order in $G$, whereas for $\kappa=+1$ it is outward with coefficient $+3/2$. The historical attractive coefficient $-9/2$ would require $\gamma_\kappa=+3/2$, i.e. $4\kappa^2+\kappa+3=0$, whose discriminant is $-47<0$; it does not arise in these channels. At $\kappa=-1$, the first explicitly $\hbar^2$ term at second order produces only the representation-specific
+\begin{equation}
+ \delta U_{\kappa=-1}^{(G^2\hbar^2)}=-\frac{\hbar^2r_s^2}{128m_fr^4},\qquad
+ \delta F_{\kappa=-1}^{\rm formal}=-\frac{\GNewton^2M^2\hbar^2}{8m_fc^4r^5}.
+ \label{eq:secondradialforce}
+\end{equation}
+Neither \eqref{eq:formalforce} nor \eqref{eq:secondradialforce} is asserted to be a physical correction to the gravitational field.
+
+\begin{lemma}[Representation dependence of a Liouville-normal radial coefficient]\label{lem:schwarzian}
+If $u''(x)+\mathcal V(x)u(x)=0$ and $x=x(y)$ is a smooth monotone coordinate transformation with $x_y>0$, then the redefined dependent variable $u(x(y))=\sqrt{x_y}\,v(y)$ obeys
+\begin{equation}
+ v_{yy}+\left[x_y^2\mathcal V(x(y))+\tfrac12\{x,y\}\right]v=0,
+ \quad\{x,y\}:=\frac{x_{yyy}}{x_y}-\frac32\left(\frac{x_{yy}}{x_y}\right)^2.
+ \label{eq:Schwarzian}
+\end{equation}
+\end{lemma}
+\begin{proof}
+Use $\dd/\dd x=x_y^{-1}\dd/\dd y$ and differentiate $u=\sqrt{x_y}\,v$ twice. The coefficient changes by the displayed Schwarzian term. Thus an isolated coefficient of $x^{-3}$ in one chosen radial normal form cannot by itself be identified as a coordinate-independent force on a physical test particle.
+\end{proof}
+
+A physical prediction would require a defined observable (e.g. a normalized scattering amplitude, conserved-current response, interferometric phase, or state-dependent acceleration), a specified state and boundary data, and invariance under equivalent tetrad/coordinate choices. A universal quantum \emph{gravitational-field} correction additionally requires a derived quantum-corrected equation for $g[\sigma,T]$ or for the natural invariant itself. The historical standalone $\hbar^2(\nabla\sigma)^2$ action and derivative metric term remain unverified trial operators, not consequences silently imported from Chapters 1--2.
+
+\section{Normalized Dirac sources and where genuine $\hbar$ dependence may enter}\label{sec:source}
+The adopted effective action may consistently couple a specified normalized fermionic source to the natural-invariant geometry. In a stationary two-spin-balanced Einstein--Dirac benchmark (in $G=c=\hbar=1$ units) one finds, for an appropriate tetrad,
+\begin{equation}
+ \Psi_s=\frac{\sqrt{T(r)}}r e^{-\ii\omega t}
+ \begin{pmatrix}a(r)\chi_s\\ \ii b(r)(\bm\tau\cdot\widehat{\bm r})\chi_s\end{pmatrix},
+ \quad s\in\{\uparrow,\downarrow\},
+ \label{eq:sourcewave}
+\end{equation}
+with real $a,b$ and zero net radial current. This is an \emph{illustrative source benchmark} of adopted Einstein--Dirac dynamics, not a theorem that one coherent four-mode QGD state universally reduces to this form. It demonstrates why the outgoing-flux bridge \eqref{eq:bridge} cannot normalize a stationary self-gravitating source.
+
+To obtain an $\hbar$-dependent \emph{gravitational profile} without postulating a new vacuum gravitational kinetic term, one may calculate the properly normalized quantum matter stress tensor $\langle T_{\mu\nu}\rangle$ and solve its sourced gravitational equations. The profile may depend on $\hbar$ through occupation, gradients or quantum pressure even when the vacuum exterior remains classical Schwarzschild. This is \emph{source-dependent quantum matter gravitating}; it is distinct from a universal quantum-gravity correction to vacuum propagation.
+
+
+\section{A self-gravitating Dirac-source consistency benchmark}\label{sec:sourcebenchmark}
+To distinguish the outgoing test-wave envelope from the macroscopic
+\emph{source} envelope, consider a previously solved stationary,
+spin-balanced, two-mode Einstein--Dirac configuration.  The statement
+below concerns the \emph{adopted effective Einstein--Dirac model}, not
+the unrestricted four-mode QGD matter action.
+In natural units $G_{\rm N}=c=\hbar=1$, let
+\begin{equation}
+ \mathrm ds^2=-T(r)^{-2}\mathrm dt^2
+    +A_{\rm met}(r)^{-1}\mathrm dr^2+r^2\mathrm d\Omega^2,
+ \qquad T>0,\quad A_{\rm met}>0.
+ \label{eq:sourceMetric}
+\end{equation}
+The spin-balanced stationary ansatz may be expressed in a designated
+tetrad as
+\begin{equation}
+ \Psi_s(t,r,\Omega)=\frac{\sqrt{T(r)}}r e^{-\ii\omega t}
+ \begin{pmatrix}a_D(r)\chi_s\\[2pt]
+ \ii b_D(r)(\bm\tau\cdot\widehat{\bm r})\chi_s\end{pmatrix},
+ \qquad s=\uparrow,\downarrow.
+ \label{eq:sourceSpinors}
+\end{equation}
+Here $a_D,b_D$ are the source's two real radial functions, \emph{not}
+the two components $A,B$ of the gravitational natural invariant.
+The occupied modes are normalized using the proper conserved-current
+measure rather than the outward-flux condition:
+\begin{equation}
+ 4\pi\int_0^\infty
+ \frac{T(r)}{\sqrt{A_{\rm met}(r)}}
+ [a_D(r)^2+b_D(r)^2]\,\mathrm dr=1
+ \qquad\text{for each occupied mode}.
+ \label{eq:sourceNorm}
+\end{equation}
+For the chosen local spin frame the upper amplitude in the original QGD
+wavefunction may be identified as a \emph{representation-specific}
+physical product:
+\begin{equation}
+ \boxed{\alpha_G^{\rm spin}\psi_0(r)=\sqrt{T(r)}\,a_D(r).}
+ \label{eq:sourceUpper}
+\end{equation}
+This identification leaves the common-rescaling symmetry of
+the rescaling discussion of Section~\ref{sec:alpha} untouched: the field equations determine the
+physical product, not the arbitrary split into an overall multiplier
+and a reference envelope.
+
+For reference, one earlier finite-domain numerical solution used
+$m_f=0.3$, total conserved occupation $N=2$, and
+$M_{\rm ADM}\simeq0.59893551$ (geometric units).  The source's upper
+radial envelope is localized and decays, unlike the outgoing
+$r^{1/4}$ wave.  Taking a unit-total-occupation reference gives
+$|\alpha_G^{\rm state}|^2=2$, whereas the independent geometric
+Compton convention with $m_{\rm ref}=m_f$ gives
+$|\alpha_G^{\rm geom}|^2\simeq2.7827$.
+The mismatch is \emph{not} a failure of the field equations: it shows
+that a reference-amplitude convention and an inverse geometric
+strength are different definitions.  Numerical residuals verify
+consistency for that finite-domain benchmark but provide no
+Lean-certified existence theorem or microscopic promotion proof.
+
+\section{Quantum stress from the Dirac source: a coefficient fixed without new gravity operators}\label{sec:quantumsource}
+This section tests a narrowly stated question: can the Dirac matter action already specified in Chapter~1 produce a nonzero coefficient of a quantum source stress \emph{without} inserting a new standalone $\hbar^2(\nabla\sigma)^2$ gravitational operator? The answer is yes in the nonrelativistic positive-energy fixed-spin sector, but this fact by itself does not establish a universal vacuum correction to gravity.
+
+\begin{assumption}[Controlled Dirac-to-Pauli source limit]\label{ass:pauli}
+Use the positive-energy sector of the stated Dirac action, a weak static gravitational background supplied by the adopted Chapter~2 effective metric, $|\bm p|\ll m_fc$, no background electromagnetic field, and a locally constant Pauli spinor $\chi$ with $\chi^\dagger\chi=1$. Retain the leading $c^0$ matter Hamiltonian after removing the rest-energy phase. The positive-energy two-component wavefunction is $\varphi=\sqrt{n}\,e^{iS/\hbar}\chi$, where $n>0$ is the \emph{physical} number density of this occupied mode. Spin-texture gradients, antiparticle mixing, relativistic stress corrections, and general many-orbital exchange terms are not included in this single-mode theorem.
+\end{assumption}
+
+\begin{proposition}[The Dirac-derived quantum-density gradient coefficient]\label{prop:quantumstress}
+Under Assumption~\ref{ass:pauli}, the leading nonrelativistic matter kinetic-energy functional has the exact polar-decomposition identity
+\begin{equation}
+\boxed{\displaystyle
+E_{\rm kin}[n,S]=\int_{\mathbb R^3}\left[
+ \frac{n|\bm\nabla S|^2}{2m_f}
+ +\frac{\hbar^2}{8m_f}\frac{|\bm\nabla n|^2}{n}\right]\dd^3x.}
+\label{eq:gradkin}
+\end{equation}
+The gradient contribution has functional derivative
+\begin{equation}
+\boxed{Q[n]=-\frac{\hbar^2}{2m_f}\frac{\nabla^2\sqrt n}{\sqrt n},}
+\qquad
+\frac{\delta E_{\rm grad}}{\delta n}=Q[n],
+\label{eq:Qsource}
+\end{equation}
+and one symmetric quantum momentum-flux tensor can be chosen as
+\begin{equation}
+\boxed{\displaystyle
+\Pi_{ij}^{Q}=\frac{\hbar^2}{4m_f}
+\left(\frac{\partial_i n\,\partial_j n}{n}-\partial_i\partial_jn\right),
+\qquad \partial_j\Pi_{ij}^{Q}=n\,\partial_iQ.}
+\label{eq:PiQ}
+\end{equation}
+\end{proposition}
+\begin{proof}
+For constant $\chi$, $|\bm\nabla(\sqrt n\,e^{iS/\hbar}\chi)|^2=|\bm\nabla\sqrt n|^2+n|\bm\nabla S|^2/\hbar^2$. Multiply by $\hbar^2/(2m_f)$ and integrate to obtain \eqref{eq:gradkin}. Integrate the first variation of $E_{\rm grad}$ by parts with variations vanishing at the boundary to get \eqref{eq:Qsource}. Differentiate \eqref{eq:PiQ} and simplify using the quotient rule and $\sqrt n$; the divergence is $n\bm\nabla Q$. This derivation fixes the $\hbar^2/(8m_f)$ energy coefficient and $\hbar^2/(4m_f)$ stress coefficient. The flux tensor is not unique under divergence-free improvements; its indicated divergence and force are unchanged.
+\end{proof}
+
+For this one-mode sector the exact Madelung acceleration equation is
+\begin{equation}
+ m_fn(\partial_t+\bm v\cdot\bm\nabla)\bm v
+ =-m_fn\bm\nabla\Phi-\bm\nabla\cdot\bm\Pi^Q,
+ \qquad \bm v=\bm\nabla S/m_f.
+ \label{eq:Qhydro}
+\end{equation}
+The \emph{quantum force on matter} in \eqref{eq:Qhydro} is not itself a new term in the gravitational field equation. The right-hand gravitational acceleration is that of the metric sourced by the matter distribution. Independent occupied orbitals and their stress tensors must be summed to describe a multi-fermion source; a general fermionic mixed state is not characterized solely by one $n$ and $S$.
+
+\begin{proposition}[Gravitational response of the normalized quantum density]\label{prop:quantumsource}
+Assume independently the leading nonrelativistic sourced field equation of the adopted Einstein--Hilbert benchmark, $\nabla^2\Phi=4\pi G_{\rm N}\rho$, with $\rho=m_fn+O(c^{-2})$. At this order the dimensionless temporal metric combination in QGD's classical signed-sector representation is $\mathcal U=-2\Phi/c^2$. Thus
+\begin{equation}
+\boxed{\displaystyle
+\nabla^2\mathcal U=-\frac{8\pi G_{\rm N}m_f}{c^2}\,n+O(c^{-4}) .}
+\label{eq:Usourced}
+\end{equation}
+Any $\hbar$-dependence of a \emph{specified and independently solved} quantum state $n(x;\hbar)$ is inherited by $\mathcal U$ through \eqref{eq:Usourced}. No additional coefficient of a QGD vacuum operator has been derived by this argument.
+\end{proposition}
+\begin{proof}
+Substitute $\rho=m_fn$ in the specified Poisson equation and use the stated definition $\mathcal U=-2\Phi/c^2$. The relation is for the temporal combination of the full metric and does not individually fix every signed $\sigma_\mu^{(s)}$ or the spatial metric. At relative order $c^{-2}$, energy density, pressure, gradient stress and gravitational binding require a joint relativistic Einstein--matter calculation; replacing the complete active source by $m_fn+E_{\rm grad}/c^2$ alone would be unjustified.
+\end{proof}
+
+\subsection{Exact, normalized source test and the role of Planck's constant}
+A clean diagnostic state is the normalized spherically symmetric Gaussian density
+\begin{equation}
+ n_a(r)=\frac{N}{\pi^{3/2}a^3}e^{-r^2/a^2},
+ \qquad \int_{\mathbb R^3}n_a\,\dd^3x=N,
+ \qquad M=Nm_f.
+ \label{eq:gaussiandensity}
+\end{equation}
+This is a \emph{test density}, not a claimed exact stationary Dirac-star solution. For it, the quantum potential and gradient energy follow without fitting any coefficient:
+\begin{equation}
+ Q_a(r)=\frac{\hbar^2}{2m_f}\left(\frac3{a^2}-\frac{r^2}{a^4}\right),
+ \qquad E_{\rm grad}(a)=\frac{3N\hbar^2}{4m_fa^2}.
+ \label{eq:gaussianQ}
+\end{equation}
+The unique Newtonian potential vanishing at infinity and solving Poisson's equation for this density is
+\begin{equation}
+\boxed{\displaystyle
+\Phi_a(r)=-\frac{G_{\rm N}M}{r}\,\operatorname{erf}\!\left(\frac ra\right).}
+\label{eq:gaussianPhi}
+\end{equation}
+Its exterior-point radial force on a distinct, slowly moving test mass $m_t$ is
+\begin{equation}
+\boxed{\displaystyle
+ F_r(r)=-\frac{G_{\rm N}Mm_t}{r^2}
+ \left[\operatorname{erf}\!\left(\frac ra\right)-\frac{2r}{\sqrt\pi a}e^{-r^2/a^2}\right].}
+ \label{eq:gaussianForce}
+\end{equation}
+This force is a physical gravitational response to the given spatial source distribution; it is distinct from $-\bm\nabla Q$ in \eqref{eq:Qhydro}. The gravitational force contains $\hbar$ only if the matter dynamics independently determine an $\hbar$-dependent width $a$.
+
+For example, in the \emph{specified external} isotropic oscillator model, the Gaussian is an exact nonrelativistic fixed-spin ground-state orbital and its width is $a^2=\hbar/(m_f\omega)$. This yields an exactly calculable $\hbar$-dependent gravitational profile \emph{in that source model}; the confining potential is an extra physical condition and not claimed to follow from Chapter~1 alone.
+
+A separate, strictly variational example avoids assuming a harmonic trap. For two identical spin-$1/2$ fermions in a spin singlet occupying the same trial Gaussian orbital, the expectation of the independent two-particle Newtonian Hamiltonian has no one-particle gravitational self-interaction:
+\begin{equation}
+ E_{2}(a)=\frac{3\hbar^2}{2m_fa^2}
+ -\frac{2G_{\rm N}m_f^2}{\sqrt{2\pi}\,a},
+ \qquad a_{\rm var}=\frac{3\sqrt{2\pi}\,\hbar^2}{2G_{\rm N}m_f^3}.
+ \label{eq:twofermionvariational}
+\end{equation}
+The minimum is stable within this one-parameter Gaussian family. The density and classical potential \eqref{eq:gaussianPhi} may be computed for this trial state, but the trial state is \emph{not} an exact coupled Einstein--Dirac stationary solution. For a truly macroscopic many-fermion source, Pauli occupations, exchange and correlations cannot be replaced by putting arbitrarily many fermions into one orbital.
+
+\subsection{Exterior no-go statement for a universal finite-source $r^{-4}$ correction}
+\begin{proposition}[Spherical source response outside matter]\label{prop:gaussnoGo}
+Let $\rho_\hbar(r)\geq0$ be an integrable, spherically symmetric mass-density profile with fixed total Newtonian mass $M$, and solve $\nabla^2\Phi_\hbar=4\pi G_{\rm N}\rho_\hbar$ with $\Phi_\hbar(\infty)=0$. Then
+\begin{equation}
+ \boxed{\displaystyle
+ -\Phi_\hbar'(r)=-\frac{G_{\rm N}M_\hbar(<r)}{r^2},\quad
+ M_\hbar(<r)=4\pi\int_0^r\rho_\hbar(s)s^2\dd s.}
+ \label{eq:gaussquantum}
+\end{equation}
+If $\rho_\hbar$ is supported in $r\leq R$, then for every $r>R$,
+$\Phi_\hbar=-G_{\rm N}M/r$ and $-m_t\Phi_\hbar'=-G_{\rm N}Mm_t/r^2$ exactly. A change in the quantum source's \emph{interior profile} at fixed total mass cannot yield an exterior universal correction $\propto G_{\rm N}M\hbar^2/(m_fc^2r^4)$ in this Poisson sector.
+\end{proposition}
+\begin{proof}
+Multiply Poisson's equation by $r^2$, integrate radially using regularity at the center, and apply the boundary value at infinity. For compact support, $M_\hbar(<r)=M$ outside and integrate once more. This does not rule out the state-dependent noncompact Gaussian tail, changes in the total gravitational/ADM mass, relativistic source corrections, nonspherical multipoles, or an independently derived modification of the gravitational response law. For the Gaussian, the bracket in \eqref{eq:gaussianForce} differs from one exponentially at large fixed $r/a$; it is not a universal power series in $\hbar^2/r^2$.
+\end{proof}
+
+\paragraph{Status of the sought quantum response coefficient.}
+The coefficient $\hbar^2/(8m_f)$ multiplying the density gradient is \emph{derived} within the stated Dirac-to-Pauli source sector, and $\Pi^Q$ follows by variation. It is not a coefficient of a gravitational natural-invariant propagation operator. The original proposed $\hbar^2(\nabla\sigma)^2$ and $\lambda\mathcal Q_{ab}$ require their own microscopic matching calculation and independent variation before they can alter the physical vacuum gravitational response. In particular, nothing in the calculation fixes the historical universal attractive coefficient $9/2$; it cannot be imported by Newtonian normalization.
+
+
+\section{Action-level handoff to Chapter 4}\label{sec:handoff4}
+The normalization theorem of Sections~\ref{sec:static}--\ref{sec:series}
+determines the exterior constant $C_g$ and fixes the classical static
+Killing-energy function; it does not by itself supply the unrestricted
+gravitational equations for the independent natural-invariant fields.
+To establish the precise logical handoff, define in the \emph{adopted}
+metric-only $\lambda=0$ fixed-frame effective action
+\begin{equation}
+ \Gamma[g,\Psi]=S_{\rm EH}[g]+S_D[g,\Psi],\qquad
+ \mathcal E_g^{\mu\nu}:=\frac{1}{\sqrt{-g}}
+ \frac{\delta\Gamma}{\delta g_{\mu\nu}}.
+ \label{eq:handoffmetric}
+\end{equation}
+For the signed specialization
+$g_{\mu\nu}=\bar g_{\mu\nu}+\sum_s s_s\sigma^{(s)}_\mu\sigma^{(s)}_\nu$,
+independent variations at fixed frame and fixed other sectors yield
+\begin{equation}
+ \boxed{\displaystyle
+ \mathcal E_{(s)}^\rho:=\frac{1}{\sqrt{-g}}
+ \frac{\delta\Gamma}{\delta\sigma_\rho^{(s)}}
+ =2s_s\mathcal E_g^{\rho\nu}\sigma_\nu^{(s)}.}
+ \label{eq:handoffprojected}
+\end{equation}
+This chain-rule equation, which Chapter~4 proves in detail, is not an
+additional $\hbar$-dependent wave equation. When the derivative of the
+metric map has rank ten for admissible signed-sector variations, the
+complete collection of equations~\eqref{eq:handoffprojected} is
+\emph{equivalent to the adopted effective metric equations}. With
+insufficient rank it is only a projection. An independent $\sigma$
+kinetic operator or a nonzero derivative-metric term is not inferred
+from the notation $\sigma_\mu$ or from the success of the Schwarzschild
+solution.
+
+The leading Dirac-to-Pauli gradient stress in
+Proposition~\ref{prop:quantumstress} contributes to $T_{\mu\nu}$ in a
+controlled sourced approximation; it does \emph{not} create an
+independent $\sigma$ kinetic term in~\eqref{eq:handoffprojected}.
+The Poisson exterior result of Proposition~\ref{prop:gaussnoGo}
+precludes a universal power-law $\hbar^2/r^4$ force from changing
+only the interior profile of a compact spherical source at fixed mass.
+A genuine QGD-specific exterior quantum-force claim therefore requires
+an independently varied quantum effective action or new source-to-natural-
+invariant constitutive dynamics, along with a physical observable.
+
+\section{What Chapter 3 proves, and formal verification gates}\label{sec:proofledger}
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.54\textwidth}>{\raggedright\arraybackslash}p{0.34\textwidth}}
+\toprule
+Statement & Logical status\\\midrule
+Microscopic Dirac-to-macroscopic four-mode structure & Conditional local/WKB construction\\
+Promotion to the independent $\sigma_{\mu}^{(s)}$ fields & QGD postulate\\
+Complete signed/tetrad/derivative metric & Proposed definition; $\mathcal Q$ unverified\\
+Spherical vacuum $A^2=B^2=C_g/r$ & Derived in explicitly adopted EH sector\\
+Newtonian mass calibration $C_g=2GM/c^2$ & Permissible one-parameter match\\
+Exact static potential and all Taylor coefficients & Derived classical benchmark\\
+Geometric $\alpha_G^{\rm geom}$ & Explicit dimensionless convention\\
+Identification with original spinor $\alpha_G$ & Open, not proven\\
+Flux bridge for outgoing Dirac WKB waves & Derived conditional transport identity\\
+Newtonian Hankel wave & Exact for prescribed Newtonian potential\\
+Curved-space separated Dirac coefficients & Conditional; algebraically auditable\\
+Dirac-derived quantum gradient source coefficient $\hbar^2/(8m_f)$ & Derived under fixed-spin Pauli hypotheses\\
+Spherical quantum-source gravity and Gaussian test & Conditional Poisson source theorem; $\hbar$ enters through state\\
+Universal exterior $r^{-4}$ from compact spherical source alone & Excluded at fixed mass in Poisson sector\\
+Universal historical attractive $9/2$ quantum force & Not established\\
+Metric-only $\sigma$ action chain rule & Derived; Chapter 4 full-rank conditions required\\
+Lean 4 kernel verification & Pending, not claimed\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Formalization obligations}
+Before claiming Lean verification, formal proofs must cover: (i) positivity and domain of $F,D,r$; (ii) exact four-dimensional Ricci and boundary identities; (iii) both variational derivatives with the boundary functional; (iv) independent ODE integration and asymptotic hypotheses; (v) Newtonian correspondence assumptions; (vi) exact static energy and analytic series with an explicit tail bound; (vii) normalization-rescaling invariance and $\hbar$ cancellation; (viii) the WKB current identity, with Pauli/gamma matrices; (ix) the stated Newtonian Bessel differential equation and Wronskian; (x) the conditional separated Dirac system and Liouville transformation; and (xi) the Schwarzian representation-dependence lemma; (xii) Dirac-to-Pauli sector hypotheses, polar kinetic decomposition and quantum-stress divergence; and (xiii) the Poisson spherical-source exterior theorem; (xiv) the metric-to-natural-invariant functional chain rule and admissible rank-ten variations. The computational checks accompanying this chapter validate selected algebra, \emph{not} the omitted analytic, boundary-value, microscopic or tensor-calculus proof obligations.
+
+\section{Conclusion}
+The chapter's established conditional result is a \emph{Newton-calibrated classical} gravitational natural-invariant exterior with the exact static Killing-energy potential \eqref{eq:PhiExact} and the rigorously controlled expansion \eqref{eq:fourterms}. It also exhibits a calculable quantum Dirac-wave sector with explicit $\hbar$ and a correct radial-current bridge. Neither the historical inverse-exponential derivation nor the separated Dirac radial coefficient produces a verified universal $\hbar^2/r^4$ gravitational force. A Dirac-derived quantum-gradient stress with the fixed coefficient $\hbar^2/(8m_f)$ has now been established in a stated positive-energy fixed-spin source limit, and its Poisson-sourced gravitational response and exterior restrictions were checked explicitly. This does not prove a universal quantum correction to gravitational propagation. A future universal quantum-force claim requires an independently derived source-to-$\sigma$ response or gravitational kinetic coefficient, together with a physical invariant observable and successful limits.
+
+
+
+
+\section*{Q061 final interpretation of normalization and quantum order}
+\addcontentsline{toc}{section}{Q061 final normalization and quantum-order audit}
+\noindent Newtonian matching fixes the \emph{single} measured gravitational coupling $G_N$ in the adopted Einstein--Hilbert metric-mediated action. It does not require the independent microscopic existence postulate (Axiom II) to have been proved. The exact static Killing-energy potential and its $r^{-2}$ and $r^{-3}$ Taylor terms on Schwarzschild are classical nonlinearities, even when they resemble proposed high-order quantum corrections. A correction is identified as quantum here only by its provenance in the consistently renormalized state/loop response (or explicitly stated quantum source), not merely by its radial order.
+
+\noindent In the present effective-action organization the local $R^2,C^2,E_4$ couplings are renormalized matching coefficients; QN004 supplies a calculated one-loop contribution to the momentum-dependent curvature kernels. The same contribution must not be reinserted into the natural-invariant master-metric slot as an additional $\mathcal Q_{ab}$ interaction. The Chapter~7 far-field massless-Dirac Boulware example illustrates the distinction: it provides conditional order-$\hbar$ changes to the physical metric and its selected natural-invariant representation, rather than a universal new term in the Newtonian potential. The normalizations and original wavefunction results in this chapter are unchanged.
+
+
+\appendix
+\chapter{Proof details and reproducibility ledger}\label{app:proof}
+\section{Independent variation without fixing the natural-invariant branch}\label{app:EL}
+For clarity, define $F=1-A^2$, $D=1+B^2-A^2$ and
+$L_{\rm red}=[F+rF']/\sqrt D+\sqrt D$.
+The Euler--Lagrange derivatives are defined by
+\begin{equation}
+ \mathcal E_A:=\frac{\partial L_{\rm red}}{\partial A}
+ -\frac{\mathrm d}{\mathrm dr}
+  \frac{\partial L_{\rm red}}{\partial A'},
+ \qquad
+ \mathcal E_B:=\frac{\partial L_{\rm red}}{\partial B}
+ -\frac{\mathrm d}{\mathrm dr}
+  \frac{\partial L_{\rm red}}{\partial B'}.
+\end{equation}
+Because $L_{\rm red}$ depends on $B$ algebraically, the second
+expression is an ordinary partial derivative.  Substituting
+$F'=-2AA'$ and $D'=2BB'-2AA'$ and simplifying yields
+\begin{equation}
+ \mathcal E_A=-\frac{A(2rBB'+B^2)}{D^{3/2}},
+ \qquad
+ \mathcal E_B=\frac{B(B^2+2rAA')}{D^{3/2}}.
+\end{equation}
+These reproduce Eq.~\eqref{eq:EL} and show explicitly that both
+components are varied before the equality $A^2=B^2$ is obtained.
+The construction is valid only under the declared differentiability,
+nondegeneracy, boundary and action hypotheses.
+
+\section{Convergent coefficient and error proof}\label{app:series}
+For $n\ge1$ let $a_n={2n\choose n}/[4^n(2n-1)]$.
+The elementary identity
+\begin{equation}
+ \frac{a_{n+1}}{a_n}=\frac{2n-1}{2n+2}
+\end{equation}
+shows $a_n$ is positive and decreasing.  For $0<x<1$,
+$|\sum_{n=5}^\infty a_nx^n|\le a_5x^5/(1-x)$ with
+$a_5=7/256$.  This proves the exact remainder inequality in
+Theorem~\ref{thm:series} and makes the convergence domain and
+power-counting assumptions explicit.
+
+\section{Formal-verification boundary}\label{app:lean}
+A Lean kernel proof has \emph{not} been executed.  The independent
+symbolic tests check mathematical identities, not the derivation of
+the microscopic effective action, the admissibility of the QGD
+promotion postulate, or the existence of the numerical boundary-value
+states.  A full kernel proof would need, in logical order:
+\begin{enumerate}
+ \item Positivity, differentiability and boundary assumptions for the
+ spherical metric functions, radial integrals and variations;
+ \item A formal Levi--Civita connection, Ricci contraction and exact
+ boundary identity of Lemma~\ref{lem:EH};
+ \item Euler--Lagrange derivatives of both $A$ and $B$ and the
+ nondegenerate $C_g/r$ exterior integration;
+ \item Axiomatization of Newtonian correspondence, static Killing
+ energy and exact Taylor coefficient identities with a tail bound;
+ \item Dirac Pauli-matrix current identities, their state/transport
+ qualifications and the reference-normalization symmetry;
+ \item The Bessel ODE and Wronskian for the prescribed Newtonian
+ radial equation;
+ \item Spherical spin-connection separation, Liouville transformation
+ and weak-field Dirac coefficient expansion for specified parameters;
+ \item The Schwarzian field-redefinition lemma and the operational
+ distinction between one-dimensional coefficients and invariant
+ gravitational observables.
+\end{enumerate}
+None of these obligations licenses an inference from a classical test
+Dirac radial correction to a universal vacuum quantum-gravity force.
+
+
+\clearpage
+\end{document}

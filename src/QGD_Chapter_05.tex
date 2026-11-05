@@ -1,0 +1,1291 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=23mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm,mathrsfs}
+\usepackage{booktabs,tabularx,longtable,enumitem,microtype,xcolor,graphicx}
+\usepackage{hyperref,fancyhdr}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black,pdftitle={QGD Chapter 5 v3.8: Newtonian Correspondence and Quantum Response},pdfauthor={QGD research manuscript}}
+\definecolor{navy}{HTML}{153350}\definecolor{amber}{HTML}{8C5500}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{\small Quantum Gravity Dynamics}\fancyhead[R]{\small Chapter 5 --- Conditional Closure}\fancyfoot[C]{\thepage}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=2pt}
+\renewcommand{\arraystretch}{1.16}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\dd}{\mathrm d}\newcommand{\Tr}{\operatorname{Tr}}\newcommand{\cO}{\mathcal O}\newcommand{\cG}{\mathcal G}\newcommand{\cH}{\mathcal H}\newcommand{\cE}{\mathcal E}\newcommand{\cK}{\mathcal K}\newcommand{\AX}{\textsf{[AXIOM]}}\newcommand{\D}{\textsf{[DERIVED]}}\newcommand{\C}{\textsf{[CONDITIONAL]}}\newcommand{\OPEN}{\textsf{[OPEN]}}
+\begin{document}
+\begin{center}
+{\color{navy}\LARGE\bfseries Quantum Gravity Dynamics}\\[5pt]
+{\Large Chapter 5 --- Newtonian Correspondence and Quantum Response}\\[5pt]
+{\large Static gravitational functional and historical microscopic tests}\\[7pt]
+{\small Action-first edition v3.8 --- 5 November 2026 (v3.7 content retained)}\\[2pt]
+{\small Newtonian action correspondence; microscopic realizability unverified}
+\end{center}
+\begin{abstract}
+We present a final, explicitly \emph{conditional and axiomatic} quantum-to-geometry correspondence for Quantum Gravity Dynamics (QGD). The microscopic starting point is quantum matter and its states, not a postulated spin-two particle. We preserve the Chapter 1 probability-current and phase--momentum bridge; the Chapter 2 complete signed natural-invariant metric and source-selected exterior solutions; the Chapter 3 Newtonian empirical calibration; and the Chapter 4 effective Einstein--matter action. A stable, massless collective scalar response with independently declared stiffness $Z>0$ and common mass-density vertex $g_c$ produces attractive Newtonian exchange with the field-normalization-invariant coefficient $G_{\mathrm{eff}}=g_c^2/(4\pi Z)$. Our new capstone theorem proves an \emph{exact equality of static energy functionals}: after the substitution $H=2g_cq/c^2$, the collective energy becomes the Newtonian gravitational functional in QGD's composite variable $H=A^2$. It yields the sourced Poisson equation, the exact exterior $H=2G_{\mathrm{eff}}M/(c^2r)$, and a valid Schwarzschild Kerr--Schild natural-invariant representative, under explicit source, domain and geometric-matching assumptions. This establishes rigorous \emph{conditional static quantum-source-to-QGD-geometry closure}, not an autonomous derivation of the underlying collective mode, universal relativistic coupling, or the nonlinear Einstein action. We retain the Chapter 1 interacting Hartree calculation as an important negative test of one candidate microscopic phase. The chapter closes the specified axiomatic research milestone while keeping microscopic and relativistic completion obligations separate, falsifiable and clearly named.
+\end{abstract}
+
+\section*{Reinterpretation as an effective Newtonian correspondence chapter (5 November 2026)}
+\addcontentsline{toc}{section}{Reinterpretation as an effective Newtonian correspondence chapter}
+\noindent QGD now begins with Axiom~I (the full master metric), the separate existence postulate Axiom~II, and a \emph{defined action}. The static functional derived and investigated below is a conditional independent representation of the Newtonian limit, not an additional gravitational energy to append to the Einstein--Hilbert sector. With $E[q;\rho_m]=\int[Z|\nabla q|^2/2-g_cq\rho_m]d^3x$, $H=2g_cq/c^2$ and $G_{\rm eff}=g_c^2/(4\pi Z)$, the exact redefinition gives the standard Newtonian field functional. Its coefficient is an effective matching parameter; deriving a microscopic $q$ is \emph{not required} to use the correspondence or QGD's field equations. The subsequent microscopic tests remain explicit historical tests of Axiom~II and do not define QGD's effective dynamics.
+
+\section*{Proof-status contract}
+\addcontentsline{toc}{section}{Proof-status contract}
+\AX\ means a separately declared physical premise; \D\ means algebraically or analytically established under the displayed assumptions; \C\ means conditional on a chosen quantum model, effective action or mathematical regularity; \OPEN\ means not established for QGD. Statements about low-energy Einsteinian equivalence are not claims that QGD's microscopic matter theory has been proved to generate gravity.
+\clearpage\tableofcontents\newpage
+
+
+\section{Q061 final static-energy and quantum-action consistency note}
+The calibrated static response functional in this chapter is an effective \emph{Newtonian correspondence representation}. It is not an additional, separately conserved energy component to append to an Einstein--Hilbert action already describing the same weak-field gravitational mode. Its source--field normalization $G_{\rm eff}=g_c^2/(4\pi Z)$ is phenomenological and must coincide with measured $G_N$ when the correspondence is imposed; no independent microscopic massless pole is inferred from this matching.
+
+The one-loop Dirac/Hartree response provides calculable quantum-matter form factors but does not select a nearly massless cosmological dark-energy modulus. Chapter~8's Q055--Q058 examples of kinetic condensates and bounded hilltops are therefore \emph{additional dynamical models}, not renamings of the calculated Hartree scalar. A local quantum correction already represented in the renormalized curvature action is not added again as $-\lambda\mathcal Q_{ab}$ or as an independently sourced static energy. The complete master metric remains intact; calculations of this chapter employ the stated metric-only specialization and the same matter coupling as Chapters~1--4.
+
+
+\section{Correction to the founding hypothesis}
+The physical starting idea is \emph{collective quantum matter waves}, including fermionic many-body quantum states and bosonic/gauge sectors where relevant. It does \emph{not} posit a microscopic graviton, a spin-two elementary field or a pre-existing Einstein kinetic operator. Spin-2 becomes a late-stage consistency test because GR has two propagating tensor polarizations around an appropriate flat vacuum. This test is stringent but must not be used to manufacture the result.
+
+\textbf{Minimal physical hypothesis, MW.} \AX\ In some stable long-wavelength phase of interacting quantum matter, quantum state observables and correlations specify a physical collective response whose geometric effects admit representation by QGD natural-invariant classes $[\Sigma]$. The quantum-state-to-geometry map must be operationally defined, not merely obtained by factorizing a metric solved from Einstein's equations. This hypothesis does \emph{not} imply a massless response, universal coupling, an Einsteinian action or numerical $G_N$. Whether the phase exists in Chapter 1's microscopic model is \OPEN.
+
+Let the gravity-free microscopic theory be $S_{\rm QT}[\Phi;\eta]$, with quantum fields $\Phi$ and a non-dynamical reference $\eta$. A candidate collective variable must be grounded in operators, for example $\varphi^I(x)=\Tr(\varrho\,\widehat{\cO}^I(x))$ after specified smearing/renormalization. The physical construction sought is
+\begin{equation}\label{eq:map}
+ (\varrho,\mathcal B)\xrightarrow{\text{microscopic observables}}\varphi
+ \xrightarrow{\text{dynamical response}}[\Sigma]
+ \xrightarrow{\cG}g_{\mu\nu}.
+\end{equation}
+This direction matters: the known signed factorization of an arbitrary metric cannot stand in for the first two arrows.
+
+\section{What the quantum wave bridge establishes---and its limit}
+For a nonrelativistic coherent branch $\psi=\sqrt n\,e^{iS/\hbar}$, with $\bm p=\bm\nabla S$ and no electromagnetic vector potential, Schr\"odinger dynamics gives
+\begin{align}
+\partial_tn+\bm\nabla\cdot(n\bm p/m)&=0,\\
+\partial_t S+\frac{|\bm p|^2}{2m}+V-\frac{\hbar^2}{2m}\frac{\nabla^2\sqrt n}{\sqrt n}&=0.
+\end{align}
+In a stationary radial-flow region the first equation yields $\boxed{r^2n(r)p(r)=C}$, with $[C]=M/T$ for $[n]=L^{-3}$. This is a \D\ quantum-transport identity, not a source law for gravity. Its nonrelativistic convective momentum relation is
+\begin{equation}\label{eq:convective}
+\frac{Dp}{Dt}=\frac{p}{m}p'=-\frac{p^2}{m}\left(\frac2r+\frac{\dd\ln n}{\dd r}\right).
+\end{equation}
+The dynamic force is separately constrained by the quantum Hamilton--Jacobi equation. A free outgoing wave $e^{ikr}/r$ obeys the flux identity and has constant momentum; thus spherical spreading does not imply a force. At the level of many-body matter, total current may vanish while $\langle T_{\mu\nu}\rangle$ and momentum stresses are nonzero. The correct source variables are the \emph{full} stress-energy and connected quantum fluctuations, not only a single outgoing probability current.
+
+For the local positive-energy radial Dirac/WKB branch in Chapters 1 and 3,
+\begin{equation}\label{eq:dirac}
+ \boxed{|\alpha_G^{\rm spin}\psi_0|^2=\frac{\dot N\Delta}{8\pi c^2p},\qquad
+ \Delta=E_{\rm loc}+m_{\rm eff}c^2.}
+\end{equation}
+This is the precise branch-specific wavefunction--momentum normalization. Its flux $\dot N$ may vanish for a stationary bound source and cannot then be used as a universal gravitational source normalization.
+
+\section{Deriving a collective response from matter waves}
+Choose a stationary quantum phase with collective observables $\varphi^I$ and a properly renormalized effective action $\Gamma_{\rm coll}[\varphi;\mathcal J]$. Here $\mathcal J_A$ are independently specified physical probe sources; they are not assumed to be an Einstein gravitational perturbation. Set $q^I=\varphi^I-\varphi_0^I$. At quadratic order about the stationary phase, schematically,
+\begin{equation}\label{eq:quadratic}
+\Gamma^{(2)}[q;\mathcal J]=\frac12\int\!\dd^4k\;q^I(-k)\cK_{IJ}(k)q^J(k)
+ +\int\!\dd^4k\;\mathcal J_A(-k)V^A{}_I(k)q^I(k)+\Gamma_{\rm contact}[\mathcal J].
+\end{equation}
+All momentum integrations carry the agreed Fourier factors. $\cK$ is the \emph{computed} quantum collective Hessian, and $V$ the \emph{computed} source--collective vertex. One must not insert the Fierz--Pauli or Einstein propagator into $\cK$ when testing microscopic origin. Integrating the Gaussian $q$ response gives the nonlocal probe kernel
+\begin{equation}\label{eq:response}
+\boxed{\chi_{AB}^{\rm exch}(k)=V_A{}^I(k)[\cK^{-1}(k)]_{IJ}V_B{}^J(-k).}
+\end{equation}
+Direct/contact terms must be included in the physical observable. Gauge fixing is appropriate only after a genuine symmetry and its constraints have been identified.
+
+\begin{proposition}[Source-visible soft-mode criterion, Gaussian infrared theory]\label{prop:soft}
+Suppose in a well-defined static infrared window $\cK(0,\bm k)$ has one physical eigenmode $u$ with eigenvalue $\lambda_u(\bm k)=Z|\bm k|^2+O(|\bm k|^4)$ where $Z>0$, while other physical eigenvalues remain bounded away from zero and mixing/contact terms are regular. Suppose also that the physical source projection is parity-even and regular, $V_A{}^I(0,\bm k)u_I=v_A+O(|\bm k|^2)$ with $v_A\ne0$ for the selected source channels. Then
+\begin{equation}\label{eq:soft-result}
+\boxed{\chi_{AB}^{\rm exch}(0,\bm k)=\frac{v_Av_B}{Z|\bm k|^2}+O(1),}
+\end{equation}
+and the sourced static response has a $1/(4\pi r)$ long-distance Green law in three spatial dimensions, provided no physical cancellation removes the pole.
+\end{proposition}
+\begin{proof}
+Resolve the inverse Hessian into the normalized soft eigenspace and the gapped complement, $\cK^{-1}=u\,\lambda_u^{-1}u^\dagger+\cK_\perp^{-1}$. Multiply by $V_A,V_B$. Regular source vertices with nonzero soft-mode projections yield $v_Av_B/(Z|\bm k|^2)$; the gapped complement produces no such pole. In three dimensions the distributional Fourier inverse of $|\bm k|^{-2}$ is $(4\pi r)^{-1}$. The stated result assumes a physical response rather than a gauge artifact and ignores only regular/contact contributions to the asymptotic far field.
+\end{proof}
+\begin{remark}[Not an emergence proof]
+This proposition is a \C\ criterion. It does not derive $u$, $Z$ or $v_A$ from QGD's microscopic action. Conversely, a gapless wave with $v_A=0$, $V_Au=O(|\bm k|)$ or a cancellation in the full physical response need not mediate a $1/r$ static interaction. A phonon is not automatically a gravitational field.
+\end{remark}
+
+\section{A concrete counterexample: a gapless matter wave with no static long-range density force}
+Consider a weakly interacting, homogeneous, zero-temperature Bose field as a diagnostic matter-wave theory (\emph{not} the Chapter 2 Fermi star). Write $\Psi=\sqrt n\,e^{i\theta}$ with repulsive local interaction $g_B>0$, mean density $n_0$, and an external static density probe $U(x)n$. Its Gross--Pitaevskii energy is
+\begin{equation}\label{eq:gp-energy}
+E[\Psi]=\int\!\dd^3x\left[\frac{\hbar^2}{2m_B}|\bm\nabla\Psi|^2+\frac{g_B}{2}|\Psi|^4+U|\Psi|^2-\mu|\Psi|^2\right],\qquad \mu=g_Bn_0.
+\end{equation}
+Expanding $n=n_0+\delta n$ to quadratic order, the static density and phase terms are
+\begin{equation}\label{eq:gp-quadratic}
+E^{(2)}=\frac12\int\!\dd^3x\left[g_B(\delta n)^2+\frac{\hbar^2}{4m_Bn_0}|\bm\nabla\delta n|^2+\frac{\hbar^2 n_0}{m_B}|\bm\nabla\theta|^2+2U\delta n\right].
+\end{equation}
+Independent density variation then yields
+\begin{equation}\label{eq:gp-chi}
+\boxed{\delta n(\bm k)=-\frac{U(\bm k)}{g_B+\hbar^2|\bm k|^2/(4m_Bn_0)},\qquad \chi_{nn}(0,\bm k\to0)=-\frac1{g_B}.}
+\end{equation}
+Although the associated propagating Bogoliubov phonon is gapless with $\omega^2=(g_Bn_0/m_B)|\bm k|^2+O(|\bm k|^4)$, the static density susceptibility has \emph{no} $1/|\bm k|^2$ singularity. Hence a gapless matter-wave mode plus three-dimensional spherical spreading is insufficient for a universal static force. This analytic mean-field counterexample is a \D\ result in its specified model; it does not exclude different quantum matter phases. For corresponding analogue-gravity limitations, see the literature below.
+
+\section{Physical metric and natural invariants: conditions specific to QGD}
+\subsection{A metric must be measured in matter-wave propagation}
+A genuine operational candidate is the principal part of the \emph{microscopically derived} long-wavelength equations of probe waves. For a scalar probe, suppose it is
+\begin{equation}\label{eq:principal}
+\partial_\mu\left(F^{\mu\nu}(x)\partial_\nu\phi\right)+\text{lower-derivative terms}=0,
+\end{equation}
+where $F^{\mu\nu}$ is a symmetric, nondegenerate contravariant tensor density with Lorentzian signature, computed from the quantum state. In four spacetime dimensions, if the normalization and density weight of $F$ match the usual minimally coupled scalar action, one can define
+\begin{equation}\label{eq:fromF}
+\boxed{\sqrt{-g}=\sqrt{-\det F},\qquad g^{\mu\nu}=\frac{F^{\mu\nu}}{\sqrt{-\det F}}.}
+\end{equation}
+This is a \D\ algebraic recovery of an effective metric from a specified probe operator. It becomes a candidate \emph{physical} geometry only if many distinct probe species (including massive matter and light) share compatible kinetic and mass couplings. A sound metric that applies only to phonons does not satisfy the requirement.
+
+\subsection{Signed sectors represent the metric but need independent physical definition}
+For the fixed-reference, $\lambda=0$ classical specialization of QGD (not its full master metric),
+\begin{equation}\label{eq:gram}
+g_{\mu\nu}=\bar g_{\mu\nu}+\sum_s s_s\sigma_\mu^{(s)}\sigma_\nu^{(s)},\qquad s_s=\pm1,
+\end{equation}
+any symmetric $h=g-\bar g$ has the signed representative
+\begin{equation}\label{eq:pn}
+P=bI+\frac{h}{4b},\qquad N=bI-\frac{h}{4b},\qquad P^TP-N^TN=h\quad (b\ne0).
+\end{equation}
+This exact Chapter 2 identity gives algebraic reach, \emph{not} a quantum operator definition of $\sigma_\mu^{(s)}$. A physical map $\varphi\mapsto[\Sigma]$ must also explain state/boundary dependence and which sector transformations are observationally redundant. The full master metric retains its original $T^a{}_{\mu}$ coframe and unmatched $-\lambda\mathcal Q_{ab}$ proposal; Eq.~\eqref{eq:gram} is its $\lambda=0$ fixed-reference restriction.
+
+\begin{proposition}[Regular linear geometry requires a nondegenerate sector background]\label{prop:Jac}
+For the purely quadratic metric map \eqref{eq:gram}, linear variations satisfy
+\begin{equation}\label{eq:jac}
+\boxed{\delta g_{\mu\nu}=2\sum_s s_s\sigma^{(s)}_{0(\mu}\delta\sigma^{(s)}_{\nu)}.}
+\end{equation}
+At the all-zero background $\sigma_0^{(s)}=0$, $D_\Sigma g=0$ and there is no linear metric response to first-order sector perturbations. A regular linearized metric theory in these variables requires a nonzero, possibly mutually cancelling sector representative (or a different physical collective variable map).
+\end{proposition}
+\begin{proof}
+Differentiate each quadratic outer product. Every linear term carries one background covector. It vanishes if all such covectors vanish.
+\end{proof}
+A Lorentz-invariant vacuum cannot have a nonzero expectation value of an ordinary, individually gauge-invariant Lorentz vector. Thus an interpretation of cancelling sector backgrounds as physical vector condensates requires additional care: a legitimate internal redundancy, composite frame, different operator structure or justified symmetry-breaking medium. The signed-sector quotient must not simply be named a microscopic gauge symmetry without evidence.
+
+\section{Conditions for a full gravitational rather than merely acoustic phase}
+A long-range \emph{source-visible} response is not enough to recover the observed gravitational interaction. The response to source probes must be universal and sourced by \emph{total} energy--momentum, including pressure, radiation and bound bodies with zero net current. The relative coupling to different probes cannot be chosen independently after the fact. The collective response must have the correct positivity, causality, stability and physical constraints, while additional long-range scalar and vector contributions must be observationally suppressed or otherwise accounted for. A common Lorentzian principal symbol gives a shared propagation cone; the stronger equivalence-principle requirement needs compatible kinetic, inertial/mass, redshift and interaction terms for all species. Emergence of a common metric is thus a separate physical matching step.
+
+Finally, the complete long-wavelength effective action must be computed or independently justified. If (as an \emph{additional} infrared assumption) it becomes a local, diffeomorphism-invariant, metric-only action with a correctly signed two-derivative leading term, the allowed bulk form in four dimensions is
+\begin{equation}\label{eq:eh}
+\boxed{\Gamma_{\rm IR}=\int\!\dd^4x\sqrt{-g}\left[\frac{M_{\rm eff}^2}{2}(R-2\Lambda)+\text{controlled higher-order terms}\right]+S_{\rm matter}[g,\Phi]+S_{\partial}.}
+\end{equation}
+Then the metric-only QGD full-rank sector Euler equations correspond to Einstein--matter equations by the chain rule. Two transverse-traceless gravitational-wave polarizations are an \emph{infrared consequence} of this effective structure; they are \emph{not} postulated microscopic degrees of freedom. Without such a completed dynamics, a scalar Nordstr\"om-type emergent geometry or short-range analogue interaction is perfectly possible and does not equal GR.
+
+\section{Cross-chapter matching: attraction, universality, normalization and Einstein dynamics}\label{sec:v22-match}
+The conditional source-visible soft-mode proposition fixes only the radial falloff of a nonvanishing projected static response. We now make its \emph{source sign, coefficient, and gravitational interpretation} explicit, referring to Chapters~1--4 without assuming microscopic spin-two constituents. The first calculation is deliberately a \emph{scalar comparison mode}: it is a rigorous static counterfactual, not a proposed full QGD gravitational action.
+
+\subsection{A positive-stiffness collective wave can mediate attraction}\label{sec:v22-attraction}
+\begin{proposition}[Conditional static attraction and Newton coefficient]\label{prop:v22-attraction}
+Let $q(\bm x)$ be a real static collective fluctuation with a positive, finite stiffness $Z$, coupled nonderivatively and with the same real coefficient $g$ to the \emph{mass density} $\rho$ of positive-mass sources. Assume asymptotically zero $q$, compact disjoint sources, a valid static linear approximation, and the energy functional
+\begin{equation}\label{eq:v22-energy}
+ \mathcal E[q;\rho]=\int\!\dd^3x\,\left[\frac Z2|\bm\nabla q|^2-gq\rho\right],\qquad Z>0.
+\end{equation}
+Then minimization over $q$ gives
+\begin{equation}\label{eq:v22-eom}
+ \nabla^2q=-\frac gZ\rho,\qquad q(\bm x)=\frac g{4\pi Z}\int\!\frac{\rho(\bm y)}{|\bm x-\bm y|}\,\dd^3y.
+\end{equation}
+For two distant sources with masses $M$ and $m$, the leading cross-interaction is attractive:
+\begin{equation}\label{eq:v22-newton}
+ \boxed{U_{12}(r)=-\frac{g^2}{4\pi Z}\frac{Mm}{r},\quad
+ F_r=-\frac{g^2}{4\pi Z}\frac{Mm}{r^2},\quad
+ G_{\rm eff}^{\rm(sc)}=\frac{g^2}{4\pi Z}.}
+\end{equation}
+This establishes a \emph{conditional scalar Newtonian force}; it does not establish its microscopic source, tensor content, or relativistic behavior.
+\end{proposition}
+\begin{proof}
+Varying $q$ yields $-Z\nabla^2q-g\rho=0$. Since $\nabla^2(1/4\pi r)=-\delta^{(3)}(\bm x)$, the unique decaying solution is Eq.~\eqref{eq:v22-eom}. Evaluating the functional on shell gives $\mathcal E_{\rm on-shell}=-\tfrac g2\int\rho q$. Expanding $\rho=\rho_1+\rho_2$ yields a cross term $-g^2/(4\pi Z)\int\dd^3x\dd^3y\,\rho_1(\bm x)\rho_2(\bm y)/|\bm x-\bm y|$, hence Eq.~\eqref{eq:v22-newton} at large separation. The two identical signs of the source vertex and $Z>0$ determine the sign. Opposite-sign species vertices would instead give repulsion.
+\end{proof}
+\textbf{Limitation:} a scalar with coupling $q\rho$ singles out the nonrelativistic rest frame and does not automatically couple to pressure, electromagnetic radiation or total covariant stress. In particular, a universally conformally coupled massless scalar does not reproduce Einsteinian light deflection. Recovering a QGD gravitational \emph{metric} is a separate requirement, not a consequence of Eq.~\eqref{eq:v22-newton}.
+
+\subsection{Universality is a test of microscopic vertices, not spherical geometry}
+For species $a$ with mass density $\rho_a$ and independent vertices $g_a$, replacing $g\rho$ by $\sum_a g_a\rho_a$ in Eq.~\eqref{eq:v22-energy} gives the pairwise Newton coefficient
+\begin{equation}\label{eq:v22-pair}
+ \boxed{G_{ab}=\frac{g_ag_b}{4\pi Z}.}
+\end{equation}
+In this scalar mass-density convention, universality of the leading nonrelativistic coupling requires one common $g_a=g$ for all gravitating species. This is \emph{not} implied by a shared quantum probability current or by a $1/|\bm k|^2$ pole. Relativistic equivalence demands still more: sources with energy, pressure and stresses, together with massless radiation, must couple consistently to the same effective geometry. Chapter~4's $S_{\rm matter}[g(\Sigma)]$ enforces metric universality \emph{when adopted}; it does not derive that universal vertex from Chapter~1's flat-space quantum theory.
+
+\subsection{Why neither $\alpha_G$ nor an arbitrary wave normalization predicts $G_N$}
+\begin{proposition}[Collective normalization invariant]\label{prop:v22-invariance}
+Under a nonsingular constant change of collective coordinate $q'=a q$ ($a\ne0$), the energy \eqref{eq:v22-energy} retains its form with $Z'=Z/a^2$ and $g'=g/a$. Thus
+\begin{equation}\label{eq:v22-invariance}
+ \boxed{\frac{g'^2}{Z'}=\frac{g^2}{Z}.}
+\end{equation}
+An arbitrary amplitude normalization cannot fix the physical gravitational coefficient; it requires a computed coupling-to-stiffness ratio.
+\end{proposition}
+\begin{proof} Substitute $q=q'/a$ into \eqref{eq:v22-energy}.\end{proof}
+Chapter~3's $|\alpha_G^{\rm geom}|^2=\hbar c/(2G_NM m_{\rm ref})$ is a correct \emph{Newtonian correspondence calibration}; the Dirac-current factor $\alpha_G^{\rm spin}\psi_0$ is a flux-dependent mode normalization. Neither calculates the invariant ratio \eqref{eq:v22-invariance} from quantum interactions. Chapter~2's external-metric Dirac determinant gives the illustrative one-species coefficient $M_{\rm ind}^2=I_1/(48\pi^2)$, or $G_{\rm ind}=6\pi/I_1$ in natural units if the induced local term alone sets the Einstein--Hilbert normalization. It is regulator/counterterm dependent and presupposes a supplied metric; it does not close this microscopic calculation.
+
+\subsection{A gapless matter-wave mode may be invisible to static matter}
+The source-visible condition in Proposition~\ref{prop:soft} is essential. For an approximate shift-symmetric Goldstone-type collective coordinate, the leading allowed source vertex may be derivative. If $V_A(\bm k)=O(|\bm k|)$ while $K(0,\bm k)\sim Z|\bm k|^2$, then $V_AK^{-1}V_B=O(1)$ (possibly directional) rather than a $1/|\bm k|^2$ pole. A source that couples as $\bm\nabla q\cdot\bm\nabla\rho$ has $V\propto|\bm k|^2$ and produces only a short-ranged/contact static response in the massless quadratic model. The $1/r$ field thus demands a \emph{nonzero soft source projection}, not just a Goldstone-like dispersion relation. Shift symmetry can forbid the necessary constant vertex unless the source, its transformation, or the coupling structure is changed consistently.
+
+\subsection{A local representation cannot manufacture the missing physical pole}
+\begin{proposition}[Regular local projection no-pole criterion]\label{prop:v22-nopole}
+Let $\mathcal O_A$ be microscopic observables with a connected static linear-response matrix $\chi_{AB}(\bm k)$ bounded near $\bm k=0$. Suppose the physical collective-to-sector map and the signed-sector-to-metric map have finite, differentiable, \emph{local} linearizations with bounded Fourier symbols $L(\bm k)$ and $J(\bm k)$. Then the induced linearized metric response
+\begin{equation}\label{eq:v22-pullback}
+ \chi_{gg}(\bm k)=J(\bm k)L(\bm k)\,\chi_{\mathcal O\mathcal O}(\bm k)\,L(\bm k)^\dagger J(\bm k)^\dagger
+\end{equation}
+is bounded at $\bm k=0$; it cannot acquire an isolated $1/|\bm k|^2$ pole by a regular algebraic signed-sector lift or regular local transport reparameterization alone.
+\end{proposition}
+\begin{proof}
+Apply linear response to the two differentiable maps, $\delta\Sigma=L\delta\mathcal O$ and $\delta g=J\delta\Sigma$, and take connected second moments. The product of a finite number of bounded linear maps and a bounded response operator remains bounded. The conclusion holds within the specified Gaussian/linearized sector; critical nonlinear dynamics, a singular Jacobian or a genuinely nonlocal physical map are excluded by hypothesis.
+\end{proof}
+This strengthens Chapter~1's finite Hartree/shear-response diagnosis and Chapter~2's exact signed-lift theorem: neither the original radial current law nor an algebraic metric factorization can generate a missing long-distance mode. A viable QGD model must generate the singular soft response from its quantum dynamics or justify a new genuinely nonlocal quantum law \emph{rather than inserting the gravitational Green function by hand}.
+
+\subsection{Conditional match to Chapter 2 and the extra Einsteinian requirement}
+If an autonomous microscopic calculation supplies $G_{\rm eff}$ and an appropriate common physical metric response, the Newtonian scalar potential is $\Phi_N=-G_{\rm eff}M/r$ and the Chapter~2 exterior benchmark requires
+\begin{equation}\label{eq:v22-H}
+ \boxed{H(r)=-\frac{2\Phi_N(r)}{c^2}=\frac{2G_{\rm eff}M}{c^2r},\qquad
+ A^2=B^2=H(r)\quad\text{on the Schwarzschild Kerr--Schild branch}.}
+\end{equation}
+This is a \emph{matching condition}, not proof that the scalar toy selects the Kerr--Schild covector or that its fully relativistic metric is Schwarzschild. Recovering Chapter~4's Einstein equations requires an additional microscopic derivation, or the separately declared infrared assumption, of a shared local, diffeomorphism-invariant metric-only action with positive Einstein--Hilbert coefficient and controlled corrections. Only after such dynamics are obtained should the two infrared tensor gravitational-wave polarizations be identified. No spin-two field is postulated at the microscopic matter-wave starting point.
+
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{41mm}p{26mm}X@{}}\toprule
+\textbf{Question}&\textbf{What closes}&\textbf{What remains open in QGD}\\\midrule
+Attractive static force & Conditional for positive stiffness and common-sign vertices & Derive the actual quantum mode and source vertices \\
+Universal coupling & Conditional if $g_a=g$ for mass density & All-species stress/metric vertices \\
+Newton coefficient & $G_{\rm eff}^{\rm(sc)}=g^2/(4\pi Z)$ & Compute the regulator-independent physical ratio \\
+QGD exterior & Weak-field $H=2G_{\rm eff}M/(c^2r)$ is a matching target & Physical $\varrho\mapsto[\Sigma]$ map and exact nonlinear selection \\
+Einstein equations & Follow conditionally from Chapter~4's metric-only EFT & Autonomous quantum derivation of its action \\\bottomrule
+\end{tabularx}
+\end{center}
+
+
+\section{Forward calculation from Chapter 1: the interacting Hartree source response (v2.3)}\label{sec:v23-hartree}
+\textbf{Research status:} \D\ within the specified regulated homogeneous Hartree (leading mean-field) model at zero temperature, with a local chemical-potential probe. The calculation provides the \emph{actual zero-momentum scalar Hessian and source vertex} of Chapter 1's original four-fermion interaction. It does not compute the complete finite-momentum relativistic tensor response, and it is not a derivation of gravity.
+
+\subsection{No new field or gravitational law is inserted}
+Take the existing Chapter~1 microscopic scalar-contact theory in the zero-electromagnetic-background sector, 
+\begin{equation}\label{eq:v23-micro}
+\mathcal L=\bar\psi(i\gamma^\mu\partial_\mu-m_0)\psi+G_4(\bar\psi\psi)^2,
+\qquad G_4>0.
+\end{equation}
+For spin degeneracy two, define the Hartree effective mass $M=m_0-s$, local chemical potential $\mu>M>0$, and Fermi momentum $p_F=\sqrt{\mu^2-M^2}$. A sharp spatial ultraviolet cutoff $\Lambda$ defines the \emph{same} benchmark already adopted in Chapter 1. The regulated thermodynamic potential $\Omega(M,\mu)$ obeys
+\begin{equation}\label{eq:v23-gap}
+\Omega_M=\frac{M-m_0}{2G_4}-\frac{M}{\pi^2}\int_{p_F}^{\Lambda}\frac{p^2\,\dd p}{\sqrt{p^2+M^2}}=0,
+\qquad n=-\Omega_\mu=\frac{p_F^3}{3\pi^2}.
+\end{equation}
+The zero-momentum collective scalar fluctuation is $q=\delta M$; the independent physical probe is a small local chemical-potential change $\delta\mu$. Neither a metric nor an Einstein/Poisson propagator occurs in this calculation.
+
+\begin{proposition}[Explicit microscopic static Hessian and scalar--density vertex]\label{prop:v23-hartree}
+At a differentiable homogeneous Hartree saddle with $\mu>M>0$ and $\Lambda>p_F$, the second derivatives of the \emph{same} microscopic grand potential are
+\begin{align}
+K_0:=\Omega_{MM}&=\frac1{2G_4}-\frac1{\pi^2}\left[\int_{p_F}^{\Lambda}\frac{p^4\,\dd p}{(p^2+M^2)^{3/2}}+\frac{M^2p_F}{\mu}\right],\label{eq:v23-K}\\
+V_0:=\Omega_{M\mu}&=\frac{Mp_F}{\pi^2},\label{eq:v23-V}\\
+\chi_{nn}^{\rm direct}(0,\bm0):=-\Omega_{\mu\mu}&=\frac{\mu p_F}{\pi^2}.\label{eq:v23-direct}
+\end{align}
+If $K_0>0$, eliminating the scalar fluctuation gives the \emph{total} static number-density susceptibility,
+\begin{equation}\label{eq:v23-chi}
+\boxed{\chi_{nn}(0,\bm0)=\frac{\dd n}{\dd\mu}=\frac{\mu p_F}{\pi^2}+\frac{(Mp_F/\pi^2)^2}{K_0}.}
+\end{equation}
+This is a source-projected quantum-matter response derived from the existing microscopic interaction, including the Hartree feedback; it is \emph{not} assumed to have a massless pole.
+\end{proposition}
+\begin{proof}
+Differentiate the gap equation at fixed $\mu$ and at fixed $M$, using $\partial_Mp_F=-M/p_F$ and $\partial_\mu p_F=\mu/p_F$ to obtain Eqs.~\eqref{eq:v23-K}--\eqref{eq:v23-V}. Differentiate $n=p_F^3/(3\pi^2)$ at fixed $M$ to obtain Eq.~\eqref{eq:v23-direct}. Implicit differentiation of $\Omega_M=0$ gives $\dd M/\dd\mu=-V_0/K_0$. Consequently $\dd n/\dd\mu=(\partial n/\partial\mu)_M+(\partial n/\partial M)_\mu(\dd M/\dd\mu)=\mu p_F/\pi^2+V_0^2/K_0$. Equivalently, the quadratic grand potential is $\tfrac12 K_0q^2+V_0q\,\delta\mu+\tfrac12\Omega_{\mu\mu}(\delta\mu)^2$ and elimination of $q$ gives the same Schur complement. All derivatives are at zero external spatial momentum.
+\end{proof}
+
+\subsection{Numerical reproduction, with an independent finite-difference check}
+Using precisely Chapter~1's Hartree benchmark $\Lambda=4$, $m_0=0.12$, $G_4=0.5654255716$, $\mu=1.2$ (model energy units), the stationary solution and directly calculated responses are
+\begin{center}\small
+\begin{tabular}{@{}p{0.65\linewidth}r@{}}\toprule
+Quantity & Value\\\midrule
+Hartree mass $M$ & $0.693435535520$\\
+Fermi momentum $p_F$ & $0.979360586341$\\
+Fermi velocity $v_F=p_F/\mu$ & $0.816133822$\\
+Scalar zero-momentum inverse response $K_0$ & $0.168741734136$\\
+Scalar-to-density mixing $V_0$ & $0.068809590036$\\
+Direct static density susceptibility $-\Omega_{\mu\mu}$ & $0.119075968585$\\
+Interaction-corrected susceptibility $\chi_{nn}$ & $0.147135178153$\\
+Interaction enhancement $\chi_{nn}/\chi_{nn}^{\rm direct}$ & $1.235641246$\\\bottomrule
+\end{tabular}
+\end{center}
+The response was also calculated by independently re-solving the nonlinear gap equation at $\mu\pm10^{-5}$ and differencing the resulting densities. The two values agree to within $2\times10^{-11}$ in the displayed model units. For an additional restricted benchmark sweep at $\mu\in[1.05,1.35]$ (holding the other parameters fixed), the same tracked Hartree branch has $K_0\in[0.1685,0.1752]$ and a finite $\chi_{nn}$; this is \emph{not} an analysis of all saddles, phases, momenta, regulators or interactions.
+
+\subsection{A precise conclusion for the tested response, and what survives}
+For a smooth static small-$|\bm k|$ continuation, if the scalar Hessian remains $K_s(0,\bm k)=K_0+O(|\bm k|^2)$ and the scalar source vertex remains $V_s(0,\bm k)=V_0+O(|\bm k|^2)$, with $K_0>0$, then
+\begin{equation}\label{eq:v23-nopole}
+\boxed{\lim_{|\bm k|\to0}|\bm k|^2\,\frac{V_s(0,\bm k)^2}{K_s(0,\bm k)}=0.}
+\end{equation}
+Thus the scalar-density channel of this \emph{stable homogeneous Hartree branch} does not exhibit Chapter~5's source-visible Newtonian $1/|\bm k|^2$ pole. The interaction enhancement of the ordinary compressibility is real but cannot be mistaken for infinite-range gravity. The model's sharp spatial cutoff and finite-density state select a preferred rest frame; this response is not a vacuum Lorentz-invariant graviton calculation.
+
+The same scalar channel also fails a separate universality test. Its microscopic auxiliary vertex is $\bar\psi\psi$, whereas a universal gravitational field would couple to \emph{total} stress-energy, including radiation, kinetic pressure and interactions. For a monoenergetic Dirac population, scalar charge divided by energy scales as $M/E_p^2$, changing with particle energy; no universal coefficient follows. Moreover, in the isotropic state, rotational symmetry restricts mixed scalar--spatial-stress correlators to $a\delta_{ij}+b\,k_ik_j$, giving the already-established Chapter~1 result $e^{\rm TT}_{ij}\chi_{T_{ij},\bar\psi\psi}=0$. The electromagnetic $1/\bm k^2$ channel present in the full microscopic action is instead sourced by electric charge: a neutral positive-energy source need not carry net charge and cannot be explained by Coulomb exchange.
+
+\textbf{Scope of this negative result:} It rules out interpreting this \emph{specific} scalar Hartree response as QGD's desired long-range universal gravitational interaction. It does not rule out more complicated correlation channels, additional quantum phases, gapless symmetry-protected modes, nonperturbative dynamics or emergent geometry from other microscopic matter-wave systems. In particular, no finite-$\bm k$ determinant, complete tensor spectral density, or regulator-independent gravitational universality claim has been established here. The original Chapter~5 source-visible soft-mode criterion remains the correct target, with $K_{IJ}$ and $V^A{}_I$ to be computed in the \emph{appropriate} candidate collective channel.
+
+\begin{remark}[Referee-level decision on Gap A]
+\textbf{C2 is partially completed} for a real microscopic interaction: the zero-momentum scalar Hessian, the density-source vertex and the direct/contact response are explicitly calculated. \textbf{C3 fails} for this scalar-density phase because its tested physical static response is finite. Conditions C4--C8 remain unresolved. This is a controlled phase-selection result, not a universal impossibility theorem and not a discovery of gravity.
+\end{remark}
+
+\section{Inverse-backward map: precisely where additional physics is needed}
+\small
+\noindent\textit{Abbreviations: QT = established quantum framework; A = axiom; D = derived; C = conditional; O = open.}\par\medskip
+\begin{longtable}{@{}p{9mm}p{43mm}p{18mm}p{73mm}@{}}\toprule
+\textbf{Level}&\textbf{QGD ladder}&\textbf{Status}&\textbf{Physical obligation}\\\midrule\endfirsthead
+\toprule\textbf{Level}&\textbf{Structure}&\textbf{Status}&\textbf{Obligation}\\\midrule\endhead
+12&Leading Einsteinian action&\textsf{C}&Derive from quantum waves or retain independent IR premise.\\
+11&Natural-invariant Euler equations&\textsf{D/C}&Rank-ten metric chain rule, given an action.\\
+10&Signed master metric&\textsf{D/A}&Algebra exact; physical interpretation requires independent support.\\
+9&Source-selected Einstein solutions&\textsf{C}&Boundary, source stress and effective field equations.\\
+8&Physical quantum natural invariants&\textsf{A/O}&Construct operator/state map and its physical quotient.\\
+7&Macroscopic matter wave&\textsf{C}&Coherent/WKB branches where valid, not universal pure state.\\
+6&Effective Dirac/many-body wave equations&\textsf{C}&State and approximation-dependent derivations.\\
+5&Quantum current, stress, correlations&\textsf{D}&Correct operators, smearing and state.\\
+4&Coarse graining and soft response&\textsf{D/O}&Scalar Hartree $K_0,V_0$ and contact density response now calculated; required physical gravity channel remains open.\\
+3&Interacting quantum matter&\textsf{[QT]}&Choose explicit micro model/phase.\\
+2&Quantum symmetries and conservation&\textsf{[QT]}&Check associated Ward identities.\\
+1&Quantum states and observables&\textsf{[QT]}&Foundational framework.\\\bottomrule
+\end{longtable}\normalsize
+
+\section{A falsifiable QGD-specific research programme}
+The next quantitative experiment should not invert an assumed Einstein/Fierz--Pauli kernel. Specify a microscopic interacting many-wave theory and a stable phase; compute its actual $\varphi^I$, the full Hessian $\cK_{IJ}(\omega,\bm k)$ and each source vertex $V_A{}^I$, with contact terms and a consistent regulator. Determine whether a source-visible $1/|\bm k|^2$ response exists. Extract the propagation principal symbols of at least two distinct probe species, including a massless species if physically present. Establish a common effective metric and derive whether its state-dependent change under a distant mass-energy source is measurable. Only then construct and independently interpret QGD $[\Sigma]$. Compare the resulting sourced weak-field $H\propto M/r$ (including its coefficient) with the Chapter 2 Schwarzschild branch and its Dirac Fermi-star interior. Finally test nonlinear backreaction, gravitational-wave content, energy conditions, observed universality and possible deviations. A failure at the response, universal-coupling or physical-map stage would refute the proposed microscopic route, not the already proven signed factorization.
+
+
+
+% ================ QGD 3.2 INSERTION: EXACT FULL MAP ==================
+\section{Full master-metric variation (QGD--137)}
+\label{sec:v32-fullmaster}
+\textbf{Foundational notation.} The truncated
+$g=\bar g+\sum_s s_s\sigma^{(s)}\otimes\sigma^{(s)}$
+is \emph{not} the full QGD master metric. The founding definition is
+\begin{equation}\label{eq:v32-master}
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+\Bigl[\eta_{ab}-\sum_{s=1}^N\varepsilon_s
+\sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}\Bigr],
+\qquad \varepsilon_s=\pm1.}
+\end{equation}
+The $\lambda\mathcal Q$ operator requires an independently
+stated definition and boundary prescription. Chapter~4 separately
+uses a source-induced solution-level metric response $\delta g^{\rm quantum}_{ab}$ obtained from
+renormalized quantum stress. Neither is the static scalar collective
+coordinate $q_{\rm coll}$ of the preceding capstone proof, nor the
+probe-dependent conformal metric of a particular matter wave.
+
+For a renormalized action that depends on sectors \emph{only through}
+the complete $g$, let
+$\Pi^{ab}=T^a{}_{\mu}T^b{}_{\nu}
+(\sqrt{-g})^{-1}\delta\Gamma_{\rm QGD}^{\rm ren}/\delta g_{\mu\nu}$.
+Holding the reference coframe fixed and varying all sectors
+independently, we obtain the exact \emph{formal} field equations
+\begin{equation}\label{eq:v32-euler}
+\boxed{\mathscr E_{(s)}^{\,a}
+=-2\varepsilon_s\Pi^{ab}\sigma_b^{(s)}
+-\lambda\big[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi\big]^a=0.}
+\end{equation}
+The adjoint denotes the complete derivative correction, including
+all derivative and integration-by-parts terms. This is the complete
+variation when $\mathcal Q=\mathcal Q[\sigma;T]$ uses fixed reference
+data. If $\mathcal Q$ depends implicitly on $g$ or its connection,
+the implicit metric-map derivative must also be included.
+
+\begin{theorem}[Full-map Einstein correspondence, conditional]
+\label{thm:v32-correspondence}
+If the chosen full metric map is differentiable and its differential
+is surjective onto admissible symmetric metric variations, then
+stationarity in every natural-invariant sector is equivalent to
+stationarity of the renormalized metric action. With Chapter~4's
+metric-only effective dynamics, this gives
+\begin{equation}\label{eq:v32-efe}
+\boxed{G_{\mu\nu}[g]+\Lambda_{\rm ren}g_{\mu\nu}
+=8\pi G_N\bigl(T_{\mu\nu}^{\rm cl}+T_{\mu\nu}^{\rm q}\bigr).}
+\end{equation}
+At $\lambda=0$, Chapter~2's regular eight-sector right-inverse
+establishes surjectivity. For a general nonzero $\lambda\mathcal Q$,
+it must be checked rather than assumed. A specified bounded
+perturbation of the full-rank map remains surjective under the
+small-norm condition proved in Chapter~4 QGD--137.
+\end{theorem}
+\begin{proof}
+The full functional chain rule gives
+$\delta\Gamma=\langle\delta\Gamma/\delta g,
+D_\sigma g\cdot\delta\sigma\rangle$.
+If the metric Euler derivative vanishes, all sector derivatives
+vanish. Conversely, the assumed right inverse provides a sector
+variation for every admissible metric variation. Hence all sector
+variations vanish only when the metric Euler derivative vanishes.
+Using the renormalized Chapter~4 metric equation yields
+Eq.~\eqref{eq:v32-efe}.
+\end{proof}
+
+\textbf{Relation to Chapter~5's established static theorem.}
+The conditional collective energy
+$\mathcal E[q_{\rm coll}]=\int[\tfrac Z2|\nabla q_{\rm coll}|^2
+-g_cq_{\rm coll}\rho_m]$ still gives
+$G_N=g_c^2/(4\pi Z)$ after empirical calibration.
+Its sourced static field $H=2g_cq_{\rm coll}/c^2$
+can be matched to a Schwarzschild exterior representative in the
+\emph{classical} $\lambda=0$ branch. This does not determine
+$\mathcal Q$, prove full-map surjectivity at $\lambda\neq0$, or
+replace the independently adopted relativistic effective action.
+Conversely, the metric-only action's massless-Dirac quantum stress
+may shift $A^2$ and $B^2$ differently while keeping the full
+master-metric framework and without inserting the same backreaction
+twice. These are distinct, compatible levels of the theory.
+% ================ END QGD 3.2 INSERTION ========================
+
+\section{Capstone: a precise conditional proof from quantum matter to QGD geometry}\label{sec:v30-capstone}
+\textbf{Purpose.} This section closes a \emph{specified mathematical and axiomatic objective}: starting from a quantum-defined mass distribution and a separately stipulated stable collective matter-wave response, obtain the sourced Newtonian field, its measured coupling, a QGD composite metric variable, and a signed natural-invariant exterior representative. It does \emph{not} close the stronger claim that the microscopic action in Chapter~1 necessarily generates that response. Calling both claims ``the quantum-to-geometry proof'' would conflate a conditional theorem with an existence theorem.
+
+\subsection{Precisely stated postulates, calibration and proven inputs}
+\begin{definition}[The static QGD collective-matter-wave sector]\label{def:v30-sector}
+Fix Euclidean physical space $\mathbb R^3$ with its usual flat spatial measure and $x^0=ct$. In a specified physical quantum state $\varrho$, let $\rho_m(x)$ be the nonnegative, finite, coarse-grained rest-mass density computed from the appropriately normalized microscopic number, energy, or stress observables in a nonrelativistic regime. Let $q(x)$ be a real, \emph{dimensionless} candidate collective matter-wave coordinate. The following assumptions define the static sector:
+\begin{enumerate}[label=\textbf{MW\arabic*.},leftmargin=1.8em]
+\item\label{hyp:v30-state} \textbf{Quantum source.} The state determines $\rho_m\in C_c^\infty(\mathbb R^3)$, $\rho_m\ge0$, $M=\int\rho_m\,d^3x>0$. The quantum bridge constrains phase transport where applicable; it is not asserted that a static source has a nonzero net radial current.
+\item\label{hyp:v30-energy} \textbf{Collective response postulate.} The state supports, in a suitable long-wavelength static regime, a stable real collective coordinate with energy
+\begin{equation}\label{eq:v30-Eq}
+\boxed{\mathcal E[q;\rho_m]=\int_{\mathbb R^3}\left[\frac Z2|\nabla q|^2-g_cq\rho_m\right]d^3x,\quad Z>0,\quad g_c\in\mathbb R\setminus\{0\}.}
+\end{equation}
+Here $Z$ and $g_c$ are \emph{phenomenological parameters of this sector}, not calculated from the original microscopic four-fermion action. A dynamical wave interpretation additionally requires a separately consistent time-dependent collective action; the static energy alone establishes no propagating mode.
+\item\label{hyp:v30-probes} \textbf{Source matching.} A slowly moving nonrelativistic test body of mass $m$ couples through $-g_cmq$. The same $g_c$ applies to each species \emph{within this declared Newtonian test sector}. Coupling to relativistic stress, radiation and gravitational self-energy remains a further physical test.
+\item\label{hyp:v30-map} \textbf{QGD geometric correspondence.} The scalar potential inferred from the test-body energy is $\Phi=-g_cq$, and in the asymptotically flat weak-field gravitational regime the QGD temporal metric function is $H=-2\Phi/c^2$. For an isolated spherical source, the \emph{exterior} is compared with the Chapter~2 one-sector Kerr--Schild family $g=\bar g+Hk\otimes k$ with $k=d(ct)+dr$. This correspondence does not claim that a scalar wave alone selects the direction $k$ or the full nonlinear Einstein action.
+\end{enumerate}
+\end{definition}
+\noindent\textbf{Empirical calibration, not a new postulate about microscopic quantum mechanics:}
+\begin{equation}\label{eq:v30-G}
+\boxed{G_{\rm eff}:=\frac{g_c^2}{4\pi Z},\qquad G_{\rm eff}=G_N\quad\text{when matched to observation}.}
+\end{equation}
+The distinguished notation $g_c$ avoids confusion with $g_{\mu\nu}$ and with the different normalizations $\alpha_G^{\rm geom}$ and $\alpha_G^{\rm spin}$ in Chapter~3.
+
+\begin{proposition}[Dimensional consistency]\label{prop:v30-units}
+With $[q]=1$ and physical units $[\rho_m]=M L^{-3}$, $[\mathcal E]=ML^2T^{-2}$, the functional \eqref{eq:v30-Eq} requires
+\begin{equation}\label{eq:v30-units}
+[Z]=MLT^{-2},\qquad[g_c]=L^2T^{-2},\qquad[G_{\rm eff}]=L^3M^{-1}T^{-2}.
+\end{equation}
+Hence $H=2g_cq/c^2$ is dimensionless, as required by the fixed-coframe QGD metric.
+\end{proposition}
+\begin{proof} Compare the coefficients of $\int |\nabla q|^2\,d^3x$ and $\int q\rho_m\,d^3x$ with energy dimensions. Substitute into $g_c^2/Z$.\end{proof}
+
+\subsection{New theorem: exact static functional equivalence}\label{sec:v30-energy}
+\begin{theorem}[Quantum-source-to-QGD-potential functional equivalence]\label{thm:v30-functional}
+Under MW1--MW4, define the field $H=2g_cq/c^2$ and the calibrated $G_{\rm eff}$ by \eqref{eq:v30-G}. Then the \emph{entire} static functional \eqref{eq:v30-Eq}, not merely its on-shell solution, becomes
+\begin{equation}\label{eq:v30-EH}
+\boxed{\mathcal E_H[H;\rho_m]
+=\int_{\mathbb R^3}\left[\frac{c^4}{32\pi G_{\rm eff}}|\nabla H|^2
+-\frac{c^2}{2}\rho_m H\right]d^3x.}
+\end{equation}
+The independent Euler equation for $H$ is
+\begin{equation}\label{eq:v30-Poisson}
+\boxed{\nabla^2H=-\frac{8\pi G_{\rm eff}}{c^2}\rho_m.}
+\end{equation}
+Equivalently, the measurable $\Phi=-c^2H/2$ satisfies $\nabla^2\Phi=4\pi G_{\rm eff}\rho_m$. For a static test mass $m$, the radial force is $F_r=-m\partial_r\Phi$. The functional is exactly the usual Newtonian potential functional after $\Phi=-c^2H/2$; it is \emph{not} asserted to equal the full four-dimensional Einstein--Hilbert action.
+\end{theorem}
+\begin{proof}
+The invertible field substitution $q=c^2H/(2g_c)$ gives
+\[
+\frac Z2|\nabla q|^2=\frac{Zc^4}{8g_c^2}|\nabla H|^2
+=\frac{c^4}{32\pi G_{\rm eff}}|\nabla H|^2,
+\qquad -g_cq\rho_m=-\frac{c^2}{2}\rho_mH.
+\]
+For variations $\delta H$ of compact support, integrate by parts:
+\[
+\delta\mathcal E_H=\int d^3x\left[-\frac{c^4}{16\pi G_{\rm eff}}\nabla^2H-\frac{c^2}{2}\rho_m\right]\delta H.
+\]
+Hence Eq.~\eqref{eq:v30-Poisson}. The substitution $\Phi=-c^2H/2$ gives the standard Poisson equation and $\delta\mathcal E/\delta\Phi=0$. Its test-body potential energy is $m\Phi=-g_cmq$, giving the stated force. All steps are valid independently of a presumed Einstein field equation.\end{proof}
+
+\begin{corollary}[Spherical exterior, natural-invariant amplitude and inverse-square force]\label{cor:v30-exterior}
+For a spherically symmetric compact source with total mass $M$, the unique asymptotically vanishing exterior solution of \eqref{eq:v30-Poisson} is
+\begin{equation}\label{eq:v30-exterior}
+\boxed{H(r)=\frac{2G_{\rm eff}M}{c^2r},\quad
+\Phi(r)=-\frac{G_{\rm eff}M}{r},\quad
+F_r=-\frac{G_{\rm eff}Mm}{r^2}\qquad(r>R).}
+\end{equation}
+Under MW4, the Schwarzschild one-sector natural-invariant representative is
+\begin{equation}\label{eq:v30-sigma}
+\boxed{\sigma=\sqrt{H(r)}\,[d(ct)+dr],\qquad
+\bar g^{-1}(\sigma,\sigma)=0.}
+\end{equation}
+Its squared amplitude, not the amplitude itself, has the Green-function falloff: $H=\sigma_t^2\propto r^{-1}$ while $\sigma_t\propto r^{-1/2}$. The gradient of $H$ gives the inverse-square force after the potential identification.
+\end{corollary}
+\begin{proof} Integrate the Poisson equation over a sphere and apply the divergence theorem, $4\pi r^2H'(r)=-8\pi G_{\rm eff}M/c^2$. Integrate with $H(\infty)=0$. The metric $g=\bar g+\sigma\otimes\sigma$ has $g_{00}=-1+H$; its flat-reference null norm is $-H+H=0$. The corresponding metric is precisely the standard Schwarzschild Kerr--Schild geometry with mass parameter $2G_{\rm eff}M/c^2$ on this exterior branch. This last statement is a \emph{geometric match}: it does not follow from extremizing the one-variable static functional that this representative is unique among all possible relativistic completions.\end{proof}
+
+\subsection{Independent variational consistency and what it does not establish}
+Chapter~2 independently varies $\sigma=A(r)d(ct)+B(r)dr$ before imposing nullness. Given its \emph{adopted Einstein--Hilbert} classical action and spherical vacuum branch, its Euler equations lead to $A^2=B^2=C_g/r$. Matching the Newtonian constant yields $C_g=2G_NM/c^2$. Our derivation from \eqref{eq:v30-Eq} independently establishes the same \emph{scalar exterior profile} and coefficient after $G_{\rm eff}=G_N$; it does not rederive Chapter~2's relativistic $A,B$ equations or select the null direction without MW4. In fact imposing the null Kerr--Schild ansatz \emph{before} varying the four-dimensional Einstein--Hilbert action can turn its restricted bulk integrand into a boundary term and lose equations. The full field equations require sufficiently independent metric/natural-invariant variations.
+
+\begin{proposition}[Regular full signed lift of the sourced exterior geometry]\label{prop:v30-signed}
+For any smooth symmetric metric perturbation $h$ defined from $H$, the Chapter~2 signed construction
+\begin{equation}\label{eq:v30-signed}
+P=bI+\frac{h}{4b},\qquad N=bI-\frac{h}{4b},\qquad b\ne0,
+\end{equation}
+satisfies $P^{\mathsf T}P-N^{\mathsf T}N=h$ and has a rank-ten metric Jacobian with respect to the \emph{full, independently variable eight-sector collection} $(P,N)$. Unlike the one-sector representative $\sigma=\sqrt H k$, it remains differentiable at $H=0$ using a nonzero cancelling reference section $P=N=bI$.
+\end{proposition}
+\begin{proof} Expand the two squares and subtract; the terms quadratic in $h$ cancel. For any symmetric $\delta h$, $\delta P=\delta h/(4b)$ and $\delta N=-\delta h/(4b)$ produce $\delta(P^TP-N^TN)=\delta h$.\end{proof}
+\noindent\textbf{Rank qualification:} If $h$ is restricted to the scalar family $h=Hk\otimes k$ with fixed $k$, variations through $q$ span only one scalar direction per spacetime point, \emph{not} the ten-dimensional space of metric variations. The exact signed lift does not convert the scalar theory into full nonlinear Einstein gravity or endow its arbitrary sector representatives with a microscopic operator meaning. The $\sqrt H$ one-sector coordinates can also be singular at $H=0$; the regular signed section avoids this coordinate singularity but not the underlying physical-selection obligation.
+
+\subsection{Why the coupling constant is a completed effective-theory milestone}
+\begin{proposition}[Physical normalization independence]\label{prop:v30-normal}
+For $q'=aq$ with any nonzero constant $a$, the parameters transform as $Z'=Z/a^2$ and $g_c'=g_c/a$, and
+\begin{equation}\label{eq:v30-invariance}
+\boxed{G_{\rm eff}'=\frac{(g_c')^2}{4\pi Z'}=\frac{g_c^2}{4\pi Z}=G_{\rm eff}.}
+\end{equation}
+Thus the effective theory needs only an empirical calibration of the \emph{invariant} ratio $g_c^2/Z$. A prediction of the individual $g_c,Z$ is not a mathematical prerequisite for the static gravitational law. This ratio must not be identified with the unrelated normalization of a single Dirac wavefunction or $\alpha_G$ without an additional physical relation.
+\end{proposition}
+\begin{proof} Substitute $q=q'/a$ into \eqref{eq:v30-Eq}.\end{proof}
+
+\section{Axiomatic closure theorem and exact logical boundary}\label{sec:v30-closure}
+\begin{theorem}[Conditional QGD quantum-source-to-geometry closure: static sector]\label{thm:v30-closure}
+Assume MW1--MW4, empirical calibration $G_{\rm eff}=G_N$, and the stated decaying solution/regularity conditions. Then all of the following hold:\par
+\begin{enumerate}[label=(\roman*)]
+\item The microscopic quantum state supplies a well-defined static mass-density observable $\rho_m$; the collective energy yields a stable, sourced long-range response with attractive intersource energy $-G_NMm/r$ at large spherical separation.
+\item The complete reduced static energy functional maps by an invertible field redefinition onto the Newtonian potential functional \eqref{eq:v30-EH}, not merely onto its on-shell force law.
+\item The unique spherical vacuum exterior has $H=A^2=B^2=2G_NM/(c^2r)$ \emph{when the Chapter~2 Schwarzschild exterior family and matching MW4 are adopted}; a real null one-form $\sigma=\sqrt H[d(ct)+dr]$ provides a QGD natural-invariant representative.
+\item The same metric admits a regular signed-sector lift with a locally surjective metric-map Jacobian when all eight sectors are varied independently.
+\end{enumerate}
+This is a \emph{proof conditional on MW2--MW4}, and does not assert microscopic generation of the collective stiffness, a physical sector selection, relativistic universality, or Einsteinian nonlinear dynamics.
+\end{theorem}
+\begin{proof}
+Part (i) follows from MW1--MW3 and the on-shell completion of the square for $q$: the cross term of two separated sources has sign $-g_c^2/Z<0$. Part (ii) is Theorem~\ref{thm:v30-functional}. Part (iii) is Corollary~\ref{cor:v30-exterior} plus the explicitly declared spherical geometric correspondence MW4 and Newton calibration. Part (iv) is Proposition~\ref{prop:v30-signed}. The dependencies are independent of any assertion that the originally specified four-fermion Hartree phase actually realizes MW2; indeed Section~\ref{sec:v23-hartree} shows that its tested scalar channel does not.\end{proof}
+
+\begin{remark}[What ``proof'' now legitimately means]\label{rem:v30-proof}
+A theorem need not determine all phenomenological constants from first principles: Newton's constant may be fixed by measurement. A theorem \emph{must}, however, declare the physical response law and geometric matching if they are assumptions. In particular the phrase ``from quantum matter waves to geometry'' means: \emph{a quantum-state source plus an assumed collective response and geometric identification, with all subsequent static steps derived}. It does \emph{not} mean that arbitrary quantum mechanics logically implies this collective response or the relativistic geometry.
+\end{remark}
+
+\subsection{Optional relativistic completion: separate theorem, not silently included}
+\begin{proposition}[Effective Einstein correspondence under an additional IR premise]\label{prop:v30-Einstein}
+Assume, \emph{in addition to} MW1--MW4, that the gravitational infrared theory possesses a common Lorentzian metric for all matter and radiation, and its leading physical effective action is local, diffeomorphism-invariant and metric-only, with a nonzero, correctly signed Ricci-scalar term, no additional relevant light degrees of freedom, and controlled corrections. Then the leading bulk action is of Einstein--Hilbert plus cosmological-constant form (up to suitable boundary terms), and on a regular full-rank QGD signed branch the natural-invariant Euler equations are equivalent to the Einstein--matter equations.
+\end{proposition}
+\begin{proof}
+At up to two derivatives, the local diffeomorphism-invariant scalar metric densities are $\sqrt{-g}$ and $\sqrt{-g}R$ modulo boundary terms. The stipulated matter action is minimally coupled to the common effective metric. Its metric Euler equation is Einsteinian with the empirically normalized coefficient; the full-rank signed-variable chain rule recovers the equivalent sector Euler equations. This is a \emph{conditional infrared classification and pullback}, not a microscopic derivation of the separate premise. The familiar two tensor gravitational-wave polarizations are a consequence of this effective theory rather than a microscopic QGD axiom.
+\end{proof}
+
+\section{The closed five-chapter dependency map}\label{sec:v30-map}
+\begin{center}\small
+\begin{tabularx}{\linewidth}{@{}p{22mm}X p{32mm}@{}}\toprule
+\textbf{Chapter}&\textbf{Contribution to conditional closure}&\textbf{Proof status}\\\midrule
+\textbf{1: Foundations}&Quantum waves, phase and current; many-body density/stress observables. $r^2|\psi|^2p=C$ follows from the stationary radial branch, not from gravity.&Established transport; model dependent state\\
+\textbf{5: Collective phase}&MW2 supplies the static $q$-energy as a physical postulate; $G_{\rm eff}=g_c^2/(4\pi Z)$, $\Phi=-g_cq$, attraction and field-functional identity follow by variation.&Axiom then theorem\\
+\textbf{3: Calibration}&Identify the invariant physical coupling with the empirical $G_N$; do not conflate $g_c$, $\alpha_G^{\rm spin}$ and $\alpha_G^{\rm geom}$.&Measured normalization\\
+\textbf{2: Geometry}&$H=2G_NM/(c^2r)$ matches the Schwarzschild exterior; null one-form and exact signed-sector lift reconstruct the corresponding metric.&Exact exterior match; separate EH source dynamics\\
+\textbf{4: Dynamics}&On a regular full-rank sector, the adopted effective Einstein action pulls back to QGD natural-invariant equations.&Conditional relativistic closure\\\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Backward-and-forward 12-level ledger: where axioms enter}\label{sec:v30-12}
+\begin{center}\small\begin{tabularx}{\linewidth}{@{}p{12mm}p{50mm}X@{}}\toprule
+\textbf{Level}&\textbf{Research object}&\textbf{Assumption or deduction}\\\midrule
+12&Einsteinian effective action&Independent IR completion premise (optional relativistic closure)\\
+11&Sector Euler equations&Action pullback plus full rank\\
+10&Complete QGD master metric&Physical map postulate; signed-lift algebra exact, $\lambda\mathcal Q$ unverified\\
+9&Source/exterior natural invariants&Static MW4 matching; exact spherically sourced $H$\\
+8&Collective geometric state $[\Sigma]$&Physical origin/selection not implied by algebraic lift\\
+7&Macroscopic wavefunction&Quantum flux bridge for selected stationary radial/WKB states\\
+6&Macroscopic Dirac / many-body equations&Existing quantum models and controlled approximations\\
+5&Quantum matter source observables&$\rho_m$, stress and quantum correlations\\
+4&Collective effective action&MW2 is postulated for the closure theorem; microscopic emergence remains a separate test\\
+3&Interacting microscopic fields&User-specified QFT, fermionic and other matter\\
+2&Quantum symmetries and dynamics&Accepted quantum framework\\
+1&Quantum states and amplitudes&Accepted quantum framework\\\bottomrule\end{tabularx}\end{center}
+
+\section{Preserved open problems and a scientifically honest stopping rule}\label{sec:v30-ledger}
+\begin{enumerate}[label=\textbf{O\arabic*.}]
+\item \textbf{Microscopic realization.} Derive, or empirically justify, the collective action MW2 for an explicitly characterized phase of quantum matter. Chapter~1's tested homogeneous scalar Hartree channel is \emph{not} such a realization.
+\item \textbf{Physical natural-invariant selection.} Construct an operational state-to-$[\Sigma]$ map more informative than signed factorization after a metric is known, and determine the observable meaning of sector redundancy.
+\item \textbf{Relativistic universality.} Check common redshift and light propagation, response to pressure and energy flow, absence of preferred-frame effects, and gravitational self-interaction. Nonrelativistic universal $g_c$ does not establish relativistic equivalence.
+\item \textbf{Nonlinear completion.} Determine whether the same collective phase supports the entire Chapter~4 Einsteinian action and appropriate boundary terms, or whether a separately stipulated IR metric action remains necessary.
+\item \textbf{Quantitative predictions.} Calibrating $G_N$ is allowed; verify whether deviations from GR appear at high order or in response spectra, without introducing unsupported quantum corrections.
+\end{enumerate}
+\noindent\textbf{Stopping rule.} The static correspondence theorem is complete once its hypotheses and conclusions are fixed and verified. We must not repeatedly demand microscopic prediction of $G_N$ to recognize the theorem. Conversely, we must not change the logical label of MW2 from \emph{physical axiom} to \emph{derived QFT fact} without new evidence. This is the precise sense in which Chapter~5 may be \emph{closed as a conditional proof} while the deeper quantum-to-gravity discovery remains open.
+
+\section{Final conclusion: what Chapter 5 proves}\label{sec:v30-final}
+The Chapter~1 source observables, a massless positive-stiffness collective response postulated for a selected matter-wave phase, the measured coefficient $G_N$, and Chapter~2's explicit geometric matching produce a mathematically complete static theorem:
+\begin{equation}\label{eq:v30-final}
+\boxed{\begin{gathered}
+\text{quantum matter source }\rho_m
+\xrightarrow[\text{collective premise MW2}]{\text{static response }q}
+\Phi=-g_cq,\\[-1pt]
+G_N=\frac{g_c^2}{4\pi Z},\qquad
+H=-\frac{2\Phi}{c^2}=\frac{2G_NM}{c^2r}
+\xrightarrow[\text{Chapter 2 exterior}]{\text{signed sector}}
+[\Sigma]\longmapsto g_{\mu\nu}[\Sigma].
+\end{gathered}}
+\end{equation}
+The full static collective-field energy and Newtonian gravitational energy are \emph{identical under an invertible change of variables}. That is a stronger mathematical link than matching just the $1/r$ potential. Schwarzschild's null one-form is an exact exterior representative under the explicitly stated geometric correspondence. The theorem does not postulate microscopic spin-two fields, does not pretend the scalar static coordinate has independently produced all ten Einstein equations, and does not infer an autonomous gravitational phase from a Hartree channel whose measured stiffness is nonzero. The conditional theorem is closed; microscopic origin and relativistic universality remain separate active research questions.
+
+
+\section{Historical v2.3 verdict retained for provenance}
+The source-matching results in Section~\ref{sec:v22-match} establish how attraction and the observed $1/r^2$ scaling would follow conditionally from a soft, source-visible matter-wave mode, while proving that arbitrary wave-normalization changes and regular signed factorizations cannot themselves supply the missing microscopic pole. The original QGD intuition is not an axiom about spin-two particles. It is a hypothesis about a collective quantum matter-wave phase. The essential new mathematical insight is a precise distinction between \emph{gaplessness} and a \emph{source-visible static long-range response}. The source-projected inverse Hessian \eqref{eq:response}, not the bare existence of a wave mode, is the relevant object. The explicit Hartree Schur complement \eqref{eq:v23-chi} confirms that the existing contact interaction produces an enhanced but finite static response in the tested phase. The Gross--Pitaevskii counterexample \eqref{eq:gp-chi} shows why. The geometric principal symbol \eqref{eq:principal} and signed-sector Jacobian \eqref{eq:jac} identify separate QGD-specific requirements: a universal operational metric and a nondegenerate collective sector map. The original Chapter 1 scalar-contact model now has a computed, finite, interaction-corrected static density response (Section~\ref{sec:v23-hartree}); the source-visible gravitational pole, shared natural-invariant geometry, and universal Einsteinian coupling remain unproved. That separation must remain explicit.
+
+\noindent\textbf{Editorial resolution.} The archival results from earlier Chapter~5 research editions are retained unchanged in their mathematical scope; Chapter~5 v3.0 is closed specifically as a \emph{static axiomatic correspondence proof}, not as a universal microscopic emergence theorem.\\[3pt]
+
+\section{Higher-order QGD quantum force: a controlled massless-matter benchmark}\label{sec:v31-q}
+\textbf{Purpose and scope.} The static axiomatic closure established above determines the
+Newtonian kernel and the empirical $G_N$ but does not by itself compute an $\hbar$-dependent
+force. This section integrates the \emph{already derived conditional} one-loop results from
+Chapters~3 and~4 and establishes a new matching consequence for QGD's two independent
+natural-invariant amplitudes. It does not turn these results into a QGD-specific deviation
+from semiclassical general relativity.
+
+\subsection{The Gaussian no-correction result}
+\begin{proposition}[No source-dependent quantum loop correction in the quadratic static sector]
+Suppose $q$ is integrated with a source-independent, positive quadratic kernel
+$K=Z(-\nabla^2)$ and interacts only linearly with an external fixed source
+$J=g_c\rho_m$. At the Gaussian level, its connected source functional contains
+\begin{equation}\label{eq:v31-gauss}
+W[J]=\frac12\langle J,K^{-1}J\rangle+W[0]
+\end{equation}
+(up to the generating-functional sign convention). The quantum determinant
+$\frac{\hbar}{2}\operatorname{Tr}\log K$ is independent of $J$.
+Consequently the stated quadratic model introduces no higher-order,
+source-dependent $\hbar/r^3$ gravitational tail beyond the classical
+$1/r$ interaction. Quantum matter fluctuations, interactions, or new
+physical nonlocal responses are additional input.
+\end{proposition}
+\begin{proof}
+Complete the square in the functional integral:
+$\frac12 qKq-Jq=\frac12(q-K^{-1}J)K(q-K^{-1}J)
+-\frac12 JK^{-1}J$. The integral over the translated variable is
+independent of $J$; all source dependence is in the displayed classical
+quadratic term. This argument presumes the kernel and integration measure
+are source-independent and does not exclude loops when this premise fails.
+\end{proof}
+
+\subsection{A QGD quantum correction in the adopted effective metric sector}
+\begin{proposition}[QGD quantum exterior-force correction: one massless-fermion benchmark]\label{prop:v31-loop}
+Adopt the Chapter~4 metric-only Einstein--matter effective action, one
+minimally coupled quantized free massless four-component Dirac field in
+the asymptotically empty Boulware state, asymptotic flatness, and
+first-order semiclassical backreaction in the far field. Let
+$\mu_M=G_NM/c^2$ and $\ell_P^2=G_N\hbar/c^3$. In the conventions of
+Chapters~3--4, the corrected temporal metric coefficient is
+\begin{equation}\label{eq:v31-f}
+f(r)=1-\frac{2\mu_M}{r}
+-\frac{4\mu_M\ell_P^2}{15\pi r^3}
++\text{higher far-field terms}.
+\end{equation}
+For the supported-static-body Killing-energy potential per unit test mass,
+$\Phi_{\rm stat}=c^2(\sqrt f-1)$, the leading \emph{quantum} terms are
+\begin{equation}\label{eq:v31-phi}
+\boxed{\delta\Phi_Q(r)=-\frac{2G_N^2 M\hbar}{15\pi c^3 r^3},\qquad
+\delta F_Q(r)=-m_t\frac{d\,\delta\Phi_Q}{dr}
+=-\frac{2G_N^2Mm_t\hbar}{5\pi c^3 r^4}.}
+\end{equation}
+This is a \emph{conditional, calculated far-field benchmark} of quantum matter
+backreaction; it is not the entire quantum correction from every gravitational
+or matter loop, nor a universal force acting on arbitrarily prepared probes.
+\end{proposition}
+\begin{proof}
+Carlson et al. (2010) give, in $G_N=c=\hbar=1$ units,
+$\langle T^\mu{}_{\nu}\rangle_{\rm ren}=
+\frac{M}{40\pi^2r^5}\operatorname{diag}(4,2,-3,-3)+O(r^{-6})$.
+The linearized static semiclassical Einstein equations integrate to
+$\mathfrak m=M(1+1/(5\pi r^2))+\cdots$ and
+$\nu=M/(15\pi r^3)+\cdots$ in
+$f=(1-2\mathfrak m/r)e^{2\nu}$.
+It follows that the coefficient of $r^{-3}$ in $1-f$ is
+$4M/(15\pi)$. Restoring dimensional constants yields
+Eq.~\eqref{eq:v31-f}; expanding $c^2(\sqrt f-1)$ to first order in
+$\ell_P^2$ and differentiating gives Eq.~\eqref{eq:v31-phi}.
+The original published stress computation is imported rather than
+recalculated in this chapter.
+\end{proof}
+\textbf{Comparison with the historical QGD term.} The old
+$\frac92(\hbar/(m_tc r))^2$ correction was generated by an invalid
+reciprocal-expansion procedure and is not rescued here. The new term
+is proportional to $\ell_P^2/r^2$ relative to Newton, is linear in
+$\hbar$, and does not depend on an arbitrarily chosen test-fermion
+Compton wavelength. A separate standard EFT scattering-potential
+coefficient, such as $41/(10\pi)$ for the specified pure-gravity
+one-loop scattering convention, refers to a different set of loops
+and operational definition; it must not be substituted for the massless
+Dirac Boulware-state correction above.
+
+\subsection{New QGD consequence: the quantum-corrected exterior is non-null}\label{sec:v31-sector}
+\begin{proposition}[First-order natural-invariant quantum departure from nullness]
+Use the Chapter~2 fixed-flat-reference spherical representation
+$\sigma=A(r)\,d(ct)+B(r)\,dr$, with $F=1-A^2$ and
+$D=1+B^2-A^2$.  The source-supported static reconstruction for
+$ds^2=-f\,d(ct)^2+(1-2\mathfrak m/r)^{-1}dr^2+r^2d\Omega^2$ is
+\begin{equation}\label{eq:v31-AB}
+A^2=1-f,\qquad B^2=\frac{2\mathfrak m f}{r-2\mathfrak m}
+=\frac{2\mathfrak m}{r}e^{2\nu},\qquad D=e^{2\nu}.
+\end{equation}
+For the one massless-Dirac far-field state of Proposition~\ref{prop:v31-loop},
+\begin{align}
+A^2(r)&=\frac{2\mu_M}{r}
++\frac{4\mu_M\ell_P^2}{15\pi r^3}
++O(\mu_M^2\ell_P^2/r^4)+\text{higher-order terms},\\
+B^2(r)&=\frac{2\mu_M}{r}
++\frac{2\mu_M\ell_P^2}{5\pi r^3}
++O(\mu_M^2\ell_P^2/r^4)+\text{higher-order terms}.
+\end{align}
+Therefore
+\begin{equation}\label{eq:v31-nonnull}
+\boxed{\bar g^{\mu\nu}\sigma_\mu\sigma_\nu
+=B^2-A^2=D-1
+=\frac{2\mu_M\ell_P^2}{15\pi r^3}
++\text{higher far-field terms}.}
+\end{equation}
+The classical Schwarzschild exterior is null ($A^2=B^2$), while
+this quantum-corrected exterior has a nonzero reference norm at the
+calculated order. A prescription that sets $A=B=\sqrt{1-f}$ after
+including this anisotropic quantum stress would lose the radial metric
+information. The full QGD signed-sector metric allows such independent
+amplitudes, although the existence of a microscopic quantum-origin map
+for the natural invariants is still a separate premise.
+\end{proposition}
+\begin{proof}
+The Chapter~2 cross-term transformation diagonalizes the $A,B$ metric
+with radial component $D/F$. Requiring equality to
+$(1-2\mathfrak m/r)^{-1}$ gives $D=F/(1-2\mathfrak m/r)=e^{2\nu}$.
+Then $B^2=D-F=(2\mathfrak m/r)e^{2\nu}$.
+Using $\mathfrak m=\mu_M[1+\ell_P^2/(5\pi r^2)]+\cdots$ and
+$\nu=\mu_M\ell_P^2/(15\pi r^3)+\cdots$, expand consistently
+at first order in $\ell_P^2$ and leading orders in $1/r$.
+This yields the displayed expressions and the non-null residual.
+\end{proof}
+
+\subsection{What is complete and what is not}
+\begin{center}\small\begin{tabularx}{\linewidth}{@{}p{36mm}p{24mm}X@{}}\toprule
+Statement & Status & Qualification\\\midrule
+Gaussian collective model has no source-dependent loop tail & Derived & Exact for the source-independent quadratic model\\
+Massless-Dirac far-field $\hbar/r^3$ metric correction & Conditional calculation & Imported renormalized matter stress and adopted Einsteinian response\\
+$\hbar/r^4$ supported-body force term & Derived from benchmark & Specific state and operational potential\\
+Corrected $A^2,B^2$ and non-null norm & Derived from benchmark & New QGD signed-sector reconstruction consequence\\
+General QGD quantum coefficient from Chapter~1 matter waves & Open & Requires actual microscopic collective response beyond the static axiom\\
+Full all-orders quantum-corrected geometry & Open & Nonlinear semiclassical solution, quantum state and higher loops\\\bottomrule\end{tabularx}\end{center}
+\textbf{Interpretation.} The goal of finding a specific higher-order $\hbar$-dependent
+force correction is achieved \emph{conditionally within the effective
+Einstein--matter QGD sector}. It does not establish a new effect
+unique to QGD. The microscopic matter-wave phase and the complete
+quantum-corrected natural-invariant dynamics remain separate research
+obligations, but these limitations do not invalidate the displayed
+conditional force coefficient.
+
+\section*{References and companion manuscripts}
+\addcontentsline{toc}{section}{References and companion manuscripts}
+\begin{enumerate}
+\item C. Barcel\'o, S. Liberati, M. Visser, ``Analogue Gravity,'' \emph{Living Rev. Relativ.} \textbf{14}, 3 (2011), \url{https://doi.org/10.12942/lrr-2011-3}.
+\item F. Girelli, S. Liberati, L. Sindoni, ``Gravitational dynamics in Bose-Einstein condensates,'' \emph{Phys. Rev. D} \textbf{78}, 084013 (2008), \url{https://doi.org/10.1103/PhysRevD.78.084013}.
+\item L. Sindoni, ``Emergent gravitational dynamics from multi-Bose-Einstein-condensate hydrodynamics?,'' \emph{Phys. Rev. D} \textbf{83}, 024022 (2011), \url{https://doi.org/10.1103/PhysRevD.83.024022}.
+\item A. Belenchia, S. Liberati, A. Mohd, ``Emergent gravitational dynamics in a relativistic Bose-Einstein condensate,'' \emph{Phys. Rev. D} \textbf{90}, 104015 (2014), \url{https://doi.org/10.1103/PhysRevD.90.104015}.
+\item S. Weinberg, E. Witten, ``Limits on massless particles,'' \emph{Phys. Lett. B} \textbf{96}, 59 (1980), \url{https://doi.org/10.1016/0370-2693(80)90212-9}.
+\item H. Fujii, ``Scalar density fluctuation at the critical end point in the Nambu--Jona-Lasinio model,`` \emph{Phys. Rev. D} \textbf{67}, 094018 (2003), \url{https://doi.org/10.1103/PhysRevD.67.094018}. This literature concerns other critical regimes, not the stable Hartree benchmark computed here.
+\item E. D. Carlson et al., ``Semiclassical Gravity in the Far Field Limit of Stars, Black Holes, and Wormholes, \emph{Phys. Rev. D} \textbf{82}, 124070 (2010), \url{https://doi.org/10.1103/PhysRevD.82.124070}.
+\item J. F. Donoghue, ``General Relativity as an Effective Field Theory: The Leading Quantum Corrections, \emph{Phys. Rev. D} \textbf{50}, 3874 (1994), \url{https://doi.org/10.1103/PhysRevD.50.3874}.
+\item QGD Chapters 1--4 (current research editions), Chapter 5 v1.8 (reverse derivation), Chapter 5 v2.0 (prior strong-helicity axiom, retained in archive).
+\end{enumerate}
+
+% ========================================================================
+% QGD-138 / Chapter 5 v3.3: Physical quantum backreaction vs historic Q
+% ========================================================================
+\section{The quantum correction slot: what QGD actually derives}\label{sec:qgd138}
+\noindent\textbf{Scope and proof status.} The complete founding master metric is
+\begin{equation}\label{eq:qgd138-master}
+ \boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}
+ \biggl[\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}
+ -\lambda\mathcal Q_{ab}\biggr].}
+\end{equation}
+Here the historical $\mathcal Q_{ab}$ is a proposed independent
+metric-derivative operator. We distinguish it from (i) the computed,
+state-dependent \emph{solution-level} quantum metric difference
+$\delta g_{\mu\nu}^{\rm quantum}$, (ii) its fixed-coframe expression
+$\delta g_{ab}^{\rm quantum}:=(T^{-1})^\mu{}_a
+(T^{-1})^\nu{}_b\delta g_{\mu\nu}^{\rm quantum}$, and
+(iii) the phase/amplitude quantum potential of an individual matter wave.
+These are \emph{not two independent quantum operators} in the metric.
+We prove a linear response identity and a metric-level non-identifiability
+statement; neither constitutes a quantum microscopic derivation of a
+unique new $\mathcal Q[\sigma]$ operator.
+
+\subsection{The response that follows from the renormalized action}
+Let $g^{(0)}$ solve the selected classical effective Einstein--matter
+problem and assume a controlled perturbative state with
+$\langle\widehat T_{\mu\nu}\rangle_{\rm ren}=O(\hbar)$.
+For $g=g^{(0)}+\delta g^{\rm quantum}+O(\hbar^2)$, expansion of the
+quantum-corrected metric equations at first order yields
+\begin{equation}\label{eq:qgd138-eom}
+ \boxed{\mathcal L_{g^{(0)}}[\delta g^{\rm quantum}]_{\mu\nu}
+ =\frac{8\pi G_N}{c^4}\langle\widehat T_{\mu\nu}\rangle_{\rm ren}^{(1)}.}
+\end{equation}
+The linear operator $\mathcal L_{g^{(0)}}$ includes the linearized
+classical geometric and matter Euler derivatives; if quantum
+polarization is resummed, the corresponding causal stress response
+kernel must also be included. In a chosen gauge and with admissible
+boundary/initial data, the formal first-order solution is
+\begin{equation}\label{eq:qgd138-green}
+ \boxed{\delta g^{\rm quantum}=\frac{8\pi G_N}{c^4}
+ \mathcal L_{g^{(0)},\,\rm bc}^{-1}
+ \langle\widehat T\rangle_{\rm ren}^{(1)}.}
+\end{equation}
+For real-time evolution the inverse is a retarded, gauge-constrained
+response, not an arbitrary Feynman Green function. This is a
+\emph{derived quantum metric response conditional on the Chapter 4 action},
+not a new off-shell operator in the defining metric.
+
+\begin{proposition}[On-shell historical-slot assignment, convention-dependent]\label{prop:qgd138-slot}
+Fix a reference coframe, a gauge/coordinate identification, a classical
+natural-invariant representative, a quantum state and boundary data.
+Choose $\lambda\ne0$. If the sector configuration is held fixed while
+representing the first-order quantum correction, one may define
+\begin{equation}\label{eq:qgd138-slot}
+ \boxed{\mathcal Q_{ab}^{\rm rep}:=-\frac1\lambda
+ (T^{-1})^\mu{}_a(T^{-1})^\nu{}_b\,
+ \delta g_{\mu\nu}^{\rm quantum}.}
+\end{equation}
+Then $-\lambda T^a{}_{\mu}T^b{}_{\nu}
+\mathcal Q_{ab}^{\rm rep}=\delta g_{\mu\nu}^{\rm quantum}$ by construction.
+This is an \emph{on-shell representation} of \emph{the same}
+computed metric difference, not another correction to add to
+$\delta g^{\rm quantum}$; it is not a unique or autonomous functional
+$\mathcal Q_{ab}[\sigma,\bar\nabla\sigma]$ and does not
+supply the adjoint $D_s\mathcal Q$ for a new field equation.
+\end{proposition}
+
+\subsection{A calculated QGD quantum far-field example: one specified fermion state}
+Use the Boulware-state far-field solution and the static, fixed-areal-radius
+coordinates of Chapter 4. Define the length scales
+$\mu:=G_NM/c^2$ and $\ell_P^2:=G_N\hbar/c^3$, and
+$f_0:=1-2\mu/r$. The one-loop massless-Dirac solution gives, at
+leading quantum order for $r\gg2\mu$,
+\begin{equation}\label{eq:qgd138-correctedf}
+ f(r)=f_0-\frac{4\mu\ell_P^2}{15\pi r^3}+\cdots,
+ \qquad
+ f_r(r):=1-\frac{2G_N\mathfrak m(r)}{c^2r}
+ =f_0-\frac{2\mu\ell_P^2}{5\pi r^3}+\cdots .
+\end{equation}
+The common-coordinate metric difference relative to classical
+Schwarzschild is therefore
+\begin{equation}\label{eq:qgd138-qcomponents}
+ \boxed{\delta g^{\rm quantum}_{00}=\frac{4\mu\ell_P^2}{15\pi r^3},
+ \qquad \delta g^{\rm quantum}_{rr}=\frac{2\mu\ell_P^2}{5\pi r^3}
+ +O\!\left(\frac{\mu^2\ell_P^2}{r^4}\right),\qquad
+ \delta g^{\rm quantum}_{\theta\theta}=\delta g^{\rm quantum}_{\phi\phi}=0.}
+\end{equation}
+Here $x^0=ct$ and the covariant metric components are used; the
+angular components vanish in areal gauge. Other choices of gauge change
+components, not physical curvature observables.
+Selecting, only as a bookkeeping convention, $\lambda=\ell_P^2$,
+and the diagonal flat spherical reference coframe,
+Eq.~\eqref{eq:qgd138-slot} yields the explicit representative
+\begin{equation}\label{eq:qgd138-Qexample}
+ \boxed{\mathcal Q_{00}^{\rm rep}=-\frac{4\mu}{15\pi r^3},
+ \qquad \mathcal Q_{11}^{\rm rep}=-\frac{2\mu}{5\pi r^3}
+ +O\!\left(\frac{\mu^2}{r^4}\right),\qquad
+ \mathcal Q_{22}^{\rm rep}=\mathcal Q_{33}^{\rm rep}=0.}
+\end{equation}
+The representative has the required dimension $L^{-2}$ if the
+natural invariants are dimensionless and $\lambda$ has dimension $L^2$.
+It vanishes from the metric as $\hbar\to0$, provided the state and
+classical background have a regular classical limit. No coefficient
+of an independent new QGD force has been obtained.
+
+\begin{proposition}[No unique $\mathcal Q$ from metric-only dynamics]\label{prop:qgd138-nounique}
+At any point with a nondegenerate reference coframe, the complete real
+signed-sector construction can represent an arbitrary symmetric metric
+deformation. Therefore a specified total metric and a metric-only
+effective action do not select a unique additional tensor
+$\mathcal Q_{ab}$. Even with $\delta g^{\rm quantum}$ computed,
+one may use an on-shell representative with fixed classical sectors
+and $-\lambda\mathcal Q_{ab}^{\rm rep}=\delta g_{ab}^{\rm quantum}$,
+\emph{or} readjust sufficiently many signed sectors and take
+$\mathcal Q=0$, obtaining the same metric.
+\end{proposition}
+\begin{proof}
+Write the total internal deformation as
+$h_{ab}=(T^{-1}gT^{-\mathsf T})_{ab}-\eta_{ab}$.
+For any symmetric $h$, choose $b\ne0$ and the signed matrices
+$P=bI+h/(4b)$ and $N=bI-h/(4b)$. They obey
+$P^{\mathsf T}P-N^{\mathsf T}N=h$ exactly. Their rows supply a
+real signed-sector representation with $\mathcal Q=0$.
+Alternatively, retain a chosen classical set of sectors and assign
+$-\lambda\mathcal Q$ to the remaining deformation. Because the
+metric-only action sees only the resulting $g$, it does not
+discriminate these metric representations. The argument is
+algebraic and on-shell: it does not establish equivalence of all
+\emph{off-shell} derivative-dependent changes of fields or their
+quantum functional measures.
+\end{proof}
+
+\subsection{Why a historical local derivative candidate is not enough}
+The trial $\mathcal Q_{ab}^{\rm trial}=
+(\bar\nabla_a\sigma^c)(\bar\nabla_b\sigma_c)$
+has the correct schematic dimensional order: on the Schwarzschild
+background $\sigma\sim\sqrt{\mu/r}$ and
+$\ell_P^2\mathcal Q^{\rm trial}\sim\mu\ell_P^2/r^3$.
+But Chapter 4's independent tensor test found that no one coefficient
+reproduces \emph{both} the quantum temporal and radial metric corrections.
+Matching a radial power law does not match a covariant tensor.
+The known renormalized matter effective action also contains
+state-dependent and generally nonlocal responses, which a single
+local first-gradient ansatz need not reproduce.
+
+\paragraph{Consequence for Option C.}
+For a genuinely specified differentiable off-shell tensor
+$\mathcal Q[\sigma;T]$, the preferred QGD equation is
+\begin{equation}\label{eq:qgd138-optionC}
+ \boxed{2s_s\Pi^{ab}\sigma_b^{(s)}=
+ \lambda\bigl[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi\bigr]^a,\qquad
+ s_s=-\varepsilon_s.}
+\end{equation}
+Substituting the on-shell representative
+\eqref{eq:qgd138-slot} into this equation as if it were an
+independently varied \emph{off-shell} operator would generally
+double count or misrepresent the
+same quantum backreaction already present in
+$\hbar\Gamma_{\rm matter}^{(1),\rm ren}$.
+Our controlled renormalized-action calculations use the
+fixed-coframe $\lambda\mathcal Q_{ab}=0$ specialization as a
+\emph{modeling choice}, while retaining the quantum matter source
+in $\Pi^{ab}$ and the nonzero resulting
+$\delta g_{\mu\nu}^{\rm quantum}$. The vanishing of the historical
+slot is \emph{not} derived as a microscopic identity.
+A nonzero new $\mathcal Q$ requires an independently defined
+sector-sensitive observable, a microscopic matching calculation, or a
+nonredundant dynamical principle.
+% ========================================================================
+
+
+% ===== CHAPTER 5 v3.4: MICROSCOPIC ENERGY VERTEX (derived at fixed equilibrium source) =====
+\begingroup\small\setlength{\parskip}{3pt}
+\section{First microscopic source--collective matching: the static energy vertex}
+\label{sec:v34-energyvertex}
+\textbf{Purpose and proof boundary.} \D\ This section computes an explicit entry of the
+Chapter~5 source--collective vertex $V_A{}^I$ using the \emph{same}
+Chapter~1 Dirac scalar-contact model and the regulated Chapter~6 benchmark.
+It does not assert that the collective mass is the QGD natural invariant, or
+that the probe lapse is a dynamically generated graviton. The equilibrium
+source response here is not the retarded, finite-momentum response necessary
+for an emergent gravitational interaction. The physical scalar--tensor
+source completeness and the map to $[\Sigma]$ remain \OPEN.
+
+\subsection{Microscopic Hartree energy functional and the source convention}
+Work in $\hbar=c=k_B=1$, at zero chemical potential and with a fixed
+\emph{physical} three-momentum cutoff $\Lambda_c$ for the local fermion
+quasiparticles. For one four-component Dirac species, the Chapter~1
+four-fermion interaction gives the homogeneous regulated Hartree potential
+\begin{equation}\label{eq:v34-omega}
+\boxed{\begin{aligned}
+\Omega(M,T)={}&\frac{(M-m_0)^2}{4G_4}
+-\frac{1}{\pi^2}\int_0^{\Lambda_c}dp\,p^2E_p\\
+&-\frac{2T}{\pi^2}\int_0^{\Lambda_c}dp\,p^2
+\ln\bigl(1+e^{-E_p/T}\bigr),\qquad E_p=\sqrt{p^2+M^2}.
+\end{aligned}}
+\end{equation}
+This is a \emph{matter} effective functional, not an independently specified
+$\mathcal Q_{ab}$. The stationary collective mass $M_*(T)$ satisfies
+$\Omega_M=0$; define $K_{MM}=\Omega_{MM}|_{M_*}$.
+Consider the static metric probe
+$ds^2=-N^2dt^2+d\mathbf x^2$ with fixed thermal reference $T_0$.
+The Tolman--Ehrenfest local temperature is $T_{\rm loc}=T_0/N$.
+With the spatial cutoff defined in the local orthonormal frame,
+the equilibrium Euclidean free-energy functional per physical spatial
+volume and per unit reference time is
+\begin{equation}\label{eq:v34-F}
+\boxed{\mathcal F(N,M;T_0)=N\bigl[\Omega(M,T_0/N)-\Omega_v\bigr],}
+\end{equation}
+where $\Omega_v$ is a fixed, $M$-independent subtraction. Here the lapse
+is an \emph{external metric source}; it is not a new independent gravitational
+field and its constant mode depends on the chosen thermal-time boundary data.
+Spatially varying lapses also require derivative/renormalization terms
+beyond this local equilibrium truncation.
+
+\begin{proposition}[Derived homogeneous energy--collective vertex]
+\label{prop:v34-energyvertex}
+At any regular positive-mass Hartree stationary point, the mixed static
+lapse--mass vertex and collective Hessian are
+\begin{equation}\label{eq:v34-V}
+\boxed{\begin{aligned}
+V_{NM}&:=\left.\frac{\partial^2\mathcal F}{\partial N\,\partial M}
+\right|_{N=1,M=M_*}
+=\Omega_M-T\Omega_{MT}\\
+&=-\frac{2M_*}{\pi^2 T}\int_0^{\Lambda_c}dp\,p^2 n_p(1-n_p),
+\qquad n_p=\frac{1}{e^{E_p/T}+1},
+\\ K_{MM}&=\frac{1}{2G_4}-\frac{1}{\pi^2}
+\int_0^{\Lambda_c}dp\,p^2\left[
+\frac{p^2}{E_p^3}(1-2n_p)
++\frac{2M_*^2}{T E_p^2}n_p(1-n_p)\right].
+\end{aligned}}
+\end{equation}
+For $M_*,T>0$, $V_{NM}<0$ and on the stable branch $K_{MM}>0$.
+The thermal $T\to0$ limit has $V_{NM}\to0$ for a gapped branch.
+\end{proposition}
+\begin{proof}
+At fixed $M$, $\mathcal F_N=\Omega-T_{\rm loc}\Omega_T-\Omega_v$:
+it is the energy density relative to the declared vacuum reference.
+Differentiating again in $M$ and using $\Omega_M(M_*,T)=0$ gives
+$V_{NM}=-T\Omega_{MT}$. Direct differentiation of the Fermi occupations
+in Eq.~\eqref{eq:v34-omega} gives
+$\Omega_{MT}=2M_*(\pi^2T^2)^{-1}\int dp\,p^2n_p(1-n_p)$.
+Differentiating the gap equation in $M$ gives the stated $K_{MM}$.
+All derivatives are of the \emph{same} functional and therefore include
+both the fermionic loop and the Hartree mean-field term.
+\end{proof}
+
+\begin{proposition}[Exact static exchange/contact identity]
+\label{prop:v34-schur}
+For a stable saddle $K_{MM}>0$, let $\mathcal F_{\rm on}(N)
+:=\mathcal F(N,M_*(T_0/N))$. Then
+\begin{equation}\label{eq:v34-schur}
+\boxed{\begin{aligned}
+\frac{dM_*}{dN}\Big|_1&=-\frac{V_{NM}}{K_{MM}}
+=-T\frac{dM_*}{dT},\\
+\mathcal F_{\rm on}''(1)&=\underbrace{T^2\Omega_{TT}}
+_{\text{direct/contact}}-\underbrace{\frac{V_{NM}^2}{K_{MM}}}
+_{\text{collective exchange}}=-T c_V,\\
+c_V&=-T\Omega_{TT}
++\underbrace{\frac{V_{NM}^2}{T K_{MM}}}_{\Delta c_V^{\rm coll}},
+\qquad c_V=\frac{d\epsilon_{\rm on}}{dT}.
+\end{aligned}}
+\end{equation}
+All partial derivatives on the right are evaluated at the stationary
+point $M_*(T)$. The exchange term is finite at the tested temperatures;
+no $1/|\mathbf k|^2$ pole follows from it.
+\end{proposition}
+\begin{proof}
+Implicitly differentiate $\mathcal F_M(N,M_*(N))=0$ and use
+$\mathcal F_{MM}=K_{MM}$ at $N=1$. Differentiating the on-shell
+functional gives the Hessian Schur complement
+$\mathcal F_{NN}-\mathcal F_{NM}\mathcal F_{MM}^{-1}\mathcal F_{MN}$.
+A second direct derivative of Eq.~\eqref{eq:v34-F} gives
+$\mathcal F_{NN}=T^2\Omega_{TT}$ at $N=1$. The envelope theorem gives
+$\epsilon_{\rm on}=\Omega-\Omega_v-T\Omega_T$ and
+$c_V=-T(\Omega_{TT}-\Omega_{TM}^2/K_{MM})$.
+These identities prove Eq.~\eqref{eq:v34-schur}.
+\end{proof}
+
+\subsection{Reproducible benchmark and QGD interpretation}
+At the previously fixed Chapter~6 benchmark
+$\Lambda_c=4$, $m_0=0.12$, $G_4=0.5654255716$,
+$M_*(0)=0.8$, numerical quadrature gives
+\begin{center}\small
+\begin{tabular}{@{}rrrrrr@{}}\toprule
+$T$ & $M_*$ & $K_{MM}$ & $V_{NM}$ & $V_{NM}^2/K_{MM}$ & $\Delta c_V^{\rm coll}$\\\midrule
+0.2 & 0.798522 & 0.217613 & -0.001793 & 0.000015 & 0.000074\\
+0.4 & 0.766996 & 0.206513 & -0.024524 & 0.002912 & 0.007281\\
+0.6 & 0.680957 & 0.199103 & -0.064192 & 0.020696 & 0.034493\\
+0.8 & 0.567203 & 0.210328 & -0.094714 & 0.042651 & 0.053314\\\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Interpretation.} This computes a particular energy-density
+source vertex $V_{00,M}$ in the homogeneous static thermodynamic sense,
+\emph{with the precisely defined lapse normalization} $V_{NM}$.
+Since $g_{00}=-N^2$, a covariant-component probe at $N=1$ obeys
+$\delta N=-\tfrac12\delta g_{00}$, so
+$V_{g_{00}M}=-\tfrac12 V_{NM}$ in this convention.
+This is not the full metric/stress vertex at nonzero momentum, which
+requires conservation Ward contacts, renormalized gradients and causal
+continuation. At $T=0$ the vanishing \emph{equilibrium} lapse vertex
+is not a claim that the Dirac vacuum has no stress or curvature response.
+The early scalar source vertex for a direct mass probe is a different
+source derivative and must not be relabeled as a gravitational vertex.
+
+For the controlled $\lambda\mathcal Q=0$ QGD metric map, the
+already established action chain rule gives the fermion-loop contribution
+$\mathscr Q_{(s),D}^{\,a}=s_sT_{D,\rm q}^{ab}\sigma_b^{(s)}$
+with Chapter~4's metric-variation conventions; the Hartree classical
+auxiliary potential and the loop contribution must be included exactly
+once in the total stress. A massless equilibrium Dirac benchmark has
+$\epsilon_D=7\pi^2T^4/60$, $p_D=\epsilon_D/3$ for one full
+four-component species, and its local rest-frame projection is
+$\mathscr Q_{(s),D}^{\,0}=s_s\epsilon_D\sigma_0^{(s)}$ and
+$\mathscr Q_{(s),D}^{\,i}=s_s p_D\sigma_i^{(s)}$.
+These components \emph{do not} determine a unique microscopic
+$\sigma^{(s)}$ or the historical $\mathcal Q_{ab}$.
+
+\textbf{Next criterion.} Extend this source-derivative construction to
+$V_{\mu\nu,M}(\omega,\mathbf k)$ using a \emph{conserving},
+properly regulated stress vertex and its metric contact terms, then
+combine with the collective kernel $K_R(\omega,\mathbf k)$ and
+independently test whether a physically source-visible soft pole survives.
+This is the Chapter~5 microscopic programme; cosmology in Chapter~7
+is a downstream test, not a substitute for the source derivation.
+\par\medskip
+\noindent\textbf{Method precedents:} Tolman and Ehrenfest,
+\emph{Phys. Rev.} \textbf{36}, 1791 (1930),
+\url{https://doi.org/10.1103/PhysRev.36.1791};
+C.~Mu, Z.~Wang and L.~He, \emph{Chin. Phys. C} \textbf{43},
+094103 (2019), \url{https://doi.org/10.1088/1674-1137/43/9/094103};
+N.~Banerjee \emph{et al.}, \emph{JHEP} \textbf{09}, 046 (2012),
+\url{https://doi.org/10.1007/JHEP09(2012)046}.
+\endgroup
+% ===== END CHAPTER 5 v3.4 =====
+
+
+% ===== BEGIN CHAPTER 5 v3.5: LOCAL FINITE-MOMENTUM METRIC-MASS VERTEX =====
+\clearpage
+\section{Microscopic momentum-dependent stress--mass vertex: a covariant vacuum calculation}
+\label{sec:v35-wardvertex}
+\textbf{Question.} Can one calculate the first nonzero spatial-momentum component of Chapter~5's microscopic $V_A{}^I$ from the same Dirac/contact theory, without assuming a gravitational pole? The answer is yes in the \emph{local infrared, zero-temperature vacuum} and has an important Ward constraint. This is a companion to Chapter~7's curvature-dependent Hartree determinant, not a second independent gravitational operator.
+
+\subsection{Covariant starting functional, normalization, and deliberate limitations}
+The earlier v3.4 source--energy vertex was a \emph{static thermal} lapse response evaluated in a sharp three-momentum cutoff scheme. Its numbers must not be mixed with the \emph{covariant Euclidean proper-time} scheme used here. For one four-component Dirac species, at zero temperature, zero chemical potential and in a slowly varying Euclidean metric, use the \emph{parity-even} one-loop local expansion
+\begin{equation}\label{eq:v35-action}
+\boxed{\begin{aligned}
+\Gamma_E[M,g]&=\int \dd^4x\sqrt g\,\{U(M)+C_R(M)R_E+\cdots\},\\
+U(M)&=\frac{(M-m_0)^2}{4G_4^{\rm PT}}+\frac{I_2(M)}{8\pi^2},\\
+C_R(M)&=-\frac{I_1(M)}{96\pi^2},\qquad
+I_j(M)=\int_{\Lambda_{\rm PT}^{-2}}^\infty \dd s\,s^{-j-1}e^{-M^2s}.
+\end{aligned}}
+\end{equation}
+The ellipsis includes the direct higher-order curvature terms, terms with gradients of $M$, finite counterterms, nonlocal form factors and other fields. The expression is the \emph{local derivative expansion} of the Hartree approximation, not the full frequency/momentum-dependent fermion determinant. The mass coordinate is an auxiliary collective variable; no scalar graviton or independent historical $\mathcal Q_{ab}$ is introduced. We set the unrelated historical metric slot $\lambda\mathcal Q_{ab}=0$ only when later applying the QGD metric chain rule.
+
+At a constant flat vacuum $M_v$, define $U'(M_v)=0$, $K_v=U''(M_v)>0$. Write $g_{\mu\nu}=\delta_{\mu\nu}+h_{\mu\nu}$ and $M=M_v+\chi$, with Fourier convention $\partial_\mu\mapsto ik_\mu$. The metric source is the \emph{covariant perturbation} $h_{\mu\nu}$, so its normalization differs from the v3.4 lapse derivative $\partial_N\mathcal F$.
+
+\begin{proposition}[First Ward-compatible microscopic metric--mass vertex \D\ within the local proper-time EFT]\label{prop:v35-vertex}
+On a stable, stationary and Lorentz-invariant flat Hartree vacuum in the scheme of Eq.~\eqref{eq:v35-action}, the mixed source--collective Hessian satisfies
+\begin{equation}\label{eq:v35-vertex}
+\boxed{\begin{aligned}
+V_{\mu\nu,M}^{E}(k)
+&:=\left.\frac{\delta^2\Gamma_E}{\delta h_{\mu\nu}(-k)\,\delta\chi(k)}\right|_{0}\\
+&=C_R'(M_v)\bigl(k^2\delta_{\mu\nu}-k_\mu k_\nu\bigr)+O(k^4),\\
+k_\mu V_{\mu\nu,M}^{E}(k)&=0,
+\end{aligned}}
+\end{equation}
+where the $O(k^4)$ denotes further \emph{local analytic} derivative-expansion terms in a gapped vacuum; the nonlocal complete vertex has not been evaluated. The Ward identity holds to the calculated order; for an exactly diffeomorphism-invariant and stationary completed effective action it also constrains the full vertex. For $k=(0,\bm k)$, $V_{00,M}^E(0,\bm k)=C_R'(M_v)|\bm k|^2+O(|\bm k|^4)$. In a rotationally invariant background the scalar mass fluctuation does not mix linearly with the transverse-traceless spatial tensor component.
+\end{proposition}
+\begin{proof}
+The first variation of Euclidean curvature about a flat background is $\delta R_E=\partial_\mu\partial_\nu h_{\mu\nu}-\partial^2h$. Thus in Fourier variables
+\begin{equation}\label{eq:v35-linearR}
+\boxed{\delta R_E(k)=\bigl(k^2\delta_{\mu\nu}-k_\mu k_\nu\bigr)h_{\mu\nu}(k).}
+\end{equation}
+The mixed term in $\sqrt g\,U(M)$ equals $\frac12U'(M_v)h\chi$, while that from $\sqrt g\,C_R(M)R_E$ equals $C_R'(M_v)\chi\,\delta R_E$. The $U'$ contact vanishes \emph{only} at the stationary vacuum of the \emph{complete} Hartree functional. This gives Eq.~\eqref{eq:v35-vertex}, whose contraction with $k_\mu$ is identically zero. For a static wavevector directed along the 3-axis, the spatial vertex $V_{ij}=C_R'(|\bm k|^2\delta_{ij}-k_i k_j)$ has no contraction with a transverse-traceless polarization tensor $e_{ij}^{TT}$, since $k_ie_{ij}^{TT}=0$ and $\delta_{ij}e_{ij}^{TT}=0$. \qedhere
+\end{proof}
+
+\subsection{Why the fermion loop alone fails the contact-term test}
+The auxiliary and fermion-loop parts of the \emph{potential} have independent nonzero slopes. The model gap equation implies
+\begin{equation}\label{eq:v35-contact}
+\boxed{\begin{gathered}
+U'_{\rm aux}(M_v)=\frac{M_v-m_0}{2G_4^{\rm PT}},\qquad
+U'_{D}(M_v)=-\frac{M_vI_1(M_v)}{4\pi^2},\\
+U'_{\rm aux}(M_v)+U'_D(M_v)=0,\\
+V_{\mu\nu,M}^{\rm loop,contact}=\tfrac12\delta_{\mu\nu}U'_D(M_v),\qquad
+V_{\mu\nu,M}^{\rm aux,contact}=\tfrac12\delta_{\mu\nu}U'_{\rm aux}(M_v).
+\end{gathered}}
+\end{equation}
+These $k$-independent terms cancel. Consequently, proclaiming the \emph{loop-only} $\delta^2\Gamma_D/(\delta h\delta M)$ transverse at a stationary \emph{total} saddle would violate the Ward identity. The additional contact is not a new dynamical source, and it must not be added a second time to the renormalized QGD quantum stress.
+
+\subsection{Numerical benchmark and consequence for Chapter 5's pole criterion}
+For $\Lambda_{\rm PT}=4$, $m_0=0.12$ and the independent proper-time coupling matched to $M_v=0.8$, the integrals give
+\begin{equation}\label{eq:v35-numbers}
+\boxed{\begin{gathered}
+G_4^{\rm PT}=1.2285854552,\qquad K_v=0.1479798341,\\
+I_0(M_v)=2.6812636890,\qquad C_R'(M_v)=\frac{M_vI_0(M_v)}{48\pi^2}=0.00452781351,\\
+\tfrac12U'_D=-0.13837051325,\quad\tfrac12U'_{\rm aux}=+0.13837051325.
+\end{gathered}}
+\end{equation}
+The \emph{same} coefficient previously used in the adiabatic curvature response of Chapter~7 therefore now has the operational interpretation of an explicit low-momentum stress--mass vertex. The verifying script independently differentiates the proper-time $C_R(M)$ and $U(M)$, tests 200 random four-momenta for the Ward identity, checks the tensor projector, and confirms the contact cancellation.
+
+For the stable scalar Hessian $K(k)=K_v+O(k^2)$, integrating out $\chi$ gives the \emph{condensate relaxation} contribution
+\begin{equation}\label{eq:v35-schur}
+\boxed{\Delta\Gamma_E^{(2)}[h]
+=-\frac{[C_R'(M_v)]^2}{2K_v}\int\!\dd^4x\,[\delta R_E(h)]^2
++\text{higher gradients}.}
+\end{equation}
+Thus the exchange kernel behaves as $V K^{-1}V=O(k^4)$: this channel does \emph{not} furnish a $1/|\bm k|^2$ long-range pole. Equation~\eqref{eq:v35-schur} is \emph{exactly the same local condensate-relaxation $R^2$ effect} calculated in Chapter~7 v1.4, expressed in the Chapter~5 source--Hessian language; it is not a separate $R^2$ discovery and is not the complete curvature-squared effective action. The bare induced $\sqrt g R$ term also merely renormalizes the matched Einstein--Hilbert coefficient in this effective description.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=.82\linewidth]{v35_IR_vertex.pdf}
+\caption{Calculated leading local infrared metric--mass vertex and the condensate-exchange term. The curves show the $k^2$ and $k^4$ derivatives \emph{only in the domain of the derivative expansion}, not exact all-momentum spectra.}\label{fig:v35-IR}
+\end{figure}
+
+\subsection{The next genuinely new calculation}
+The scalar vacuum calculation closes one \emph{local} component of $(K,V)$, but does not solve the Chapter~5 gravitational problem. A finite-temperature state may have a homogeneous thermodynamic $V_{NM}\ne0$ (the separate v3.4 result), since the medium supplies a preferred rest frame. Neither the vacuum Euclidean local vertex nor the thermal equilibrium susceptibility is automatically a \emph{retarded} real-time vertex. The next step is a conserving, renormalized finite-$(\omega,\bm k)$ stress/mass response including seagulls and the full energy--momentum constraints. Before testing universality, compute and compare this source channel with a second independent matter probe (e.g. Maxwell radiation), with no phenomenological equality of vertices imposed.
+
+\textbf{QGD status.} In the fixed-coframe, $\lambda\mathcal Q=0$ branch one may continue to apply the already proven natural-invariant pullback, but Eq.~\eqref{eq:v35-vertex} does not define $[\Sigma]$, does not uniquely determine the historical $\mathcal Q_{ab}$, and does not derive the full gravitational action. The complete master metric retains the coframe and its unmatched $-\lambda\mathcal Q_{ab}$ slot. This is a \D\ \emph{within-model} local source calculation and a \OPEN\ microscopic gravitational-emergence claim.
+
+\smallskip\noindent\textbf{Method references.} D.~V.~Vassilevich, \emph{Phys. Rep.} \textbf{388}, 279 (2003), \url{https://doi.org/10.1016/j.physrep.2003.09.002}; A.~del R{\'i}o \emph{et al.}, \emph{Phys. Rev. D} \textbf{95}, 105003 (2017), \url{https://doi.org/10.1103/PhysRevD.95.105003}; see also the curved-Dirac stress/action discussion, \url{https://doi.org/10.1016/j.nuclphysb.2025.117220}.
+% ===== END CHAPTER 5 v3.5 =====
+
+
+% ============== CHAPTER FIVE v3.6 : FULL ONE-LOOP VACUUM MOMENTUM DEPENDENCE ==============
+\clearpage
+\section{The first finite-frequency microscopic source vertex: massive Dirac vacuum}
+\label{sec:v36-fullvertex}
+\textbf{Problem and scope.} The v3.5 calculation determined only the local $O(k^2)$ Euclidean stress--mass vertex. Here we obtain the \emph{subtracted, complete one-fermion-loop dependence on Euclidean four-momentum} and its Minkowski vacuum spectral cut for one four-component Dirac field with constant Hartree quasiparticle mass $M>0$. This is the fermion-bubble level of the contact theory, \emph{not} the full conserving finite-temperature/finite-density interacting stress response, not a computation of a graviton pole, and not the independent historical $\mathcal Q_{ab}$. The background geometry is an external probe. We employ a Lorentz- and diffeomorphism-respecting continuum renormalization of the nonlocal part, separately matching the local $R\chi$ coupling from the prior covariant proper-time calculation. The two regularization prescriptions cannot be equated at the level of finite-cutoff bare parameters.
+
+\subsection{Ward identity, scalar trace and local matching}
+Let $M(x)=M_v+\chi(x)$, $g_{\mu\nu}=\delta_{\mu\nu}+h_{\mu\nu}$, and let the complete Hartree potential be stationary, $U'(M_v)=0$. Its metric--mass Hessian is
+\begin{equation}\label{eq:v36-transverse}
+\boxed{V^E_{\mu\nu,M}(k)=\bigl(z\delta_{\mu\nu}-k_\mu k_\nu\bigr)F_E(z),\quad z=k_E^2,\quad k_\mu V^E_{\mu\nu,M}=0.}
+\end{equation}
+The tensor structure follows from a stationary, isotropic, Lorentz-invariant vacuum and the \emph{full} metric Ward identity with its seagull/contact contribution. A bare fermion loop without the auxiliary Hartree contact is not independently transverse. The local $O(k^2)$ coefficient is $F_E(0)=C_R'(M_v)$, as in Eq.~\eqref{eq:v35-vertex}, up to the chosen finite local $R\chi$ counterterm. The higher-derivative nonpolynomial dependence below is fixed after subtracting the local ultraviolet polynomial; EFT higher-derivative local terms must be matched if included independently.
+
+For one Dirac fermion the Euclidean scalar-insertion bubble, modulo local counterterms, is
+\begin{equation}\label{eq:v36-bubble}
+\begin{aligned}
+B(z)&=\int\!\frac{\dd^4p}{(2\pi)^4}\;\operatorname{tr}\bigl[S(p+\tfrac12 k)S(p-\tfrac12 k)\bigr],\\
+S(p)&=\frac{M-i\gamma\cdot p}{p^2+M^2},\\
+B''(z)&=-\frac{3}{4\pi^2}\int_0^1\!\frac{[x(1-x)]^2\,\dd x}{M^2+x(1-x)z}.
+\end{aligned}
+\end{equation}
+The last line is finite and follows directly by Feynman parametrization in four-dimensional dimensional regularization. Two subtractions remove the independent constant and linear polynomials in the scalar bubble. On the fermion pair cut, the trace of the mixed stress--scalar correlator is related to the scalar bubble by the massive Dirac trace identity. With the convention $h_{\mu\nu}=\delta g_{\mu\nu}$, the \emph{nonlocal} trace part carries $\frac12 M B(z)$; the trace and diffeomorphism contact terms are local and are handled by the matching prescription. Thus
+\begin{equation}\label{eq:v36-tracerel}
+\boxed{F_E(z)-F_E(0)=\frac{M}{6z}\bigl[B(z)-B(0)-zB'(0)\bigr].}
+\end{equation}
+This identity concerns the one-loop nonpolynomial form factor in the declared contact/renormalization convention; it is not an identity between unsubtracted bare composite operators.
+
+\begin{proposition}[Finite-momentum Dirac stress--mass form factor: subtracted one-loop vacuum \D]\label{prop:v36-formfactor}
+Set $u=x(1-x)$. In the massive Lorentz vacuum, the unique subtracted nonpolynomial one-loop contribution to the mixed source vertex is
+\begin{equation}\label{eq:v36-F}
+\boxed{F_E(z)-F_E(0)=-\frac{M}{8\pi^2z}\int_0^1\!\dd x\;\biggl[\bigl(M^2+uz\bigr)\log\Bigl(1+\frac{uz}{M^2}\Bigr)-uz\biggr].}
+\end{equation}
+It is regular at $z=0$ with
+\begin{equation}\label{eq:v36-small}
+\boxed{F_E(z)=F_E(0)-\frac{z}{480\pi^2M}+O(z^2/M^3).}
+\end{equation}
+All nonlocal singularities lie on the two-fermion branch cut $z\leq-4M^2$; there is no isolated form-factor pole at $z=0$.
+\end{proposition}
+\begin{proof}
+Feynman-parametrize the two propagators in Eq.~\eqref{eq:v36-bubble}, shift the loop momentum, and differentiate twice with respect to $z$. This yields the finite integral for $B''(z)$. Twice integrate from $0$ to $z$, obtaining $B(z)-B(0)-zB'(0)=-3/(4\pi^2)\int_0^1\dd x\,[(M^2+uz)\ln(1+uz/M^2)-uz]$. Insert this result into Eq.~\eqref{eq:v36-tracerel}. Expanding the integrand and using $\int_0^1u^2\dd x=1/30$ proves Eq.~\eqref{eq:v36-small}. The first logarithmic branch point occurs where $M^2+uz=0$ at $u=1/4$, namely $z=-4M^2$. The transverse tensor identity is algebraic. The proof assumes a consistent local subtraction of the scalar bubble and of the mixed metric contact terms. \qedhere
+\end{proof}
+
+\subsection{Causal vacuum continuation and independent dispersion test}
+The retarded vacuum boundary value is obtained by analytic continuation $z=|\bm k|^2-(\omega+i0)^2$. Define the invariant $s=\omega^2-|\bm k|^2$. With the positive-cut convention inherited from Eq.~\eqref{eq:v36-F}, for $\omega>0$,
+\begin{equation}\label{eq:v36-spectral}
+\boxed{\operatorname{Im}F_R(\omega,\bm k)=\frac{M}{48\pi}\left(1-\frac{4M^2}{s}\right)^{3/2}\Theta(s-4M^2),\qquad s=\omega^2-|\bm k|^2.}
+\end{equation}
+In particular, $\omega_{\rm th}(\bm k)=\sqrt{|\bm k|^2+4M^2}$; a finite spatial momentum raises the pair threshold. The subtraction-independent cut can be verified from the standard two-fermion scalar-density phase space and the trace Ward identity. Equivalently the positive-real-Euclidean form-factor difference satisfies the once-subtracted dispersion representation
+\begin{equation}\label{eq:v36-disp}
+\boxed{F_E(z)-F_E(0)=-\frac{Mz}{48\pi^2}\int_{4M^2}^{\infty}\!\dd s\;\frac{(1-4M^2/s)^{3/2}}{s(s+z)},\quad z>0.}
+\end{equation}
+The phase-space and Feynman-parameter formulas agree, including the independently checked infrared derivative $F_E'(0)=-1/(480\pi^2M)$. The spectral function is a fermion-pair \emph{continuum}, not a standalone propagating tensor or gravitational excitation. In a finite cutoff EFT these continuum formulas require energies well below the regulator scale; detailed ultraviolet behavior depends on the matching scheme.
+
+\subsection{Benchmark, conserving check, and Chapter 5 interpretation}
+The independently matched low-energy proper-time reference gives $M_v=0.8$, $K_v=0.1479798341$, and $F_E(0)=C_R'(M_v)=0.00452781351$. Adding Eq.~\eqref{eq:v36-F} to this \emph{matched local coefficient} is an illustrative low-energy matching construction, not an equality of the finite proper-time and dimensional-regularization determinants for arbitrary momenta.
+\begin{equation}\label{eq:v36-numbers}
+\boxed{\begin{aligned}
+F_E(0.25)-F_E(0)&=-0.00006419966,\\
+F_E(0.25)&=0.00446361385,\\
+\operatorname{Im}F_R(\omega=2,\bm 0)&=0.00114591559,\\
+\omega_{\rm th}(|\bm k|=0.6)&=\sqrt{2.92}\simeq1.70880.
+\end{aligned}}
+\end{equation}
+Tests include direct quadrature of Eq.~\eqref{eq:v36-F}, an independent dispersion quadrature of Eq.~\eqref{eq:v36-disp}, the retarded logarithm's imaginary part, finite-difference differentiation of $B(z)$, and 300 random four-momentum Ward contractions (maximum absolute residual $1.6\times10^{-17}$ in double precision). They are supplied in the reproducibility archive.
+\begin{figure}[htbp]\centering
+\includegraphics[width=.81\linewidth]{vacuum_formfactor.pdf}
+\caption{One-loop Euclidean momentum dependence, with $F_E(0)$ matched from the earlier local proper-time EFT. The momentum-dependent subtraction is calculated in a covariant continuum prescription.}\label{fig:v36-form}
+\end{figure}
+\begin{figure}[htbp]\centering
+\includegraphics[width=.81\linewidth]{vacuum_spectral_threshold.pdf}
+\caption{The absorptive mixed Dirac stress--mass vertex turns on continuously at the two-fermion threshold. No isolated particle pole is inferred from this cut.}\label{fig:v36-spectral}
+\end{figure}
+For the stable vacuum Hessian $K(z)=K_v+O(z)$, the full source--collective exchange has the \emph{same infrared suppression} as v3.5: $V K^{-1}V=O(k^4)$. The retarded scalar Hessian at arbitrary four-momentum, including its own dispersive cut and conserving self-energy corrections, is a separate object; we have \emph{not} inferred its zeros from the mixed vertex. Hence these results disfavor a $1/|\bm k|^2$ gravitational pole in the \emph{tested gapped scalar vacuum sector}, not in QGD in general.
+
+\textbf{Next microscopic steps.} (i) Compute the frequency- and momentum-dependent interacting \emph{collective Hessian} with an explicit matched kinetic term; (ii) enforce the non-equilibrium stress Ward identities at finite temperature, including Landau cuts and seagulls; (iii) compare the matter and Maxwell source vertices without assuming universality. Only after these checks seek a nonredundant physical map to $[\Sigma]$. The QGD founding metric remains $g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}[\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}]$; no independent $\mathcal Q_{ab}$ was derived.
+
+\smallskip\noindent\textbf{Method reference.} M. Serino, W. Broniowski and E. Ruiz Arriola, ``Vacuum correlations of the stress-energy-momentum tensor with constituent quarks'' (2024), \url{https://arxiv.org/abs/2404.04021}; D. V. Vassilevich, \emph{Phys. Rep.} \textbf{388} (2003) 279, \url{https://doi.org/10.1016/j.physrep.2003.09.002}.
+% ====== END CHAPTER FIVE v3.6 ======
+
+
+% ====== QGD-NORM (v3.7): physical nomenclature and normalization ======
+\clearpage
+\section{QGD quantum-correction nomenclature and normalized-source protocol (v3.7)}\label{sec:v37-qgd-norm}
+\textbf{Editorial and physical convention.} We call contributions to the renormalized QGD action and its natural-invariant field equations \emph{QGD quantum corrections}. We explicitly identify their microscopic origin in the associated calculation: e.g. a one-loop, massless four-component Dirac field in a specified Boulware state, a finite-temperature interacting-fermion benchmark, or the conformal anomaly. This naming does \emph{not} assert that these coefficients are absent from semiclassical general relativity or that a metric-only loop defines a new independent $\mathcal Q_{ab}$ operator.
+
+The main effective action, not a separate force ansatz, is
+\begin{equation}\label{eq:v37-main-action}
+\boxed{\begin{aligned}
+\Gamma^{\rm ren}_{\rm QGD}[\sigma,\psi_c,A_c;\varrho]
+={}&\frac1{16\pi G_N}\int\!\dd^4x\sqrt{-g(\sigma)}[R(g(\sigma))-2\Lambda_{\rm ren}]\\
+&+S_{\rm GHY}[g(\sigma)]+S_{\rm F1}^{\rm cl}[\psi_c,A_c;g(\sigma)]\\
+&+\hbar\Gamma_{\rm m,ren}^{(1)}[g(\sigma),\psi_c,A_c;\varrho;\mu]+O(\hbar^2).
+\end{aligned}}
+\end{equation}
+The governing founding metric remains
+\begin{equation}\label{eq:v37-full-map}
+\boxed{g_{\mu\nu}=T^a{}_{\mu}T^b{}_{\nu}\!\left[\eta_{ab}-\sum_s\varepsilon_s\sigma_a^{(s)}\sigma_b^{(s)}-\lambda\mathcal Q_{ab}\right],\quad s_s=-\varepsilon_s,}
+\end{equation}
+with presently unmatched $\mathcal Q_{ab}$. With $\Pi^{ab}$ defined from the \emph{whole} renormalized metric-only action, the preferred formal natural-invariant equation is
+\begin{equation}\label{eq:v37-optionc}
+\boxed{2s_s\Pi^{ab}\sigma_b^{(s)}=\lambda[(D_s\mathcal Q)^*_{\sqrt{-g}}\Pi]^a.}
+\end{equation}
+In the verified specialization $\lambda\mathcal Q=0$, $\Pi$ still includes quantum matter; the right-hand derivative-map term simply vanishes. The matter-loop Euler contribution and the historical metric slot are never counted as two independent sources.
+
+\textbf{Normalization-first rule.} Chapter~3 calibrates the Schwarzschild mass integration constant with Newton's far-field force: $C=2G_NM/c^2$, while the separate optional spinor/geometric amplitude convention does not provide an additional measured gravitational coupling. For FLRW, the natural normalization instead uses a dimensionless spatial signed-sector combination $\Xi_\sigma=a^2/a_*^2-1$ with $a_*=1$ at a stated reference epoch. This fixes only the coordinate convention; the dimensionful coupling remains the same measured $G_N$, not a second calibration. Chapter~7 v1.9 implements the corresponding independent-lapse variational test.
+
+\textbf{Physically testable distinction.} The earlier QGD far-field quantum-force term is a derived \emph{conditional semiclassical benchmark}. Expressing it through $A,B$ is meaningful within the chosen fixed coframe but does not independently make $A,B$ physical under signed-sector orbit transformations. A genuinely additional QGD prediction must survive this representation freedom and not amount solely to the semiclassical GR source reexpressed in signed variables.
+% ====== END QGD-NORM v3.7 ======
+
+
+\clearpage
+\end{document}
